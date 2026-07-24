@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  kaptativa-app:
+    container_name: kaptativa-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "4321:4321"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4321
+      - NODE_ENV=production
