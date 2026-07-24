@@ -1,8 +1,11 @@
-[providers]
-providers = ["node"]
+[phases.setup]
+nixPkgs = ["nodejs_20"]
 
-[build]
-cmds = ["npm ci", "npm run build"]
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
 
 [start]
 cmd = "node ./dist/server/entry.mjs"
