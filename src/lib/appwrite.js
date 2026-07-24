@@ -1,5 +1,5 @@
 import { Client, Databases, Account, ID, Query } from 'appwrite';
-import scrapedProspects from '../../scraped_prospects.json';
+const scrapedProspects = [];
 
 // 1. Check if Appwrite variables are configured in environment
 const ENDPOINT = import.meta.env.PUBLIC_APPWRITE_ENDPOINT || '';
