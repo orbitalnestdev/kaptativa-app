@@ -1,0 +1,2703 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import AdminSidebar from '../../components/AdminSidebar.astro';
+
+// SSR Authentication Guard
+const sessionCookie = Astro.cookies.get('kaptativa_session');
+if (!sessionCookie) {
+  return Astro.redirect('/admin/login');
+}
+---
+
+<AdminLayout title="Generador de Presupuestos | Kaptativa">
+  <div class="admin-wrapper" id="admin-main-view">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <AdminSidebar activeTab="presupuestos" />
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="admin-content-area">
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <h1 class="admin-page-title" style="margin: 0; font-size: 1.6rem; font-weight: 600; color: white; font-family: 'Space Grotesk', sans-serif;">Presupuestos y Finanzas</h1>
+          </div>
+          <button class="btn btn-primary" id="btn-new-budget" style="padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; display: flex; gap: 8px; align-items: center; cursor: pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nuevo Presupuesto
+          </button>
+        </div>
+      </header>
+
+      <!-- MODAL BACKDROP CONTAINER -->
+      <div id="budget-modal" class="admin-modal-backdrop">
+        <div class="admin-modal admin-modal-lg" style="position: relative; padding: 35px;">
+          <!-- Close button -->
+          <button type="button" id="btn-close-modal" class="admin-modal-close">✕</button>
+          
+          <h2 id="modal-budget-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; color: white; margin-bottom: 20px; font-weight: 600;">Crear Presupuesto Comercial</h2>
+          
+          <!-- CREATE VIEW SECTION -->
+          <section id="budget-create-section">
+
+        <!-- AI BUDGET GENERATOR PANEL -->
+        <div id="ai-budget-panel" style="background: linear-gradient(135deg, rgba(183,166,255,0.06), rgba(6,182,212,0.04)); border: 1px solid rgba(183,166,255,0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #B7A6FF; font-weight: 600; font-family: 'Space Grotesk', sans-serif; margin-bottom: 3px;">Generación Inteligente</div>
+              <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: white; margin: 0;">Describí el proyecto y la IA arma el presupuesto</h3>
+            </div>
+            <button type="button" id="btn-toggle-ai-panel" style="background: transparent; border: none; color: #5A5A68; cursor: pointer; font-size: 0.75rem; white-space: nowrap;">Ocultar ▲</button>
+          </div>
+          <div id="ai-panel-body">
+            <textarea id="ai-project-description" rows="3" placeholder="Ej: Sitio web para restaurante con carta digital, sistema de reservas online y bot de WhatsApp para tomar pedidos. Cliente en Córdoba." style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: #ECECF2; font-size: 0.875rem; line-height: 1.5; resize: vertical; font-family: 'Inter', sans-serif; box-sizing: border-box;"></textarea>
+            <div style="display: flex; gap: 10px; margin-top: 10px; align-items: center; flex-wrap: wrap;">
+              <button type="button" id="btn-ai-generate-budget" style="background: linear-gradient(135deg, #B7A6FF, #EA384D); border: none; color: #0B0B11; padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: opacity 0.2s;">
+                Generar presupuesto
+              </button>
+              <span id="ai-budget-status" style="font-size: 0.78rem; color: #5A5A68;"></span>
+            </div>
+            <div id="ai-budget-result" style="display: none; margin-top: 14px; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 14px;">
+              <div id="ai-result-explanation" style="font-size: 0.8rem; color: #B7A6FF; margin-bottom: 10px;"></div>
+              <div id="ai-result-summary" style="font-size: 0.82rem; color: #ECECF2; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;"></div>
+              <button type="button" id="btn-ai-apply" style="background: rgba(183,166,255,0.15); border: 1px solid rgba(183,166,255,0.3); color: #B7A6FF; padding: 8px 18px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer; font-family: 'Space Grotesk', sans-serif;">
+                Aplicar al formulario
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <form id="budget-generator-form">
+          <!-- CONTENT GRID -->
+          <div class="budget-panel-grid">
+
+            <!-- LEFT: FORM AND ITEMS -->
+            <div class="form-card-container" style="flex: 1.3; display: flex; flex-direction: column; gap: 20px;">
+
+              <!-- Wizard Steps Tabs -->
+              <div class="budget-modal-tabs">
+                <button type="button" class="budget-modal-tab-link active" data-budget-step="step-client-service">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> 1. Cliente & Servicio
+                </button>
+                <button type="button" class="budget-modal-tab-link" data-budget-step="step-modules-custom">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg> 2. Módulos & Adicionales
+                </button>
+                <button type="button" class="budget-modal-tab-link" data-budget-step="step-terms-notes">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> 3. Alcance & Notas
+                </button>
+              </div>
+
+              <!-- STEP 1: CLIENT & SERVICE -->
+              <div class="budget-step-content active" id="step-client-service" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- 1. Datos del Cliente -->
+                <h3 class="section-title-custom" style="margin-top: 0;">1. Datos del Cliente</h3>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="client-name" class="form-label">Nombre del Cliente / Representante *</label>
+                    <input type="text" id="client-name" class="form-control" placeholder="Ej. Carlos Valenzuela" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="client-business" class="form-label">Empresa / Negocio *</label>
+                    <input type="text" id="client-business" class="form-control" placeholder="Ej. Sabor & Fuego" required>
+                  </div>
+                </div>
+                
+                <div class="form-grid-2" style="margin-top: 10px;">
+                  <div class="form-group">
+                    <label for="client-whatsapp" class="form-label">WhatsApp (con código de país)</label>
+                    <input type="text" id="client-whatsapp" class="form-control" placeholder="Ej. 5491133334444">
+                  </div>
+                  <div class="form-group">
+                    <label for="client-email" class="form-label">Correo Electrónico *</label>
+                    <input type="email" id="client-email" class="form-control" placeholder="Ej. carlos@saboryfuego.com" required>
+                  </div>
+                </div>
+
+                <!-- 2. Service Templates Grid -->
+                <h3 class="section-title-custom" style="margin-top: 20px;">2. Plantilla de Servicio</h3>
+                <p style="font-size: 0.775rem; color: var(--text-muted); margin-bottom: 5px; margin-top: -8px;">Selecciona el servicio principal. Los precios base se cargan desde la configuración general.</p>
+                <div class="service-templates-grid" id="service-templates-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                  <div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: var(--text-muted);">Cargando plantillas de servicio...</div>
+                </div>
+
+                <!-- 3. Features -->
+                <div class="form-group" style="margin-top: 10px;">
+                  <label for="quote-features" class="form-label">Características Incluidas (Editable)</label>
+                  <textarea id="quote-features" class="form-control" style="min-height: 100px; font-family: inherit; font-size: 0.85rem;" placeholder="Lista de características del servicio seleccionado..."></textarea>
+                  <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; margin-bottom: 0;">* Separa cada característica con un salto de línea (Enter). Se imprimirán como viñetas en el PDF.</p>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                  <button type="button" class="btn btn-primary btn-next-step" data-next-step="step-modules-custom" style="padding: 10px 22px;">Siguiente Paso ➔</button>
+                </div>
+              </div>
+
+              <!-- STEP 2: MODULES & CUSTOM CONCEPTS -->
+              <div class="budget-step-content" id="step-modules-custom" style="display: none; flex-direction: column; gap: 20px;">
+                <!-- 4. Modular Blocks -->
+                <h3 class="section-title-custom" style="margin-top: 0;">3. Módulos Adicionales (Opcionales)</h3>
+                <p style="font-size: 0.775rem; color: var(--text-muted); margin-bottom: 5px; margin-top: -8px;">Selecciona funcionalidades adicionales para agregar al alcance del proyecto.</p>
+                <div class="modular-blocks-grid" id="modular-blocks-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+                  <div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: var(--text-muted);">Cargando módulos adicionales...</div>
+                </div>
+
+                <!-- 5. Manual Custom Items -->
+                <h3 class="section-title-custom" style="margin-top: 20px;">4. Conceptos Personalizados</h3>
+                <p style="font-size: 0.775rem; color: var(--text-muted); margin-bottom: 5px; margin-top: -8px;">Añade conceptos manuales con facturación fija o por hora (se calculan automáticamente).</p>
+                <div class="table-scroll-wrapper" style="margin-bottom: 10px;">
+                  <table class="budget-items-table">
+                    <thead>
+                       <tr>
+                         <th>Descripción del Concepto Personalizado</th>
+                         <th style="width: 130px;">Tipo de Cobro</th>
+                         <th style="width: 170px;">Costo / Horas</th>
+                         <th style="width: 40px;"></th>
+                       </tr>
+                    </thead>
+                    <tbody id="custom-items-body">
+                      <!-- Dinamic custom items rows -->
+                    </tbody>
+                  </table>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-add-custom-concept" style="border-style: dashed; justify-content: center; width: 100%; border-color: rgba(255,255,255,0.15);">
+                  ➕ Añadir Concepto Personalizado
+                </button>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                  <button type="button" class="btn btn-secondary btn-prev-step" data-prev-step="step-client-service" style="padding: 10px 22px;">⬅ Atrás</button>
+                  <button type="button" class="btn btn-primary btn-next-step" data-next-step="step-terms-notes" style="padding: 10px 22px;">Siguiente Paso ➔</button>
+                </div>
+              </div>
+
+              <!-- STEP 3: CONDITIONS & NOTES -->
+              <div class="budget-step-content" id="step-terms-notes" style="display: none; flex-direction: column; gap: 20px;">
+                <!-- 6. Validity & Notes -->
+                <h3 class="section-title-custom" style="margin-top: 0;">5. Alcance & Condiciones</h3>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="quote-validity" class="form-label">Validez de Propuesta (días)</label>
+                    <input type="number" id="quote-validity" class="form-control" placeholder="15" value="15" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="opacity: 0.5;">Información</label>
+                    <div style="font-size: 0.775rem; color: var(--text-muted); line-height: 1.4; padding: 10px; background: rgba(255,255,255,0.01); border-radius: 6px; border: 1px solid var(--border-color);">
+                      El presupuesto incluirá firmas del prestador y términos según la configuración comercial.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 10px;">
+                  <label for="quote-notes" class="form-label">Notas o Observaciones Técnicas (Opcional)</label>
+                  <textarea id="quote-notes" class="form-control" style="min-height: 80px;" placeholder="Ej. El abono incluye backups diarios automáticos y soporte prioritario 24/7..."></textarea>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div style="margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; gap: 15px;">
+                  <button type="submit" class="btn btn-primary" style="padding: 12px 28px; display: flex; gap: 10px; align-items: center; justify-content: center; flex: 1;">
+                    📄 Guardar y Generar PDF
+                  </button>
+                  <button type="button" class="btn btn-secondary" id="btn-clear-budget" style="border-color: #ef4444; color: #ef4444; background: rgba(239, 68, 68, 0.05); padding: 12px 20px;">
+                    Vaciar Formulario
+                  </button>
+                </div>
+                <div id="pdf-feedback" class="login-feedback" style="margin-top: 15px;"></div>
+                
+                <div style="display: flex; justify-content: flex-start; margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                  <button type="button" class="btn btn-secondary btn-prev-step" data-prev-step="step-modules-custom" style="padding: 10px 22px;">⬅ Atrás</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: FINANCIAL SIDEBAR & LIVE PREVIEW -->
+            <div class="sidebar-card-container" style="flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 25px;">
+              
+              <!-- FINANCIAL ADJUSTMENTS -->
+              <div class="form-card-container" style="padding: 20px;">
+                <h3 class="section-title-custom" style="margin-top: 0; font-size: 1rem; margin-bottom: 15px;">Ajustes Financieros</h3>
+                
+                <!-- Moneda y Tipo de Cambio -->
+                <div class="form-grid-2" style="margin-bottom: 15px;">
+                  <div class="form-group">
+                    <label for="quote-currency" class="form-label">Moneda</label>
+                    <select id="quote-currency" class="form-control" style="padding: 8px 12px; font-size: 0.85rem;">
+                      <option value="USD">USD ($)</option>
+                      <option value="ARS">ARS ($)</option>
+                    </select>
+                  </div>
+                  <div class="form-group" id="exchange-rate-group" style="display: none;">
+                    <label for="quote-exchange-rate" class="form-label">Tipo Cambio (ARS)</label>
+                    <input type="number" id="quote-exchange-rate" class="form-control" placeholder="1000" value="1000" style="padding: 8px 12px; font-size: 0.85rem;">
+                  </div>
+                </div>
+
+                <!-- Facilidades ARS -->
+                <div id="ars-facilities-group" style="display: none; background: rgba(6, 182, 212, 0.03); border: 1.5px solid rgba(6, 182, 212, 0.1); border-radius: 6px; padding: 12px; margin-bottom: 15px;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <input type="checkbox" id="chk-installment" style="cursor: pointer; width: 15px; height: 15px;" checked>
+                    <label for="chk-installment" style="font-size: 0.775rem; color: var(--text-primary); cursor: pointer;">3 Cuotas sin Interés (MP)</label>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="chk-transfer-discount" style="cursor: pointer; width: 15px; height: 15px;" checked>
+                    <label for="chk-transfer-discount" style="font-size: 0.775rem; color: var(--text-primary); cursor: pointer;">15% Desc. Transferencia</label>
+                  </div>
+                </div>
+
+                <!-- Urgencia Slider -->
+                <div class="form-group" style="margin-bottom: 15px;">
+                  <label for="quote-urgency" class="form-label">Urgencia / Prioridad: <span id="urgency-percentage-val" style="color: var(--accent-indigo); font-weight: 600;">+0%</span></label>
+                  <input type="range" id="quote-urgency" min="0" max="50" step="5" value="0" style="width: 100%; accent-color: var(--accent-indigo); cursor: pointer;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;">
+                    <span>Normal (Estándar)</span>
+                    <span>Urgente (+50%)</span>
+                  </div>
+                </div>
+
+                <!-- Descuento y SLA -->
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="quote-discount-usd" class="form-label">Descuento (USD)</label>
+                    <input type="number" id="quote-discount-usd" class="form-control" placeholder="0" value="0" style="padding: 8px 12px; font-size: 0.85rem;">
+                  </div>
+                  <div class="form-group">
+                    <label for="quote-maintenance-usd" class="form-label">Mantenimiento SLA (USD/Mes)</label>
+                    <input type="number" id="quote-maintenance-usd" class="form-control" placeholder="0" value="0" style="padding: 8px 12px; font-size: 0.85rem;">
+                  </div>
+                </div>
+              </div>
+
+              <!-- SMART UPSELL (IA) -->
+              <div class="form-card-container upsell-suggestion-card" id="upsell-card" style="padding: 20px; border: 1.5px dashed var(--accent-indigo); background: rgba(124, 58, 237, 0.03); display: none; border-radius: 8px;">
+                <div style="display: flex; gap: 10px; align-items: flex-start;">
+                  <div style="font-size: 1.3rem;">💡</div>
+                  <div>
+                    <h4 style="margin: 0 0 5px 0; font-size: 0.825rem; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.5px;">Sugerencia IA</h4>
+                    <p id="upsell-text" style="margin: 0; font-size: 0.775rem; color: var(--text-secondary); line-height: 1.4;"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AGENCY PERFORMANCE METRICS -->
+              <div class="form-card-container" style="padding: 20px; background: linear-gradient(135deg, rgba(15,23,42,0.6) 0%, rgba(30,41,59,0.6) 100%);">
+                <h3 class="section-title-custom" style="margin-top: 0; font-size: 1rem; margin-bottom: 15px;">Métricas de Rentabilidad</h3>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Horas de Desarrollo Est.</span>
+                    <span id="metric-dev-hours" style="font-size: 0.85rem; font-weight: 600; color: white;">0 hs</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Valor Contrato (12 meses LTV)</span>
+                    <span id="metric-ltv" style="font-size: 0.85rem; font-weight: 600; color: var(--accent-crimson);">US$ 0</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 4px;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Margen de Ganancia Neto Est.</span>
+                    <span id="metric-profit" style="font-size: 0.85rem; font-weight: 600; color: #10B981;">US$ 0</span>
+                  </div>
+                  <!-- Margin Progress bar -->
+                  <div style="height: 6px; width: 100%; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-top: -4px;">
+                    <div id="metric-profit-progress" style="height: 100%; width: 0%; background: linear-gradient(90deg, #10B981, #059669); border-radius: 3px; transition: width 0.3s ease;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LIVE PREVIEW BOX -->
+              <div class="form-card-container" style="padding: 20px; display: flex; flex-direction: column;">
+                <h3 class="section-title-custom" style="margin-top: 0; font-size: 1rem; margin-bottom: 15px;">Vista Previa en Vivo</h3>
+                <div class="live-preview-box" style="padding: 20px; min-height: auto; background-color: #0b0f19; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px;">
+                  <div class="preview-brand-header" style="margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); display: flex; justify-content: space-between; align-items: center;">
+                    <span class="preview-logo-text" style="font-weight: 600; font-size: 1rem; background: linear-gradient(135deg, #ffffff, #EA384D); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">KAPTATIVA</span>
+                    <span class="preview-quote-title" style="font-size: 0.7rem; color: var(--accent-indigo); font-weight: 600; text-transform: uppercase;">Propuesta</span>
+                  </div>
+                  <div class="preview-client-block" style="padding: 10px; margin-bottom: 12px; font-size: 0.75rem; background-color: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 4px;">
+                    <p style="margin: 0 0 4px 0; color: var(--text-secondary);"><strong>Cliente:</strong> <span id="prev-client">Negocio Cliente</span></p>
+                    <p style="margin: 0; color: var(--text-secondary);"><strong>Contacto:</strong> <span id="prev-contact">Contacto Representante</span></p>
+                  </div>
+                  <div class="preview-items-list" id="preview-items-container" style="gap: 5px; margin-bottom: 12px; display: flex; flex-direction: column;">
+                    <!-- Dynamically populated preview rows -->
+                  </div>
+                  <div class="preview-totals-block" style="padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                    <div class="totals-row" style="font-size: 0.75rem; margin-bottom: 4px; display: flex; justify-content: space-between; color: var(--text-secondary);">
+                      <span>Subtotal Setup:</span>
+                      <span id="prev-subtotal">$0.00</span>
+                    </div>
+                    <div class="totals-row" id="prev-urgency-row" style="display: none; color: var(--accent-indigo); font-size: 0.75rem; margin-bottom: 4px; justify-content: space-between;">
+                      <span>Prioridad (<span id="prev-urgency-pct">0</span>%):</span>
+                      <span id="prev-urgency-val">+$0.00</span>
+                    </div>
+                    <div class="totals-row" id="prev-discount-row" style="display: none; color: #ef4444; font-size: 0.75rem; margin-bottom: 4px; justify-content: space-between;">
+                      <span>Descuento:</span>
+                      <span id="prev-discount-val">-$0.00</span>
+                    </div>
+                    <div class="totals-row grand-total" style="font-size: 0.9rem; padding-top: 6px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.04); display: flex; justify-content: space-between; color: white; font-weight: 600;">
+                      <span>Total Setup:</span>
+                      <span id="prev-total">$0.00</span>
+                    </div>
+                    <div class="totals-row" id="prev-recurring-row" style="display: none; color: var(--accent-crimson); font-size: 0.8rem; margin-top: 6px; font-weight: 600; justify-content: space-between;">
+                      <span>Abono Mensual SLA:</span>
+                      <span id="prev-recurring-val">$0.00/mes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </form>
+      </section>
+        </div>
+      </div>
+
+      <!-- BUDGET HISTORY SECTION (Visible by default) -->
+      <section id="budget-history-section" style="display: block; margin-top: 15px;">
+        <div class="form-card-container" style="padding: 25px;">
+          <h3 class="section-title-custom" style="margin-top: 0;">Historial de Cotizaciones Emitidas</h3>
+          <p style="font-size: 0.775rem; color: var(--text-muted); margin-bottom: 20px; margin-top: -8px;">Listado de propuestas comerciales guardadas en el sistema. Puedes editar sus datos, cambiar su estado o regenerar los PDFs.</p>
+          
+          <div class="admin-table-wrapper">
+            <div style="min-width: 700px;">
+              <table class="admin-table" id="budgets-history-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+                <thead>
+                  <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-muted); font-weight: 600;">
+                    <th style="padding: 12px 15px;">Código</th>
+                    <th style="padding: 12px 15px;">Cliente / Negocio</th>
+                    <th style="padding: 12px 15px;">Fecha</th>
+                    <th style="padding: 12px 15px;">Total</th>
+                    <th style="padding: 12px 15px; width: 150px;">Estado</th>
+                    <th style="padding: 12px 15px; text-align: right; width: 320px; min-width: 320px;">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="budgets-history-body">
+                  <tr>
+                    <td colspan="6" style="text-align: center; padding: 30px; color: var(--text-muted);">Cargando historial de presupuestos...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       HIDDEN PRINTABLE CONTAINER FOR PDF GENERATION
+       ========================================================================== -->
+  <div id="printable-invoice" style="display: none; background: #ffffff; color: #0f172a;">
+    <!-- Elegant Executive Accent Line (Blue / Slate Gradient - NO RED) -->
+    <div style="height: 5px; background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%); width: 100%;"></div>
+    
+    <div class="pdf-container-inner" style="padding: 32px 35px; color: #0f172a; font-family: 'Inter', -apple-system, sans-serif; font-size: 0.825rem; line-height: 1.6;">
+      <!-- Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1.5px solid #e2e8f0; padding-bottom: 18px;">
+        <div>
+          <!-- Inline SVG Logo for high-fidelity PDF rendering -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="165" height="36">
+            <defs>
+              <linearGradient id="logo-gradient-admin-pdf" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#3b82f6" />
+                <stop offset="100%" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+            <g>
+              <path d="M 6 13 L 6 47" stroke="url(#logo-gradient-admin-pdf)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+              <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="url(#logo-gradient-admin-pdf)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+              <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-admin-pdf)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </g>
+            <text x="44" y="39" font-family="'Lexend', 'Inter', sans-serif" font-size="27" font-weight="600" fill="#0f172a" letter-spacing="0.3">
+              kaptativa<tspan fill="#3b82f6">.</tspan>
+            </text>
+          </svg>
+          <p style="margin: 4px 0 0 0; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500;">Sistemas Digitales Integrados</p>
+        </div>
+        <div style="text-align: right;">
+          <h2 style="margin: 0; font-size: 1.2rem; font-weight: 600; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px;">Cotización Comercial</h2>
+          <p style="margin: 4px 0 0 0; font-size: 0.775rem; color: #475569;">Número: <span id="pdf-quote-number" style="font-weight: 600; color: #0f172a;">KP-2026-4412</span></p>
+          <p style="margin: 2px 0 0 0; font-size: 0.775rem; color: #475569;">Fecha: <span id="pdf-quote-date">21/06/2026</span></p>
+        </div>
+      </div>
+
+      <!-- Info Columns -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; page-break-inside: avoid; break-inside: avoid;">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 8px;">
+          <h4 style="margin: 0 0 6px 0; font-size: 0.68rem; color: #475569; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600;">Prestador de Servicios</h4>
+          <p style="margin: 0; font-size: 0.9rem; font-weight: 600; color: #0f172a;">Kaptativa Digital</p>
+          <p style="margin: 4px 0 0 0; font-size: 0.775rem; color: #475569;">Email: <span id="pdf-agency-email">contacto@kaptativa.com</span></p>
+          <p style="margin: 2px 0 0 0; font-size: 0.775rem; color: #475569;">WhatsApp: <span id="pdf-agency-phone">+54 9 11 1234-5678</span></p>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 8px;">
+          <h4 style="margin: 0 0 6px 0; font-size: 0.68rem; color: #475569; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600;">Preparado para</h4>
+          <p style="margin: 0; font-size: 0.9rem; font-weight: 600; color: #0f172a;" id="pdf-client-business">Sabor & Fuego</p>
+          <p style="margin: 4px 0 0 0; font-size: 0.775rem; color: #475569;">Representante: <span id="pdf-client-name">Carlos Valenzuela</span></p>
+          <p style="margin: 2px 0 0 0; font-size: 0.775rem; color: #475569;">Email: <span id="pdf-client-email">carlos@saboryfuego.com</span></p>
+        </div>
+      </div>
+
+      <!-- Items Table -->
+      <div style="margin-top: 24px; page-break-inside: avoid; break-inside: avoid;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.825rem; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+          <thead>
+            <tr style="border-bottom: 1.5px solid #e2e8f0; background: #f1f5f9;">
+              <th style="padding: 10px 14px; color: #0f172a; font-weight: 600; text-transform: uppercase; font-size: 0.725rem; letter-spacing: 0.8px;">Descripción del Servicio</th>
+              <th style="padding: 10px 14px; text-align: right; color: #0f172a; font-weight: 600; text-transform: uppercase; font-size: 0.725rem; letter-spacing: 0.8px; width: 130px;">Costo Unitario</th>
+              <th style="padding: 10px 14px; text-align: center; color: #0f172a; font-weight: 600; text-transform: uppercase; font-size: 0.725rem; letter-spacing: 0.8px; width: 60px;">Cant.</th>
+              <th style="padding: 10px 14px; text-align: right; color: #0f172a; font-weight: 600; text-transform: uppercase; font-size: 0.725rem; letter-spacing: 0.8px; width: 130px;">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="pdf-items-body">
+            <!-- Populated via script -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totals Section -->
+      <div style="display: flex; gap: 20px; margin-top: 22px; justify-content: flex-end; page-break-inside: avoid; break-inside: avoid;">
+        <!-- Setup Cost Column -->
+        <div style="width: 300px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+          <h4 style="margin: 0 0 10px 0; font-size: 0.68rem; color: #475569; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600;">Costo Setup (Pago Único)</h4>
+          <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #475569; margin-bottom: 6px;">
+            <span>Subtotal Setup:</span>
+            <span id="pdf-subtotal" style="color: #0f172a; font-weight: 500;">$0.00 USD</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #3b82f6; margin-bottom: 6px; display: none;" id="pdf-urgency-row">
+            <span>Recargo Prioridad (<span id="pdf-urgency-pct">0</span>%):</span>
+            <span id="pdf-urgency-val">+$0.00 USD</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #475569; margin-bottom: 6px; display: none;" id="pdf-discount-row">
+            <span>Bonificación Especial:</span>
+            <span id="pdf-discount-val">-$0.00 USD</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 600; color: #0f172a; border-top: 1.5px solid #e2e8f0; padding-top: 8px; margin-top: 6px;">
+            <span>TOTAL SETUP:</span>
+            <span id="pdf-total" style="color: #0f172a; font-weight: 600;">$0.00 USD</span>
+          </div>
+        </div>
+
+        <!-- Recurring Cost Column -->
+        <div id="pdf-recurring-card" style="width: 300px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; display: none; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h4 style="margin: 0 0 6px 0; font-size: 0.68rem; color: #475569; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600;">Abono Mensual (SLA)</h4>
+            <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.4;">
+              Mantenimiento de infraestructura, backups y soporte.
+            </p>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 600; color: #0f172a; border-top: 1.5px solid #e2e8f0; padding-top: 8px; margin-top: 8px; align-items: center;">
+            <span>ABONO MENSUAL:</span>
+            <span id="pdf-recurring-total" style="color: #0f172a; font-weight: 600;">$0.00/mes</span>
+          </div>
+        </div>
+      </div>
+      <div id="pdf-exchange-rate-note" style="font-size: 0.75rem; color: #64748b; font-style: italic; margin-top: 8px; text-align: right; display: none;">
+        * Tipo de cambio aplicado: 1 USD = $<span id="pdf-exchange-rate-val">0</span> ARS
+      </div>
+
+      <!-- Terms & Notes -->
+      <div style="margin-top: 24px; border-top: 1.5px solid #e2e8f0; padding-top: 18px; page-break-inside: avoid; break-inside: avoid;">
+        <h4 style="margin: 0 0 10px 0; font-size: 0.725rem; color: #0f172a; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600;">Términos Comerciales & Alcance</h4>
+        <ul style="margin: 0; padding-left: 18px; font-size: 0.775rem; color: #334155; line-height: 1.6; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px;">
+          <li>Propuesta comercial válida por <span id="pdf-quote-validity-val">15</span> días.</li>
+          <li id="pdf-term-installment" style="display: none;"><strong>Mercado Pago:</strong> 3 cuotas sin interés con Tarjeta de Crédito (pesificado).</li>
+          <li id="pdf-term-transfer" style="display: none;"><strong>Transferencia Bancaria:</strong> 15% de descuento sobre el total abonando setup en un único pago inicial.</li>
+          <li><strong>Forma de pago estándar:</strong> 50% de anticipo al inicio y 50% restante contra entrega técnica y QA final.</li>
+          <li><strong>Plazos de ejecución:</strong> Desarrollo estimado en <span id="pdf-term-delivery-days">10 - 15</span> días hábiles.</li>
+          <li id="pdf-custom-note-item" style="grid-column: 1 / -1; display: none; margin-top: 8px; list-style-type: none; padding-left: 0; margin-left: -18px; color: #0f172a; background: #f8fafc; border-left: 3px solid #0f172a; padding: 8px 12px; border-radius: 0 6px 6px 0;">
+            <strong>Nota Adicional:</strong> <span id="pdf-custom-note-text"></span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer watermark -->
+      <div style="margin-top: 30px; text-align: center; font-size: 0.7rem; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 12px;">
+        Esta cotización es de carácter confidencial para el cliente indicado. Kaptativa Systems.
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notifications container -->
+  <div id="toast-container" class="toast-container"></div>
+</AdminLayout>
+
+<style is:global>
+  /* Wizard tabs in budget modal */
+  .budget-modal-tabs {
+    display: flex;
+    gap: 15px;
+    border-bottom: 1.5px solid var(--border-color);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+  }
+  .budget-modal-tab-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+  }
+  .budget-modal-tab-link:hover {
+    color: var(--text-primary);
+  }
+  .budget-modal-tab-link.active {
+    color: var(--accent-indigo);
+    border-bottom-color: var(--accent-indigo);
+  }
+
+  /* Table Action Buttons Pill Styles - Unified Executive Dark Glass */
+  .btn-action-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+  }
+  .btn-action-pill:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .btn-action-view {
+    background: linear-gradient(135deg, #EA384D 0%, #8A35E5 100%);
+    border-color: transparent;
+    color: #ffffff;
+    padding: 7px 16px;
+  }
+  .btn-action-view:hover {
+    box-shadow: 0 4px 15px rgba(234, 56, 77, 0.4);
+    transform: translateY(-1px);
+    color: #ffffff;
+  }
+  .btn-action-delete:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+  }
+  .budget-step-content {
+    display: none;
+  }
+  .budget-step-content.active {
+    display: flex !important;
+    animation: budgetStepFade 0.25s ease-in-out;
+  }
+  @keyframes budgetStepFade {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* View Toggle Tabs styling */
+  .toggle-tab {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    color: var(--text-secondary) !important;
+    border-color: var(--border-color) !important;
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 0.85rem;
+  }
+  .toggle-tab.active-tab {
+    background: var(--gradient-primary) !important;
+    border-color: transparent !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(217, 70, 239, 0.2);
+  }
+
+  /* Form layout columns */
+  .budget-panel-grid {
+    display: flex;
+    gap: 30px;
+    margin-top: 25px;
+    align-items: flex-start;
+  }
+  @media (max-width: 1024px) {
+    .budget-panel-grid {
+      flex-direction: column;
+    }
+  }
+
+  .section-title-custom {
+    font-size: 1.15rem;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+    margin-top: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+  }
+
+  /* Preset buttons container styling */
+  .preset-buttons-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .preset-btn {
+    border-color: var(--border-color) !important;
+    background-color: rgba(255, 255, 255, 0.02) !important;
+  }
+  .preset-btn:hover {
+    border-color: var(--accent-indigo) !important;
+    color: var(--accent-indigo) !important;
+    background-color: rgba(124, 58, 237, 0.04) !important;
+  }
+
+  /* Dynamic Items Table styling */
+  .budget-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+  .budget-items-table th {
+    padding: 12px 10px;
+    border-bottom: 2px solid var(--border-color);
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .budget-items-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+  }
+  
+  .table-input {
+    width: 100%;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+  }
+  .table-input:focus {
+    border-color: var(--accent-indigo);
+    outline: none;
+  }
+
+  /* Live Preview Box styling (Dark themed elegant sheet) */
+  .live-preview-box {
+    background-color: #0b0f19;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius-md);
+    padding: 30px;
+    min-height: 480px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .preview-brand-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .preview-logo-text {
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff, #EA384D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Lexend', sans-serif;
+  }
+  
+  .preview-quote-title {
+    font-size: 0.8rem;
+    color: var(--accent-indigo);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .preview-client-block {
+    background-color: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+  }
+  .preview-client-block p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+  .preview-client-block p:not(:last-child) {
+    margin-bottom: 5px;
+  }
+  .preview-client-block p strong {
+    color: var(--text-muted);
+  }
+
+  .preview-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-grow: 1;
+  }
+  
+  .preview-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding-bottom: 6px;
+    color: var(--text-secondary);
+  }
+  .preview-item-row .qty-label {
+    color: var(--text-muted);
+    font-size: 0.725rem;
+    margin-left: 5px;
+  }
+
+  .preview-totals-block {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 15px;
+  }
+  
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.825rem;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+  }
+  
+  .totals-row.grand-total {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+  
+  /* Print Invoice Layout Styles */
+  #printable-invoice {
+    background-color: #ffffff;
+    color: #1e293b;
+    box-sizing: border-box;
+    width: 750px;
+    position: absolute;
+    left: -9999px;
+    top: 0;
+  }
+
+  /* Interactive Service Cards */
+  .service-template-card {
+    border-color: var(--border-color) !important;
+    background-color: rgba(255, 255, 255, 0.01) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  .service-template-card:hover {
+    border-color: var(--accent-indigo) !important;
+    background-color: rgba(124, 58, 237, 0.03) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.12);
+  }
+  .service-template-card.active-template-card {
+    border-color: var(--accent-indigo) !important;
+    background-color: rgba(124, 58, 237, 0.08) !important;
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.22);
+  }
+
+  /* Interactive Modular Block Cards */
+  .modular-block-card {
+    border-color: var(--border-color) !important;
+    background-color: rgba(255, 255, 255, 0.01) !important;
+    transition: all 0.2s ease !important;
+  }
+  .modular-block-card:hover {
+    border-color: var(--accent-crimson) !important;
+    background-color: rgba(6, 182, 212, 0.03) !important;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
+  }
+  .modular-block-card.active-block-card {
+    border-color: var(--accent-crimson) !important;
+    background-color: rgba(6, 182, 212, 0.07) !important;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.18);
+  }
+
+  /* Chrome/Safari/Firefox scrollbars & inputs */
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  /* Toast Notification Container */
+  .toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  /* Toast Notification */
+  .toast-notification {
+    background: rgba(18, 18, 24, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: 'Lexend', sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 280px;
+    max-width: 400px;
+    pointer-events: auto;
+    animation: toast-fade-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .toast-notification.success {
+    border-left: 4px solid var(--accent-crimson);
+  }
+
+  .toast-notification.error {
+    border-left: 4px solid #ef4444;
+  }
+
+  .toast-notification.info {
+    border-left: 4px solid var(--accent-indigo);
+  }
+
+  .toast-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .toast-content {
+    flex-grow: 1;
+    line-height: 1.4;
+  }
+
+  .toast-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+
+  .toast-close:hover {
+    color: var(--text-primary);
+  }
+
+  @keyframes toast-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+</style>
+
+<script>
+  import { api } from '../../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    
+    // ==========================================================================
+    // 2. LOAD AGENCY SETTINGS & BASE COST PRESETS
+    // ==========================================================================
+    let costWeb = 600;
+    let costAuto = 500;
+    let costIa = 800;
+    let costSistema = 1500;
+    let agencyPhone = '+54 9 11 1234-5678';
+    let agencyEmail = 'contacto@kaptativa.com';
+
+    let defaultDollarRate = 1000;
+    function loadSettings() {
+      const saved = localStorage.getItem('crm_settings');
+      if (saved) {
+        const settings = JSON.parse(saved);
+        costWeb = parseInt(settings.cost_web) || 600;
+        costAuto = parseInt(settings.cost_auto) || 500;
+        costIa = parseInt(settings.cost_ia) || 800;
+        costSistema = parseInt(settings.cost_sistema) || 1500;
+        agencyEmail = settings.support_email || 'contacto@kaptativa.com';
+        defaultDollarRate = parseFloat(settings.dollar_rate) || 1000;
+        
+        const rawPhone = settings.whatsapp_phone || '5491112345678';
+        agencyPhone = `+${rawPhone.slice(0, 2)} ${rawPhone.slice(2, 3)} ${rawPhone.slice(3, 5)} ${rawPhone.slice(5, 9)}-${rawPhone.slice(9)}`;
+      }
+      
+      const exInput = document.getElementById('quote-exchange-rate') as HTMLInputElement;
+      if (exInput) {
+        exInput.value = defaultDollarRate.toString();
+      }
+      
+      // Update template labels in UI
+      if (Array.isArray(availableTemplates)) {
+        availableTemplates.forEach(t => {
+          if (t.$id === 'web') t.basePrice = costWeb;
+          else if (t.$id === 'auto') t.basePrice = costAuto;
+          else if (t.$id === 'ia') t.basePrice = costIa;
+          else if (t.$id === 'sistema') t.basePrice = costSistema;
+          
+          const lbl = document.getElementById(`price-lbl-${t.$id}`);
+          if (lbl) lbl.innerText = `Desde $${t.basePrice} USD`;
+        });
+      }
+
+      // Update PDF details
+      const emailEl = document.getElementById('pdf-agency-email');
+      const phoneEl = document.getElementById('pdf-agency-phone');
+      if (emailEl) emailEl.innerText = agencyEmail;
+      if (phoneEl) phoneEl.innerText = agencyPhone;
+    }
+
+    // ==========================================================================
+    // 3. BUILDER VARIABLES & DOM ELEMENTS
+    // ==========================================================================
+    const clientNameInput = document.getElementById('client-name') as HTMLInputElement;
+    const clientBusinessInput = document.getElementById('client-business') as HTMLInputElement;
+    const clientEmailInput = document.getElementById('client-email') as HTMLInputElement;
+    const clientWhatsappInput = document.getElementById('client-whatsapp') as HTMLInputElement;
+    const quoteValidityInput = document.getElementById('quote-validity') as HTMLInputElement;
+    const quoteNotesInput = document.getElementById('quote-notes') as HTMLTextAreaElement;
+    const quoteFeaturesInput = document.getElementById('quote-features') as HTMLTextAreaElement;
+
+    // Sidebar inputs
+    const currencySelect = document.getElementById('quote-currency') as HTMLSelectElement;
+    const exchangeRateGroup = document.getElementById('exchange-rate-group') as HTMLElement;
+    const exchangeRateInput = document.getElementById('quote-exchange-rate') as HTMLInputElement;
+    const arsFacilitiesGroup = document.getElementById('ars-facilities-group') as HTMLElement;
+    const chkInstallment = document.getElementById('chk-installment') as HTMLInputElement;
+    const chkTransferDiscount = document.getElementById('chk-transfer-discount') as HTMLInputElement;
+    const urgencySlider = document.getElementById('quote-urgency') as HTMLInputElement;
+    const urgencyLabel = document.getElementById('urgency-percentage-val') as HTMLElement;
+    const discountInput = document.getElementById('quote-discount-usd') as HTMLInputElement;
+    const maintenanceInput = document.getElementById('quote-maintenance-usd') as HTMLInputElement;
+
+    // Suggestion and metrics
+    const upsellCard = document.getElementById('upsell-card') as HTMLElement;
+    const upsellText = document.getElementById('upsell-text') as HTMLElement;
+    const metricDevHours = document.getElementById('metric-dev-hours') as HTMLElement;
+    const metricLtv = document.getElementById('metric-ltv') as HTMLElement;
+    const metricProfit = document.getElementById('metric-profit') as HTMLElement;
+    const metricProfitProgress = document.getElementById('metric-profit-progress') as HTMLElement;
+
+    // Builder state
+    let selectedTemplate = ''; // 'web' | 'auto' | 'ia' | 'sistema'
+    let templateBasePrice = 0;
+    let customItemsList: Array<{ id: string; label: string; billingType: 'flat' | 'hourly'; price: number; hours: number; hourlyRate: number }> = [];
+
+    // Helper to format values dynamically based on selected currency
+    function formatVal(value: number, isArs: boolean, rate: number) {
+      const converted = isArs ? value * rate : value;
+      if (isArs) {
+        return `$ ${Math.round(converted).toLocaleString('es-AR')}`;
+      }
+      return `US$ ${Math.round(converted).toLocaleString('en-US')}`;
+    }
+
+    // Dynamic templates and blocks lists
+    let availableTemplates: any[] = [];
+    let availableBlocks: any[] = [];
+
+    const fallbackTemplates = [
+      {
+        $id: 'web',
+        label: 'Diseño Web',
+        basePrice: costWeb,
+        icon: '🌐',
+        features: [
+          'Diseño responsivo y adaptado a móviles',
+          'Optimización SEO básica on-page',
+          'Integración de formularios de contacto',
+          'Certificado SSL bonificado de seguridad'
+        ],
+        desc: 'Sitio web corporativo o Landing Page profesional'
+      },
+      {
+        $id: 'auto',
+        label: 'Automatización',
+        basePrice: costAuto,
+        icon: '⚡',
+        features: [
+          'Mapeo conceptual de procesos inicial',
+          'Integración modular en Make o n8n',
+          'Sincronización con bases de datos Cloud',
+          'Notificaciones autónomas en WhatsApp/Slack'
+        ],
+        desc: 'Automatización de procesos repetitivos y sincronizaciones'
+      },
+      {
+        $id: 'ia',
+        label: 'Agente IA',
+        basePrice: costIa,
+        icon: '🤖',
+        features: [
+          'Entrenamiento con base de conocimientos de negocio',
+          'Conectores de WhatsApp y Webchat integrados',
+          'Procesamiento de Lenguaje Natural avanzado',
+          'Derivación a agentes humanos inteligente'
+        ],
+        desc: 'Agentes y chatbots inteligentes entrenados a medida'
+      },
+      {
+        $id: 'sistema',
+        label: 'Sistema Completo',
+        basePrice: costSistema,
+        icon: '🛡️',
+        features: [
+          'Diseño de interfaz a medida (Figma & UX)',
+          'Backend robusto con bases de datos estructuradas',
+          'Dashboard interno de métricas en tiempo real',
+          'Seguridad y encriptado de nivel empresarial'
+        ],
+        desc: 'Aplicaciones a medida y plataformas web complejas'
+      }
+    ];
+
+    const fallbackBlocks = [
+      { $id: 'block-uiux', label: 'Diseño UI/UX a Medida', price: 200, category: 'Diseño' },
+      { $id: 'block-api', label: 'Integración de API Externa', price: 300, category: 'Desarrollo' },
+      { $id: 'block-admin', label: 'Panel de Administración', price: 400, category: 'Backoffice' },
+      { $id: 'block-lang', label: 'Soporte Multi-idioma', price: 150, category: 'Desarrollo' },
+      { $id: 'block-speed', label: 'WPO (Optimización SEO/Speed)', price: 150, category: 'Optimización' },
+      { $id: 'block-db', label: 'Base de Datos Cloud', price: 250, category: 'Infraestructura' },
+      { $id: 'block-crm', label: 'Integración CRM', price: 300, category: 'Automatización' },
+      { $id: 'block-vps', label: 'Servidor VPS Dedicado', price: 350, category: 'Infraestructura' }
+    ];
+
+    async function loadTemplatesAndBlocks() {
+      const templatesContainer = document.getElementById('service-templates-container');
+      const blocksContainer = document.getElementById('modular-blocks-container');
+
+      try {
+        const templatesRes = await api.db.listServiceTemplates();
+        availableTemplates = templatesRes.documents || [];
+      } catch (err) {
+        console.error('Error fetching templates:', err);
+      }
+
+      if (availableTemplates.length === 0) {
+        availableTemplates = JSON.parse(JSON.stringify(fallbackTemplates));
+      }
+
+      try {
+        const blocksRes = await api.db.listModularBlocks();
+        availableBlocks = blocksRes.documents || [];
+      } catch (err) {
+        console.error('Error fetching blocks:', err);
+      }
+
+      if (availableBlocks.length === 0) {
+        availableBlocks = JSON.parse(JSON.stringify(fallbackBlocks));
+      }
+
+      // Apply settings overrides if any
+      availableTemplates.forEach(t => {
+        if (t.$id === 'web') t.basePrice = costWeb;
+        else if (t.$id === 'auto') t.basePrice = costAuto;
+        else if (t.$id === 'ia') t.basePrice = costIa;
+        else if (t.$id === 'sistema') t.basePrice = costSistema;
+      });
+
+      // Render templates
+      if (templatesContainer) {
+        templatesContainer.innerHTML = '';
+        availableTemplates.forEach(template => {
+          const card = document.createElement('div');
+          card.className = 'service-template-card';
+          card.setAttribute('data-template', template.$id);
+          card.style.cssText = 'cursor: pointer; padding: 20px; border-radius: 8px; border: 1.5px solid var(--border-color); background: rgba(255,255,255,0.01); text-align: center; transition: all 0.3s ease;';
+          card.innerHTML = `
+            <div style="font-size: 2rem; margin-bottom: 8px;">${template.icon || '🌐'}</div>
+            <div style="font-weight: 600; color: white;">${template.label}</div>
+            <div class="template-price-label" id="price-lbl-${template.$id}" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Desde $${template.basePrice} USD</div>
+          `;
+          
+          card.addEventListener('click', () => {
+            document.querySelectorAll('.service-template-card').forEach(c => c.classList.remove('active-template-card'));
+            
+            if (selectedTemplate === template.$id) {
+              // Deselect
+              selectedTemplate = '';
+              templateBasePrice = 0;
+              quoteFeaturesInput.value = '';
+            } else {
+              // Select
+              selectedTemplate = template.$id;
+              card.classList.add('active-template-card');
+              templateBasePrice = template.basePrice;
+              
+              const features = Array.isArray(template.features) 
+                ? template.features 
+                : (template.features || '').split('\n').filter((f: string) => f.trim() !== '');
+              quoteFeaturesInput.value = features.join('\n');
+            }
+            updateCalculations();
+          });
+
+          templatesContainer.appendChild(card);
+        });
+      }
+
+      // Render blocks
+      if (blocksContainer) {
+        blocksContainer.innerHTML = '';
+        availableBlocks.forEach(block => {
+          const card = document.createElement('div');
+          card.className = 'modular-block-card';
+          card.setAttribute('data-block-id', block.$id);
+          card.style.cssText = 'cursor: pointer; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.01); display: flex; align-items: center; gap: 12px; transition: all 0.2s;';
+          
+          const inputId = `chk-${block.$id}`;
+          card.innerHTML = `
+            <input type="checkbox" id="${inputId}" class="block-checkbox" style="cursor: pointer; width: 16px; height: 16px;" value="${block.price}">
+            <div style="flex-grow: 1;">
+              <div style="font-size: 0.85rem; font-weight: 600; color: white;">${block.label}</div>
+              <div style="font-size: 0.725rem; color: var(--text-muted);">${block.desc || block.category || 'Módulo Adicional'}</div>
+            </div>
+            <div style="font-weight: 600; color: var(--accent-crimson); font-size: 0.85rem;">+$${block.price}</div>
+          `;
+
+          const chk = card.querySelector('.block-checkbox') as HTMLInputElement;
+          card.addEventListener('click', (e) => {
+            if (e.target !== chk) {
+              chk.checked = !chk.checked;
+            }
+            if (chk.checked) {
+              card.classList.add('active-block-card');
+            } else {
+              card.classList.remove('active-block-card');
+            }
+            updateCalculations();
+          });
+
+          blocksContainer.appendChild(card);
+        });
+      }
+
+      updateCalculations();
+    }
+
+    // ==========================================================================
+    // 6. CUSTOM MANUAL ITEMS CONTROLLER
+    // ==========================================================================
+    const customItemsBody = document.getElementById('custom-items-body') as HTMLElement;
+    const addCustomBtn = document.getElementById('btn-add-custom-concept') as HTMLButtonElement;
+
+    function uniqueId() {
+      return 'manual-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+    }
+
+    function addCustomItem(label = '', billingType: 'flat' | 'hourly' = 'flat', price = 0, hours = 0, hourlyRate = 25) {
+      const id = uniqueId();
+      customItemsList.push({ id, label, billingType, price, hours, hourlyRate });
+      renderCustomItems();
+      updateCalculations();
+    }
+
+    function removeCustomItem(id: string) {
+      customItemsList = customItemsList.filter(item => item.id !== id);
+      renderCustomItems();
+      updateCalculations();
+    }
+
+    function updateCustomItemField(id: string, field: string, value: any) {
+      const idx = customItemsList.findIndex(item => item.id === id);
+      if (idx !== -1) {
+        if (field === 'label') customItemsList[idx].label = value;
+        if (field === 'billingType') {
+          customItemsList[idx].billingType = value;
+          // reset prices
+          customItemsList[idx].price = 0;
+          customItemsList[idx].hours = 0;
+        }
+        if (field === 'price') customItemsList[idx].price = parseFloat(value) || 0;
+        if (field === 'hours') {
+          customItemsList[idx].hours = parseFloat(value) || 0;
+          customItemsList[idx].price = customItemsList[idx].hours * customItemsList[idx].hourlyRate;
+        }
+        if (field === 'hourlyRate') {
+          customItemsList[idx].hourlyRate = parseFloat(value) || 0;
+          customItemsList[idx].price = customItemsList[idx].hours * customItemsList[idx].hourlyRate;
+        }
+        
+        // update price calculation in UI row if hourly
+        if (customItemsList[idx].billingType === 'hourly') {
+          const totalSpan = document.getElementById(`lbl-total-${id}`);
+          if (totalSpan) {
+            totalSpan.innerText = `= $${customItemsList[idx].price.toFixed(2)}`;
+          }
+        }
+        updateCalculations();
+      }
+    }
+
+    function renderCustomItems() {
+      if (!customItemsBody) return;
+      customItemsBody.innerHTML = '';
+
+      if (customItemsList.length === 0) {
+        customItemsBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">No hay conceptos manuales agregados.</td></tr>`;
+        return;
+      }
+
+      customItemsList.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <input type="text" class="table-input custom-label-field" value="${item.label}" placeholder="Descripción del servicio..." data-id="${item.id}">
+          </td>
+          <td>
+            <select class="table-input custom-billing-field" data-id="${item.id}" style="padding: 6px 8px;">
+              <option value="flat" ${item.billingType === 'flat' ? 'selected' : ''}>Fijo</option>
+              <option value="hourly" ${item.billingType === 'hourly' ? 'selected' : ''}>Por Hora</option>
+            </select>
+          </td>
+          <td>
+            ${item.billingType === 'flat' ? `
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="color: var(--text-muted);">$</span>
+                <input type="number" class="table-input custom-price-field" value="${item.price || ''}" placeholder="Precio USD" data-id="${item.id}">
+              </div>
+            ` : `
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="number" class="table-input custom-hours-field" value="${item.hours || ''}" placeholder="Hs" data-id="${item.id}" style="width: 60px; text-align: center;">
+                <span style="font-size: 0.775rem; color: var(--text-muted);">hs x $</span>
+                <input type="number" class="table-input custom-rate-field" value="${item.hourlyRate || ''}" placeholder="$/h" data-id="${item.id}" style="width: 60px; text-align: center;">
+                <span id="lbl-total-${item.id}" style="font-size: 0.8rem; font-weight: 600; color: var(--accent-crimson); margin-left: auto;">= $${item.price.toFixed(2)}</span>
+              </div>
+            `}
+          </td>
+          <td style="text-align: center;">
+            <button type="button" class="btn-delete-row" data-id="${item.id}" style="background: none; border: none; color: #ef4444; font-size: 1.1rem; cursor: pointer;">✕</button>
+          </td>
+        `;
+
+        // Listeners
+        tr.querySelector('.custom-label-field')?.addEventListener('input', (e) => {
+          updateCustomItemField(item.id, 'label', (e.target as HTMLInputElement).value);
+        });
+        tr.querySelector('.custom-billing-field')?.addEventListener('change', (e) => {
+          updateCustomItemField(item.id, 'billingType', (e.target as HTMLSelectElement).value);
+          renderCustomItems();
+        });
+        tr.querySelector('.custom-price-field')?.addEventListener('input', (e) => {
+          updateCustomItemField(item.id, 'price', (e.target as HTMLInputElement).value);
+        });
+        tr.querySelector('.custom-hours-field')?.addEventListener('input', (e) => {
+          updateCustomItemField(item.id, 'hours', (e.target as HTMLInputElement).value);
+        });
+        tr.querySelector('.custom-rate-field')?.addEventListener('input', (e) => {
+          updateCustomItemField(item.id, 'hourlyRate', (e.target as HTMLInputElement).value);
+        });
+        tr.querySelector('.btn-delete-row')?.addEventListener('click', () => {
+          removeCustomItem(item.id);
+        });
+
+        customItemsBody.appendChild(tr);
+      });
+    }
+
+    addCustomBtn.addEventListener('click', () => {
+      addCustomItem('', 'flat', 0, 0, 25);
+    });
+
+    // ==========================================================================
+    // 7. SIDEBAR EVENT LISTENERS
+    // ==========================================================================
+    currencySelect.addEventListener('change', () => {
+      const val = currencySelect.value;
+      if (val === 'ARS') {
+        exchangeRateGroup.style.display = 'block';
+        arsFacilitiesGroup.style.display = 'block';
+      } else {
+        exchangeRateGroup.style.display = 'none';
+        arsFacilitiesGroup.style.display = 'none';
+      }
+      updateCalculations();
+    });
+
+    exchangeRateInput.addEventListener('input', updateCalculations);
+    chkInstallment.addEventListener('change', updateCalculations);
+    chkTransferDiscount.addEventListener('change', updateCalculations);
+
+    urgencySlider.addEventListener('input', () => {
+      const uVal = parseInt(urgencySlider.value) || 0;
+      urgencyLabel.innerText = `+${uVal}%`;
+      updateCalculations();
+    });
+
+    discountInput.addEventListener('input', updateCalculations);
+    maintenanceInput.addEventListener('input', updateCalculations);
+
+    // ==========================================================================
+    // 8. LIVE CALCULATIONS & AI UPSELL LOGIC
+    // ==========================================================================
+    function updateCalculations() {
+      // 1. Calculate Blocks setup price
+      let blocksPrice = 0;
+      const checkedBlockIds: string[] = [];
+      document.querySelectorAll('.block-checkbox').forEach(chkBox => {
+        const chk = chkBox as HTMLInputElement;
+        if (chk.checked) {
+          blocksPrice += parseFloat(chk.value) || 0;
+          const card = chk.closest('.modular-block-card');
+          if (card) {
+            checkedBlockIds.push(card.getAttribute('data-block-id') || '');
+          }
+        }
+      });
+
+      // 2. Calculate Manual setup price
+      let customPrice = 0;
+      customItemsList.forEach(item => {
+        customPrice += item.price;
+      });
+
+      // 3. Subtotal Setup (in USD)
+      const subtotalSetup = templateBasePrice + blocksPrice + customPrice;
+
+      // 4. Urgency
+      const urgencyPct = parseInt(urgencySlider.value) || 0;
+      const urgencyVal = subtotalSetup * (urgencyPct / 100);
+
+      // 5. Discount
+      const discount = parseFloat(discountInput.value) || 0;
+
+      // 6. Total Setup (in USD)
+      const totalSetup = Math.max(0, subtotalSetup + urgencyVal - discount);
+
+      // 7. Abono SLA
+      const maintenance = parseFloat(maintenanceInput.value) || 0;
+
+      // 8. LTV 12m
+      const ltv12m = totalSetup + (maintenance * 12);
+
+      // 9. Metrics
+      const estHours = Math.ceil(totalSetup / 40);
+      const netProfit = (totalSetup * 0.70) + (maintenance * 12 * 0.90);
+      const profitMarginPct = ltv12m > 0 ? (netProfit / ltv12m) * 100 : 0;
+
+      // 10. Multi-currency values
+      const isArs = currencySelect.value === 'ARS';
+      const rate = parseFloat(exchangeRateInput.value) || 1000;
+
+      // Render calculations on Live Preview Box
+      (document.getElementById('prev-subtotal') as HTMLElement).innerText = formatVal(subtotalSetup, isArs, rate);
+      
+      const prevUrgencyRow = document.getElementById('prev-urgency-row') as HTMLElement;
+      const prevUrgencyPct = document.getElementById('prev-urgency-pct') as HTMLElement;
+      const prevUrgencyVal = document.getElementById('prev-urgency-val') as HTMLElement;
+      if (urgencyPct > 0) {
+        if (prevUrgencyPct) prevUrgencyPct.innerText = urgencyPct.toString();
+        if (prevUrgencyVal) prevUrgencyVal.innerText = `+${formatVal(urgencyVal, isArs, rate)}`;
+        if (prevUrgencyRow) prevUrgencyRow.style.display = 'flex';
+      } else {
+        if (prevUrgencyRow) prevUrgencyRow.style.display = 'none';
+      }
+
+      const prevDiscountRow = document.getElementById('prev-discount-row') as HTMLElement;
+      const prevDiscountVal = document.getElementById('prev-discount-val') as HTMLElement;
+      if (discount > 0) {
+        if (prevDiscountVal) prevDiscountVal.innerText = `-${formatVal(discount, isArs, rate)}`;
+        if (prevDiscountRow) prevDiscountRow.style.display = 'flex';
+      } else {
+        if (prevDiscountRow) prevDiscountRow.style.display = 'none';
+      }
+
+      (document.getElementById('prev-total') as HTMLElement).innerText = formatVal(totalSetup, isArs, rate);
+
+      const prevRecurringRow = document.getElementById('prev-recurring-row') as HTMLElement;
+      const prevRecurringVal = document.getElementById('prev-recurring-val') as HTMLElement;
+      if (maintenance > 0) {
+        if (prevRecurringVal) prevRecurringVal.innerText = `${formatVal(maintenance, isArs, rate)}/mes`;
+        if (prevRecurringRow) prevRecurringRow.style.display = 'flex';
+      } else {
+        if (prevRecurringRow) prevRecurringRow.style.display = 'none';
+      }
+
+      // Render Metrics
+      if (metricDevHours) metricDevHours.innerText = `${estHours} hs`;
+      if (metricLtv) metricLtv.innerText = formatVal(ltv12m, isArs, rate);
+      if (metricProfit) metricProfit.innerText = formatVal(netProfit, isArs, rate);
+      if (metricProfitProgress) {
+        metricProfitProgress.style.width = `${Math.min(100, Math.round(profitMarginPct))}%`;
+      }
+
+      // Populate Live Preview list of items
+      const prevItemsContainer = document.getElementById('preview-items-container');
+      if (prevItemsContainer) {
+        prevItemsContainer.innerHTML = '';
+        
+        let hasItems = false;
+        
+        if (selectedTemplate) {
+          const card = document.createElement('div');
+          card.className = 'preview-item-row';
+          const templateObj = availableTemplates.find(t => t.$id === selectedTemplate);
+          const labelText = templateObj ? templateObj.label : 'Servicio';
+          card.innerHTML = `
+            <span>Base: ${labelText} <span class="qty-label">(x1)</span></span>
+            <span>${formatVal(templateBasePrice, isArs, rate)}</span>
+          `;
+          prevItemsContainer.appendChild(card);
+          hasItems = true;
+        }
+
+        document.querySelectorAll('.block-checkbox').forEach(chkBox => {
+          const chk = chkBox as HTMLInputElement;
+          if (chk.checked) {
+            const cardElement = chk.closest('.modular-block-card');
+            const blockId = cardElement?.getAttribute('data-block-id');
+            const blockObj = availableBlocks.find(b => b.$id === blockId);
+            const label = blockObj ? blockObj.label : 'Módulo';
+            const val = parseFloat(chk.value) || 0;
+            
+            const card = document.createElement('div');
+            card.className = 'preview-item-row';
+            card.innerHTML = `
+              <span>${label} <span class="qty-label">(x1)</span></span>
+              <span>${formatVal(val, isArs, rate)}</span>
+            `;
+            prevItemsContainer.appendChild(card);
+            hasItems = true;
+          }
+        });
+
+        customItemsList.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'preview-item-row';
+          const hoursLabel = item.billingType === 'hourly' ? ` (${item.hours} hs)` : '';
+          card.innerHTML = `
+            <span>${item.label || 'Concepto manual'}${hoursLabel} <span class="qty-label">(x1)</span></span>
+            <span>${formatVal(item.price, isArs, rate)}</span>
+          `;
+          prevItemsContainer.appendChild(card);
+          hasItems = true;
+        });
+
+        if (!hasItems) {
+          prevItemsContainer.innerHTML = `<span style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin: 15px 0;">Formulario vacío</span>`;
+        }
+      }
+
+      // AI Cross-Selling Upsell Engine
+      const suggestion = getUpsellSuggestion(selectedTemplate, checkedBlockIds, urgencyPct);
+      if (suggestion) {
+        if (upsellText) upsellText.innerText = suggestion;
+        if (upsellCard) upsellCard.style.display = 'block';
+      } else {
+        if (upsellCard) upsellCard.style.display = 'none';
+      }
+    }
+
+    function getUpsellSuggestion(template: string, checkedBlockIds: string[], urgency: number) {
+      const hasBlock = (id: string) => checkedBlockIds.includes(id);
+
+      if (template === 'web' && !hasBlock('block-api') && !hasBlock('crm')) {
+        return '💡 Tip: Sugiere Automatización o Integración CRM para capturar y procesar leads de forma autónoma en el sistema.';
+      }
+      if (template === 'web' && !hasBlock('block-speed')) {
+        return '💡 Tip: Sugiere Optimización WPO / SEO Técnico para acelerar la carga en móviles e incrementar las visitas.';
+      }
+      if ((template === 'ia' || template === 'sistema') && !hasBlock('block-db') && !hasBlock('block-crm')) {
+        return '💡 Tip: Sugiere una Base de Datos Cloud Dedicada para estructurar las interacciones de tu Agente IA.';
+      }
+      if (urgency > 20 && !hasBlock('block-vps')) {
+        return '💡 Tip: Sugiere Servidor VPS Dedicado Linux para soportar cargas críticas de urgencia sin caídas.';
+      }
+      return '';
+    }
+
+    // Bind inputs to Live client previews
+    clientNameInput.addEventListener('input', updateClientPreview);
+    clientBusinessInput.addEventListener('input', updateClientPreview);
+
+    function updateClientPreview() {
+      const cBusiness = document.getElementById('prev-client');
+      const cContact = document.getElementById('prev-contact');
+      if (cBusiness) cBusiness.innerText = clientBusinessInput.value.trim() || 'Negocio Cliente';
+      if (cContact) cContact.innerText = clientNameInput.value.trim() || 'Contacto Representante';
+    }
+
+    // ==========================================================================
+    // 9. FORM ACTIONS & CLEAR
+    // ==========================================================================
+    const clearBtn = document.getElementById('btn-clear-budget') as HTMLButtonElement;
+    clearBtn.addEventListener('click', () => {
+      if (confirm('¿Deseas vaciar todos los campos del formulario?')) {
+        // Deselect template
+        selectedTemplate = '';
+        templateBasePrice = 0;
+        document.querySelectorAll('.service-template-card').forEach(c => c.classList.remove('active-template-card'));
+        quoteFeaturesInput.value = '';
+
+        // Uncheck blocks
+        document.querySelectorAll('.block-checkbox').forEach(chkBox => {
+          const chk = chkBox as HTMLInputElement;
+          chk.checked = false;
+          chk.closest('.modular-block-card')?.classList.remove('active-block-card');
+        });
+
+        // Reset manual items
+        customItemsList = [];
+        renderCustomItems();
+
+        // Reset inputs
+        const generatorForm = document.getElementById('budget-generator-form') as HTMLFormElement;
+        generatorForm.reset();
+        
+        currentEditBudgetId = '';
+        currencySelect.value = 'USD';
+        exchangeRateGroup.style.display = 'none';
+        arsFacilitiesGroup.style.display = 'none';
+        urgencySlider.value = '0';
+        urgencyLabel.innerText = '+0%';
+
+        updateClientPreview();
+        updateCalculations();
+      }
+    });
+
+    // ==========================================================================
+    // 10. MODAL & BUDGET HISTORY LOADER
+    // ==========================================================================
+    const budgetModal = document.getElementById('budget-modal') as HTMLElement;
+    const btnNewBudget = document.getElementById('btn-new-budget') as HTMLButtonElement;
+    const btnCloseModal = document.getElementById('btn-close-modal') as HTMLButtonElement;
+    const modalTitle = document.getElementById('modal-budget-title') as HTMLElement;
+    const historyBody = document.getElementById('budgets-history-body') as HTMLElement;
+
+    let allBudgets: any[] = [];
+    let currentEditBudgetId = '';
+
+    function openModal(isEdit = false) {
+      if (budgetModal) {
+        budgetModal.style.display = 'flex';
+        setTimeout(() => budgetModal.classList.add('active'), 10);
+      }
+      if (modalTitle) {
+        modalTitle.innerText = isEdit ? 'Editar Presupuesto Comercial' : 'Crear Presupuesto Comercial';
+      }
+      showStep('step-client-service'); // Default to first step when opening
+    }
+
+    function closeModal() {
+      if (budgetModal) {
+        budgetModal.classList.remove('active');
+        setTimeout(() => budgetModal.style.display = 'none', 300);
+      }
+    }
+
+    btnNewBudget?.addEventListener('click', () => {
+      currentEditBudgetId = '';
+      const clearBtn = document.getElementById('btn-clear-budget') as HTMLButtonElement;
+      if (clearBtn) clearBtn.click();
+      openModal(false);
+    });
+
+    btnCloseModal?.addEventListener('click', () => {
+      closeModal();
+    });
+
+    budgetModal?.addEventListener('click', (e) => {
+      if (e.target === budgetModal) {
+        closeModal();
+      }
+    });
+
+    // ==========================================================================
+    // 10.1 WIZARD STEP SWITCHER (BUDGET MODAL)
+    // ==========================================================================
+    const stepLinks = document.querySelectorAll('.budget-modal-tab-link');
+    const stepContents = document.querySelectorAll('.budget-step-content');
+    
+    function showStep(stepId: string) {
+      stepLinks.forEach(link => {
+        if (link.getAttribute('data-budget-step') === stepId) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+      
+      stepContents.forEach(content => {
+        if (content.id === stepId) {
+          content.classList.add('active');
+        } else {
+          content.classList.remove('active');
+        }
+      });
+    }
+
+    stepLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const stepId = link.getAttribute('data-budget-step');
+        if (stepId) showStep(stepId);
+      });
+    });
+
+    // Next / Prev step buttons inside wizard
+    document.querySelectorAll('.btn-next-step').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const currentStep = btn.closest('.budget-step-content');
+        if (currentStep) {
+          const requiredFields = currentStep.querySelectorAll('[required]') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
+          let allValid = true;
+          requiredFields.forEach(field => {
+            if (!field.value.trim() || (field.type === 'email' && !field.value.includes('@'))) {
+              field.reportValidity();
+              allValid = false;
+            }
+          });
+          if (!allValid) return;
+        }
+
+        const nextStepId = btn.getAttribute('data-next-step');
+        if (nextStepId) showStep(nextStepId);
+      });
+    });
+
+    document.querySelectorAll('.btn-prev-step').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const prevStepId = btn.getAttribute('data-prev-step');
+        if (prevStepId) showStep(prevStepId);
+      });
+    });
+
+    async function loadBudgetsHistory() {
+      if (!historyBody) return;
+      historyBody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 30px; color: var(--text-muted);">Cargando historial de presupuestos...</td></tr>`;
+
+      try {
+        const res = await api.db.listBudgets();
+        allBudgets = res.documents || [];
+
+        if (allBudgets.length === 0) {
+          historyBody.innerHTML = `
+            <tr>
+              <td colspan="6">
+                <div class="admin-empty-state" style="border: none; margin: 15px 0;">
+                  <div class="admin-empty-icon">📄</div>
+                  <h4 class="admin-empty-title">Sin cotizaciones registradas</h4>
+                  <p class="admin-empty-desc">Aún no has generado propuestas comerciales. Crea tu primer presupuesto con el botón "+ Nuevo Presupuesto".</p>
+                </div>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+
+        historyBody.innerHTML = '';
+        allBudgets.forEach((budget: any) => {
+          const tr = document.createElement('tr');
+          tr.style.borderBottom = '1px solid var(--border-color)';
+          const dateStr = new Date(budget.created_at || budget.$createdAt).toLocaleDateString('es-AR');
+
+          // Extract metadata if exists for proper table display
+          let displayTotal = budget.total;
+          let currencySymbol = 'USD';
+          
+          let meta: any = null;
+          if (budget.metadata) {
+            try {
+              meta = JSON.parse(budget.metadata);
+            } catch (err) {}
+          }
+          if (!meta) {
+            const metaSeparator = (budget.notes || '').indexOf('\n\n---METADATA---\n');
+            if (metaSeparator !== -1) {
+              try {
+                meta = JSON.parse(budget.notes.substring(metaSeparator + 16));
+              } catch (err) {}
+            }
+          }
+
+          if (meta) {
+            if (meta.currency === 'ARS') {
+              currencySymbol = 'ARS';
+              displayTotal = budget.total * (meta.exchangeRate || 1000);
+            }
+          }
+
+          tr.innerHTML = `
+            <td style="padding: 14px 16px; font-weight: 600; color: #e2e8f0; font-family: monospace, sans-serif; font-size: 0.85rem;">${budget.quote_number || 'KP-0000'}</td>
+            <td style="padding: 14px 16px;">
+              <span style="font-weight: 600; display: block; color: #ffffff; font-family: 'Lexend', sans-serif; font-size: 0.92rem;">${budget.client_business || 'Negocio'}</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 400;">${budget.client_name || 'Contacto'}</span>
+            </td>
+            <td style="padding: 14px 16px; color: var(--text-secondary); font-size: 0.85rem;">${dateStr}</td>
+            <td style="padding: 14px 16px; font-weight: 600; color: #ffffff; font-family: 'Lexend', sans-serif; font-size: 0.95rem;">${currencySymbol === 'ARS' ? `$ ${Math.round(displayTotal).toLocaleString('es-AR')}` : `US$ ${Math.round(displayTotal).toLocaleString('en-US')}`}</td>
+            <td style="padding: 14px 16px;">
+              <select class="table-input budget-status-select" data-id="${budget.$id}" style="padding: 6px 10px; border-radius: 8px; font-size: 0.82rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #ffffff; cursor: pointer; font-weight: 500;">
+                <option value="borrador" style="background: #0f1524;" ${budget.status === 'borrador' ? 'selected' : ''}>Borrador</option>
+                <option value="enviado" style="background: #0f1524;" ${budget.status === 'enviado' ? 'selected' : ''}>Enviado</option>
+                <option value="aceptado" style="background: #0f1524;" ${budget.status === 'aceptado' ? 'selected' : ''}>Aceptado</option>
+                <option value="rechazado" style="background: #0f1524;" ${budget.status === 'rechazado' ? 'selected' : ''}>Rechazado</option>
+              </select>
+            </td>
+            <td style="padding: 12px 15px; text-align: right; white-space: nowrap;">
+              <div style="display: inline-flex; gap: 6px; align-items: center; justify-content: flex-end;">
+                <!-- 1. VER PROPUESTA -->
+                <a href="/presupuestos?id=${budget.$id}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px; border-radius: 8px; background: rgba(234, 56, 77, 0.15); border: 1px solid rgba(234, 56, 77, 0.4); color: #ffffff; font-family: 'Lexend', sans-serif; font-size: 0.8rem; font-weight: 600; text-decoration: none; white-space: nowrap; transition: all 0.2s ease;" onmouseover="this.style.background='#EA384D'; this.style.borderColor='#EA384D';" onmouseout="this.style.background='rgba(234, 56, 77, 0.15)'; this.style.borderColor='rgba(234, 56, 77, 0.4)';" title="Abrir propuesta online">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  <span style="white-space: nowrap;">Ver Propuesta</span>
+                </a>
+
+                <!-- 2. DESCARGAR PDF -->
+                <button type="button" class="btn-pdf-budget" data-id="${budget.$id}" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ffffff; font-family: 'Lexend', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.05)';" title="Descargar PDF">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span style="white-space: nowrap;">PDF</span>
+                </button>
+
+                <!-- 3. COPIAR ENLACE -->
+                <button type="button" class="btn-link-budget" data-id="${budget.$id}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #a78bfa; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(167, 139, 250, 0.2)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.05)';" title="Copiar enlace online">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
+
+                <!-- 4. WHATSAPP -->
+                <button type="button" class="btn-wa-budget" data-id="${budget.$id}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #25d366; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(37, 211, 102, 0.2)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.05)';" title="Enviar por WhatsApp">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                </button>
+
+                <!-- 5. EDITAR -->
+                <button type="button" class="btn-edit-budget" data-id="${budget.$id}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ffffff; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.05)';" title="Editar presupuesto">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+
+                <!-- 6. ELIMINAR -->
+                <button type="button" class="btn-delete-budget" data-id="${budget.$id}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ef4444; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(239, 68, 68, 0.2)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.05)';" title="Eliminar presupuesto">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </div>
+            </td>
+          `;
+
+          // Inline status update — reloads history so row color/badge reflects the change
+          tr.querySelector('.budget-status-select')?.addEventListener('change', async (e: any) => {
+            const newStatus = e.target.value;
+            try {
+              await api.db.updateBudget(budget.$id, { status: newStatus });
+              budget.status = newStatus;
+              showToast(`Estado actualizado a: ${newStatus}`, 'success');
+              await loadBudgetsHistory();
+            } catch (err: any) {
+              showToast("Error al actualizar estado: " + err.message, 'error');
+            }
+          });
+
+          // Copy Online Link
+          tr.querySelector('.btn-link-budget')?.addEventListener('click', () => {
+            const link = `${window.location.origin}/presupuestos?id=${budget.$id}`;
+            navigator.clipboard.writeText(link);
+            showToast('Enlace de propuesta online copiado al portapapeles.', 'success');
+          });
+
+          // Send by WhatsApp
+          tr.querySelector('.btn-wa-budget')?.addEventListener('click', () => {
+            const link = `${window.location.origin}/presupuestos?id=${budget.$id}`;
+            
+            // Try to extract service name
+            let serviceType = 'Servicios Digitales';
+            let meta: any = null;
+            if (budget.metadata) {
+              try {
+                meta = JSON.parse(budget.metadata);
+              } catch (err) {}
+            }
+            if (!meta) {
+              const metaSeparator = (budget.notes || '').indexOf('\n\n---METADATA---\n');
+              if (metaSeparator !== -1) {
+                try {
+                  meta = JSON.parse(budget.notes.substring(metaSeparator + 16));
+                } catch (e) {}
+              }
+            }
+            if (meta && meta.serviceType) {
+              serviceType = meta.serviceType === 'web' ? 'Diseño Web' :
+                            meta.serviceType === 'auto' ? 'Automatización' :
+                            meta.serviceType === 'ia' ? 'Agente IA' : 'Sistema Completo';
+            }
+
+            const text = `Hola ${budget.client_name || ''}! Te comparto el presupuesto online para el proyecto de ${serviceType}: ${link}`;
+            const phone = budget.client_whatsapp ? budget.client_whatsapp.replace(/[^0-9]/g, '') : '';
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+          });
+
+          // Edit budget
+          tr.querySelector('.btn-edit-budget')?.addEventListener('click', () => {
+            loadBudgetIntoForm(budget);
+          });
+
+          // PDF download
+          tr.querySelector('.btn-pdf-budget')?.addEventListener('click', () => {
+            generateBudgetPDF(budget);
+          });
+
+          // Delete budget
+          tr.querySelector('.btn-delete-budget')?.addEventListener('click', async () => {
+            if (confirm(`¿Deseas eliminar el presupuesto ${budget.quote_number || ''}?`)) {
+              try {
+                await api.db.deleteBudget(budget.$id);
+                showToast('Presupuesto eliminado correctamente.', 'success');
+                loadBudgetsHistory();
+              } catch (err: any) {
+                showToast("Error al eliminar: " + err.message, 'error');
+              }
+            }
+          });
+
+          historyBody.appendChild(tr);
+        });
+
+      } catch (err: any) {
+        console.error("Error loading budgets list:", err);
+        historyBody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 30px; color: #ef4444;">Error al cargar el historial: ${err.message}</td></tr>`;
+      }
+    }
+
+    function loadBudgetIntoForm(budget: any) {
+      currentEditBudgetId = budget.$id;
+      
+      // Clear previous builder states
+      selectedTemplate = '';
+      templateBasePrice = 0;
+      document.querySelectorAll('.service-template-card').forEach(c => c.classList.remove('active-template-card'));
+      quoteFeaturesInput.value = '';
+
+      // Uncheck blocks
+      document.querySelectorAll('.block-checkbox').forEach(chkBox => {
+        const chk = chkBox as HTMLInputElement;
+        chk.checked = false;
+        chk.closest('.modular-block-card')?.classList.remove('active-block-card');
+      });
+
+      // Default values
+      currencySelect.value = 'USD';
+      exchangeRateGroup.style.display = 'none';
+      arsFacilitiesGroup.style.display = 'none';
+      chkInstallment.checked = true;
+      chkTransferDiscount.checked = true;
+      urgencySlider.value = '0';
+      urgencyLabel.innerText = '+0%';
+      discountInput.value = '0';
+      maintenanceInput.value = '0';
+
+      // Parse metadata block
+      let userNotes = budget.notes || '';
+      let meta: any = null;
+
+      if (budget.metadata) {
+        try {
+          meta = JSON.parse(budget.metadata);
+        } catch (err) {
+          console.error("Failed to parse dedicated metadata attribute", err);
+        }
+      }
+
+      if (!meta) {
+        const separatorIdx = userNotes.indexOf('\n\n---METADATA---\n');
+        if (separatorIdx !== -1) {
+          try {
+            const metaString = userNotes.substring(separatorIdx + 16);
+            userNotes = userNotes.substring(0, separatorIdx);
+            meta = JSON.parse(metaString);
+          } catch (err) {
+            console.error("Failed to parse metadata block in notes", err);
+          }
+        }
+      }
+
+      if (meta) {
+        try {
+          // Restore selected template
+          if (meta.serviceType) {
+            selectedTemplate = meta.serviceType;
+            const activeCard = document.querySelector(`.service-template-card[data-template="${meta.serviceType}"]`);
+            if (activeCard) {
+              activeCard.classList.add('active-template-card');
+            }
+            templateBasePrice = meta.basePrice || 0;
+          }
+
+          // Restore features
+          if (meta.features) {
+            quoteFeaturesInput.value = Array.isArray(meta.features) ? meta.features.join('\n') : meta.features;
+          }
+
+          // Restore blocks checks
+          if (meta.blocks && Array.isArray(meta.blocks)) {
+            meta.blocks.forEach((blockId: string) => {
+              const chk = document.querySelector(`.modular-block-card[data-block-id="${blockId}"] .block-checkbox`) as HTMLInputElement;
+              if (chk) {
+                chk.checked = true;
+                chk.closest('.modular-block-card')?.classList.add('active-block-card');
+              }
+            });
+          }
+
+          // Restore custom items
+          if (meta.customItems) {
+            customItemsList = meta.customItems;
+          }
+
+          // Restore settings
+          if (meta.currency) {
+            currencySelect.value = meta.currency;
+            if (meta.currency === 'ARS') {
+              exchangeRateGroup.style.display = 'block';
+              arsFacilitiesGroup.style.display = 'block';
+            }
+          }
+          if (meta.exchangeRate) exchangeRateInput.value = meta.exchangeRate.toString();
+          if (meta.enableInstallments !== undefined) chkInstallment.checked = meta.enableInstallments;
+          if (meta.enableTransferDiscount !== undefined) chkTransferDiscount.checked = meta.enableTransferDiscount;
+          if (meta.urgency !== undefined) {
+            urgencySlider.value = meta.urgency.toString();
+            urgencyLabel.innerText = `+${meta.urgency}%`;
+          }
+          if (meta.discount !== undefined) discountInput.value = meta.discount.toString();
+          if (meta.maintenance !== undefined) maintenanceInput.value = meta.maintenance.toString();
+
+        } catch (err) {
+          console.error("Failed to restore form values from parsed metadata", err);
+          try {
+            customItemsList = JSON.parse(budget.items || '[]');
+          } catch (e) {
+            customItemsList = [];
+          }
+        }
+      } else {
+        // legacy budget format
+        try {
+          const itemsRaw = JSON.parse(budget.items || '[]');
+          customItemsList = itemsRaw.map((itm: any) => ({
+            id: uniqueId(),
+            label: itm.name || 'Servicio',
+            billingType: 'flat',
+            price: itm.price || 0,
+            hours: 0,
+            hourlyRate: 25
+          }));
+        } catch (e) {
+          customItemsList = [];
+        }
+      }
+
+      // Populate basic client fields
+      if (clientNameInput) clientNameInput.value = budget.client_name || '';
+      if (clientBusinessInput) clientBusinessInput.value = budget.client_business || '';
+      if (clientEmailInput) clientEmailInput.value = budget.client_email || '';
+      if (clientWhatsappInput) clientWhatsappInput.value = budget.client_whatsapp || '';
+      if (quoteValidityInput) quoteValidityInput.value = budget.validity_days || 15;
+      if (quoteNotesInput) quoteNotesInput.value = userNotes;
+
+      renderCustomItems();
+      updateClientPreview();
+      updateCalculations();
+
+      // Open the budget modal in edit mode
+      openModal(true);
+    }
+
+    // ==========================================================================
+    // 11. PDF LAYOUT DYNAMIC COMPILER & DOWNLOADER
+    // ==========================================================================
+    function generateBudgetPDF(budget: any) {
+      // 1. Check for metadata block
+      let userNotes = budget.notes || '';
+      let meta: any = {
+        currency: 'USD',
+        exchangeRate: 1000,
+        enableInstallments: true,
+        enableTransferDiscount: true,
+        urgency: 0,
+        maintenance: 0,
+        discount: 0,
+        basePrice: budget.subtotal,
+        serviceType: 'Propuesta',
+        features: []
+      };
+
+      let sepIdx = -1;
+      if (budget.metadata) {
+        try {
+          meta = JSON.parse(budget.metadata);
+        } catch (err) {}
+      } else {
+        sepIdx = userNotes.indexOf('\n\n---METADATA---\n');
+        if (sepIdx !== -1) {
+          try {
+            meta = JSON.parse(userNotes.substring(sepIdx + 16));
+            userNotes = userNotes.substring(0, sepIdx);
+          } catch (err) {}
+        } else {
+          // legacy map
+          meta.features = [];
+        }
+      }
+
+      const isArs = meta.currency === 'ARS';
+      const rate = parseFloat(meta.exchangeRate) || 1000;
+
+      // Populate basic fields
+      (document.getElementById('pdf-client-business') as HTMLElement).innerText = budget.client_business || '';
+      (document.getElementById('pdf-client-name') as HTMLElement).innerText = budget.client_name || '';
+      (document.getElementById('pdf-client-email') as HTMLElement).innerText = budget.client_email || '';
+      (document.getElementById('pdf-quote-validity-val') as HTMLElement).innerText = budget.validity_days || 15;
+      
+      const budgetDate = new Date(budget.created_at || budget.$createdAt);
+      (document.getElementById('pdf-quote-date') as HTMLElement).innerText = budgetDate.toLocaleDateString('es-AR');
+      (document.getElementById('pdf-quote-number') as HTMLElement).innerText = budget.quote_number || 'KP-0000';
+
+      const pdfNoteItem = document.getElementById('pdf-custom-note-item') as HTMLElement;
+      if (userNotes.trim()) {
+        (document.getElementById('pdf-custom-note-text') as HTMLElement).innerText = userNotes.trim();
+        pdfNoteItem.style.display = 'block';
+      } else {
+        pdfNoteItem.style.display = 'none';
+      }
+
+      // Populate PDF Items list (converting if ARS)
+      const pdfTableBody = document.getElementById('pdf-items-body') as HTMLElement;
+      if (pdfTableBody) {
+        pdfTableBody.innerHTML = '';
+        
+        let items: any[] = [];
+        try {
+          items = JSON.parse(budget.items || '[]');
+        } catch (e) {}
+
+        // If metadata exists, let's render more detail
+        const hasStructuredMeta = !!(budget.metadata) || (sepIdx !== -1 && meta.serviceType !== 'Propuesta');
+        if (hasStructuredMeta) {
+          // Render base template row with features
+          if (meta.basePrice > 0) {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #e2e8f0';
+            
+            let featuresHtml = '';
+            if (Array.isArray(meta.features) && meta.features.length > 0 && meta.features.some((f: string) => f.trim() !== '')) {
+              featuresHtml = `
+                <div style="margin-top: 8px; background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px; border-left: 2px solid #d12237;">
+                  <div style="font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 5px;">Incluye:</div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 15px;">
+                    ${meta.features.map((f: string) => f.trim() ? `<div style="font-size: 0.75rem; color: #334155;"><span style="color: #c026d3; margin-right: 4px;">•</span> ${f.trim()}</div>` : '').join('')}
+                  </div>
+                </div>
+              `;
+            }
+
+            const templateObj = availableTemplates.find(t => t.$id === meta.serviceType);
+            const baseLabel = templateObj ? templateObj.label : meta.serviceType;
+
+            tr.innerHTML = `
+              <td style="padding: 12px 15px; color: #0f172a; font-weight: 500; text-align: left;">
+                <div style="font-weight: 600;">Base del Proyecto: ${baseLabel}</div>
+                ${featuresHtml}
+              </td>
+              <td style="padding: 12px 15px; text-align: right; color: #334155; vertical-align: top;">${formatVal(meta.basePrice, isArs, rate)}</td>
+              <td style="padding: 12px 15px; text-align: center; color: #334155; vertical-align: top;">1</td>
+              <td style="padding: 12px 15px; text-align: right; color: #0f172a; font-weight: 600; vertical-align: top;">${formatVal(meta.basePrice, isArs, rate)}</td>
+            `;
+            pdfTableBody.appendChild(tr);
+          }
+
+          // Render blocks
+          if (meta.blocks && Array.isArray(meta.blocks)) {
+            meta.blocks.forEach((blockId: string) => {
+              const blk = availableBlocks.find(b => b.$id === blockId);
+              if (blk) {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid #e2e8f0';
+                tr.innerHTML = `
+                  <td style="padding: 12px 15px; color: #0f172a; font-weight: 500;">Módulo Adicional: ${blk.label}</td>
+                  <td style="padding: 12px 15px; text-align: right; color: #334155;">${formatVal(blk.price, isArs, rate)}</td>
+                  <td style="padding: 12px 15px; text-align: center; color: #334155;">1</td>
+                  <td style="padding: 12px 15px; text-align: right; color: #0f172a; font-weight: 600;">${formatVal(blk.price, isArs, rate)}</td>
+                `;
+                pdfTableBody.appendChild(tr);
+              }
+            });
+          }
+
+          // Render custom items
+          if (meta.customItems && Array.isArray(meta.customItems)) {
+            meta.customItems.forEach((itm: any) => {
+              const tr = document.createElement('tr');
+              tr.style.borderBottom = '1px solid #e2e8f0';
+              const subLabel = itm.billingType === 'hourly' ? `<div style="font-size: 0.725rem; color: #64748b; margin-top: 2px;">(${itm.hours} hs x ${formatVal(itm.hourlyRate, isArs, rate)}/h)</div>` : '';
+              tr.innerHTML = `
+                <td style="padding: 12px 15px; color: #0f172a; font-weight: 500;">
+                  <div>${itm.label || 'Concepto manual'}</div>
+                  ${subLabel}
+                </td>
+                <td style="padding: 12px 15px; text-align: right; color: #334155;">${formatVal(itm.billingType === 'hourly' ? itm.hourlyRate * itm.hours : itm.price, isArs, rate)}</td>
+                <td style="padding: 12px 15px; text-align: center; color: #334155;">1</td>
+                <td style="padding: 12px 15px; text-align: right; color: #0f172a; font-weight: 600;">${formatVal(itm.billingType === 'hourly' ? itm.hourlyRate * itm.hours : itm.price, isArs, rate)}</td>
+              `;
+              pdfTableBody.appendChild(tr);
+            });
+          }
+
+        } else {
+          // Render legacy items list
+          items.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #e2e8f0';
+            tr.innerHTML = `
+              <td style="padding: 12px 15px; color: #0f172a; font-weight: 500;">${item.name || 'Servicio Técnico'}</td>
+              <td style="padding: 12px 15px; text-align: right; color: #334155;">${formatVal(item.price, isArs, rate)}</td>
+              <td style="padding: 12px 15px; text-align: center; color: #334155;">${item.qty}</td>
+              <td style="padding: 12px 15px; text-align: right; color: #0f172a; font-weight: 600;">${formatVal(item.price * item.qty, isArs, rate)}</td>
+            `;
+            pdfTableBody.appendChild(tr);
+          });
+        }
+      }
+
+      // Calculations setup totals (converting if ARS)
+      const subtotalSetup = budget.subtotal;
+      const urgencyPct = meta.urgency || 0;
+      const urgencyAmount = subtotalSetup * (urgencyPct / 100);
+      const discount = meta.discount || budget.discount_val || 0;
+      const totalSetup = Math.max(0, subtotalSetup + urgencyAmount - discount);
+      const maintenance = meta.maintenance || 0;
+      const estHours = Math.ceil(totalSetup / 40);
+
+      // Populate PDF Setup Column
+      (document.getElementById('pdf-subtotal') as HTMLElement).innerText = formatVal(subtotalSetup, isArs, rate);
+      
+      const pdfUrgencyRow = document.getElementById('pdf-urgency-row') as HTMLElement;
+      const pdfUrgencyPct = document.getElementById('pdf-urgency-pct') as HTMLElement;
+      const pdfUrgencyVal = document.getElementById('pdf-urgency-val') as HTMLElement;
+      if (urgencyPct > 0) {
+        if (pdfUrgencyPct) pdfUrgencyPct.innerText = urgencyPct.toString();
+        if (pdfUrgencyVal) pdfUrgencyVal.innerText = `+${formatVal(urgencyAmount, isArs, rate)}`;
+        if (pdfUrgencyRow) pdfUrgencyRow.style.display = 'flex';
+      } else {
+        if (pdfUrgencyRow) pdfUrgencyRow.style.display = 'none';
+      }
+
+      const pdfDiscountRow = document.getElementById('pdf-discount-row') as HTMLElement;
+      const pdfDiscountVal = document.getElementById('pdf-discount-val') as HTMLElement;
+      if (discount > 0) {
+        if (pdfDiscountVal) pdfDiscountVal.innerText = `-${formatVal(discount, isArs, rate)}`;
+        if (pdfDiscountRow) pdfDiscountRow.style.display = 'flex';
+      } else {
+        if (pdfDiscountRow) pdfDiscountRow.style.display = 'none';
+      }
+
+      (document.getElementById('pdf-total') as HTMLElement).innerText = formatVal(totalSetup, isArs, rate);
+
+      // Recurring SLA columns
+      const pdfRecurringCard = document.getElementById('pdf-recurring-card') as HTMLElement;
+      const pdfRecurringTotal = document.getElementById('pdf-recurring-total') as HTMLElement;
+      if (maintenance > 0) {
+        if (pdfRecurringTotal) pdfRecurringTotal.innerText = `${formatVal(maintenance, isArs, rate)}/mes`;
+        if (pdfRecurringCard) pdfRecurringCard.style.display = 'flex';
+      } else {
+        if (pdfRecurringCard) pdfRecurringCard.style.display = 'none';
+      }
+
+      // Exchange rate note
+      const pdfExchangeNote = document.getElementById('pdf-exchange-rate-note') as HTMLElement;
+      const pdfExchangeVal = document.getElementById('pdf-exchange-rate-val') as HTMLElement;
+      if (isArs) {
+        if (pdfExchangeVal) pdfExchangeVal.innerText = rate.toLocaleString('es-AR');
+        if (pdfExchangeNote) pdfExchangeNote.style.display = 'block';
+      } else {
+        if (pdfExchangeNote) pdfExchangeNote.style.display = 'none';
+      }
+
+      // Terms & Conditions checkboxes
+      const termInstallments = document.getElementById('pdf-term-installment') as HTMLElement;
+      const termTransfer = document.getElementById('pdf-term-transfer') as HTMLElement;
+      const termDeliveryDays = document.getElementById('pdf-term-delivery-days') as HTMLElement;
+
+      if (meta.enableInstallments !== false) {
+        if (termInstallments) termInstallments.style.display = 'list-item';
+      } else {
+        if (termInstallments) termInstallments.style.display = 'none';
+      }
+
+      if (meta.enableTransferDiscount !== false) {
+        if (termTransfer) termTransfer.style.display = 'list-item';
+      } else {
+        if (termTransfer) termTransfer.style.display = 'none';
+      }
+
+      // Set delivery times based on hours
+      if (termDeliveryDays) {
+        const minDays = Math.max(5, Math.ceil(estHours / 5));
+        const maxDays = Math.max(10, Math.ceil(estHours / 3));
+        termDeliveryDays.innerText = `${minDays} - ${maxDays}`;
+      }
+
+      // Render A4 printable element via html2pdf CDN
+      const printableElement = document.getElementById('printable-invoice') as HTMLElement;
+      if (!printableElement) return;
+
+      // Ensure html2pdf is loaded
+      if (typeof (window as any).html2pdf === 'undefined') {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        document.head.appendChild(s);
+      }
+
+      const origStyle = printableElement.getAttribute('style') || '';
+      printableElement.style.display = 'block';
+      printableElement.style.position = 'fixed';
+      printableElement.style.left = '0';
+      printableElement.style.top = '0';
+      printableElement.style.zIndex = '999999';
+      printableElement.style.opacity = '1';
+      printableElement.style.visibility = 'visible';
+      printableElement.style.background = '#ffffff';
+      printableElement.style.color = '#0f172a';
+
+      const opt = {
+        margin:       [0.3, 0.3, 0.3, 0.3],
+        filename:     `Presupuesto_Kaptativa_${(budget.client_business || 'Cliente').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      try {
+        if (typeof (window as any).html2pdf !== 'undefined') {
+          (window as any).html2pdf().set(opt).from(printableElement).save().finally(() => {
+            printableElement.setAttribute('style', origStyle);
+          });
+        } else {
+          window.print();
+          printableElement.setAttribute('style', origStyle);
+        }
+      } catch (e) {
+        console.error('[PDF] Generation error:', e);
+        printableElement.setAttribute('style', origStyle);
+      }
+    }
+
+    // ==========================================================================
+    // 12. CRM REDIRECT HANDLER
+    // ==========================================================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const leadId = urlParams.get('leadId');
+    const leadMode = urlParams.get('mode') || 'lead';
+
+    if (leadId) {
+      try {
+        let clientData: any = null;
+        if (leadMode === 'lead') {
+          const res = await api.db.listLeads();
+          clientData = (res.documents || []).find((l: any) => l.$id === leadId);
+        } else {
+          const res = await api.db.listProjects();
+          clientData = (res.documents || []).find((p: any) => p.$id === leadId);
+        }
+
+        if (clientData) {
+          if (clientNameInput) clientNameInput.value = clientData.name || '';
+          if (clientBusinessInput) clientBusinessInput.value = clientData.business || '';
+          if (clientEmailInput) clientEmailInput.value = clientData.email || '';
+          if (clientWhatsappInput) clientWhatsappInput.value = clientData.whatsapp || '';
+          
+          if (clientData.recommendations && quoteNotesInput) {
+            quoteNotesInput.value = `Propuesta basada en el diagnóstico: ${clientData.recommendations}`;
+          }
+          
+          // Clear query params from url
+          window.history.replaceState({}, document.title, window.location.pathname);
+          
+          updateClientPreview();
+          updateCalculations();
+        }
+      } catch (err) {
+        console.error("Failed to prefill CRM parameters:", err);
+      }
+    }
+
+    // ==========================================================================
+    // 13. BUDGET FORM SUBMIT (SAVE & DOWNLOAD)
+    // ==========================================================================
+    const budgetForm = document.getElementById('budget-generator-form') as HTMLFormElement;
+    const pdfFeedback = document.getElementById('pdf-feedback') as HTMLElement;
+
+    if (budgetForm) {
+      budgetForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        if (!selectedTemplate && customItemsList.length === 0) {
+          showFeedback('Por favor, selecciona una plantilla de servicio o añade conceptos personalizados.', 'error');
+          return;
+        }
+
+        const clientName = clientNameInput.value.trim();
+        const clientBusiness = clientBusinessInput.value.trim();
+        const clientEmail = clientEmailInput.value.trim();
+        const clientWhatsapp = clientWhatsappInput.value.trim();
+        const validityDays = quoteValidityInput.value.trim() || '15';
+        const userNotes = quoteNotesInput.value.trim();
+
+        // 1. Calculations setup totals (in USD)
+        let blocksPrice = 0;
+        const checkedBlockIds: string[] = [];
+        document.querySelectorAll('.block-checkbox').forEach(chkBox => {
+          const chk = chkBox as HTMLInputElement;
+          if (chk.checked) {
+            blocksPrice += parseFloat(chk.value) || 0;
+            const card = chk.closest('.modular-block-card');
+            if (card) {
+              checkedBlockIds.push(card.getAttribute('data-block-id') || '');
+            }
+          }
+        });
+
+        let customPrice = 0;
+        customItemsList.forEach(item => {
+          customPrice += item.price;
+        });
+
+        const subtotalSetup = templateBasePrice + blocksPrice + customPrice;
+        const urgencyPct = parseInt(urgencySlider.value) || 0;
+        const urgencyVal = subtotalSetup * (urgencyPct / 100);
+        const discount = parseFloat(discountInput.value) || 0;
+        const totalSetup = Math.max(0, subtotalSetup + urgencyVal - discount);
+        const maintenance = parseFloat(maintenanceInput.value) || 0;
+
+        // 2. Resolve items into standard array for db compatibility
+        const resolvedItems: Array<{ name: string; price: number; qty: number }> = [];
+        if (selectedTemplate) {
+          const templateObj = availableTemplates.find(t => t.$id === selectedTemplate);
+          const labelText = templateObj ? templateObj.label : 'Servicio';
+          resolvedItems.push({ name: `Base del Proyecto: ${labelText}`, price: templateBasePrice, qty: 1 });
+        }
+
+        checkedBlockIds.forEach(blockId => {
+          const blk = availableBlocks.find(b => b.$id === blockId);
+          const label = blk ? `Módulo: ${blk.label}` : 'Módulo Adicional';
+          const cardEl = document.querySelector(`.modular-block-card[data-block-id="${blockId}"] .block-checkbox`) as HTMLInputElement;
+          const price = cardEl ? parseFloat(cardEl.value) || 0 : 0;
+          resolvedItems.push({ name: label, price, qty: 1 });
+        });
+        customItemsList.forEach(item => {
+          const hoursLabel = item.billingType === 'hourly' ? ` (${item.hours} hs x $${item.hourlyRate}/h)` : '';
+          resolvedItems.push({
+            name: `${item.label || 'Concepto manual'}${hoursLabel}`,
+            price: item.price,
+            qty: 1
+          });
+        });
+
+        // 3. Serialized Configuration Metadata for notes empaquetado
+        const metadata = {
+          serviceType: selectedTemplate,
+          basePrice: templateBasePrice,
+          features: quoteFeaturesInput.value.split('\n'),
+          blocks: checkedBlockIds,
+          customItems: customItemsList,
+          currency: currencySelect.value,
+          exchangeRate: parseFloat(exchangeRateInput.value) || 1000,
+          enableInstallments: chkInstallment.checked,
+          enableTransferDiscount: chkTransferDiscount.checked,
+          urgency: urgencyPct,
+          maintenance: maintenance,
+          discount: discount
+        };
+
+        // 4. Budget Quote Code Number
+        const today = new Date();
+        const quoteNum = `KP-${today.getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+        let finalQuoteNumber = quoteNum;
+        if (currentEditBudgetId) {
+          const editedBudget = allBudgets.find(b => b.$id === currentEditBudgetId);
+          if (editedBudget) finalQuoteNumber = editedBudget.quote_number || quoteNum;
+        }
+
+        // 5. Package Payload
+        const budgetPayload: any = {
+          quote_number: finalQuoteNumber,
+          client_name: clientName,
+          client_business: clientBusiness,
+          client_email: clientEmail,
+          client_whatsapp: clientWhatsapp,
+          items: JSON.stringify(resolvedItems),
+          subtotal: subtotalSetup,
+          discount_pct: subtotalSetup > 0 ? Math.round((discount / subtotalSetup) * 100) : 0,
+          discount_val: discount,
+          total: totalSetup,
+          validity_days: parseInt(validityDays) || 15,
+          notes: userNotes,
+          metadata: JSON.stringify(metadata),
+          // Preserve existing status on edit; default 'enviado' on new
+          status: currentEditBudgetId
+            ? (allBudgets.find((b: any) => b.$id === currentEditBudgetId)?.status || 'enviado')
+            : 'enviado'
+        };
+
+        // 6. DB Sync
+        const editingId = currentEditBudgetId;
+        try {
+          let savedBudgetObj;
+          if (editingId) {
+            savedBudgetObj = await api.db.updateBudget(editingId, budgetPayload);
+            showFeedback('Presupuesto actualizado correctamente.', 'success');
+          } else {
+            savedBudgetObj = await api.db.createBudget(budgetPayload);
+            showFeedback('Presupuesto guardado en base de datos.', 'success');
+          }
+          
+          // Download PDF directly
+          showFeedback('Exportando propuesta comercial en formato PDF...', 'success');
+          generateBudgetPDF(savedBudgetObj || budgetPayload);
+
+          // Reset edit mode and clear form on new budgets
+          currentEditBudgetId = '';
+          closeModal();
+          await loadBudgetsHistory();
+          setTimeout(() => {
+            if (!editingId) {
+              clearBtn.click();
+            }
+          }, 500);
+
+        } catch (err: any) {
+          console.error("Failed to save budget:", err);
+          showFeedback('Error al guardar el presupuesto: ' + err.message, 'error');
+        }
+      });
+    }
+
+    function showFeedback(msg: string, type: 'success' | 'error') {
+      if (!pdfFeedback) return;
+      pdfFeedback.innerText = msg;
+      pdfFeedback.className = `login-feedback ${type}`;
+      pdfFeedback.style.display = 'block';
+      setTimeout(() => {
+        pdfFeedback.style.display = 'none';
+      }, 5000);
+      showToast(msg, type);
+    }
+
+    function showToast(message: string, type: 'success' | 'error' | 'info' = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `toast-notification ${type}`;
+
+      let icon = '⚡';
+      if (type === 'success') icon = '✅';
+      else if (type === 'error') icon = '❌';
+      else if (type === 'info') icon = 'ℹ️';
+
+      toast.innerHTML = `
+        <span class="toast-icon">${icon}</span>
+        <span class="toast-content">${message}</span>
+        <button class="toast-close" type="button">&times;</button>
+      `;
+
+      const closeBtn = toast.querySelector('.toast-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(-20px)';
+          setTimeout(() => toast.remove(), 300);
+        });
+      }
+
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(-20px)';
+          setTimeout(() => {
+            if (toast.parentNode) toast.remove();
+          }, 300);
+        }
+      }, 5000);
+
+      container.appendChild(toast);
+    }
+
+    // Load settings first to populate cost variables, then load templates/blocks, and reload settings to bind dynamically generated UI elements
+
+    // Load settings first to populate cost variables, then load templates/blocks, and reload settings to bind dynamically generated UI elements
+    loadSettings();
+    await loadTemplatesAndBlocks();
+    loadSettings();
+
+    // Run Initial table renders
+    renderCustomItems();
+    updateClientPreview();
+    updateCalculations();
+    await loadBudgetsHistory();
+
+    // ==========================================================================
+    // 15. AI BUDGET GENERATION PANEL
+    // ==========================================================================
+    let aiBudgetResult: any = null;
+
+    const aiToggleBtn = document.getElementById('btn-toggle-ai-panel') as HTMLButtonElement;
+    const aiPanelBody = document.getElementById('ai-panel-body') as HTMLElement;
+    aiToggleBtn?.addEventListener('click', () => {
+      const hidden = aiPanelBody.style.display === 'none';
+      aiPanelBody.style.display = hidden ? 'block' : 'none';
+      aiToggleBtn.textContent = hidden ? 'Ocultar ▲' : 'Mostrar ▼';
+    });
+
+    const btnAiGenerate = document.getElementById('btn-ai-generate-budget') as HTMLButtonElement;
+    const aiStatus = document.getElementById('ai-budget-status') as HTMLElement;
+    const aiResultDiv = document.getElementById('ai-budget-result') as HTMLElement;
+    const aiExplanation = document.getElementById('ai-result-explanation') as HTMLElement;
+    const aiSummary = document.getElementById('ai-result-summary') as HTMLElement;
+    const btnAiApply = document.getElementById('btn-ai-apply') as HTMLButtonElement;
+    const aiDescription = document.getElementById('ai-project-description') as HTMLTextAreaElement;
+
+    btnAiGenerate?.addEventListener('click', async () => {
+      const desc = aiDescription?.value.trim();
+      if (!desc) { aiStatus.textContent = 'Escribí una descripción primero.'; return; }
+
+      btnAiGenerate.disabled = true;
+      btnAiGenerate.textContent = '⏳ Analizando...';
+      aiStatus.textContent = '';
+      aiResultDiv.style.display = 'none';
+
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 30000);
+        const res = await fetch('/api/generate-budget', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ description: desc }),
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({ error: 'Error desconocido' }));
+          throw new Error(err.error || `HTTP ${res.status}`);
+        }
+
+        aiBudgetResult = await res.json();
+
+        // Show result summary
+        aiExplanation.textContent = `💡 ${aiBudgetResult.explanation}`;
+        aiSummary.innerHTML = [
+          `<span style="background:rgba(183,166,255,0.12);border:1px solid rgba(183,166,255,0.2);padding:4px 10px;border-radius:6px;font-size:0.75rem;">📦 ${aiBudgetResult.templateLabel} — $${aiBudgetResult.basePrice} USD</span>`,
+          ...aiBudgetResult.blockLabels.map((b: any) =>
+            `<span style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);padding:4px 10px;border-radius:6px;font-size:0.75rem;">+ ${b.label} — $${b.price}</span>`
+          ),
+          `<span style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);padding:4px 10px;border-radius:6px;font-size:0.75rem;font-weight: 600;">Total estimado: $${aiBudgetResult.suggestedTotal} USD</span>`
+        ].join('');
+        aiResultDiv.style.display = 'block';
+        aiStatus.textContent = '';
+
+      } catch (err: any) {
+        const msg = err.name === 'AbortError' ? 'Tiempo de espera agotado.' : err.message;
+        aiStatus.textContent = `⚠️ ${msg}`;
+      } finally {
+        btnAiGenerate.disabled = false;
+        btnAiGenerate.textContent = '✨ Generar presupuesto';
+      }
+    });
+
+    btnAiApply?.addEventListener('click', () => {
+      if (!aiBudgetResult) return;
+
+      // 1. Select the template card (attribute is data-template, not data-template-id)
+      document.querySelectorAll('.service-template-card').forEach((card: any) => {
+        const cardId = card.getAttribute('data-template');
+        if (cardId === aiBudgetResult.template) {
+          card.click(); // triggers existing selection logic
+        }
+      });
+
+      // 2. Check/uncheck blocks — data-block-id is on the .modular-block-card div, not the checkbox
+      document.querySelectorAll('.modular-block-card').forEach((blockCard: any) => {
+        const blockId = blockCard.getAttribute('data-block-id');
+        const chk = blockCard.querySelector('.block-checkbox') as HTMLInputElement;
+        if (!chk || !blockId) return;
+        const shouldCheck = aiBudgetResult.blocks.includes(blockId);
+        if (chk.checked !== shouldCheck) blockCard.click();
+      });
+
+      // 3. Set features textarea
+      const featuresInput = document.getElementById('quote-features') as HTMLTextAreaElement;
+      if (featuresInput && aiBudgetResult.features.length > 0) {
+        featuresInput.value = aiBudgetResult.features.join('\n');
+        featuresInput.dispatchEvent(new Event('input'));
+      }
+
+      // 4. Set maintenance
+      const maintenanceInput = document.getElementById('quote-maintenance-usd') as HTMLInputElement;
+      if (maintenanceInput && aiBudgetResult.maintenance > 0) {
+        maintenanceInput.value = String(aiBudgetResult.maintenance);
+        maintenanceInput.dispatchEvent(new Event('input'));
+      }
+
+      // 5. Set notes
+      const notesInput = document.getElementById('quote-notes') as HTMLTextAreaElement;
+      if (notesInput && aiBudgetResult.notes) {
+        notesInput.value = aiBudgetResult.notes;
+      }
+
+      updateCalculations();
+      showToast('✅ Presupuesto cargado por la IA. Revisá y ajustá los datos del cliente.', 'success');
+
+      // Scroll to form
+      document.getElementById('budget-generator-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+

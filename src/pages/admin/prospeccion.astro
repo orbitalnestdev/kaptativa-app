@@ -1,0 +1,1746 @@
+---
+return Astro.redirect('/admin');
+---
+
+<AdminLayout title="Cockpit de Prospección | Kaptativa">
+  <div class="admin-wrapper" id="admin-main-view">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <AdminSidebar activeTab="prospeccion" />
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="admin-content-area">
+      
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div>
+          <h1 class="admin-page-title" style="margin: 0; font-size: 1.6rem; font-weight: 600; color: white; font-family: 'Space Grotesk', sans-serif;">Listado de Prospectos</h1>
+        </div>
+      </header>
+
+      <!-- METRICS GRID -->
+      <section class="admin-metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-bottom: 25px;">
+        <div class="admin-metric-card" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 15px 18px;">
+          <div class="metric-info">
+            <h3 class="metric-value" id="stat-total" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 600; color: #ECECF2; margin: 0; line-height: 1;">0</h3>
+            <span class="metric-title" style="font-size: 0.75rem; color: #8A8A9A; margin-top: 5px; display: block;">Total Prospectos</span>
+          </div>
+        </div>
+        
+        <div class="admin-metric-card" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 15px 18px;">
+          <div class="metric-info">
+            <h3 class="metric-value" id="stat-sinweb" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 600; color: #FFC9A3; margin: 0; line-height: 1;">0</h3>
+            <span class="metric-title" style="font-size: 0.75rem; color: #8A8A9A; margin-top: 5px; display: block;">Sin Web <span style="color: #5A5A68;">· oportunidad</span></span>
+          </div>
+        </div>
+        
+        <div class="admin-metric-card" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 15px 18px;">
+          <div class="metric-info">
+            <h3 class="metric-value" id="stat-contactados" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 600; color: #B7A6FF; margin: 0; line-height: 1;">0</h3>
+            <span class="metric-title" style="font-size: 0.75rem; color: #8A8A9A; margin-top: 5px; display: block;">Contactados</span>
+          </div>
+        </div>
+
+        <div class="admin-metric-card" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 15px 18px;">
+          <div class="metric-info">
+            <h3 class="metric-value" id="stat-activos" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 600; color: #ECECF2; margin: 0; line-height: 1;">0</h3>
+            <span class="metric-title" style="font-size: 0.75rem; color: #8A8A9A; margin-top: 5px; display: block;">Activos</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEARCH & FILTER BAR -->
+      <div class="admin-filter-bar" style="margin-bottom: 25px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <div class="search-input-wrapper" style="position: relative; flex: 1; min-width: 250px;">
+          <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #5A5A68; font-size: 0.85rem;">🔍</span>
+          <input type="text" id="prospect-search-input" placeholder="Buscar por nombre, ciudad o rubro..." style="width: 100%; padding: 10px 15px 10px 38px; background: #14141C; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; font-size: 0.85rem; color: #ECECF2; outline: none; transition: border-color 0.15s;" />
+        </div>
+        
+        <select id="prospect-rubro-filter" style="padding: 10px 30px 10px 15px; background: #14141C; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; font-size: 0.85rem; color: #ECECF2; cursor: pointer; outline: none; -webkit-appearance: none; appearance: none; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%238A8A9A' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 12px center;">
+          <option value="todos">Todos los rubros</option>
+          <option value="Inmobiliaria">🏢 Inmobiliaria</option>
+          <option value="Gimnasio">🏋️ Gimnasio</option>
+          <option value="Estudio Contable">📊 Estudio Contable</option>
+          <option value="E-commerce">🛍️ E-commerce</option>
+          <option value="Centro Médico">🩺 Centro Médico</option>
+          <option value="Gastronomía">🍕 Gastronomía</option>
+          <option value="Distribuidora">📦 Distribuidora</option>
+          <option value="Estética">💅 Estética</option>
+        </select>
+
+        <select id="prospect-status-filter" style="padding: 10px 30px 10px 15px; background: #14141C; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; font-size: 0.85rem; color: #ECECF2; cursor: pointer; outline: none; -webkit-appearance: none; appearance: none; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%238A8A9A' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 12px center;">
+          <option value="todos">Todos los estados</option>
+          <option value="nuevo">Nuevo</option>
+          <option value="mensaje_generado">Mensaje listo</option>
+          <option value="contactado">Contactado</option>
+          <option value="respondio">Respondió</option>
+          <option value="reunion">Reunión</option>
+          <option value="cliente">Cliente</option>
+          <option value="descartado">Descartado</option>
+        </select>
+
+        <button id="btn-only-noweb" class="btn" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); color: #8A8A9A; border-radius: 10px; padding: 10px 15px; font-size: 0.825rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s;">
+          <span style="font-size: 0.9rem;">⚠️</span> Solo sin web
+        </button>
+        <button id="btn-only-hasweb" class="btn" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); color: #8A8A9A; border-radius: 10px; padding: 10px 15px; font-size: 0.825rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s;">
+          <span style="font-size: 0.9rem;">🌐</span> Solo con web
+        </button>
+        <div style="margin-left: auto; display: flex; gap: 8px;">
+          <button id="btn-manage-rubros" class="btn" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); color: #ECECF2; border-radius: 10px; padding: 10px 15px; font-size: 0.825rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s;">
+            <span style="font-size: 0.9rem;">🛠️</span> Gestionar Rubros
+          </button>
+          <button id="btn-import-csv" class="btn" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); color: #ECECF2; border-radius: 10px; padding: 10px 15px; font-size: 0.825rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s;">
+            <span style="font-size: 0.9rem;">📥</span> Importar CSV
+          </button>
+          <button id="btn-add-prospect" class="btn" style="background: linear-gradient(90deg, #B7A6FF, #FF8C7A); border: none; color: #0B0B11; border-radius: 10px; padding: 10px 15px; font-size: 0.825rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s;">
+            <span style="font-size: 0.9rem;">➕</span> Nuevo Prospecto
+          </button>
+        </div>
+        <input type="file" id="csv-file-input" accept=".csv" style="display: none;" />
+      </div>
+
+      <!-- PROSPECTS LIST TABLE -->
+      <div class="admin-table-wrapper" style="background: #14141C; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px;">
+        <div style="min-width: 650px;">
+          <!-- Table Head -->
+          <div style="display: grid; grid-template-columns: minmax(180px, 1.4fr) 1.1fr 150px 120px; padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5A5A68; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">
+            <div>Prospecto / Rubro</div>
+            <div>Señales</div>
+            <div>Estado</div>
+            <div style="text-align: right;">Acciones</div>
+          </div>
+
+          <!-- Table Body -->
+          <div id="prospects-list-container">
+            <div style="text-align: center; padding: 50px; color: #8A8A9A; font-size: 0.9rem;">
+              Cargando lista de prospectos...
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <p style="color: #5A5A68; font-size: 0.75rem; margin-top: 20px; text-align: center;">
+        Panel de Prospección integrado · Los cambios locales se guardan en el sistema.
+      </p>
+
+    </main>
+  </div>
+
+  <!-- ADD PROSPECT MODAL -->
+  <div class="admin-modal-backdrop" id="add-prospect-modal">
+    <div class="admin-modal admin-modal-sm">
+      <header class="modal-header">
+        <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: white;">Agregar Nuevo Prospecto</h3>
+        <button id="btn-close-prospect-modal" class="admin-modal-close" type="button">✕</button>
+      </header>
+      
+      <div class="modal-body" style="display: block;">
+        <form id="add-prospect-form" style="display: flex; flex-direction: column; gap: 15px;">
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <label style="font-size: 0.75rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Nombre del Negocio *</label>
+            <input type="text" id="form-name" required placeholder="Ej. Gimnasio Zeus" style="width: 100%; padding: 10px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: #ECECF2; font-size: 0.85rem; outline: none; transition: border-color 0.15s;" />
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.75rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Rubro *</label>
+              <select id="form-rubro" required style="width: 100%; padding: 10px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: #ECECF2; font-size: 0.85rem; outline: none; cursor: pointer;">
+                <option value="Inmobiliaria">🏢 Inmobiliaria</option>
+                <option value="Gimnasio">🏋️ Gimnasio</option>
+                <option value="Estudio Contable">📊 Estudio Contable</option>
+                <option value="E-commerce">🛍️ E-commerce</option>
+                <option value="Centro Médico">🩺 Centro Médico</option>
+                <option value="Gastronomía">🍕 Gastronomía</option>
+                <option value="Distribuidora">📦 Distribuidora</option>
+                <option value="Estética">💅 Estética</option>
+              </select>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.75rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Ciudad *</label>
+              <input type="text" id="form-ciudad" required placeholder="Ej. Rosario" style="width: 100%; padding: 10px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: #ECECF2; font-size: 0.85rem; outline: none;" />
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.75rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Teléfono *</label>
+              <input type="text" id="form-telefono" required placeholder="Ej. +54 9 341 555 1010" style="width: 100%; padding: 10px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: #ECECF2; font-size: 0.85rem; outline: none;" />
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.75rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Rating Google Maps (1-5)</label>
+              <input type="number" id="form-rating" min="1" max="5" step="0.1" placeholder="Ej. 4.5" style="width: 100%; padding: 10px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: #ECECF2; font-size: 0.85rem; outline: none;" />
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.75rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Instagram (sin @)</label>
+              <input type="text" id="form-instagram" placeholder="Ej. zeus.gym" style="width: 100%; padding: 10px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: #ECECF2; font-size: 0.85rem; outline: none;" />
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.75rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Sitio Web (opcional)</label>
+              <input type="text" id="form-web" placeholder="Ej. zeusgym.com" style="width: 100%; padding: 10px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: #ECECF2; font-size: 0.85rem; outline: none;" />
+            </div>
+          </div>
+          
+          <footer style="margin-top: 15px; display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 15px;">
+            <button type="button" id="btn-cancel-prospect" class="prospect-btn prospect-text-btn" style="padding: 10px 18px;">Cancelar</button>
+            <button type="submit" class="prospect-btn" style="padding: 10px 22px; border: none; color: #0B0B11; font-weight: 600; font-family: 'Space Grotesk', sans-serif; background: linear-gradient(90deg, #B7A6FF, #FF8C7A); border-radius: 8px;">Agregar</button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANAGE RUBROS MODAL -->
+  <div class="admin-modal-backdrop" id="manage-rubros-modal">
+    <div class="admin-modal admin-modal-sm">
+      <header class="modal-header">
+        <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: white;">Gestionar Rubros</h3>
+        <button id="btn-close-rubros-modal" class="admin-modal-close" type="button">✕</button>
+      </header>
+      
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 15px;">
+        <!-- List of current Rubros -->
+        <div style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 5px;" id="rubros-list-container">
+          <!-- Rubros will be populated here -->
+        </div>
+        
+        <!-- Add new Rubro Form -->
+        <form id="add-rubro-form" style="border-top: 1px solid rgba(255,255,255,0.07); padding-top: 15px; display: flex; gap: 10px; align-items: flex-end;">
+          <div style="display: flex; flex-direction: column; gap: 6px; width: 60px;">
+            <label style="font-size: 0.7rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Emoji</label>
+            <input type="text" id="new-rubro-emoji" placeholder="🏢" required style="width: 100%; padding: 8px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: white; text-align: center; font-size: 1rem;" />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <label style="font-size: 0.7rem; color: #8A8A9A; font-weight: 600; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Nombre del Rubro</label>
+            <input type="text" id="new-rubro-name" placeholder="Ej. Logística" required style="width: 100%; padding: 8px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: white; font-size: 0.85rem;" />
+          </div>
+          <button type="submit" class="prospect-btn" style="padding: 10px 15px; height: 38px; border: none; color: #0B0B11; font-weight: 600; font-family: 'Space Grotesk', sans-serif; background: linear-gradient(90deg, #B7A6FF, #FF8C7A); border-radius: 8px;">Añadir</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<style is:global>
+  .prospect-row {
+    transition: background 0.15s ease;
+  }
+  .prospect-row:hover {
+    background: #1F1F2B !important;
+  }
+  
+  .prospect-btn {
+    transition: transform 0.12s ease, opacity 0.14s ease, background 0.14s ease, border-color 0.14s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .prospect-btn:hover {
+    transform: translateY(-1px);
+  }
+  .prospect-btn:active {
+    transform: translateY(0);
+  }
+
+  .prospect-ta {
+    transition: border-color 0.15s ease;
+  }
+  .prospect-ta:focus {
+    outline: none;
+    border-color: #B7A6FF !important;
+    box-shadow: 0 0 10px rgba(183, 166, 255, 0.1);
+  }
+
+  .prospect-sel {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .prospect-search-input:focus {
+    border-color: #B7A6FF !important;
+  }
+
+  .badge-p {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 999px;
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .prospect-icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #1A1A24;
+    border: 1px solid rgba(255,255,255,0.07);
+    color: #8A8A9A;
+    text-decoration: none;
+  }
+  .prospect-icon-btn:hover {
+    border-color: rgba(255,255,255,0.15);
+    color: #ECECF2;
+  }
+
+  .prospect-text-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: #14141C;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #ECECF2;
+    cursor: pointer;
+  }
+  .prospect-text-btn:hover {
+    background: #1F1F2B;
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  import { api } from '../../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    
+    // ==========================================================================
+    // 2. STATE & DOM ELEMENTS
+    // ==========================================================================
+    let rows: any[] = [];
+    let expandedId: string | null = null;
+    let searchQuery = '';
+    let statusFilter = 'todos';
+    let rubroFilter = 'todos';
+    let onlyNoWeb = false;
+    let onlyHasWeb = false;
+
+    const searchInput = document.getElementById('prospect-search-input') as HTMLInputElement;
+    const rubroSelect = document.getElementById('prospect-rubro-filter') as HTMLSelectElement;
+    const statusSelect = document.getElementById('prospect-status-filter') as HTMLSelectElement;
+    const onlyNoWebBtn = document.getElementById('btn-only-noweb') as HTMLButtonElement;
+    const listContainer = document.getElementById('prospects-list-container') as HTMLElement;
+    const addProspectBtn = document.getElementById('btn-add-prospect') as HTMLButtonElement;
+    const addProspectModal = document.getElementById('add-prospect-modal') as HTMLDivElement;
+    const closeProspectModalBtn = document.getElementById('btn-close-prospect-modal') as HTMLButtonElement;
+    const cancelProspectBtn = document.getElementById('btn-cancel-prospect') as HTMLButtonElement;
+    const addProspectForm = document.getElementById('add-prospect-form') as HTMLFormElement;
+
+    // Manage Rubros elements
+    const manageRubrosBtn = document.getElementById('btn-manage-rubros') as HTMLButtonElement;
+    const manageRubrosModal = document.getElementById('manage-rubros-modal') as HTMLDivElement;
+    const closeRubrosModalBtn = document.getElementById('btn-close-rubros-modal') as HTMLButtonElement;
+    const rubrosListContainer = document.getElementById('rubros-list-container') as HTMLDivElement;
+    const addRubroForm = document.getElementById('add-rubro-form') as HTMLFormElement;
+
+    // State definitions
+    const ESTADOS: Record<string, { label: string; color: string; bg: string }> = {
+      nuevo:            { label: "Nuevo",            color: "#8A8A9A", bg: "rgba(138,138,154,0.12)" },
+      mensaje_generado: { label: "Mensaje listo",    color: "#B7A6FF", bg: "rgba(183,166,255,0.14)" },
+      contactado:       { label: "Contactado",       color: "#6FA8FF", bg: "rgba(111,168,255,0.14)" },
+      respondio:        { label: "Respondió",        color: "#FFC9A3", bg: "rgba(255,201,163,0.16)" },
+      reunion:          { label: "Reunión",          color: "#5FD4C4", bg: "rgba(95,212,196,0.14)" },
+      cliente:          { label: "Cliente",          color: "#7BE08A", bg: "rgba(123,224,138,0.14)" },
+      descartado:       { label: "Descartado",       color: "#6A6A78", bg: "rgba(106,106,120,0.10)" },
+    };
+    const ORDEN_ESTADOS = Object.keys(ESTADOS);
+
+    // Rubros gestionables
+    let RUBROS: { name: string; emoji: string }[] = [];
+    const RUBRO_EMOJIS: Record<string, string> = {};
+
+    const DEFAULT_RUBROS = [
+      { name: "Inmobiliaria", emoji: "🏢" },
+      { name: "Gimnasio", emoji: "🏋️" },
+      { name: "Estudio Contable", emoji: "📊" },
+      { name: "E-commerce", emoji: "🛍️" },
+      { name: "Centro Médico", emoji: "🩺" },
+      { name: "Gastronomía", emoji: "🍕" },
+      { name: "Distribuidora", emoji: "📦" },
+      { name: "Estética", emoji: "💅" }
+    ];
+
+    function loadRubros() {
+      const stored = localStorage.getItem('mock_rubros');
+      if (stored) {
+        try {
+          RUBROS = JSON.parse(stored);
+        } catch (e) {
+          RUBROS = DEFAULT_RUBROS;
+        }
+      } else {
+        RUBROS = DEFAULT_RUBROS;
+        localStorage.setItem('mock_rubros', JSON.stringify(DEFAULT_RUBROS));
+      }
+
+      // Clear old keys
+      for (const key in RUBRO_EMOJIS) {
+        delete RUBRO_EMOJIS[key];
+      }
+      // Synchronize emojis
+      RUBROS.forEach(r => {
+        RUBRO_EMOJIS[r.name.toLowerCase()] = r.emoji;
+      });
+    }
+
+    function populateRubroSelects() {
+      if (rubroSelect) {
+        const prevVal = rubroSelect.value;
+        rubroSelect.innerHTML = '<option value="todos">Todos los rubros</option>';
+        RUBROS.forEach(r => {
+          const opt = document.createElement('option');
+          opt.value = r.name;
+          opt.innerText = `${r.emoji} ${r.name}`;
+          rubroSelect.appendChild(opt);
+        });
+        if (RUBROS.some(r => r.name === prevVal)) {
+          rubroSelect.value = prevVal;
+        } else {
+          rubroSelect.value = 'todos';
+          rubroFilter = 'todos';
+        }
+      }
+
+      const formRubroSelect = document.getElementById('form-rubro') as HTMLSelectElement;
+      if (formRubroSelect) {
+        formRubroSelect.innerHTML = '';
+        RUBROS.forEach(r => {
+          const opt = document.createElement('option');
+          opt.value = r.name;
+          opt.innerText = `${r.emoji} ${r.name}`;
+          formRubroSelect.appendChild(opt);
+        });
+      }
+    }
+
+    // Initial run
+    loadRubros();
+
+    // ==========================================================================
+    // 3. LISTENERS
+    // ==========================================================================
+    // Debounce helper
+    function debounce(func: Function, wait: number) {
+      let timeout: any;
+      return function(...args: any[]) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+      };
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', debounce((e: any) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        render();
+      }, 250));
+    }
+
+    if (rubroSelect) {
+      rubroSelect.addEventListener('change', (e: any) => {
+        rubroFilter = e.target.value;
+        render();
+      });
+    }
+
+    if (statusSelect) {
+      statusSelect.addEventListener('change', (e: any) => {
+        statusFilter = e.target.value;
+        render();
+      });
+    }
+
+    if (onlyNoWebBtn) {
+      onlyNoWebBtn.addEventListener('click', () => {
+        onlyNoWeb = !onlyNoWeb;
+        if (onlyNoWeb) {
+          onlyNoWebBtn.style.background = 'rgba(255,201,163,0.14)';
+          onlyNoWebBtn.style.borderColor = '#FFC9A3';
+          onlyNoWebBtn.style.color = '#FFC9A3';
+
+          // Disable has web
+          onlyHasWeb = false;
+          const onlyHasWebBtn = document.getElementById('btn-only-hasweb') as HTMLButtonElement;
+          if (onlyHasWebBtn) {
+            onlyHasWebBtn.style.background = '#14141C';
+            onlyHasWebBtn.style.borderColor = 'rgba(255,255,255,0.07)';
+            onlyHasWebBtn.style.color = '#8A8A9A';
+          }
+        } else {
+          onlyNoWebBtn.style.background = '#14141C';
+          onlyNoWebBtn.style.borderColor = 'rgba(255,255,255,0.07)';
+          onlyNoWebBtn.style.color = '#8A8A9A';
+        }
+        render();
+      });
+    }
+
+    const onlyHasWebBtn = document.getElementById('btn-only-hasweb') as HTMLButtonElement;
+    if (onlyHasWebBtn) {
+      onlyHasWebBtn.addEventListener('click', () => {
+        onlyHasWeb = !onlyHasWeb;
+        if (onlyHasWeb) {
+          onlyHasWebBtn.style.background = 'rgba(183,166,255,0.14)';
+          onlyHasWebBtn.style.borderColor = '#B7A6FF';
+          onlyHasWebBtn.style.color = '#B7A6FF';
+
+          // Disable no web
+          onlyNoWeb = false;
+          if (onlyNoWebBtn) {
+            onlyNoWebBtn.style.background = '#14141C';
+            onlyNoWebBtn.style.borderColor = 'rgba(255,255,255,0.07)';
+            onlyNoWebBtn.style.color = '#8A8A9A';
+          }
+        } else {
+          onlyHasWebBtn.style.background = '#14141C';
+          onlyHasWebBtn.style.borderColor = 'rgba(255,255,255,0.07)';
+          onlyHasWebBtn.style.color = '#8A8A9A';
+        }
+        render();
+      });
+    }
+
+    // ==========================================================================
+    // 4. DATA LOADER & RENDERER
+    // ==========================================================================
+    async function loadData() {
+      try {
+        const res = await api.db.listProspects();
+        rows = res.documents || [];
+        calculateStats();
+        render();
+      } catch (err) {
+        console.error("Error al cargar prospectos:", err);
+        listContainer.innerHTML = `
+          <div style="padding: 40px; text-align: center; color: #ef4444; font-size: 0.9rem;">
+            Error al conectar con la base de datos de prospectos.
+          </div>
+        `;
+      }
+    }
+
+    function calculateStats() {
+      const total = rows.length;
+      const sinWeb = rows.filter(r => !r.web).length;
+      // Use contactado_at timestamp as source of truth (more reliable than estado field)
+      const contactados = rows.filter(r => r.contactado_at || ['contactado', 'respondio', 'reunion', 'cliente'].includes(r.estado)).length;
+      const activos = rows.filter(r => !['descartado', 'cliente'].includes(r.estado)).length;
+
+      document.getElementById('stat-total')!.innerText = total.toString();
+      document.getElementById('stat-sinweb')!.innerText = sinWeb.toString();
+      document.getElementById('stat-contactados')!.innerText = contactados.toString();
+      document.getElementById('stat-activos')!.innerText = activos.toString();
+    }
+
+    // Priority score: higher = contact first
+    function getPriorityScore(r: any) {
+      const rubroL = (r.rubro || 'Inmobiliaria').toLowerCase();
+      let score = 0;
+
+      // Google rating (0-50 pts): higher rating = more established business = more budget
+      score += Math.round((r.rating || 0) * 10);
+
+      // Web presence (opportunity signal)
+      if (!r.web) {
+        // No web = clear opportunity to sell web dev
+        score += rubroL === 'e-commerce' || rubroL === 'distribuidora' ? 50 : 38;
+      } else {
+        // Has web = can sell automation/AI (smaller gap but real client)
+        score += 12;
+      }
+
+      // Instagram = active business with social audience
+      if (r.instagram) {
+        score += ['estética', 'gimnasio', 'gastronomía', 'e-commerce'].includes(rubroL) ? 22 : 12;
+      }
+
+      // Penalize already contacted (lower in queue)
+      if (r.contactado_at || r.estado === 'contactado') score -= 20;
+
+      // Discard = bottom
+      if (r.estado === 'descartado') score -= 200;
+
+      return score;
+    }
+
+    function render() {
+      if (!listContainer) return;
+
+      // Filter rows
+      const filtered = rows.filter(r => {
+        if (statusFilter !== 'todos' && r.estado !== statusFilter) return false;
+        if (rubroFilter !== 'todos' && r.rubro !== rubroFilter) return false;
+        if (onlyNoWeb && r.web) return false;
+        if (onlyHasWeb && !r.web) return false;
+        if (searchQuery) {
+          const t = ((r.nombre || "") + " " + (r.ciudad || "") + " " + (r.rubro || "") + " " + (r.telefono || "") + " " + (r.instagram || "")).toLowerCase();
+          if (!t.includes(searchQuery)) return false;
+        }
+        return true;
+      });
+
+      // Sort by Priority Score descending
+      const sorted = [...filtered].sort((a, b) => {
+        return getPriorityScore(b) - getPriorityScore(a);
+      });
+
+      if (sorted.length === 0) {
+        listContainer.innerHTML = `
+          <div class="admin-empty-state" style="border: none; margin: 20px;">
+            <div class="admin-empty-icon">🎯</div>
+            <h4 class="admin-empty-title">Sin prospectos encontrados</h4>
+            <p class="admin-empty-desc">No se encontraron prospectos comerciales con los filtros o la búsqueda seleccionada.</p>
+          </div>
+        `;
+        return;
+      }
+
+
+      listContainer.innerHTML = '';
+      sorted.forEach((r, idx) => {
+        const isOpen = expandedId === r.$id;
+        const est = ESTADOS[r.estado] || ESTADOS.nuevo;
+        const score = getPriorityScore(r);
+
+        // Create main row wrapper
+        const rowWrapper = document.createElement('div');
+        rowWrapper.setAttribute('data-id', r.$id);
+        rowWrapper.style.borderBottom = idx < sorted.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none';
+
+        // Main info row
+        const infoRow = document.createElement('div');
+        infoRow.className = 'prospect-row';
+        infoRow.style.display = 'grid';
+        infoRow.style.gridTemplateColumns = 'minmax(180px, 1.4fr) 1.1fr 150px 120px';
+        infoRow.style.padding = '14px 18px';
+        infoRow.style.alignItems = 'center';
+        infoRow.style.cursor = 'pointer';
+        infoRow.style.background = isOpen ? '#1A1A24' : 'transparent';
+
+        // Expand chevron + name & city
+        const chevronDirection = isOpen ? 'rotate(0)' : 'rotate(-90deg)';
+        const nameCol = document.createElement('div');
+        nameCol.style.display = 'flex';
+        nameCol.style.alignItems = 'center';
+        nameCol.style.gap = '11px';
+        nameCol.innerHTML = `
+          <span style="display: inline-block; color: #5A5A68; transform: ${chevronDirection}; transition: transform 0.15s ease; flex-shrink: 0; font-size: 0.75rem;">▼</span>
+          <div>
+            <div style="font-weight: 600; font-size: 0.9rem; letter-spacing: -0.01em; color: white;">${r.nombre}</div>
+            <div style="color: #8A8A9A; font-size: 0.775rem; margin-top: 2px;">${r.ciudad}</div>
+          </div>
+        `;
+        nameCol.addEventListener('click', async () => {
+          const wasClosed = !isOpen;
+          expandedId = wasClosed ? r.$id : null;
+          render();
+
+          // Auto-generate full sequence on first open
+          if (wasClosed && !r.mensaje) {
+            const rowRegenBtn = listContainer.querySelector(`[data-id="${r.$id}"] .btn-regen`) as HTMLButtonElement;
+            if (rowRegenBtn) {
+              rowRegenBtn.disabled = true;
+              rowRegenBtn.innerHTML = `<span style="display:inline-block; animation:spin 1s linear infinite; margin-right:4px;">🔄</span> Generando secuencia...`;
+            }
+            try {
+              const controller = new AbortController();
+              const timeout = setTimeout(() => controller.abort(), 30000);
+              const res = await fetch('/api/generate-message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prospecto: r, tono: r.tono || 'informal' }),
+                signal: controller.signal
+              });
+              clearTimeout(timeout);
+              if (!res.ok) throw new Error('Server error');
+              const data = await res.json();
+              // Store all 3 messages
+              r.mensaje = data.mensajes?.apertura || data.mensaje || '';
+              r.mensaje_seguimiento = data.mensajes?.seguimiento || '';
+              r.mensaje_reenganche = data.mensajes?.reenganche || '';
+              r.isMockMessage = data.isMock || false;
+              if (r.estado === 'nuevo') r.estado = 'mensaje_generado';
+              calculateStats();
+              await api.db.updateProspect(r.$id, {
+                mensaje: r.mensaje,
+                mensaje_seguimiento: r.mensaje_seguimiento,
+                mensaje_reenganche: r.mensaje_reenganche,
+                estado: r.estado,
+                isMockMessage: r.isMockMessage
+              });
+              render();
+            } catch (err: any) {
+              console.error('Error al generar secuencia:', err);
+              if (rowRegenBtn) rowRegenBtn.disabled = false;
+            } finally {
+              if (rowRegenBtn) {
+                rowRegenBtn.disabled = false;
+                rowRegenBtn.innerHTML = `🔄 Regenerar`;
+              }
+            }
+          }
+        });
+        infoRow.appendChild(nameCol);
+
+        // Signals Column
+        const signalsCol = document.createElement('div');
+        signalsCol.style.display = 'flex';
+        signalsCol.style.gap = '8px';
+        signalsCol.style.alignItems = 'center';
+        signalsCol.style.flexWrap = 'wrap';
+
+        const rubroKey = (r.rubro || "Inmobiliaria").toLowerCase();
+        const emoji = RUBRO_EMOJIS[rubroKey] || "🏢";
+
+        let signalsHtml = `<span class="admin-badge admin-badge-indigo">${emoji} ${r.rubro}</span>`;
+        if (!r.web) {
+          signalsHtml += ` <span class="admin-badge admin-badge-orange">⚠️ sin web</span>`;
+        }
+        if (r.instagram) {
+          signalsHtml += ` <span class="admin-badge admin-badge-cyan">📸 IG</span>`;
+        }
+        signalsHtml += `
+          <span style="display: inline-flex; align-items: center; gap: 3px; color: #8A8A9A; font-size: 0.775rem; margin-left: 4px;">
+            ⭐ ${r.rating}
+          </span>
+          <span class="admin-badge admin-badge-muted" style="margin-left: 4px;">Score: ${score}</span>
+        `;
+        signalsCol.innerHTML = signalsHtml;
+        infoRow.appendChild(signalsCol);
+
+        // Status select dropdown
+        const statusCol = document.createElement('div');
+        const selectContainer = document.createElement('div');
+        selectContainer.style.position = 'relative';
+        selectContainer.style.display = 'inline-block';
+
+        const inlineSelect = document.createElement('select');
+        inlineSelect.className = 'prospect-sel';
+        inlineSelect.style.cssText = `
+          background: ${est.bg}; 
+          color: ${est.color}; 
+          border: 1px solid ${est.color}33; 
+          border-radius: 999px; 
+          padding: 4px 22px 4px 10px; 
+          font-size: 0.75rem; 
+          font-weight: 600; 
+          font-family: 'Space Grotesk', sans-serif;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' fill='none' stroke='%23${est.color.slice(1)}' stroke-width='2'%3E%3Cpath d='M1 2.5l3 3 3-3'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 8px center;
+        `;
+        
+        ORDEN_ESTADOS.forEach(k => {
+          const opt = document.createElement('option');
+          opt.value = k;
+          opt.innerText = ESTADOS[k].label;
+          opt.style.background = '#1A1A24';
+          opt.style.color = '#ECECF2';
+          if (k === r.estado) opt.selected = true;
+          inlineSelect.appendChild(opt);
+        });
+
+        inlineSelect.addEventListener('change', async (e: any) => {
+          const newStatus = e.target.value;
+          r.estado = newStatus;
+          calculateStats();
+          render();
+          try {
+            await api.db.updateProspect(r.$id, { estado: newStatus });
+          } catch (err) {
+            console.error("Error al actualizar estado:", err);
+          }
+        });
+
+        selectContainer.appendChild(inlineSelect);
+        statusCol.appendChild(selectContainer);
+        infoRow.appendChild(statusCol);
+
+        // Quick Actions Column
+        const actionsCol = document.createElement('div');
+        actionsCol.style.display = 'flex';
+        actionsCol.style.gap = '8px';
+        actionsCol.style.justifyContent = 'flex-end';
+
+        if (r.instagram) {
+          const igLink = document.createElement('a');
+          igLink.href = `https://instagram.com/${r.instagram}`;
+          igLink.target = '_blank';
+          igLink.rel = 'noopener noreferrer';
+          igLink.className = 'prospect-btn prospect-icon-btn';
+          igLink.title = `@${r.instagram}`;
+          igLink.innerHTML = `📸`;
+          actionsCol.appendChild(igLink);
+        }
+
+        const waQuickBtn = document.createElement('button');
+        waQuickBtn.className = 'prospect-btn prospect-icon-btn';
+        waQuickBtn.style.background = 'rgba(123,224,138,0.08)';
+        waQuickBtn.style.borderColor = 'rgba(123,224,138,0.22)';
+        waQuickBtn.style.color = '#7BE08A';
+        waQuickBtn.title = 'Abrir WhatsApp rápido';
+        waQuickBtn.innerHTML = `💬`;
+        waQuickBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          abrirWhatsApp(r);
+        });
+        actionsCol.appendChild(waQuickBtn);
+
+        infoRow.appendChild(actionsCol);
+        rowWrapper.appendChild(infoRow);
+
+        // Expanded message editor panel
+        if (isOpen) {
+          const editorPanel = document.createElement('div');
+          editorPanel.style.padding = '4px 18px 20px 44px';
+          editorPanel.style.background = '#1A1A24';
+
+          // 1. Details Section (View & Edit Mode)
+          const detailsSection = document.createElement('div');
+          detailsSection.style.cssText = 'background: #0B0B11; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;';
+          
+          const inEdit = r.inEditMode || false;
+          if (!inEdit) {
+            // View Mode
+            detailsSection.innerHTML = `
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.725rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Datos del Prospecto</span>
+                <button class="btn-edit-prospect" style="background:transparent; border:none; color:#B7A6FF; cursor:pointer; font-size:0.8rem; font-weight: 600;">✏️ Editar</button>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 0.85rem; margin-top: 6px;">
+                <div><span style="color:#5A5A68;">Nombre:</span> <strong style="color:white;">${r.nombre}</strong></div>
+                <div><span style="color:#5A5A68;">Rubro:</span> <span style="color:#ECECF2;">${r.rubro}</span></div>
+                <div><span style="color:#5A5A68;">Ciudad:</span> <span style="color:#ECECF2;">${r.ciudad}</span></div>
+                <div><span style="color:#5A5A68;">Teléfono:</span> <span style="color:#ECECF2;">${r.telefono}</span></div>
+                <div><span style="color:#5A5A68;">Web:</span> ${r.web ? `<a href="https://${r.web}" target="_blank" rel="noopener noreferrer" style="color:#B7A6FF; text-decoration:none;">🌐 ${r.web}</a>` : `<span style="color:#FFC9A3;">⚠️ sin web</span>`}</div>
+                <div><span style="color:#5A5A68;">Instagram:</span> ${r.instagram ? `<a href="https://instagram.com/${r.instagram}" target="_blank" rel="noopener noreferrer" style="color:#6FA8FF; text-decoration:none;">📸 @${r.instagram}</a>` : `<span style="color:#5A5A68;">No asignado</span>`}</div>
+              </div>
+            `;
+            const editBtn = detailsSection.querySelector('.btn-edit-prospect');
+            if (editBtn) {
+              editBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                r.inEditMode = true;
+                render();
+              });
+            }
+          } else {
+            // Edit Mode
+            detailsSection.innerHTML = `
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 0.725rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;">Editar Datos</span>
+                <div style="display:flex; gap: 8px;">
+                  <button class="btn-cancel-edit" style="background:transparent; border:none; color:#FF8C7A; cursor:pointer; font-size:0.8rem; font-weight:600;">Cancelar</button>
+                  <button class="btn-save-edit" style="background:transparent; border:none; color:#7BE08A; cursor:pointer; font-size:0.8rem; font-weight:600;">✔️ Guardar</button>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 0.8rem;">
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <label style="color:#5A5A68;">Nombre:</label>
+                  <input type="text" class="edit-nombre" value="${r.nombre}" style="background:#14141C; border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:4px 8px; color:white;" />
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <label style="color:#5A5A68;">Rubro:</label>
+                  <select class="edit-rubro" style="background:#14141C; border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:4px 8px; color:white; cursor:pointer;">
+                    ${RUBROS.map(rub => `<option value="${rub.name}" ${rub.name === r.rubro ? 'selected' : ''}>${rub.emoji} ${rub.name}</option>`).join('')}
+                  </select>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <label style="color:#5A5A68;">Ciudad:</label>
+                  <input type="text" class="edit-ciudad" value="${r.ciudad}" style="background:#14141C; border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:4px 8px; color:white;" />
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <label style="color:#5A5A68;">Teléfono:</label>
+                  <input type="text" class="edit-telefono" value="${r.telefono}" style="background:#14141C; border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:4px 8px; color:white;" />
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <label style="color:#5A5A68;">Web (opcional):</label>
+                  <input type="text" class="edit-web" value="${r.web || ''}" placeholder="sin-web.com" style="background:#14141C; border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:4px 8px; color:white;" />
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <label style="color:#5A5A68;">Instagram (sin @):</label>
+                  <input type="text" class="edit-instagram" value="${r.instagram || ''}" placeholder="nombre.ig" style="background:#14141C; border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:4px 8px; color:white;" />
+                </div>
+              </div>
+            `;
+            
+            detailsSection.querySelector('.btn-cancel-edit')!.addEventListener('click', (e) => {
+              e.stopPropagation();
+              r.inEditMode = false;
+              render();
+            });
+            
+            detailsSection.querySelector('.btn-save-edit')!.addEventListener('click', async (e) => {
+              e.stopPropagation();
+              const editNombre = (detailsSection.querySelector('.edit-nombre') as HTMLInputElement).value.trim();
+              const editRubro = (detailsSection.querySelector('.edit-rubro') as HTMLSelectElement).value;
+              const editCiudad = (detailsSection.querySelector('.edit-ciudad') as HTMLInputElement).value.trim();
+              const editTelefono = (detailsSection.querySelector('.edit-telefono') as HTMLInputElement).value.trim();
+              let editWeb = (detailsSection.querySelector('.edit-web') as HTMLInputElement).value.trim() || null;
+              let editInstagram = (detailsSection.querySelector('.edit-instagram') as HTMLInputElement).value.trim() || null;
+              
+              if (editWeb) editWeb = editWeb.replace(/^(https?:\/\/)?(www\.)?/, "");
+              if (editInstagram) editInstagram = editInstagram.replace(/^@/, "");
+              
+              if (!editNombre || !editTelefono || !editCiudad) {
+                alert("Nombre, Teléfono y Ciudad son obligatorios.");
+                return;
+              }
+              
+              r.nombre = editNombre;
+              r.rubro = editRubro;
+              r.ciudad = editCiudad;
+              r.telefono = editTelefono;
+              r.web = editWeb;
+              r.instagram = editInstagram;
+              r.inEditMode = false;
+              
+              calculateStats();
+              render();
+              
+              try {
+                await api.db.updateProspect(r.$id, {
+                  nombre: r.nombre,
+                  rubro: r.rubro,
+                  ciudad: r.ciudad,
+                  telefono: r.telefono,
+                  web: r.web,
+                  instagram: r.instagram
+                });
+              } catch (err) {
+                console.error("Error al guardar cambios de prospecto:", err);
+              }
+            });
+          }
+          editorPanel.appendChild(detailsSection);
+
+          // 2. Tone bar + message stage tabs
+          const toneContainer = document.createElement('div');
+          toneContainer.style.cssText = 'display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;';
+
+          const toneLabel = document.createElement('span');
+          toneLabel.style.cssText = "font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5A5A68; font-weight: 600; font-family: 'Space Grotesk', sans-serif;";
+          toneLabel.innerText = "Tono:";
+          toneContainer.appendChild(toneLabel);
+
+          const toneSelect = document.createElement('select');
+          toneSelect.className = 'prospect-sel';
+          toneSelect.style.cssText = `background:#0B0B11;color:#ECECF2;border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:3px 20px 3px 8px;font-size:0.75rem;font-weight:600;font-family:'Space Grotesk',sans-serif;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' fill='none' stroke='%23ECECF2' stroke-width='2'%3E%3Cpath d='M1 2.5l3 3 3-3'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center;`;
+
+          const toneVal = r.tono || 'informal';
+          [['informal', 'Vos (Informal)'], ['corporativo', 'Usted (Corporativo)'], ['directo', 'Directo / Comercial']].forEach(([val, lbl]) => {
+            const opt = document.createElement('option');
+            opt.value = val; opt.innerText = lbl;
+            opt.style.background = '#1A1A24'; opt.style.color = '#ECECF2';
+            if (val === toneVal) opt.selected = true;
+            toneSelect.appendChild(opt);
+          });
+          toneSelect.addEventListener('change', async (e: any) => {
+            r.tono = e.target.value;
+            await api.db.updateProspect(r.$id, { tono: r.tono }).catch(() => {});
+          });
+          toneContainer.appendChild(toneSelect);
+
+          if (r.isMockMessage) {
+            const mockIndicator = document.createElement('span');
+            mockIndicator.style.cssText = 'font-size:0.7rem;color:#FFC9A3;background:rgba(255,201,163,0.08);padding:2px 6px;border-radius:4px;font-weight:500;';
+            mockIndicator.innerText = '⚠️ Local (falta OPENAI_API_KEY)';
+            toneContainer.appendChild(mockIndicator);
+          }
+          editorPanel.appendChild(toneContainer);
+
+          // 3. Stage tabs + Textarea
+          const ETAPAS: [string, string, string][] = [
+            ['apertura', '1° Apertura', '#B7A6FF'],
+            ['seguimiento', '2° Seguimiento (3 días)', '#FFC9A3'],
+            ['reenganche', '3° Reenganche (2 semanas)', '#76E68C']
+          ];
+
+          // Map etapa key → prospect field
+          const getMsgField = (etapa: string) =>
+            etapa === 'apertura' ? 'mensaje' : etapa === 'seguimiento' ? 'mensaje_seguimiento' : 'mensaje_reenganche';
+
+          let activeEtapa = 'apertura';
+
+          const tabBar = document.createElement('div');
+          tabBar.style.cssText = 'display:flex;gap:4px;margin-bottom:8px;';
+
+          const textarea = document.createElement('textarea');
+          textarea.className = 'prospect-ta';
+          textarea.rows = 4;
+          textarea.style.cssText = `width:100%;background:#0B0B11;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px;color:#ECECF2;font-size:0.85rem;line-height:1.55;resize:vertical;font-family:'Inter',sans-serif;`;
+
+          const charCounter = document.createElement('span');
+          charCounter.className = 'char-counter';
+          charCounter.style.cssText = 'font-size:0.75rem;color:#5A5A68;';
+
+          const syncTextarea = () => {
+            const val = (r as any)[getMsgField(activeEtapa)] || '';
+            textarea.value = val;
+            charCounter.innerText = `${val.length} caracteres`;
+          };
+
+          ETAPAS.forEach(([key, label, color]) => {
+            const tab = document.createElement('button');
+            tab.innerText = label;
+            tab.dataset.etapa = key;
+            const isActive = key === 'apertura';
+            tab.style.cssText = `font-size:0.7rem;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid ${isActive ? color : 'rgba(255,255,255,0.08)'};background:${isActive ? `${color}22` : 'transparent'};color:${isActive ? color : '#5A5A68'};cursor:pointer;transition:all 0.15s;font-family:'Space Grotesk',sans-serif;`;
+            tab.addEventListener('click', () => {
+              activeEtapa = key;
+              tabBar.querySelectorAll('button').forEach((b: any) => {
+                const bKey = b.dataset.etapa;
+                const bColor = ETAPAS.find(e => e[0] === bKey)?.[2] || '#fff';
+                b.style.border = `1px solid ${bKey === key ? bColor : 'rgba(255,255,255,0.08)'}`;
+                b.style.background = bKey === key ? `${bColor}22` : 'transparent';
+                b.style.color = bKey === key ? bColor : '#5A5A68';
+              });
+              syncTextarea();
+            });
+            tabBar.appendChild(tab);
+          });
+
+          syncTextarea();
+
+          textarea.addEventListener('input', (e: any) => {
+            (r as any)[getMsgField(activeEtapa)] = e.target.value;
+            charCounter.innerText = `${e.target.value.length} caracteres`;
+          });
+          textarea.addEventListener('blur', async () => {
+            const field = getMsgField(activeEtapa);
+            await api.db.updateProspect(r.$id, { [field]: (r as any)[field] }).catch(() => {});
+          });
+
+          editorPanel.appendChild(tabBar);
+          editorPanel.appendChild(textarea);
+
+          // 4. Notes Textarea
+          const notesContainer = document.createElement('div');
+          notesContainer.style.cssText = 'margin-top: 12px; display: flex; flex-direction: column; gap: 6px;';
+          
+          const notesLabel = document.createElement('span');
+          notesLabel.style.cssText = "font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5A5A68; font-weight: 600; font-family: 'Space Grotesk', sans-serif;";
+          notesLabel.innerText = "Notas de Seguimiento (CRM)";
+          notesContainer.appendChild(notesLabel);
+          
+          const notesTextarea = document.createElement('textarea');
+          notesTextarea.className = 'prospect-ta';
+          notesTextarea.value = r.notas || '';
+          notesTextarea.rows = 2;
+          notesTextarea.placeholder = 'Escribe aquí observaciones sobre el contacto (ej. "Reunión agendada para el lunes"). Se guarda automáticamente al hacer click afuera.';
+          notesTextarea.style.cssText = `
+            width: 100%; 
+            background: #0B0B11; 
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px; 
+            padding: 10px 12px; 
+            color: #ECECF2; 
+            font-size: 0.825rem;
+            line-height: 1.45; 
+            resize: vertical; 
+            font-family: 'Inter', sans-serif;
+          `;
+          
+          notesTextarea.addEventListener('input', (e: any) => {
+            r.notas = e.target.value;
+          });
+          
+          notesTextarea.addEventListener('blur', async () => {
+            try {
+              await api.db.updateProspect(r.$id, { notas: r.notas });
+            } catch (err) {
+              console.error("Error al guardar notas:", err);
+            }
+          });
+          notesContainer.appendChild(notesTextarea);
+          editorPanel.appendChild(notesContainer);
+
+          // 5. Controls footer
+          const controlsRow = document.createElement('div');
+          controlsRow.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px;';
+          controlsRow.appendChild(charCounter);
+
+          const buttonsWrapper = document.createElement('div');
+          buttonsWrapper.style.display = 'flex';
+          buttonsWrapper.style.gap = '8px';
+          buttonsWrapper.style.flexWrap = 'wrap';
+
+          // Regenerate Button — generates full 3-message sequence with 30s timeout
+          const regenBtn = document.createElement('button');
+          regenBtn.className = 'prospect-btn prospect-text-btn btn-regen';
+          regenBtn.innerHTML = `🔄 Regenerar`;
+          regenBtn.addEventListener('click', async () => {
+            regenBtn.disabled = true;
+            regenBtn.innerHTML = `<span style="display:inline-block;animation:spin 1s linear infinite;margin-right:4px;">🔄</span> Generando...`;
+            try {
+              const controller = new AbortController();
+              const timeout = setTimeout(() => controller.abort(), 30000);
+              const res = await fetch('/api/generate-message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prospecto: r, tono: r.tono || 'informal' }),
+                signal: controller.signal
+              });
+              clearTimeout(timeout);
+              if (!res.ok) throw new Error('Server error ' + res.status);
+              const data = await res.json();
+              r.mensaje = data.mensajes?.apertura || data.mensaje || '';
+              r.mensaje_seguimiento = data.mensajes?.seguimiento || '';
+              r.mensaje_reenganche = data.mensajes?.reenganche || '';
+              r.isMockMessage = data.isMock || false;
+              syncTextarea();
+              if (r.estado === 'nuevo') r.estado = 'mensaje_generado';
+              calculateStats();
+              await api.db.updateProspect(r.$id, {
+                mensaje: r.mensaje,
+                mensaje_seguimiento: r.mensaje_seguimiento,
+                mensaje_reenganche: r.mensaje_reenganche,
+                estado: r.estado,
+                isMockMessage: r.isMockMessage
+              });
+            } catch (err: any) {
+              const msg = err.name === 'AbortError' ? 'Tiempo de espera agotado (30s). Intenta de nuevo.' : `Error: ${err.message}`;
+              regenBtn.innerHTML = `⚠️ ${msg}`;
+              setTimeout(() => { regenBtn.innerHTML = `🔄 Regenerar`; regenBtn.disabled = false; }, 3000);
+              return;
+            }
+            regenBtn.disabled = false;
+            regenBtn.innerHTML = `🔄 Regenerar`;
+          });
+          buttonsWrapper.appendChild(regenBtn);
+
+          // Copy Button — copies the currently active stage message
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'prospect-btn prospect-text-btn';
+          copyBtn.innerHTML = `📋 Copiar`;
+          copyBtn.addEventListener('click', () => {
+            const text = (r as any)[getMsgField(activeEtapa)] || '';
+            navigator.clipboard.writeText(text).then(() => {
+              copyBtn.innerHTML = `✅ Copiado`;
+              setTimeout(() => { copyBtn.innerHTML = `📋 Copiar`; }, 1400);
+            });
+          });
+          buttonsWrapper.appendChild(copyBtn);
+
+          // Delete Button
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'prospect-btn prospect-text-btn';
+          deleteBtn.style.color = '#FF8C7A';
+          deleteBtn.style.borderColor = 'rgba(255, 140, 122, 0.15)';
+          deleteBtn.style.background = 'rgba(255, 140, 122, 0.05)';
+          deleteBtn.innerHTML = `🗑️ Eliminar`;
+          deleteBtn.addEventListener('click', async () => {
+            if (confirm(`¿Estás seguro de que deseas eliminar el prospecto "${r.nombre}"?`)) {
+              try {
+                await api.db.deleteProspect(r.$id);
+                rows = rows.filter(item => item.$id !== r.$id);
+                expandedId = null;
+                calculateStats();
+                render();
+              } catch (err) {
+                console.error("Error al eliminar prospecto:", err);
+                alert("No se pudo eliminar el prospecto de la base de datos.");
+              }
+            }
+          });
+          buttonsWrapper.appendChild(deleteBtn);
+
+          // Convert to CRM Lead Button
+          const crmBtn = document.createElement('button');
+          crmBtn.className = 'prospect-btn prospect-text-btn';
+          crmBtn.style.color = '#B7A6FF';
+          crmBtn.style.borderColor = 'rgba(183, 166, 255, 0.15)';
+          crmBtn.style.background = 'rgba(183, 166, 255, 0.05)';
+          crmBtn.innerHTML = `🚀 Pasar a CRM`;
+          crmBtn.addEventListener('click', async () => {
+            crmBtn.disabled = true;
+            crmBtn.innerHTML = `⌛ Procesando...`;
+            try {
+              const newLead = {
+                name: r.nombre,
+                business: r.nombre,
+                whatsapp: formatWhatsAppNumber(r.telefono),
+                email: '',
+                message: r.mensaje || 'Prospecto contactado vía prospección fría.',
+                status: 'nuevo',
+                notes: r.notas || 'Prospecto importado de la sección de prospección.',
+                tags: r.rubro,
+                score: getPriorityScore(r),
+                recommendations: `Ofrecer optimizaciones para el rubro ${r.rubro}.`
+              };
+              
+              await api.db.createLead(newLead);
+              
+              r.estado = 'reunion';
+              calculateStats();
+              render();
+              
+              await api.db.updateProspect(r.$id, { estado: r.estado });
+              alert(`¡Prospecto "${r.nombre}" transferido con éxito al embudo comercial (Pipeline CRM) como Lead!`);
+            } catch (err) {
+              console.error("Error al transferir prospecto a CRM:", err);
+              alert("Error al transferir el prospecto. Verifica la base de datos.");
+            } finally {
+              crmBtn.disabled = false;
+              crmBtn.innerHTML = `🚀 Pasar a CRM`;
+            }
+          });
+          buttonsWrapper.appendChild(crmBtn);
+
+          // Open WhatsApp Button
+          const waBtn = document.createElement('button');
+          waBtn.className = 'prospect-btn';
+          waBtn.style.cssText = `
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            padding: 8px 16px;
+            border-radius: 10px; 
+            font-size: 0.825rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            border: none;
+            color: #0B0B11; 
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(90deg, #B7A6FF, #FF8C7A);
+          `;
+          // Send via Cockpit Button
+          const cockpitBtn = document.createElement('button');
+          cockpitBtn.className = 'prospect-btn';
+          cockpitBtn.style.cssText = `
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            padding: 8px 16px;
+            border-radius: 10px; 
+            font-size: 0.825rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            border: 1px solid rgba(183, 166, 255, 0.3);
+            color: #B7A6FF; 
+            font-family: 'Space Grotesk', sans-serif;
+            background: rgba(183, 166, 255, 0.05);
+          `;
+          cockpitBtn.innerHTML = `💬 Enviar desde Cockpit`;
+          cockpitBtn.addEventListener('click', async () => {
+            const num = formatWhatsAppNumber(r.telefono);
+            
+            // Mark as contacted in prospección list
+            if (['nuevo', 'mensaje_generado'].includes(r.estado)) {
+              r.estado = 'contactado';
+              r.contactado_at = new Date().toISOString();
+              calculateStats();
+              render();
+              try {
+                await api.db.updateProspect(r.$id, {
+                  estado: r.estado,
+                  contactado_at: r.contactado_at
+                });
+              } catch (err) {
+                console.error("Error al actualizar estado post-whatsapp-cockpit:", err);
+              }
+            }
+
+            const targetUrl = `/admin/whatsapp?initPhone=${num}&initMsg=${encodeURIComponent(r.mensaje)}&initName=${encodeURIComponent(r.nombre)}&initRubro=${encodeURIComponent(r.rubro)}&initCity=${encodeURIComponent(r.ciudad)}&initInstagram=${encodeURIComponent(r.instagram || '')}`;
+            window.location.href = targetUrl;
+          });
+          buttonsWrapper.appendChild(cockpitBtn);
+
+          waBtn.innerHTML = `🌐 WhatsApp Web`;
+          waBtn.addEventListener('click', () => {
+            abrirWhatsApp(r);
+          });
+          buttonsWrapper.appendChild(waBtn);
+
+          controlsRow.appendChild(buttonsWrapper);
+          editorPanel.appendChild(controlsRow);
+
+          // Contacted date footer
+          if (r.contactado_at) {
+            const dateStr = new Date(r.contactado_at).toLocaleString("es-AR", {
+              day: "2-digit",
+              month: "short",
+              hour: "2-digit",
+              minute: "2-digit"
+            });
+            const timestampDiv = document.createElement('div');
+            timestampDiv.style.cssText = 'font-size: 0.725rem; color: #5A5A68; margin-top: 8px;';
+            timestampDiv.innerText = `Contactado · ${dateStr}`;
+            editorPanel.appendChild(timestampDiv);
+          }
+
+          editorPanel.addEventListener('click', (e) => e.stopPropagation());
+          rowWrapper.appendChild(editorPanel);
+        }
+
+        listContainer.appendChild(rowWrapper);
+      });
+    }
+
+    function formatWhatsAppNumber(phone: string) {
+      let cleaned = phone.replace(/\D/g, "");
+      if (!cleaned) return "";
+
+      if (cleaned.startsWith("0")) {
+        cleaned = cleaned.substring(1);
+      }
+      
+      if (cleaned.startsWith("54")) {
+        if (cleaned.length === 12 && !cleaned.startsWith("549")) {
+          cleaned = "549" + cleaned.substring(2);
+        }
+      } else {
+        if (cleaned.length === 10) {
+          cleaned = "549" + cleaned;
+        } else if (cleaned.length === 12 && cleaned.startsWith("15")) {
+          cleaned = "549" + cleaned.substring(2);
+        } else if (cleaned.length === 11 && cleaned.startsWith("9")) {
+          cleaned = "54" + cleaned;
+        } else {
+          if (cleaned.length === 10) {
+            cleaned = "549" + cleaned;
+          } else if (cleaned.length < 10) {
+            cleaned = "549341" + cleaned;
+          }
+        }
+      }
+
+      if (cleaned.startsWith("54") && cleaned.length === 12) {
+        cleaned = "549" + cleaned.substring(2);
+      }
+
+      return cleaned;
+    }
+
+    function abrirWhatsApp(r: any) {
+      const num = formatWhatsAppNumber(r.telefono);
+      const url = `https://wa.me/${num}?text=${encodeURIComponent(r.mensaje)}`;
+      window.open(url, "_blank", "noopener");
+      
+      if (['nuevo', 'mensaje_generado'].includes(r.estado)) {
+        r.estado = 'contactado';
+        r.contactado_at = new Date().toISOString();
+        calculateStats();
+        render();
+        api.db.updateProspect(r.$id, {
+          estado: r.estado,
+          contactado_at: r.contactado_at
+        }).catch(err => console.error("Error al actualizar estado post-whatsapp:", err));
+      }
+    }
+
+    // ==========================================================================
+    // 5. OUTSCRAPER CSV IMPORT LOGIC
+    // ==========================================================================
+    const csvFileInput = document.getElementById('csv-file-input') as HTMLInputElement;
+
+    if (csvFileInput) {
+      csvFileInput.addEventListener('change', async (e: any) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (evt: any) => {
+          const text = evt.target.result;
+          try {
+            const parsedLeads = parseOutscraperCSV(text);
+            if (parsedLeads.length === 0) {
+              alert("No se encontraron leads válidos en el CSV. Verifica el formato.");
+              return;
+            }
+
+            if (confirm(`Se detectaron ${parsedLeads.length} prospectos en el archivo. ¿Deseas importarlos?`)) {
+              let successCount = 0;
+              // Show a temporary loading indicator
+              listContainer.innerHTML = `
+                <div style="text-align: center; padding: 50px; color: #8A8A9A; font-size: 0.9rem;">
+                  <span class="spinner" style="display:inline-block; animation:spin 1s linear infinite; margin-right:4px;">🔄</span>
+                  Importando ${parsedLeads.length} prospectos a la base de datos...
+                </div>
+              `;
+
+              for (const lead of parsedLeads) {
+                try {
+                  const saved = await api.db.createProspect(lead);
+                  rows.unshift(saved);
+                  successCount++;
+                } catch (err) {
+                  console.error("Error al importar lead individual:", err);
+                }
+              }
+
+              alert(`¡Importación completada! ${successCount} de ${parsedLeads.length} prospectos importados con éxito.`);
+              calculateStats();
+              render();
+            }
+          } catch (err) {
+            console.error("Error parsing CSV:", err);
+            alert("Error al procesar el archivo CSV. Asegúrate de que sea un archivo CSV válido.");
+          } finally {
+            csvFileInput.value = ''; // Reset file input
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    if (document.getElementById('btn-import-csv')) {
+      document.getElementById('btn-import-csv')!.addEventListener('click', () => {
+        csvFileInput.click();
+      });
+    }
+
+    function parseOutscraperCSV(text: string) {
+      const lines = text.split(/\r?\n/);
+      if (lines.length < 2) return [];
+
+      // Auto-detect delimiter (, or ;)
+      const firstLine = lines[0];
+      const commas = (firstLine.match(/,/g) || []).length;
+      const semicolons = (firstLine.match(/;/g) || []).length;
+      const delimiter = semicolons > commas ? ';' : ',';
+
+      const headers = parseCSVLine(lines[0], delimiter);
+      const indexMap: Record<string, number> = {
+        nombre: -1,
+        telefono: -1,
+        web: -1,
+        rating: -1,
+        ciudad: -1,
+        rubro: -1,
+        instagram: -1
+      };
+
+      headers.forEach((h, idx) => {
+        const cleanHeader = h.toLowerCase().trim().replace(/["']/g, '');
+        if (['name', 'business name', 'nombre', 'title', 'company'].includes(cleanHeader)) {
+          indexMap.nombre = idx;
+        } else if (['phone', 'telefono', 'international_phone_number', 'full_phone'].includes(cleanHeader)) {
+          indexMap.telefono = idx;
+        } else if (['site', 'website', 'web', 'homepage'].includes(cleanHeader)) {
+          indexMap.web = idx;
+        } else if (['rating', 'google_rating', 'puntuacion', 'stars'].includes(cleanHeader)) {
+          indexMap.rating = idx;
+        } else if (['city', 'ciudad', 'locality', 'municipality'].includes(cleanHeader)) {
+          indexMap.ciudad = idx;
+        } else if (['category', 'categories', 'subtypes', 'rubro', 'type', 'industry'].includes(cleanHeader)) {
+          indexMap.rubro = idx;
+        } else if (['instagram', 'ig', 'social_instagram', 'instagram_profile'].includes(cleanHeader)) {
+          indexMap.instagram = idx;
+        }
+      });
+
+      if (indexMap.nombre === -1) indexMap.nombre = 0;
+      if (indexMap.telefono === -1) {
+        headers.forEach((h, idx) => {
+          if (h.toLowerCase().includes('phone') || h.toLowerCase().includes('tel')) {
+            indexMap.telefono = idx;
+          }
+        });
+      }
+
+      const results: any[] = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+
+        const row = parseCSVLine(line, delimiter);
+        if (row.length < headers.length) continue;
+
+        const nombre = getCSVValue(row, indexMap.nombre);
+        if (!nombre) continue;
+
+        let telefono = getCSVValue(row, indexMap.telefono) || '';
+        telefono = telefono.trim();
+
+        let rubroRaw = getCSVValue(row, indexMap.rubro) || 'Inmobiliaria';
+        let rubro = 'Inmobiliaria';
+        const rubroLower = rubroRaw.toLowerCase();
+        
+        if (rubroLower.includes('gym') || rubroLower.includes('gimnasio') || rubroLower.includes('fitness') || rubroLower.includes('crossfit')) {
+          rubro = 'Gimnasio';
+        } else if (rubroLower.includes('contab') || rubroLower.includes('accountant') || rubroLower.includes('auditor') || rubroLower.includes('estudio')) {
+          rubro = 'Estudio Contable';
+        } else if (rubroLower.includes('e-commerce') || rubroLower.includes('shop') || rubroLower.includes('tienda') || rubroLower.includes('boutique') || rubroLower.includes('regalos')) {
+          rubro = 'E-commerce';
+        } else if (rubroLower.includes('clinic') || rubroLower.includes('medic') || rubroLower.includes('doctor') || rubroLower.includes('consultorio') || rubroLower.includes('salud')) {
+          rubro = 'Centro Médico';
+        } else if (rubroLower.includes('restaur') || rubroLower.includes('food') || rubroLower.includes('gastronom') || rubroLower.includes('burger') || rubroLower.includes('pizza') || rubroLower.includes('cafe')) {
+          rubro = 'Gastronomía';
+        } else if (rubroLower.includes('distribuid') || rubroLower.includes('wholesal') || rubroLower.includes('mayorist')) {
+          rubro = 'Distribuidora';
+        } else if (rubroLower.includes('estet') || rubroLower.includes('beauty') || rubroLower.includes('spa') || rubroLower.includes('peluquer') || rubroLower.includes('barber')) {
+          rubro = 'Estética';
+        }
+
+        const rawRating = getCSVValue(row, indexMap.rating);
+        const rating = parseFloat(rawRating) || 4.2;
+
+        let instagram = getCSVValue(row, indexMap.instagram) || null;
+        if (instagram) {
+          instagram = instagram.trim().replace(/\/$/, "");
+          if (instagram.includes('instagram.com/')) {
+            const parts = instagram.split('instagram.com/');
+            instagram = parts[parts.length - 1].split('?')[0];
+          }
+          instagram = instagram.replace(/^@/, "");
+        }
+
+        let web = getCSVValue(row, indexMap.web) || null;
+        if (web) {
+          web = web.trim().replace(/^(https?:\/\/)?(www\.)?/, "");
+        }
+
+        const ciudad = getCSVValue(row, indexMap.ciudad) || 'Rosario';
+
+        results.push({
+          nombre,
+          ciudad,
+          telefono,
+          instagram,
+          web,
+          rating,
+          rubro,
+          fuente: 'outscraper_csv',
+          estado: 'nuevo',
+          contactado_at: null,
+          mensaje: ''
+        });
+      }
+
+      return results;
+    }
+
+    function getCSVValue(row: string[], index: number) {
+      if (index === -1 || index >= row.length) return '';
+      return row[index].replace(/^["']|["']$/g, '').trim();
+    }
+
+    function parseCSVLine(line: string, delimiter: string = ',') {
+      const result: string[] = [];
+      let current = '';
+      let inQuotes = false;
+      
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === delimiter && !inQuotes) {
+          result.push(current);
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      result.push(current);
+      return result;
+    }
+
+    // ==========================================================================
+    // 6. ADD PROSPECT MODAL HANDLERS
+    // ==========================================================================
+    if (addProspectBtn && addProspectModal) {
+      addProspectBtn.addEventListener('click', () => {
+        addProspectModal.style.display = 'flex';
+        setTimeout(() => addProspectModal.classList.add('active'), 10);
+      });
+    }
+
+    function closeAddModal() {
+      if (addProspectModal) {
+        addProspectModal.classList.remove('active');
+        setTimeout(() => {
+          addProspectModal.style.display = 'none';
+        }, 250);
+      }
+      if (addProspectForm) {
+        addProspectForm.reset();
+      }
+    }
+
+    if (closeProspectModalBtn) closeProspectModalBtn.addEventListener('click', closeAddModal);
+    if (cancelProspectBtn) cancelProspectBtn.addEventListener('click', closeAddModal);
+    if (addProspectModal) {
+      addProspectModal.addEventListener('click', (e) => {
+        if (e.target === addProspectModal) closeAddModal();
+      });
+    }
+
+    if (addProspectForm) {
+      addProspectForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = addProspectForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `⌛ Procesando...`;
+
+        const newProspect = {
+          nombre: (document.getElementById('form-name') as HTMLInputElement).value.trim(),
+          rubro: (document.getElementById('form-rubro') as HTMLSelectElement).value,
+          ciudad: (document.getElementById('form-ciudad') as HTMLInputElement).value.trim(),
+          telefono: (document.getElementById('form-telefono') as HTMLInputElement).value.trim(),
+          rating: parseFloat((document.getElementById('form-rating') as HTMLInputElement).value) || 4.0,
+          instagram: (document.getElementById('form-instagram') as HTMLInputElement).value.trim() || null,
+          web: (document.getElementById('form-web') as HTMLInputElement).value.trim() || null,
+          fuente: 'manual',
+          estado: 'nuevo',
+          contactado_at: null,
+          mensaje: ''
+        };
+
+        // Call Claude server-side endpoint to generate message
+        let initialMsg = '';
+        try {
+          const res = await fetch('/api/generate-message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prospecto: newProspect, tono: 'informal' })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            initialMsg = data.mensaje;
+            newProspect.isMockMessage = data.isMock || false;
+          }
+        } catch (err) {
+          console.error("Error al generar mensaje inicial:", err);
+        }
+
+        if (!initialMsg) {
+          initialMsg = `¡Hola! Soy Diego de Kaptativa. Estuve viendo lo de ${newProspect.nombre} en ${newProspect.ciudad} y me pareció muy interesante. ¿Te va charlar unos minutos?`;
+        }
+
+        newProspect.mensaje = initialMsg;
+        newProspect.estado = 'mensaje_generado';
+
+        try {
+          const saved = await api.db.createProspect(newProspect);
+          rows.unshift(saved);
+          calculateStats();
+          closeAddModal();
+          render();
+        } catch (err) {
+          console.error("Error al guardar prospecto:", err);
+          alert("Error al guardar el prospecto en la base de datos.");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      });
+    }
+
+    // ==========================================================================
+    // 7. MANAGE RUBROS HANDLERS & INITIALIZATION
+    // ==========================================================================
+    function renderRubrosList() {
+      if (!rubrosListContainer) return;
+      rubrosListContainer.innerHTML = '';
+      
+      RUBROS.forEach(r => {
+        const item = document.createElement('div');
+        item.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #0B0B11; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 6px;';
+        item.innerHTML = `
+          <div style="display: flex; gap: 8px; align-items: center; font-size: 0.9rem;">
+            <span style="font-size: 1.1rem;">${r.emoji}</span>
+            <span style="color: white; font-weight: 500;">${r.name}</span>
+          </div>
+          <button type="button" class="btn-delete-rubro" style="background: transparent; border: none; color: #FF8C7A; cursor: pointer; font-size: 0.9rem; padding: 4px;" title="Eliminar rubro">🗑️</button>
+        `;
+        
+        item.querySelector('.btn-delete-rubro')!.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (confirm(`¿Estás seguro de que deseas eliminar el rubro "${r.name}"? Los prospectos existentes seguirán cargados pero no podrás seleccionarlo en nuevos registros.`)) {
+            RUBROS = RUBROS.filter(item => item.name !== r.name);
+            localStorage.setItem('mock_rubros', JSON.stringify(RUBROS));
+            loadRubros();
+            populateRubroSelects();
+            renderRubrosList();
+            render();
+          }
+        });
+        
+        rubrosListContainer.appendChild(item);
+      });
+    }
+
+    if (manageRubrosBtn && manageRubrosModal) {
+      manageRubrosBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        renderRubrosList();
+        manageRubrosModal.style.display = 'flex';
+        setTimeout(() => manageRubrosModal.classList.add('active'), 10);
+      });
+    }
+
+    function closeRubrosModal() {
+      if (manageRubrosModal) {
+        manageRubrosModal.classList.remove('active');
+        setTimeout(() => {
+          manageRubrosModal.style.display = 'none';
+        }, 250);
+      }
+    }
+
+    if (closeRubrosModalBtn) closeRubrosModalBtn.addEventListener('click', closeRubrosModal);
+    if (manageRubrosModal) {
+      manageRubrosModal.addEventListener('click', (e) => {
+        if (e.target === manageRubrosModal) closeRubrosModal();
+      });
+    }
+
+    if (addRubroForm) {
+      addRubroForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const emojiInput = document.getElementById('new-rubro-emoji') as HTMLInputElement;
+        const nameInput = document.getElementById('new-rubro-name') as HTMLInputElement;
+        
+        const emoji = emojiInput.value.trim();
+        const name = nameInput.value.trim();
+        
+        if (!emoji || !name) return;
+        
+        if (RUBROS.some(r => r.name.toLowerCase() === name.toLowerCase())) {
+          alert("Este rubro ya existe.");
+          return;
+        }
+        
+        RUBROS.push({ name, emoji });
+        localStorage.setItem('mock_rubros', JSON.stringify(RUBROS));
+        
+        emojiInput.value = '';
+        nameInput.value = '';
+        
+        loadRubros();
+        populateRubroSelects();
+        renderRubrosList();
+        render();
+      });
+    }
+
+    // Populate rubros selects on init
+    populateRubroSelects();
+
+    // Run Load
+    await loadData();
+  });
+</script>

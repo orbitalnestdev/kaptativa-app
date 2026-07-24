@@ -1,0 +1,250 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { BLOG_POSTS } from '../../data/blogPosts.js';
+
+const featuredPost = BLOG_POSTS[0];
+const regularPosts = BLOG_POSTS.slice(1);
+---
+
+<Layout title="Blog Corporativo & Recursos Digitales | Kaptativa" description="Artículos, guías y recursos estratégicos sobre digitalización inmobiliaria, automatización de procesos y desarrollo web con Inteligencia Artificial.">
+  <Header slot="header" />
+  
+  <main style="padding-top: 130px; padding-bottom: 90px; position: relative;">
+    <!-- HERO SECTION -->
+    <section class="hero-blog-section" style="position: relative; padding-bottom: 40px; text-align: center;">
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; max-width: 900px; height: 350px; background: radial-gradient(ellipse at center, rgba(138, 53, 229, 0.18) 0%, rgba(6, 182, 212, 0.12) 45%, transparent 75%); filter: blur(40px); pointer-events: none;"></div>
+
+      <div class="container" style="position: relative; z-index: 10;">
+        <span class="badge" style="margin-bottom: 12px; display: inline-block;">Recursos y Conocimiento</span>
+        <h1 style="font-size: 3.2rem; line-height: 1.15; margin: 10px 0 18px 0; font-family: 'Lexend', sans-serif; font-weight: 600; color: #ffffff;">
+          Blog de <span class="text-gradient-cyan">Transformación Digital</span>
+        </h1>
+        <p style="color: var(--text-secondary); max-width: 660px; margin: 0 auto 30px auto; font-size: 1.1rem; line-height: 1.6;">
+          Estrategias reales, guías técnicas y análisis de mercado para escalar inmobiliarias y empresas con desarrollo web a medida, CRM y Agentes IA.
+        </p>
+
+        <!-- Search Bar -->
+        <div style="position: relative; max-width: 560px; margin: 0 auto;">
+          <input type="text" id="blog-search-input" placeholder="Buscar artículos por palabra clave o tema..." class="form-control" style="padding: 16px 20px 16px 48px !important; border-radius: 12px !important; background: rgba(17, 17, 26, 0.75) !important; backdrop-filter: blur(10px); border: 1px solid var(--border-color) !important; color: #ffffff; font-size: 0.95rem;" />
+          <svg style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted);" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT SECTION -->
+    <section style="padding-top: 10px;">
+      <div class="container">
+        
+        <!-- Category Filter Tabs -->
+        <div class="blog-filter-tabs" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 45px; flex-wrap: wrap;">
+          <button class="filter-tab-btn active" data-category="all">Todos</button>
+          <button class="filter-tab-btn" data-category="inmobiliarias">Inmobiliaria Digital</button>
+          <button class="filter-tab-btn" data-category="automatizacion">Automatización</button>
+          <button class="filter-tab-btn" data-category="diseno-web">Diseño Web</button>
+          <button class="filter-tab-btn" data-category="inteligencia-artificial">Inteligencia Artificial</button>
+          <button class="filter-tab-btn" data-category="seo">SEO & GEO</button>
+        </div>
+
+        <!-- FEATURED POST BANNER -->
+        {featuredPost && (
+          <div id="featured-post-card" class="featured-post-banner" data-category={featuredPost.category} data-title={featuredPost.title.toLowerCase()} data-excerpt={featuredPost.excerpt.toLowerCase()}>
+            <div style="grid-column: 1 / -1; margin-bottom: 25px;">
+              <a href={`/${featuredPost.slug}/`} class="featured-card-link" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; background: rgba(17, 17, 26, 0.7); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; text-decoration: none; transition: all 0.3s ease; box-shadow: var(--shadow-md);">
+                <div style="position: relative; min-height: 360px; overflow: hidden;">
+                  <img src={featuredPost.featuredImage} alt={featuredPost.title} style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" class="featured-img" / loading="lazy" decoding="async">
+                  <span style="position: absolute; top: 20px; left: 20px; background: var(--accent-crimson); color: #ffffff; font-size: 0.75rem; font-weight: 600; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'Lexend', sans-serif;">
+                    DESTACADO
+                  </span>
+                </div>
+                <div style="padding: 35px 35px 35px 10px; display: flex; flex-direction: column; justify-content: center;">
+                  <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                    Por <strong style="color: #ffffff;">{featuredPost.author}</strong> • {new Date(featuredPost.publishedAt).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  </div>
+                  <h2 style="font-family: 'Lexend', sans-serif; font-size: 1.8rem; line-height: 1.3; color: #ffffff; margin: 0 0 16px 0; font-weight: 600; transition: color 0.2s ease;" class="featured-title">
+                    {featuredPost.title}
+                  </h2>
+                  <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.6; margin-bottom: 24px;">
+                    {featuredPost.excerpt}
+                  </p>
+                  <div style="display: flex; align-items: center; gap: 8px; color: var(--accent-crimson); font-weight: 600; font-size: 0.95rem;">
+                    <span>Leer artículo destacado</span>
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7-7 7M3 12h18"></path></svg>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        )}
+
+        <!-- ARTICLES GRID -->
+        <div class="blog-posts-grid" id="blog-posts-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+          {BLOG_POSTS.map((post) => (
+            <article class="blog-card-item" data-category={post.category} data-title={post.title.toLowerCase()} data-excerpt={post.excerpt.toLowerCase()}>
+              <a href={`/${post.slug}/`} style="display: flex; flex-direction: column; height: 100%; background: rgba(17, 17, 26, 0.6); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; text-decoration: none; transition: all 0.3s ease; box-shadow: var(--shadow-md);" class="blog-card-inner">
+                <div style="height: 210px; position: relative; overflow: hidden;">
+                  <img src={post.featuredImage} alt={post.title} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" class="card-img" / decoding="async">
+                  <span style="position: absolute; top: 14px; left: 14px; background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.12); color: #e2e8f0; font-size: 0.68rem; font-weight: 500; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.06em; font-family: 'Inter', sans-serif;">
+                    {post.categoryLabel}
+                  </span>
+                </div>
+                <div style="padding: 24px; display: flex; flex-direction: column; flex-grow: 1;">
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px;">
+                    Por {post.author} • {new Date(post.publishedAt).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </div>
+                  <h3 style="font-family: 'Lexend', sans-serif; font-size: 1.2rem; line-height: 1.35; color: #ffffff; margin: 0 0 12px 0; font-weight: 600; transition: color 0.2s ease;" class="card-title">
+                    {post.title}
+                  </h3>
+                  <p style="font-size: 0.9rem; line-height: 1.55; color: var(--text-secondary); margin-bottom: 20px; flex-grow: 1;">
+                    {post.excerpt}
+                  </p>
+                  <div class="read-more-link" style="display: inline-flex; align-items: center; gap: 6px; color: #FF8C7A; font-weight: 600; font-size: 0.9rem; transition: all 0.2s ease;">
+                    <span>Leer más</span>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <div id="no-results-msg" style="display: none; text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 1.1rem;">
+          No se encontraron artículos que coincidan con tu búsqueda.
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .filter-tab-btn {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 10px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all var(--transition-fast);
+  }
+  .filter-tab-btn:hover, .filter-tab-btn.active {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 18px rgba(6, 182, 212, 0.35);
+  }
+
+  .featured-card-link:hover {
+    border-color: rgba(6, 182, 212, 0.5) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(6, 182, 212, 0.2) !important;
+  }
+  .featured-card-link:hover .featured-img {
+    transform: scale(1.04);
+  }
+  .featured-card-link:hover .featured-title {
+    color: #38BDF8 !important;
+  }
+
+  .blog-card-inner:hover {
+    border-color: rgba(138, 53, 229, 0.5) !important;
+    transform: translateY(-6px);
+    box-shadow: 0 10px 28px rgba(138, 53, 229, 0.2) !important;
+  }
+  .blog-card-inner:hover .card-img {
+    transform: scale(1.08);
+  }
+  .blog-card-inner:hover .card-title {
+    color: #38BDF8 !important;
+  }
+  .blog-card-inner:hover .read-more-link {
+    color: #ffffff !important;
+  }
+
+  @media (max-width: 991px) {
+    .featured-card-link {
+      grid-template-columns: 1fr !important;
+    }
+    .blog-posts-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  @media (max-width: 640px) {
+    .blog-posts-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('blog-search-input') as HTMLInputElement;
+    const filterBtns = document.querySelectorAll('.filter-tab-btn');
+    const articles = document.querySelectorAll('.blog-card-item');
+    const featuredCard = document.getElementById('featured-post-card');
+    const noResultsMsg = document.getElementById('no-results-msg');
+
+    function filterPosts() {
+      const activeTab = document.querySelector('.filter-tab-btn.active');
+      const cat = activeTab ? activeTab.getAttribute('data-category') : 'all';
+      const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+      let visibleCount = 0;
+
+      // Filter featured card
+      if (featuredCard) {
+        const featCat = featuredCard.getAttribute('data-category') || '';
+        const featTitle = featuredCard.getAttribute('data-title') || '';
+        const featDesc = featuredCard.getAttribute('data-excerpt') || '';
+
+        const matchCat = cat === 'all' || featCat === cat;
+        const matchQ = q === '' || featTitle.includes(q) || featDesc.includes(q);
+
+        if (matchCat && matchQ) {
+          (featuredCard as HTMLElement).style.display = 'block';
+          visibleCount++;
+        } else {
+          (featuredCard as HTMLElement).style.display = 'none';
+        }
+      }
+
+      // Filter regular cards
+      articles.forEach(card => {
+        const cardCat = card.getAttribute('data-category') || '';
+        const cardTitle = card.getAttribute('data-title') || '';
+        const cardDesc = card.getAttribute('data-excerpt') || '';
+
+        const matchCat = cat === 'all' || cardCat === cat;
+        const matchQ = q === '' || cardTitle.includes(q) || cardDesc.includes(q);
+
+        if (matchCat && matchQ) {
+          (card as HTMLElement).style.display = 'block';
+          visibleCount++;
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+
+      if (noResultsMsg) {
+        noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterPosts();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', filterPosts);
+    }
+  });
+</script>

@@ -1,0 +1,687 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import AdminSidebar from '../../components/AdminSidebar.astro';
+
+// SSR Authentication Guard
+const sessionCookie = Astro.cookies.get('kaptativa_session');
+if (!sessionCookie) {
+  return Astro.redirect('/admin/login');
+}
+---
+
+<AdminLayout title="Agenda del Equipo | Kaptativa">
+  <div class="admin-wrapper" id="admin-main-view">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <AdminSidebar activeTab="agenda" />
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="admin-content-area" style="padding: 20px; display: flex; flex-direction: column; min-height: 100vh; box-sizing: border-box;">
+      
+      <!-- HEADER -->
+      <header class="admin-header" style="margin-bottom: 20px; flex-shrink: 0;">
+        <div>
+          <h1 class="admin-page-title" style="margin: 0; font-size: 1.6rem; font-weight: 600; color: white; font-family: 'Space Grotesk', sans-serif;">Agenda del Equipo</h1>
+        </div>
+      </header>
+
+      <!-- CALENDAR BOARD -->
+      <div style="display: flex; flex-direction: column; border-radius: 12px; background: rgba(20, 20, 28, 0.6); border: 1px solid rgba(255,255,255,0.06); padding: 25px; flex-grow: 1;">
+        
+        <!-- CALENDAR TOP BAR -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; flex-shrink: 0;">
+          <div>
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 600; margin: 0; color: white; display: flex; align-items: center; gap: 8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Calendario Mensual de Clientes
+            </h3>
+            <p id="lbl-sync-status" style="margin: 5px 0 0 0; font-size: 0.75rem; color: var(--accent-crimson); display: flex; align-items: center; gap: 4px;">
+              ● Conexión API Google Calendar activa y sincronizada
+            </p>
+          </div>
+          
+          <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+            <!-- Month Selector Buttons -->
+            <div style="display: flex; gap: 4px; align-items: center; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); padding: 4px; border-radius: 8px;">
+              <button id="btn-prev-month" class="btn btn-secondary btn-sm" style="padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; border: none; cursor: pointer; color: white; background: transparent; transition: background 0.2s;">◀</button>
+              <span id="calendar-month-year" style="color: white; font-size: 0.85rem; font-weight: 600; min-width: 120px; text-align: center; font-family: 'Space Grotesk', sans-serif;">Junio 2026</span>
+              <button id="btn-next-month" class="btn btn-secondary btn-sm" style="padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; border: none; cursor: pointer; color: white; background: transparent; transition: background 0.2s;">▶</button>
+            </div>
+            
+            <button id="btn-manual-meet" class="btn btn-primary" style="padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #EA384D 0%, #7c3aed 100%); border: none; color: white; transition: transform 0.2s; box-shadow: var(--shadow-glow-cyan);">
+              ➕ Agendar Reunión
+            </button>
+          </div>
+        </div>
+
+        <!-- THE CALENDAR GRID -->
+        <div class="admin-table-wrapper" style="flex-grow: 1; border-radius: 12px; background: #0c0c14; border: 1.5px solid rgba(255,255,255,0.06); padding: 20px; display: flex; flex-direction: column; min-height: 500px;">
+          <div style="min-width: 620px; display: flex; flex-direction: column; flex-grow: 1;">
+            <!-- Days of Week Header Grid -->
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; text-align: center; margin-bottom: 12px; border-bottom: 1.5px solid rgba(255,255,255,0.06); padding-bottom: 10px;">
+              <div style="font-size: 0.75rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; letter-spacing: 0.5px;">Domingo</div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; letter-spacing: 0.5px;">Lunes</div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; letter-spacing: 0.5px;">Martes</div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; letter-spacing: 0.5px;">Miércoles</div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; letter-spacing: 0.5px;">Jueves</div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; letter-spacing: 0.5px;">Viernes</div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: #8A8A9A; text-transform: uppercase; letter-spacing: 0.5px;">Sábado</div>
+            </div>
+            <!-- Grid for calendar days -->
+            <div id="calendar-days-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: minmax(90px, 1fr); gap: 10px; flex-grow: 1;">
+              <!-- Filled dynamically -->
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- MODAL FOR MANUAL BOOKING -->
+      <div id="meeting-modal" class="admin-modal-backdrop">
+        <div class="admin-modal admin-modal-sm">
+          <header class="modal-header">
+            <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: white; font-weight: 600;">📅 Agendar Nueva Reunión</h3>
+            <button type="button" id="btn-close-meeting-modal" class="admin-modal-close">✕</button>
+          </header>
+          
+          <div class="modal-body" style="display: block;">
+            <form id="meeting-booking-form">
+              <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                  <label for="meet-client-name" style="font-size: 0.8rem; color: #ECECF2;">Nombre del Lead / Cliente *</label>
+                  <input type="text" id="meet-client-name" style="background: #0b0b11; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 10px 14px; color: white; font-size: 0.9rem; width: 100%; box-sizing: border-box;" placeholder="Ej: Juan Pérez" required />
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 12px;">
+                  <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                    <label for="meet-date" style="font-size: 0.8rem; color: #ECECF2;">Fecha *</label>
+                    <input type="date" id="meet-date" style="background: #0b0b11; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 10px 14px; color: white; font-size: 0.9rem; width: 100%; box-sizing: border-box; font-family: inherit;" required />
+                  </div>
+                  <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                    <label for="meet-time" style="font-size: 0.8rem; color: #ECECF2;">Hora *</label>
+                    <input type="time" id="meet-time" style="background: #0b0b11; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 10px 14px; color: white; font-size: 0.9rem; width: 100%; box-sizing: border-box; font-family: inherit;" required />
+                  </div>
+                </div>
+
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                  <label for="meet-type" style="font-size: 0.8rem; color: #ECECF2;">Tipo de Asesoría / Servicio *</label>
+                  <select id="meet-type" style="background: #0b0b11; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 10px 14px; color: white; font-size: 0.9rem; font-family: inherit; width: 100%; box-sizing: border-box; -webkit-appearance: none; appearance: none; background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23ECECF2%22><path d=%22M7 10l5 5 5-5z%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;">
+                    <option value="Diagnóstico de Asistente IA">Diagnóstico de Asistente IA</option>
+                    <option value="Reunión Comercial">Reunión Comercial</option>
+                    <option value="Consultoría de Automatización">Consultoría de Automatización</option>
+                    <option value="Soporte Técnico">Soporte Técnico</option>
+                  </select>
+                </div>
+
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                  <button type="submit" class="btn btn-primary" style="flex: 1; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; background: linear-gradient(135deg, #EA384D, #7c3aed); border: none; color: white; cursor: pointer;">
+                    Guardar Reunión
+                  </button>
+                  <button type="button" id="btn-cancel-meet" class="btn btn-secondary" style="padding: 12px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: #8A8A9A; cursor: pointer;">
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL FOR DAY DETAILS -->
+      <div id="day-details-modal" class="admin-modal-backdrop">
+        <div class="admin-modal admin-modal-sm">
+          <header class="modal-header">
+            <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: white; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+              <span>📅</span> Citas del día <span id="lbl-details-date">00/00/0000</span>
+            </h3>
+            <button type="button" id="btn-close-details-modal" class="admin-modal-close">✕</button>
+          </header>
+          
+          <div class="modal-body" style="display: block;">
+            <div id="day-meetings-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 300px; overflow-y: auto; margin-bottom: 10px;">
+              <!-- Filled dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOAST CONTAINER FOR FEEDBACK -->
+      <div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 10px;"></div>
+
+    </main>
+  </div>
+</AdminLayout>
+
+<style is:global>
+  /* Custom Agenda Calendar Styles */
+  .calendar-date-cell {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    min-height: 95px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
+  }
+  .calendar-date-cell:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(6, 182, 212, 0.25);
+  }
+  .calendar-date-cell.today {
+    background: rgba(6, 182, 212, 0.04);
+    border: 1.5px solid rgba(6, 182, 212, 0.35);
+  }
+  .calendar-date-cell.today .date-num {
+    color: var(--accent-crimson);
+    font-weight: 600;
+  }
+  .calendar-date-cell.other-month {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .date-num {
+    font-size: 0.775rem;
+    font-weight: 600;
+    color: #8A8A9A;
+    align-self: flex-end;
+  }
+  .meet-tag {
+    font-size: 0.65rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid rgba(124, 58, 237, 0.25);
+    color: #B7A6FF;
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    transition: all 0.2s ease;
+  }
+  .meet-tag:hover {
+    background: rgba(124, 58, 237, 0.22);
+    border-color: #B7A6FF;
+  }
+  .meet-tag.reunion-comercial {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.25);
+    color: #EA384D;
+  }
+  .meet-tag.reunion-comercial:hover {
+    background: rgba(6, 182, 212, 0.2);
+    border-color: #EA384D;
+  }
+  .meet-tag.soporte-tecnico {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+  }
+  .meet-tag.soporte-tecnico:hover {
+    background: rgba(239, 68, 68, 0.18);
+    border-color: #ef4444;
+  }
+
+  /* Modals Layout & Animation Styles */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(11, 11, 17, 0.8);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .modal-backdrop.active {
+    opacity: 1;
+  }
+  .modal-content {
+    transform: scale(0.95);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .modal-backdrop.active .modal-content {
+    transform: scale(1);
+  }
+  #btn-close-meeting-modal,
+  #btn-close-details-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #8A8A9A;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  #btn-close-meeting-modal:hover,
+  #btn-close-details-modal:hover {
+    color: white;
+  }
+
+  /* Toast Notification */
+  .toast-alert {
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: slide-in 0.3s ease forwards;
+  }
+  .toast-success {
+    background: #10B981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  .toast-error {
+    background: #EF4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  @keyframes slide-in {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+</style>
+
+<script>
+  import { api } from '../../lib/appwrite.js';
+
+  // Helper to show visual toast feedback
+  function showToast(message: string, type: 'success' | 'error' = 'success') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    
+    const toast = document.createElement('div');
+    toast.className = `toast-alert toast-${type}`;
+    toast.innerText = message;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(10px)';
+      toast.style.transition = 'all 0.3s ease';
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    let meetings = [];
+
+    // Load Settings to show Google Calendar sync status
+    try {
+      const settings = await api.db.getSettings();
+      const lblSync = document.getElementById('lbl-sync-status');
+      if (lblSync && settings) {
+        if (settings.google_sync_active !== false) {
+          lblSync.innerHTML = '● Conexión API Google Calendar activa y sincronizada';
+          lblSync.style.color = 'var(--accent-crimson)';
+        } else {
+          lblSync.innerHTML = '● Sincronización desactivada (Modo Local autónomo)';
+          lblSync.style.color = '#8A8A9A';
+        }
+      }
+    } catch (e) {
+      console.warn("Could not load settings for sync status label:", e);
+    }
+
+    async function loadMeetings() {
+      try {
+        const meetingsRes = await api.db.listMeetings();
+        meetings = meetingsRes.documents.map(d => ({
+          id: d.$id || d.id,
+          client: d.client,
+          date: d.date,
+          type: d.type
+        }));
+      } catch (err) {
+        console.error("Error loading meetings:", err);
+      }
+    }
+
+    await loadMeetings();
+
+    // ==========================================================================
+    // CUSTOM CALENDAR SCHEDULER LOGIC
+    // ==========================================================================
+    const todayDate = new Date();
+    let calendarYear = todayDate.getFullYear();
+    let calendarMonth = todayDate.getMonth();
+
+    function parseMeetingDate(dateStr: string) {
+      const today = new Date();
+      let day = today.getDate();
+      let month = today.getMonth();
+      let year = today.getFullYear();
+      let time = "12:00 hs";
+
+      if (!dateStr) return { day, month, year, time };
+
+      try {
+        if (dateStr.includes('/')) {
+          const parts = dateStr.split('/');
+          day = parseInt(parts[0]) || day;
+          const monthTimeParts = parts[1].split(' - ');
+          month = (parseInt(monthTimeParts[0]) - 1);
+          if (isNaN(month)) month = today.getMonth();
+          if (monthTimeParts[1]) {
+            time = monthTimeParts[1];
+          }
+          year = today.getFullYear();
+        } else if (dateStr.toLowerCase().includes('mañana')) {
+          const tomorrow = new Date();
+          tomorrow.setDate(today.getDate() + 1);
+          day = tomorrow.getDate();
+          month = tomorrow.getMonth();
+          year = tomorrow.getFullYear();
+          const matchTime = dateStr.match(/\d{2}:\d{2}/);
+          if (matchTime) time = matchTime[0] + " hs";
+        } else if (dateStr.toLowerCase().includes('viernes')) {
+          const tempDate = new Date();
+          const dayOfWeek = tempDate.getDay();
+          const distance = (5 - dayOfWeek + 7) % 7;
+          tempDate.setDate(tempDate.getDate() + (distance === 0 ? 7 : distance));
+          day = tempDate.getDate();
+          month = tempDate.getMonth();
+          year = tempDate.getFullYear();
+          const matchTime = dateStr.match(/\d{2}:\d{2}/);
+          if (matchTime) time = matchTime[0] + " hs";
+        } else if (dateStr.toLowerCase().includes('ayer')) {
+          const yesterday = new Date();
+          yesterday.setDate(today.getDate() - 1);
+          day = yesterday.getDate();
+          month = yesterday.getMonth();
+          year = yesterday.getFullYear();
+          const matchTime = dateStr.match(/\d{2}:\d{2}/);
+          if (matchTime) time = matchTime[0] + " hs";
+        } else {
+          const parsed = new Date(dateStr);
+          if (!isNaN(parsed.getTime())) {
+            day = parsed.getDate();
+            month = parsed.getMonth();
+            year = parsed.getFullYear();
+            time = parsed.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) + " hs";
+          }
+        }
+      } catch (err) {
+        console.error("Error parsing meeting date:", dateStr, err);
+      }
+
+      return { day, month, year, time };
+    }
+
+    function renderCustomCalendar() {
+      const grid = document.getElementById('calendar-days-grid');
+      const monthYearLabel = document.getElementById('calendar-month-year');
+      if (!grid || !monthYearLabel) return;
+
+      grid.innerHTML = '';
+
+      const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      monthYearLabel.innerText = `${monthNames[calendarMonth]} ${calendarYear}`;
+
+      const firstDayIndex = new Date(calendarYear, calendarMonth, 1).getDay();
+      const totalDays = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+
+      const prevMonthTotalDays = new Date(calendarYear, calendarMonth, 0).getDate();
+      for (let i = firstDayIndex - 1; i >= 0; i--) {
+        const cell = document.createElement('div');
+        cell.className = 'calendar-date-cell other-month';
+        cell.innerHTML = `<span class="date-num">${prevMonthTotalDays - i}</span>`;
+        grid.appendChild(cell);
+      }
+
+      const today = new Date();
+      for (let d = 1; d <= totalDays; d++) {
+        const cell = document.createElement('div');
+        cell.className = 'calendar-date-cell';
+
+        const isToday = today.getDate() === d && today.getMonth() === calendarMonth && today.getFullYear() === calendarYear;
+        if (isToday) cell.classList.add('today');
+
+        cell.innerHTML = `<span class="date-num">${d}</span>`;
+
+        const dayMeetings = meetings.filter((m: any) => {
+          const parsed = parseMeetingDate(m.date);
+          return parsed.day === d && parsed.month === calendarMonth && parsed.year === calendarYear;
+        });
+
+        const maxVisibleMeetings = 2;
+        const visibleMeetings = dayMeetings.slice(0, maxVisibleMeetings);
+        const hiddenCount = dayMeetings.length - maxVisibleMeetings;
+
+        visibleMeetings.forEach((m: any) => {
+          const tag = document.createElement('div');
+          tag.className = 'meet-tag';
+          
+          const typeLower = (m.type || '').toLowerCase();
+          if (typeLower.includes('comercial')) {
+            tag.classList.add('reunion-comercial');
+          } else if (typeLower.includes('soporte')) {
+            tag.classList.add('soporte-tecnico');
+          }
+
+          const parsedTime = parseMeetingDate(m.date).time;
+          tag.innerText = `${m.client} (${parsedTime})`;
+          tag.title = `${m.client} - ${parsedTime} - ${m.type || 'Diagnóstico'}`;
+
+          tag.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showMeetingDetails(m);
+          });
+
+          cell.appendChild(tag);
+        });
+
+        if (hiddenCount > 0) {
+          const moreTag = document.createElement('div');
+          moreTag.className = 'meet-tag';
+          moreTag.style.cssText = 'background: rgba(6, 182, 212, 0.06); border: 1px dashed rgba(6, 182, 212, 0.3); color: var(--accent-crimson); font-weight: 600; text-align: center;';
+          moreTag.innerText = `+${hiddenCount} más...`;
+          moreTag.title = `${hiddenCount} reuniones más en este día`;
+          moreTag.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showDayMeetings(d, dayMeetings);
+          });
+          cell.appendChild(moreTag);
+        }
+
+        cell.addEventListener('click', () => {
+          if (dayMeetings.length > 0) {
+            showDayMeetings(d, dayMeetings);
+          } else {
+            openBookingModal(d);
+          }
+        });
+
+        grid.appendChild(cell);
+      }
+
+      const totalCells = grid.children.length;
+      const remaining = (7 - (totalCells % 7)) % 7;
+      for (let i = 1; i <= remaining; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'calendar-date-cell other-month';
+        cell.innerHTML = `<span class="date-num">${i}</span>`;
+        grid.appendChild(cell);
+      }
+    }
+
+    const dayDetailsModal = document.getElementById('day-details-modal');
+    const dayMeetingsList = document.getElementById('day-meetings-list');
+    const lblDetailsDate = document.getElementById('lbl-details-date');
+
+    function showDayMeetings(dayNum: number, dayMeetings: any[]) {
+      if (!dayDetailsModal || !dayMeetingsList || !lblDetailsDate) return;
+      
+      lblDetailsDate.innerText = `${dayNum}/${calendarMonth + 1}/${calendarYear}`;
+      dayMeetingsList.innerHTML = '';
+
+      dayMeetings.forEach((m: any) => {
+        const item = document.createElement('div');
+        item.style.cssText = 'background: rgba(255,255,255,0.02); border: 1.5px solid rgba(255,255,255,0.06); padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 8px;';
+        
+        const info = document.createElement('div');
+        const parsedTime = parseMeetingDate(m.date).time;
+        info.innerHTML = `
+          <div style="font-weight: 600; color: white; font-size: 0.95rem;">${m.client}</div>
+          <div style="font-size: 0.8rem; color: #8A8A9A; margin-top: 3px;">Servicio: <strong>${m.type || 'Diagnóstico'}</strong></div>
+          <div style="font-size: 0.8rem; color: var(--accent-crimson); margin-top: 2px;">Hora: ${parsedTime}</div>
+        `;
+        
+        const actions = document.createElement('div');
+        const btnDelete = document.createElement('button');
+        btnDelete.style.cssText = 'background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #ef4444; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;';
+        btnDelete.innerText = 'Eliminar';
+        
+        btnDelete.addEventListener('click', async () => {
+          if (confirm(`¿Eliminar reunión de ${m.client}?`)) {
+            try {
+              if (m.id) {
+                await api.db.deleteMeeting(m.id);
+              }
+              meetings = meetings.filter(meet => meet.id !== m.id);
+              
+              showToast('Reunión eliminada.', 'success');
+              
+              dayDetailsModal.classList.remove('active');
+              setTimeout(() => dayDetailsModal.style.display = 'none', 300);
+              
+              renderCustomCalendar();
+            } catch (err) {
+              console.error(err);
+              showToast('Error al eliminar la reunión.', 'error');
+            }
+          }
+        });
+
+        actions.appendChild(btnDelete);
+        item.appendChild(info);
+        item.appendChild(actions);
+        dayMeetingsList.appendChild(item);
+      });
+
+      dayDetailsModal.style.display = 'flex';
+      setTimeout(() => dayDetailsModal.classList.add('active'), 10);
+    }
+
+    function showMeetingDetails(meeting: any) {
+      const parsed = parseMeetingDate(meeting.date);
+      showDayMeetings(parsed.day, [meeting]);
+    }
+
+    const meetingModal = document.getElementById('meeting-modal');
+    const meetDateInput = document.getElementById('meet-date') as HTMLInputElement;
+
+    function openBookingModal(dayNum: number) {
+      if (!meetingModal || !meetDateInput) return;
+      
+      const formattedMonth = String(calendarMonth + 1).padStart(2, '0');
+      const formattedDay = String(dayNum).padStart(2, '0');
+      meetDateInput.value = `${calendarYear}-${formattedMonth}-${formattedDay}`;
+
+      meetingModal.style.display = 'flex';
+      setTimeout(() => meetingModal.classList.add('active'), 10);
+    }
+
+    function closeMeetingModal() {
+      if (meetingModal) {
+        meetingModal.classList.remove('active');
+        setTimeout(() => meetingModal.style.display = 'none', 300);
+      }
+    }
+
+    document.getElementById('btn-close-meeting-modal')?.addEventListener('click', closeMeetingModal);
+    document.getElementById('btn-cancel-meet')?.addEventListener('click', closeMeetingModal);
+    document.getElementById('btn-close-details-modal')?.addEventListener('click', () => {
+      if (dayDetailsModal) {
+        dayDetailsModal.classList.remove('active');
+        setTimeout(() => dayDetailsModal.style.display = 'none', 300);
+      }
+    });
+
+    const meetingForm = document.getElementById('meeting-booking-form');
+    meetingForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const clientName = (document.getElementById('meet-client-name') as HTMLInputElement).value.trim();
+      const dateVal = (document.getElementById('meet-date') as HTMLInputElement).value;
+      const timeVal = (document.getElementById('meet-time') as HTMLInputElement).value;
+      const typeVal = (document.getElementById('meet-type') as HTMLSelectElement).value;
+
+      if (!clientName || !dateVal || !timeVal) return;
+
+      const dateParts = dateVal.split('-');
+      const formattedDateStr = `${parseInt(dateParts[2])}/${parseInt(dateParts[1])} - ${timeVal} hs`;
+
+      const newMeeting = {
+        client: clientName,
+        date: formattedDateStr,
+        type: typeVal
+      };
+
+      try {
+        const created = await api.db.createMeeting(newMeeting);
+        const addedMeeting = {
+          id: created.$id || created.id || 'new-id',
+          client: clientName,
+          date: formattedDateStr,
+          type: typeVal
+        };
+        meetings.unshift(addedMeeting);
+        
+        showToast('Reunión agendada correctamente.', 'success');
+        closeMeetingModal();
+        
+        (document.getElementById('meet-client-name') as HTMLInputElement).value = '';
+        (document.getElementById('meet-time') as HTMLInputElement).value = '';
+
+        renderCustomCalendar();
+      } catch (err) {
+        console.error(err);
+        showToast('Error al agendar la reunión.', 'error');
+      }
+    });
+
+    document.getElementById('btn-prev-month')?.addEventListener('click', () => {
+      calendarMonth--;
+      if (calendarMonth < 0) {
+        calendarMonth = 11;
+        calendarYear--;
+      }
+      renderCustomCalendar();
+    });
+
+    document.getElementById('btn-next-month')?.addEventListener('click', () => {
+      calendarMonth++;
+      if (calendarMonth > 11) {
+        calendarMonth = 0;
+        calendarYear++;
+      }
+      renderCustomCalendar();
+    });
+
+    document.getElementById('btn-manual-meet')?.addEventListener('click', () => {
+      const today = new Date();
+      openBookingModal(today.getDate());
+    });
+
+    // Render calendar initially
+    renderCustomCalendar();
+  });
+</script>

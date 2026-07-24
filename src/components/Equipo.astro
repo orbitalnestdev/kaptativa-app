@@ -1,0 +1,117 @@
+---
+interface Member {
+  name: string;
+  role: string;
+  gradient: string;
+  iconType: 'ceo' | 'sales' | 'social';
+  image?: string;
+}
+
+const team: Member[] = [
+  {
+    name: "Eliana Azcurra",
+    role: "CEO & Directora General",
+    gradient: "linear-gradient(135deg, rgba(234, 56, 77, 0.25) 0%, rgba(138, 53, 229, 0.15) 100%)",
+    iconType: 'ceo',
+    image: "/team/eliana.webp"
+  },
+  {
+    name: "Diego Azcurra",
+    role: "Director Comercial",
+    gradient: "linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(138, 53, 229, 0.15) 100%)",
+    iconType: 'sales',
+    image: "/team/diego.png"
+  },
+  {
+    name: "noname",
+    role: "Community Manager & Social Media",
+    gradient: "linear-gradient(135deg, rgba(236, 72, 153, 0.25) 0%, rgba(138, 53, 229, 0.15) 100%)",
+    iconType: 'social'
+  }
+];
+---
+
+<section class="team-section" id="equipo">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="badge team-badge">
+        TEAM
+      </span>
+      <h2>El equipo detrás de tu transformación</h2>
+      <p style="margin: 0 auto; color: var(--text-secondary); max-width: 700px;">
+        Dirección estratégica, ingeniería de software y diseño de interfaz bajo un mismo techo para asegurar la calidad técnica de cada desarrollo.
+      </p>
+    </div>
+
+    <div class="team-grid reveal">
+      {team.map((member) => (
+        <div class="team-portrait-card">
+          <div class="team-portrait-image-wrapper" style={`background: ${member.gradient}; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 5; width: 100%; position: relative; border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; overflow: hidden;`}>
+            {member.image ? (
+              <img src={member.image} alt={member.name} class="team-portrait-image" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block;" / loading="lazy" decoding="async">
+            ) : (
+              member.iconType === 'social' && (
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: #ec4899; filter: drop-shadow(0 0 20px rgba(236,72,153,0.6));">
+                  <circle cx="18" cy="5" r="3"/>
+                  <circle cx="6" cy="12" r="3"/>
+                  <circle cx="18" cy="19" r="3"/>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+              )
+            )}
+            <div class="image-gradient-overlay"></div>
+          </div>
+          <div class="team-portrait-card-footer">
+            <div class="team-portrait-card-info">
+              <h3 class="member-name">{member.name}</h3>
+              <p class="member-role">{member.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile Team Carousel Navigation Dots -->
+    <div class="team-dots reveal">
+      {team.map((_, index) => (
+        <span class={`team-dot ${index === 0 ? 'active' : ''}`} data-index={index}></span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const teamGrid = document.querySelector('.team-grid');
+    const dots = document.querySelectorAll('.team-dot');
+    
+    if (!teamGrid || dots.length === 0) return;
+
+    teamGrid.addEventListener('scroll', () => {
+      const scrollPosition = teamGrid.scrollLeft;
+      const cardWidth = teamGrid.firstElementChild ? teamGrid.firstElementChild.clientWidth : 0;
+      if (cardWidth === 0) return;
+      
+      const activeIndex = Math.round(scrollPosition / (cardWidth + 16));
+
+      dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }, { passive: true });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        const cardWidth = teamGrid.firstElementChild ? teamGrid.firstElementChild.clientWidth : 0;
+        teamGrid.scrollTo({
+          left: index * (cardWidth + 16),
+          behavior: 'smooth'
+        });
+      });
+    });
+  });
+</script>

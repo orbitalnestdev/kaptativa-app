@@ -1,0 +1,981 @@
+---
+// src/pages/logo-proposals.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Propuestas de Rediseño de Logo | Kaptativa">
+  <main class="proposals-page">
+    <div class="container-proposals">
+      
+      <!-- Header Section -->
+      <header class="proposals-header">
+        <span class="badge-new">Área de Diseño</span>
+        <h1>Propuestas de Rediseño de Logo</h1>
+        <p class="subtitle">
+          Presentamos alternativas estratégicas para refinar la identidad visual de <strong>Kaptativa</strong>.
+          En las nuevas opciones, diseñamos un isotipo con la <strong>K completa</strong> y una flecha ascendente (crecimiento/impulso) en el color azul principal, integrándose como la inicial de la marca para eliminar redundancias y potenciar la fuerza del logo.
+        </p>
+        <div class="feedback-note">
+          <p><strong>💡 El problema resuelto:</strong> En el logo original, se lee <code>[K] kaptativa</code>, repitiendo la <code>K</code> dos veces consecutivas. En los nuevos diseños premium (Proposiciones D, E, F, G, H), la <code>K</code> con la flecha de crecimiento funciona como la letra inicial de la marca: <strong>[K-Arrow] aptativa.</strong>, logrando un logo increíblemente integrado y con color azul principal.</p>
+        </div>
+      </header>
+
+      <!-- Selector de Fondo Global -->
+      <div class="theme-controls">
+        <span>Visualizar en fondo:</span>
+        <button class="theme-btn active" data-bg="dark">Pizarra Oscura (Principal)</button>
+        <button class="theme-btn" data-bg="light">Blanco Puro (Contraste)</button>
+      </div>
+
+      <!-- Grid de Propuestas -->
+      <div class="proposals-grid">
+        
+        <!-- PROPUESTA ACTUAL (Para comparación) -->
+        <div class="proposal-card original">
+          <div class="card-header">
+            <span class="card-tag tag-gray">Original</span>
+            <h3>Logo Actual</h3>
+            <p class="card-desc">El diseño original con el isotipo de la K y la palabra completa.</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <linearGradient id="gradient-orig" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#D946EF" />
+                    <stop offset="100%" stop-color="#EA384D" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(10, 0)">
+                  <rect x="12" y="13" width="7" height="34" rx="3.5" fill="url(#gradient-orig)" />
+                  <path d="M 19 26 C 24 23, 31 16, 38 13 C 40 12, 41 13.5, 39.5 15 L 29 27.5 Z" fill="url(#gradient-orig)" />
+                  <path d="M 19 34 C 24 37, 31 44, 38 47 C 40 48, 41 46.5, 39.5 45 L 29 32.5 Z" fill="url(#gradient-orig)" opacity="0.8" />
+                  <circle cx="38" cy="13" r="3.5" fill="#EA384D" />
+                  <circle cx="38" cy="47" r="3.5" fill="#D946EF" />
+                </g>
+                <text x="58" y="39" font-family="'Lexend', sans-serif" font-size="28" font-weight="800" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.2">
+                  kaptativa<tspan fill="#EA384D">.</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row red">
+              <span class="bullet">✗</span>
+              <span><strong>Redundancia:</strong> La letra K se repite visualmente (isologo + palabra).</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Líneas diagonales dinámicas y nodos de tecnología.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROPUESTA 1: IMPULSO MODERNO (Estilo Geométrico/Vantra) -->
+        <div class="proposal-card highlight">
+          <div class="card-header">
+            <span class="card-tag tag-primary">Propuesta A</span>
+            <h3>Impulso Integrado (K-Arrow + "aptativa")</h3>
+            <p class="card-desc">La K geométrica con flecha ascendente se convierte en la letra inicial, eliminando la redundancia.</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <linearGradient id="gradient-prop1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#8A35E5" />
+                    <stop offset="100%" stop-color="#EA384D" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(10, 0)">
+                  <!-- Vertical stem -->
+                  <path d="M 16 13 L 16 47" stroke="url(#gradient-prop1)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                  <!-- Diagonals: Upper arm goes up-right to (36,15) -->
+                  <path d="M 38 47 L 21 30 L 36 15" stroke="url(#gradient-prop1)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                  <!-- Arrowhead at (36,15) -->
+                  <path d="M 25 15 L 36 15 L 36 26" stroke="url(#gradient-prop1)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                </g>
+                <text x="54" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="700" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.3">
+                  aptativa<tspan fill="#EA384D">.</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Impulso de Crecimiento:</strong> El brazo superior de la K es una flecha hacia arriba (↗).</span>
+            </div>
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Cero redundancia:</strong> La K del isotipo se lee como la inicial de <em>Kaptativa</em>.</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Líneas geométricas limpias y minimalistas al estilo de <strong>Vantra</strong>.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROPUESTA 2: CRECIMIENTO ORGÁNICO (Estilo Fluido/Tiendanube) -->
+        <div class="proposal-card highlight">
+          <div class="card-header">
+            <span class="card-tag tag-purple">Propuesta B</span>
+            <h3>Crecimiento Orgánico (Doble-K Suave)</h3>
+            <p class="card-desc">Líneas fluidas y curvas suaves para las diagonales, proyectando la flecha hacia el futuro.</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <linearGradient id="gradient-prop2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#7C3AED" />
+                    <stop offset="100%" stop-color="#EA384D" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(10, 0)">
+                  <!-- Vertical stem -->
+                  <path d="M 16 13 L 16 47" stroke="url(#gradient-prop2)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                  <!-- Smooth S-curve for diagonals -->
+                  <path d="M 38 47 C 28 41 21 36 21 30 C 21 24 28 19 36 13" stroke="url(#gradient-prop2)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                  <!-- Arrowhead at (36,13) -->
+                  <path d="M 25 13 L 36 13 L 36 24" stroke="url(#gradient-prop2)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                </g>
+                <text x="58" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.3">
+                  kaptativa<tspan fill="#EA384D">.</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Diseño Orgánico:</strong> Curvas continuas que simulan flujos dinámicos e integración.</span>
+            </div>
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Identidad Completa:</strong> Mantiene la palabra completa <em>kaptativa</em> con menor grosor.</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Estética moderna y amigable que transmite adaptabilidad (estilo <strong>Tiendanube</strong>).</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROPUESTA 3: EMBLEMA PREMIUM (Estilo Shopify) -->
+        <div class="proposal-card highlight">
+          <div class="card-header">
+            <span class="card-tag tag-cyan">Propuesta C</span>
+            <h3>Emblema K-Arrow (Shopify Style)</h3>
+            <p class="card-desc">El isotipo K-flecha se enmarca dentro de un badge premium de alto contraste.</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <linearGradient id="gradient-prop3" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#10B981" />
+                    <stop offset="100%" stop-color="#D4FF00" />
+                  </linearGradient>
+                  <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1E293B" />
+                    <stop offset="100%" stop-color="#0F172A" />
+                  </linearGradient>
+                </defs>
+                <!-- Rounded Badge -->
+                <rect x="10" y="8" width="44" height="44" rx="14" fill="url(#badge-bg)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+                <!-- K-Arrow inside badge -->
+                <g transform="translate(14, 8)">
+                  <path d="M 12 11 L 12 33" stroke="url(#gradient-prop3)" stroke-width="4.5" stroke-linecap="round" fill="none" />
+                  <path d="M 26 33 L 15 22 L 25 12" stroke="url(#gradient-prop3)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                  <path d="M 17 12 L 25 12 L 25 20" stroke="url(#gradient-prop3)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                </g>
+                <text x="64" y="39" font-family="'Lexend', sans-serif" font-size="26" font-weight="800" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.5">
+                  kaptativa<tspan fill="#D4FF00">.</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Formato Emblema:</strong> Ideal para usar como ícono de app, avatar o favicon.</span>
+            </div>
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Máximo Impacto:</strong> Colores neón sobre fondo pizarra de alto contraste.</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Excelente equilibrio visual y peso de marca (estilo <strong>Shopify</strong>).</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROPUESTA 4: K-INFINITO (Glow Tech) -->
+        <div class="proposal-card highlight">
+          <div class="card-header">
+            <span class="card-tag tag-primary">Propuesta D</span>
+            <h3>K-Infinito (Glow Tech)</h3>
+            <p class="card-desc">Una K completa de trazos fluidos que se complementa e integra perfectamente como la letra inicial de "Kaptativa".</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <linearGradient id="gradient-prop4" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1E3A8A" />
+                    <stop offset="50%" stop-color="#8A35E5" />
+                    <stop offset="100%" stop-color="#EA384D" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(10, 0)">
+                  <!-- Vertical Stem with glowing reflection -->
+                  <path d="M 16 13 L 16 47" stroke="url(#gradient-prop4)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                  <!-- Glowing joint circle -->
+                  <circle cx="16" cy="30" r="3.5" fill="#EA384D" opacity="0.8" />
+                  <!-- Upper diagonal with arrow -->
+                  <path d="M 16 30 C 22 24 27 18 35 13" stroke="url(#gradient-prop4)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                  <path d="M 25 13 L 35 13 L 35 23" stroke="url(#gradient-prop4)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                  <!-- Lower diagonal leg -->
+                  <path d="M 16 30 C 22 36 27 42 35 47" stroke="url(#gradient-prop4)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                </g>
+                <text x="54" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="700" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.3">
+                  aptativa<tspan fill="#EA384D">.</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>K Completa e Integrada:</strong> Actúa como la inicial de la marca en un diseño fluido sin redundancia.</span>
+            </div>
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Azul Principal:</strong> Degradé enriquecido de azul marino a azul real y azul hielo.</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Curvas suaves y dinámicas para dar una estética limpia y sumamente moderna.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROPUESTA 5: K-NODOS DINÁMICOS -->
+        <div class="proposal-card highlight">
+          <div class="card-header">
+            <span class="card-tag tag-purple">Propuesta E</span>
+            <h3>K-Nodos Dinámicos</h3>
+            <p class="card-desc">K completa de alto impacto con nodos de conexión y terminación de flecha, complementando el texto.</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <linearGradient id="gradient-prop5" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#8A35E5" />
+                    <stop offset="100%" stop-color="#EA384D" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(10, 0)">
+                  <!-- Vertical Stem -->
+                  <path d="M 16 13 L 16 47" stroke="url(#gradient-prop5)" stroke-width="7" stroke-linecap="round" fill="none" />
+                  <!-- Diagonals -->
+                  <path d="M 35 47 L 16 30 L 35 13" stroke="url(#gradient-prop5)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                  <!-- Arrowhead -->
+                  <path d="M 23 13 L 35 13 L 35 25" stroke="url(#gradient-prop5)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                  <!-- Glowing Node at bottom-right leg -->
+                  <circle cx="35" cy="47" r="3.5" fill="#EA384D" />
+                  <!-- Glowing Node at the junction -->
+                  <circle cx="16" cy="30" r="3.5" fill="#FFFFFF" />
+                </g>
+                <text x="54" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="700" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.3">
+                  aptativa<tspan fill="#EA384D">.</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Conectividad e IA:</strong> Los nodos representan integraciones inteligentes y flujos lógicos.</span>
+            </div>
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>K de Crecimiento:</strong> Es una K completa donde el nodo de entrada genera una flecha de salida.</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Un diseño con alto "Wow Factor" corporativo basado en el azul principal de Kaptativa.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROPUESTA 6: K-CRISTAL 3D -->
+        <div class="proposal-card highlight">
+          <div class="card-header">
+            <span class="card-tag tag-cyan">Propuesta F</span>
+            <h3>K-Cristal 3D (Premium Hex)</h3>
+            <p class="card-desc">El isotipo K-flecha flota dentro de un cubo isométrico translúcido. El diseño más avanzado y premium.</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <linearGradient id="gradient-prop6" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#8A35E5" />
+                    <stop offset="100%" stop-color="#00F2FE" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(10, 0)">
+                  <!-- 3D Isometric Cube Wireframe (Thin & Translucent) -->
+                  <polygon points="26,11 38,18 38,38 26,45 14,38 14,18" stroke="#EA384D" stroke-width="1" stroke-linejoin="round" fill="none" opacity="0.25" />
+                  <line x1="26" y1="11" x2="26" y2="28" stroke="#EA384D" stroke-width="1" fill="none" opacity="0.25" />
+                  <line x1="26" y1="28" x2="14" y2="18" stroke="#EA384D" stroke-width="1" fill="none" opacity="0.25" />
+                  <line x1="26" y1="28" x2="38" y2="18" stroke="#EA384D" stroke-width="1" fill="none" opacity="0.25" />
+                  <line x1="26" y1="28" x2="26" y2="45" stroke="#EA384D" stroke-width="1" fill="none" opacity="0.25" />
+                  
+                  <!-- Solid K-Arrow (Floating inside the cube) -->
+                  <!-- Vertical Stem -->
+                  <path d="M 20 18 L 20 38" stroke="url(#gradient-prop6)" stroke-width="4.5" stroke-linecap="round" fill="none" />
+                  <!-- Diagonals -->
+                  <path d="M 32 38 L 20 28 L 32 18" stroke="url(#gradient-prop6)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                  <!-- Arrowhead -->
+                  <path d="M 24 18 L 32 18 L 32 26" stroke="url(#gradient-prop6)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                </g>
+                <text x="54" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="700" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.3">
+                  aptativa<tspan fill="#00F2FE">.</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Wow Factor 3D:</strong> El marco tridimensional evoca modernidad, blockchain o computación espacial.</span>
+            </div>
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Azul y Cian Eléctrico:</strong> Utiliza el azul principal con un toque de cian de alto brillo.</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Una propuesta única y memorable que destaca entre el software tradicional.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROPUESTA 7: EVOLUCIÓN B (Impulso Orgánico Premium) -->
+        <div class="proposal-card highlight">
+          <div class="card-header">
+            <span class="card-tag tag-primary">Propuesta G</span>
+            <h3>Evolución B: Impulso Orgánico</h3>
+            <p class="card-desc">Curvas suaves de la Propuesta B adaptadas: K completa, degradé azul principal y nodo de luz tecnológico.</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <linearGradient id="gradient-prop7" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#8A35E5" />
+                    <stop offset="100%" stop-color="#EA384D" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(10, 0)">
+                  <!-- Vertical Stem -->
+                  <path d="M 16 13 L 16 47" stroke="url(#gradient-prop7)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                  <!-- Smooth S-curve diagonals -->
+                  <path d="M 38 47 C 28 41 21 36 21 30 C 21 24 28 19 36 13" stroke="url(#gradient-prop7)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                  <!-- Arrowhead at (36,13) -->
+                  <path d="M 25 13 L 36 13 L 36 24" stroke="url(#gradient-prop7)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                  <!-- Glowing Tech Junction Node -->
+                  <circle cx="21" cy="30" r="3" fill="#FFFFFF" />
+                  <circle cx="21" cy="30" r="5" fill="#EA384D" opacity="0.4" />
+                </g>
+                <text x="54" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="700" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.3">
+                  aptativa<tspan fill="#EA384D">.</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Evolución de B:</strong> Conserva las curvas suaves que te gustaron en la opción B.</span>
+            </div>
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>K Completa y Sin Redundancia:</strong> Funciona como la inicial del nombre (`[K-Arrow] aptativa.`).</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Usa el azul principal de Kaptativa con un nodo central resplandeciente.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROPUESTA 8: ANTIGRAVITY MEMORABLE (Diseño de Autor) -->
+        <div class="proposal-card highlight" style="border-color: rgba(0, 242, 254, 0.4); box-shadow: 0 10px 30px -15px rgba(0, 242, 254, 0.25);">
+          <div class="card-header" style="background: linear-gradient(to right, rgba(29, 78, 216, 0.1), transparent);">
+            <span class="card-tag" style="background: rgba(0, 242, 254, 0.15); color: #00F2FE;">Propuesta H (Recomendada - Memorable)</span>
+            <h3>Impulso Estelar</h3>
+            <p class="card-desc">Concepto memorable de autor. Fusión de azul y cian con traslapes translúcidos, núcleo de luz y punto final estelar.</p>
+          </div>
+          <div class="preview-area dark-bg">
+            <div class="logo-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" class="logo-svg-render">
+                <defs>
+                  <!-- Stem Gradient: Deep Tech Royal Blue -->
+                  <linearGradient id="gradient-mem-stem" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#1E3A8A" />
+                    <stop offset="100%" stop-color="#8A35E5" />
+                  </linearGradient>
+                  <!-- Diagonals Gradient: Electric Cyan to Blue -->
+                  <linearGradient id="gradient-mem-diag" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#8A35E5" />
+                    <stop offset="50%" stop-color="#EA384D" />
+                    <stop offset="100%" stop-color="#00F2FE" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(10, 0)">
+                  <!-- 1. Stem (Darker Royal Blue) -->
+                  <rect x="12" y="13" width="7" height="34" rx="3.5" fill="url(#gradient-mem-stem)" />
+                  <!-- 2. Overlapping Diagonals with bright Cyan Gradient -->
+                  <!-- Upper diagonal goes up-right to (34,15) -->
+                  <path d="M 36 47 L 19 30 L 34 15" stroke="url(#gradient-mem-diag)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.95" />
+                  <!-- Sharp Arrowhead at the tip -->
+                  <path d="M 23 15 L 34 15 L 34 26" stroke="url(#gradient-mem-diag)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.95" />
+                  <!-- 3. Glowing White Core Node at the overlap junction (representing the spark of impulse) -->
+                  <circle cx="19" cy="30" r="3.2" fill="#FFFFFF" />
+                  <circle cx="19" cy="30" r="6.5" fill="#00F2FE" opacity="0.4" />
+                  <!-- 4. Subtle accent: a tech line connecting the stem and the leg -->
+                  <line x1="15.5" y1="40" x2="26" y2="40" stroke="#EA384D" stroke-width="1.5" opacity="0.3" />
+                </g>
+                <!-- Text: aptativa -->
+                <text x="54" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="700" fill="#FFFFFF" class="text-color-toggle" letter-spacing="0.3">
+                  aptativa
+                </text>
+                <!-- Glowing Star instead of dot -->
+                <path d="M 163 36 Q 166 36 166 33 Q 166 36 169 36 Q 166 36 166 39 Q 166 36 163 36 Z" fill="#00F2FE" />
+                <circle cx="166" cy="36" r="4" fill="#00F2FE" opacity="0.3" />
+              </svg>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Detalle Estelar Memorable:</strong> El punto final de la marca es una estrella brillante de 4 puntas en cian neón.</span>
+            </div>
+            <div class="diagnose-row green">
+              <span class="bullet">✓</span>
+              <span><strong>Efecto Traslape:</strong> La K se cruza con trazos translúcidos creando profundidad y contraste de color.</span>
+            </div>
+            <div class="diagnose-row">
+              <span class="bullet">ℹ</span>
+              <span>Representa estabilidad (pilar oscuro) y activación del crecimiento (flecha con núcleo de luz).</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sección de Simulador de Contexto -->
+      <section class="mockup-section">
+        <h2>Simulación en Entorno Real (Header)</h2>
+        <p class="mockup-desc">Mira cómo luciría cada propuesta integrada en la cabecera actual del sitio web (modo oscuro):</p>
+        
+        <div class="mockup-container">
+          <div class="mockup-header-preview">
+            <div class="mockup-nav">
+              <div class="mockup-logo-container" id="mockup-logo-target">
+                <!-- Se inyecta dinámicamente con JS -->
+              </div>
+              <div class="mockup-links">
+                <span>Servicios</span>
+                <span>Nosotros</span>
+                <span>Contacto</span>
+              </div>
+              <div class="mockup-cta">Agendar diagnóstico</div>
+            </div>
+          </div>
+          
+          <div class="mockup-controls">
+            <button class="mockup-btn active" data-target="0">Ver Logo Actual</button>
+            <button class="mockup-btn" data-target="1">Ver Propuesta A (Integrado)</button>
+            <button class="mockup-btn" data-target="2">Ver Propuesta B (Isologo)</button>
+            <button class="mockup-btn" data-target="3">Ver Propuesta C (Abstracto)</button>
+            <button class="mockup-btn" data-target="4">Ver Propuesta D (K-Infinito)</button>
+            <button class="mockup-btn" data-target="5">Ver Propuesta E (K-Nodos)</button>
+            <button class="mockup-btn" data-target="6">Ver Propuesta F (K-Cristal 3D)</button>
+            <button class="mockup-btn" data-target="7">Ver Propuesta G (Evolución B)</button>
+            <button class="mockup-btn" data-target="8">Ver Propuesta H (Antigravity Memorable)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Instrucciones de Selección -->
+      <section class="instructions-card">
+        <h3>¿Cómo proceder?</h3>
+        <p>Una vez que elijas la opción que más te guste, decime cuál es y yo me encargo de actualizarla automáticamente en todo el código del sitio:</p>
+        <ul>
+          <li>Reemplazar el archivo <code>public/logo.svg</code> y <code>logo.svg</code> del proyecto.</li>
+          <li>Actualizar las dimensiones necesarias en cabeceras, pie de página y favicons.</li>
+          <li>Compilar el proyecto para asegurar que todo se vea perfecto.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  /* Reset y Base para el Dashboard de Propuestas */
+  .proposals-page {
+    background-color: #0b0f19;
+    color: #f8fafc;
+    min-height: 100vh;
+    padding: 60px 20px 100px 20px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .container-proposals {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Cabecera */
+  .proposals-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .badge-new {
+    background: linear-gradient(135deg, rgba(217, 70, 239, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%);
+    color: #EA384D;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  
+  .proposals-header h1 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .proposals-header .subtitle {
+    font-size: 1.15rem;
+    color: #94a3b8;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    line-height: 1.6;
+  }
+  
+  .feedback-note {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 16px 24px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+  }
+  
+  .feedback-note code {
+    background: rgba(217, 70, 239, 0.1);
+    color: #d946ef;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9rem;
+  }
+
+  /* Control de Temas */
+  .theme-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+    color: #94a3b8;
+  }
+  
+  .theme-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .theme-btn:hover {
+    background: #334155;
+    border-color: #475569;
+  }
+  
+  .theme-btn.active {
+    background: #EA384D;
+    border-color: #EA384D;
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  /* Grid de Propuestas */
+  .proposals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+  
+  .proposal-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .proposal-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .proposal-card.highlight {
+    border-color: rgba(6, 182, 212, 0.3);
+    box-shadow: 0 10px 30px -15px rgba(6, 182, 212, 0.1);
+  }
+  
+  .proposal-card.highlight:hover {
+    border-color: rgba(6, 182, 212, 0.6);
+  }
+  
+  .card-header {
+    padding: 24px;
+    border-bottom: 1px solid #1e293b;
+  }
+  
+  .card-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  
+  .tag-gray { background: #334155; color: #cbd5e1; }
+  .tag-primary { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+  .tag-purple { background: rgba(217, 70, 239, 0.15); color: #f472b6; }
+  .tag-cyan { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+  
+  .card-header h3 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+  }
+  
+  .card-desc {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  /* Área de Visualización del Logo */
+  .preview-area {
+    padding: 40px 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+  
+  .preview-area.dark-bg {
+    background-color: #0b0f19;
+    background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0b0f19 100%);
+  }
+  
+  .preview-area.light-bg {
+    background-color: #ffffff;
+    background-image: radial-gradient(circle at 50% 50%, #f1f5f9 0%, #ffffff 100%);
+  }
+  
+  .logo-wrapper {
+    width: 220px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-svg-render {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Detalles de Diagnóstico */
+  .card-details {
+    padding: 24px;
+    background: rgba(30, 41, 59, 0.2);
+    border-top: 1px solid #1e293b;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .diagnose-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    line-height: 1.4;
+  }
+  
+  .diagnose-row .bullet {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  
+  .diagnose-row.red { color: #f87171; }
+  .diagnose-row.green { color: #34d399; }
+  
+  .diagnose-row strong {
+    color: #f8fafc;
+  }
+  
+  /* Simulador de Entorno */
+  .mockup-section {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid #1e293b;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 50px;
+  }
+  
+  .mockup-section h2 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    text-align: center;
+  }
+  
+  .mockup-desc {
+    text-align: center;
+    color: #94a3b8;
+    margin: 0 0 30px 0;
+  }
+  
+  .mockup-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .mockup-header-preview {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 15px 25px;
+    box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .mockup-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mockup-logo-container {
+    width: 140px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .mockup-links {
+    display: flex;
+    gap: 30px;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
+  .mockup-cta {
+    background: linear-gradient(135deg, #d946ef 0%, #EA384D 100%);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 30px;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+  }
+  
+  .mockup-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .mockup-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .mockup-btn:hover {
+    background: #334155;
+    color: #ffffff;
+  }
+  
+  .mockup-btn.active {
+    background: linear-gradient(135deg, rgba(217, 70, 239, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+    border-color: #EA384D;
+    color: #EA384D;
+  }
+  
+  /* Panel de Instrucciones */
+  .instructions-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.5) 100%);
+    border: 1px solid rgba(217, 70, 239, 0.2);
+    border-radius: 16px;
+    padding: 30px;
+  }
+  
+  .instructions-card h3 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.4rem;
+    margin: 0 0 15px 0;
+    color: #d946ef;
+  }
+  
+  .instructions-card p {
+    color: #cbd5e1;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  
+  .instructions-card ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #94a3b8;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9rem;
+  }
+  
+  .instructions-card code {
+    background: rgba(15, 23, 42, 0.8);
+    color: #22d3ee;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Adaptabilidad */
+  @media (max-width: 768px) {
+    .proposals-header h1 { font-size: 2.2rem; }
+    .mockup-links { display: none; }
+    .mockup-section { padding: 20px; }
+  }
+</style>
+
+<script is:inline>
+  // Script interactivo para cambiar fondo y simular en cabecera
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Manejo del fondo global (Dark / Light) en las áreas de preview
+    const bgBtns = document.querySelectorAll('[data-bg]');
+    const previewAreas = document.querySelectorAll('.preview-area');
+    
+    bgBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        bgBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const mode = btn.getAttribute('data-bg');
+        
+        previewAreas.forEach(area => {
+          if (mode === 'light') {
+            area.classList.remove('dark-bg');
+            area.classList.add('light-bg');
+            area.querySelectorAll('.text-color-toggle').forEach(el => el.setAttribute('fill', '#0b0f19'));
+          } else {
+            area.classList.remove('light-bg');
+            area.classList.add('dark-bg');
+            area.querySelectorAll('.text-color-toggle').forEach(el => el.setAttribute('fill', '#FFFFFF'));
+          }
+        });
+      });
+    });
+
+    // 2. Inyección dinámica del logo en el Header Mockup
+    const logos = [];
+    document.querySelectorAll('.logo-svg-render').forEach(svg => {
+      logos.push(svg.cloneNode(true));
+    });
+
+    const mockupLogoTarget = document.getElementById('mockup-logo-target');
+    const mockupBtns = document.querySelectorAll('[data-target]');
+
+    // Función para renderizar el logo en el simulador
+    const updateMockupLogo = (index) => {
+      mockupLogoTarget.innerHTML = '';
+      if (logos[index]) {
+        const logoClone = logos[index].cloneNode(true);
+        logoClone.querySelectorAll('.text-color-toggle').forEach(el => el.setAttribute('fill', '#FFFFFF'));
+        mockupLogoTarget.appendChild(logoClone);
+      }
+    };
+
+    // Inicializamos con el logo actual (índice 0)
+    updateMockupLogo(0);
+
+    mockupBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        mockupBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const targetIndex = parseInt(btn.getAttribute('data-target'), 10);
+        updateMockupLogo(targetIndex);
+      });
+    });
+  });
+</script>
+

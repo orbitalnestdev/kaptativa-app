@@ -1,0 +1,33 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.local
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# IDE / Editor settings
+.idea/
+.vscode/
+
+# Scraped temporary data files
+scraped_prospects.csv
+scraped_prospects.json
+
+# Scratch & temporary task logs
+scratch/
+.system_generated/

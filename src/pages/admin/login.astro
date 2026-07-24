@@ -1,0 +1,266 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// SSR Authentication Guard: redirect to admin dashboard if already logged in
+const sessionCookie = Astro.cookies.get('kaptativa_session');
+if (sessionCookie) {
+  return Astro.redirect('/admin');
+}
+---
+
+<Layout title="Acceso Panel de Control | Kaptativa">
+  <main class="admin-login-main">
+    <div class="login-glow-1"></div>
+    <div class="login-glow-2"></div>
+    
+    <div class="login-card">
+      <div class="login-logo">
+        <img src="/logo.svg" alt="Kaptativa Logo" width="160" height="40" loading="lazy" decoding="async">
+      </div>
+      
+      <h2>Panel Administrativo</h2>
+      <p class="login-subtitle">Ingresa tus credenciales para gestionar el CRM y el Blog corporativo.</p>
+      
+      <div class="login-alert" id="login-helper">
+        <strong>Modo de Pruebas Activo:</strong> Ingresa con <br>
+        <code>admin@kaptativa.com</code> / <code>admin123</code>
+      </div>
+      
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="login-email" class="form-label">Correo Electrónico</label>
+          <input type="email" id="login-email" class="form-control" placeholder="admin@kaptativa.com" required autocomplete="username">
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 25px;">
+          <label for="login-password" class="form-label">Contraseña</label>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+        
+        <button type="submit" class="btn btn-primary login-submit-btn" id="btn-login">
+          <span>Iniciar Sesión</span>
+          <div class="spinner" id="login-spinner" style="display: none;"></div>
+        </button>
+      </form>
+      
+      <div class="login-feedback" id="login-feedback"></div>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="/" class="back-link">← Volver al inicio</a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .admin-login-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    background: var(--bg-primary);
+  }
+  .login-glow-1 {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, transparent 70%);
+    z-index: 1;
+  }
+  .login-glow-2 {
+    position: absolute;
+    bottom: -20%;
+    right: -20%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+    z-index: 1;
+  }
+  .login-card {
+    width: 100%;
+    max-width: 440px;
+    background: rgba(17, 17, 26, 0.65);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+    position: relative;
+  }
+  .login-logo {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .login-card h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+  }
+  .login-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    line-height: 1.4;
+  }
+  .login-alert {
+    background: rgba(6, 182, 212, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 16px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .login-alert code {
+    color: var(--accent-crimson);
+    font-family: monospace;
+    font-size: 0.875rem;
+  }
+  .login-submit-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    font-size: 1rem;
+  }
+  .back-link {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .back-link:hover {
+    color: var(--accent-indigo);
+  }
+  .login-feedback {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+    display: none;
+  }
+  .login-feedback.success {
+    color: #10b981;
+    display: block;
+  }
+  .login-feedback.error {
+    color: #ef4444;
+    display: block;
+  }
+  
+  /* Spinner */
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  import { api } from '../../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Redirect to /admin if session already exists
+    try {
+      const user = await api.account.get();
+      if (user) {
+        // Ensure cookie is set before redirecting to avoid infinite redirect loop
+        let match = document.cookie.match(/(?:^|; )kaptativa_session=([^;]*)/);
+        if (!match) {
+          const sessionData = {
+            email: user.email || '',
+            name: user.name || 'Administrador',
+            $id: user.$id || 'admin-user'
+          };
+          document.cookie = `kaptativa_session=${encodeURIComponent(JSON.stringify(sessionData))}; path=/; max-age=86400; SameSite=Lax`;
+          match = document.cookie.match(/(?:^|; )kaptativa_session=([^;]*)/);
+        }
+        
+        if (match) {
+          window.location.href = '/admin';
+        } else {
+          // If cookies are blocked, clear session and do not redirect to prevent infinite loop
+          console.warn("Could not set session cookie. Cleared local session to prevent redirect loop.");
+          localStorage.setItem('mock_session', '');
+        }
+      }
+    } catch (e) {
+      // User is not logged in, continue with page
+    }
+
+    const loginForm = document.getElementById('login-form') as HTMLFormElement;
+    const emailInput = document.getElementById('login-email') as HTMLInputElement;
+    const passwordInput = document.getElementById('login-password') as HTMLInputElement;
+    const submitBtn = document.getElementById('btn-login') as HTMLButtonElement;
+    const spinner = document.getElementById('login-spinner') as HTMLElement;
+    const feedback = document.getElementById('login-feedback') as HTMLElement;
+
+    if (!loginForm) return;
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      
+      if (!email || !password) {
+        showFeedback('Por favor, ingresa correo y contraseña.', 'error');
+        return;
+      }
+
+      // Start loader
+      submitBtn.disabled = true;
+      if (spinner) spinner.style.display = 'block';
+      hideFeedback();
+
+      try {
+        const user = await api.account.login(email, password);
+        const sessionData = {
+          email: user.email || email,
+          name: user.name || 'Administrador',
+          $id: user.$id || 'admin-user'
+        };
+        document.cookie = `kaptativa_session=${encodeURIComponent(JSON.stringify(sessionData))}; path=/; max-age=86400; SameSite=Lax`;
+        
+        showFeedback('Acceso concedido. Redirigiendo...', 'success');
+        
+        setTimeout(() => {
+          window.location.href = '/admin';
+        }, 1000);
+      } catch (err: any) {
+        console.error(err);
+        showFeedback(err.message || 'Error en inicio de sesión.', 'error');
+        submitBtn.disabled = false;
+        if (spinner) spinner.style.display = 'none';
+      }
+    });
+
+    function showFeedback(msg: string, type: 'success' | 'error') {
+      if (!feedback) return;
+      feedback.innerText = msg;
+      feedback.className = `login-feedback ${type}`;
+      feedback.style.display = 'block';
+    }
+
+    function hideFeedback() {
+      if (!feedback) return;
+      feedback.style.display = 'none';
+      feedback.className = 'login-feedback';
+    }
+  });
+</script>

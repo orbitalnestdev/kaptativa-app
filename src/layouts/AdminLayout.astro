@@ -1,0 +1,90 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lexend:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; position: relative;">
+  <!-- Mobile Overlay Backdrop -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <slot />
+
+  <!-- Global Admin Toast Notification Container -->
+  <div id="admin-toast-container"></div>
+
+  <script>
+    // Global Toast Notification Helper
+    (window as any).showToast = function({ title, message = '', type = 'info', duration = 3500 }: { title: string; message?: string; type?: 'success' | 'error' | 'warning' | 'info'; duration?: number }) {
+      const container = document.getElementById('admin-toast-container');
+      if (!container) return;
+
+      const icons = {
+        success: '✓',
+        error: '✕',
+        warning: '⚠️',
+        info: 'ℹ️'
+      };
+
+      const toast = document.createElement('div');
+      toast.className = `admin-toast admin-toast-${type}`;
+      toast.innerHTML = `
+        <div class="admin-toast-icon">${icons[type] || 'ℹ️'}</div>
+        <div class="admin-toast-content">
+          <div class="admin-toast-title">${title}</div>
+          ${message ? `<div class="admin-toast-desc">${message}</div>` : ''}
+        </div>
+        <button class="admin-toast-close" type="button" aria-label="Cerrar">✕</button>
+      `;
+
+      container.appendChild(toast);
+
+      // Trigger animation
+      requestAnimationFrame(() => {
+        toast.classList.add('active');
+      });
+
+      const closeBtn = toast.querySelector('.admin-toast-close');
+      const dismiss = () => {
+        toast.classList.remove('active');
+        setTimeout(() => toast.remove(), 300);
+      };
+
+      if (closeBtn) closeBtn.addEventListener('click', dismiss);
+      if (duration > 0) setTimeout(dismiss, duration);
+    };
+
+    // Replace native alert with Toast if desired
+    const originalAlert = window.alert;
+    (window as any).alert = function(msg: string) {
+      if (typeof (window as any).showToast === 'function') {
+        (window as any).showToast({
+          title: 'Notificación',
+          message: String(msg),
+          type: 'info'
+        });
+      } else {
+        originalAlert(msg);
+      }
+    };
+  </script>
+</body>
+</html>
+
+

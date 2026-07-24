@@ -1,0 +1,531 @@
+---
+return Astro.redirect('/admin');
+---
+
+<AdminLayout title="Administración del Blog | Kaptativa">
+  <div class="admin-wrapper" id="admin-main-view">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <AdminSidebar activeTab="blog" />
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="admin-content-area">
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div>
+          <h1 class="admin-page-title" style="margin: 0; font-size: 1.6rem; font-weight: 600; color: white; font-family: 'Space Grotesk', sans-serif;">Gestión de Blog</h1>
+        </div>
+        <button class="btn btn-primary btn-sm" id="btn-new-post" style="align-self: center; display: flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Crear Artículo
+        </button>
+      </header>
+
+      <!-- ARTICLES TABLE / LIST -->
+      <section class="blog-list-container" id="posts-list-section">
+        <div class="admin-table-wrapper">
+          <div style="min-width: 600px;">
+            <table class="admin-table" id="posts-table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Categoría</th>
+                  <th>Estado</th>
+                  <th>Fecha de Publicación</th>
+                  <th style="text-align: right;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="posts-table-body">
+                <tr>
+                  <td colspan="5" style="text-align: center; padding: 30px; color: var(--text-muted);">
+                    Cargando artículos de la base de datos...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ARTICLE CRUD MODAL BACKDROP (Hidden by default) -->
+      <div id="post-modal" class="admin-modal-backdrop">
+        <div class="admin-modal admin-modal-lg" style="position: relative; padding: 35px;">
+          <!-- Close button -->
+          <button type="button" id="btn-close-modal" class="admin-modal-close">✕</button>
+
+          <h2 id="form-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; color: white; margin-bottom: 25px; font-weight: 600;">Crear Nuevo Artículo</h2>
+
+          <form id="post-crud-form">
+            <input type="hidden" id="post-id">
+            
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="post-title" class="form-label">Título del Artículo *</label>
+                <input type="text" id="post-title" class="form-control" placeholder="Ej. 5 Automatizaciones clave para tu negocio" required>
+              </div>
+              <div class="form-group">
+                <label for="post-slug" class="form-label">Slug de la URL *</label>
+                <input type="text" id="post-slug" class="form-control" placeholder="ej-automatizaciones-clave-negocio" required>
+              </div>
+            </div>
+
+            <div class="form-grid-3" style="margin-top: 15px;">
+              <div class="form-group">
+                <label for="post-category" class="form-label">Categoría *</label>
+                <select id="post-category" class="form-control" style="background-color: var(--bg-primary);">
+                  <option value="automatizacion">Automatizaciones</option>
+                  <option value="diseno-web">Diseño Web</option>
+                  <option value="inteligencia-artificial">Inteligencia Artificial</option>
+                  <option value="seo">SEO & Optimización</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="post-status" class="form-label">Estado *</label>
+                <select id="post-status" class="form-control" style="background-color: var(--bg-primary);">
+                  <option value="draft">Borrador</option>
+                  <option value="published">Publicado</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="post-author" class="form-label">Autor *</label>
+                <input type="text" id="post-author" class="form-control" value="Equipo Kaptativa" required>
+              </div>
+            </div>
+
+            <div class="form-grid-2" style="margin-top: 15px;">
+              <div class="form-group">
+                <label for="post-image" class="form-label">URL de Imagen Destacada *</label>
+                <input type="text" id="post-image" class="form-control" placeholder="https://images.unsplash.com/..." required>
+              </div>
+              <div class="form-group">
+                <label for="post-tags" class="form-label">Etiquetas (Separadas por comas)</label>
+                <input type="text" id="post-tags" class="form-control" placeholder="Ej. IA, Productividad, Make">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+              <label for="post-excerpt" class="form-label">Resumen / Copete Corto (Para tarjetas de listado) *</label>
+              <input type="text" id="post-excerpt" class="form-control" placeholder="Escribe un breve resumen descriptivo del artículo..." required>
+            </div>
+
+            <div class="form-grid-2" style="grid-template-columns: 1.2fr 1fr; gap: 30px; margin-top: 15px;">
+              <div class="form-group">
+                <label for="post-content" class="form-label">Contenido en Markdown *</label>
+                <textarea id="post-content" class="form-control" style="min-height: 350px; font-family: monospace; font-size: 0.9rem;" placeholder="Escribe el cuerpo del artículo usando Markdown básico (## Subtítulo, **Negrita**, etc.)..." required></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Vista Previa del Contenido</label>
+                <div class="markdown-preview-box" id="markdown-preview">
+                  <p style="color: var(--text-muted); font-style: italic;">Empieza a escribir en el panel de la izquierda para ver la previsualización formateada aquí...</p>
+                </div>
+              </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 30px 0;">
+            
+            <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--accent-crimson); font-family: 'Space Grotesk', sans-serif; font-weight: 600; margin-bottom: 15px;">Configuración SEO (Meta Tags)</h3>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="post-seo-title" class="form-label">Título SEO Personalizado (Opcional)</label>
+                <input type="text" id="post-seo-title" class="form-control" placeholder="Ej. 5 Automatizaciones clave para Pymes | Kaptativa">
+              </div>
+              <div class="form-group">
+                <label for="post-seo-description" class="form-label">Meta Descripción SEO (Opcional)</label>
+                <input type="text" id="post-seo-description" class="form-control" placeholder="Ej. Aprende a optimizar tus procesos corporativos con Inteligencia Artificial...">
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px; justify-content: flex-end;">
+              <button type="button" class="btn btn-secondary" id="btn-cancel-form" style="padding: 10px 22px;">Cancelar</button>
+              <button type="submit" class="btn btn-primary" style="padding: 10px 22px;">Guardar y Publicar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</AdminLayout>
+
+<style is:global>
+  /* TABLE AND FORM SPECIFIC ADMIN STYLES */
+  .admin-card-table {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+    overflow-x: auto;
+  }
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.925rem;
+  }
+  .admin-table th {
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--border-color);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+  .admin-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
+  .admin-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.01);
+  }
+  .action-buttons-cell {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .status-badge-post {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .status-badge-post.published {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+  }
+  .status-badge-post.draft {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+  }
+
+  /* Form layouts */
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .form-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .markdown-preview-box {
+    border: 1px solid var(--border-color);
+    background-color: rgba(5, 5, 8, 0.4);
+    border-radius: var(--border-radius-sm);
+    padding: 20px;
+    min-height: 350px;
+    max-height: 500px;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .markdown-preview-box h2, .markdown-preview-box h3 {
+    color: var(--text-primary);
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .markdown-preview-box p {
+    margin-bottom: 15px;
+  }
+  .markdown-preview-box ul, .markdown-preview-box ol {
+    margin-bottom: 15px;
+    padding-left: 20px;
+  }
+  .markdown-preview-box li {
+    margin-bottom: 5px;
+  }
+  .markdown-preview-box code {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--accent-crimson);
+  }
+
+  @media (max-width: 991px) {
+    .form-grid-2, .form-grid-3 {
+      grid-template-columns: 1fr !important;
+      gap: 15px;
+    }
+  }
+</style>
+
+<script>
+  import { api } from '../../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    
+    // ==========================================================================
+    // 2. BLOG CRUD CONTROLLER
+    // ==========================================================================
+    let allPosts: any[] = [];
+    const listSection = document.getElementById('posts-list-section') as HTMLElement;
+    const postModal = document.getElementById('post-modal') as HTMLElement;
+    const tableBody = document.getElementById('posts-table-body') as HTMLElement;
+    
+    const postForm = document.getElementById('post-crud-form') as HTMLFormElement;
+    const postTitleInput = document.getElementById('post-title') as HTMLInputElement;
+    const postSlugInput = document.getElementById('post-slug') as HTMLInputElement;
+    const postCategorySelect = document.getElementById('post-category') as HTMLSelectElement;
+    const postStatusSelect = document.getElementById('post-status') as HTMLSelectElement;
+    const postAuthorInput = document.getElementById('post-author') as HTMLInputElement;
+    const postImageInput = document.getElementById('post-image') as HTMLInputElement;
+    const postTagsInput = document.getElementById('post-tags') as HTMLInputElement;
+    const postExcerptInput = document.getElementById('post-excerpt') as HTMLInputElement;
+    const postContentTextarea = document.getElementById('post-content') as HTMLTextAreaElement;
+    
+    const seoTitleInput = document.getElementById('post-seo-title') as HTMLInputElement;
+    const seoDescInput = document.getElementById('post-seo-description') as HTMLInputElement;
+    const postIdInput = document.getElementById('post-id') as HTMLInputElement;
+
+    // Load posts
+    async function loadBlogPosts() {
+      try {
+        const response = await api.db.listPosts();
+        allPosts = response.documents || [];
+        renderPostsTable();
+      } catch (err) {
+        console.error("Error loading blog posts:", err);
+        tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444;">Error al cargar artículos de la base de datos.</td></tr>`;
+      }
+    }
+
+    function renderPostsTable() {
+      if (allPosts.length === 0) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="5">
+              <div class="admin-empty-state" style="border: none; margin: 10px 0;">
+                <div class="admin-empty-icon">📝</div>
+                <h4 class="admin-empty-title">Sin artículos publicados</h4>
+                <p class="admin-empty-desc">Comienza creando tu primera publicación en el blog para atraer tráfico orgánico.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tableBody.innerHTML = '';
+      allPosts.forEach((post: any) => {
+        const row = document.createElement('tr');
+        
+        const dateStr = formatDate(post.published_at || post.created_at || post.$createdAt);
+        const statusLabel = post.status === 'published' ? 'Publicado' : 'Borrador';
+        const statusClass = post.status === 'published' ? 'published' : 'draft';
+        
+        row.innerHTML = `
+          <td style="font-weight: 600; color: var(--text-primary);">${post.title}</td>
+          <td><span class="admin-badge admin-badge-cyan">${formatCategory(post.category)}</span></td>
+          <td><span class="status-badge-post ${statusClass}">${statusLabel}</span></td>
+          <td>${dateStr}</td>
+          <td class="action-buttons-cell">
+            <button class="btn btn-secondary btn-sm btn-edit-post" data-id="${post.$id}">Editar</button>
+            <button class="btn btn-secondary btn-sm btn-delete-post" data-id="${post.$id}" style="border-color: #ef4444; color: #ef4444; background: rgba(239, 68, 68, 0.02);">Eliminar</button>
+          </td>
+        `;
+        
+        // Edit Row Click
+        row.querySelector('.btn-edit-post')?.addEventListener('click', () => {
+          openEditForm(post);
+        });
+
+        // Delete Row Click
+        row.querySelector('.btn-delete-post')?.addEventListener('click', async () => {
+          if (confirm(`¿Estás seguro de que deseas eliminar permanentemente el artículo "${post.title}"?`)) {
+            try {
+              await api.db.deletePost(post.$id);
+              if (typeof (window as any).showToast === 'function') {
+                (window as any).showToast({ type: 'success', title: 'Eliminado', message: 'Artículo eliminado correctamente.' });
+              }
+              loadBlogPosts();
+            } catch (e) {
+              if (typeof (window as any).showToast === 'function') {
+                (window as any).showToast({ type: 'error', title: 'Error', message: 'No se pudo eliminar el artículo.' });
+              }
+            }
+          }
+        });
+
+        tableBody.appendChild(row);
+      });
+    }
+
+
+    // Toggle Form visibility
+    function showForm(isEdit = false) {
+      postModal.classList.add('active');
+      const formTitle = document.getElementById('form-title') as HTMLElement;
+      if (formTitle) formTitle.innerText = isEdit ? 'Editar Artículo' : 'Crear Nuevo Artículo';
+    }
+
+    function hideForm() {
+      postModal.classList.remove('active');
+      postForm.reset();
+      postIdInput.value = '';
+      updateMarkdownPreview('');
+    }
+
+    // Slug generation utility
+    if (postTitleInput && postSlugInput) {
+      postTitleInput.addEventListener('input', () => {
+        if (!postIdInput.value) { // Auto-slug only when creating new post
+          const title = postTitleInput.value;
+          postSlugInput.value = title
+            .toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove accents
+            .replace(/[^a-z0-9\s-]/g, '') // remove special symbols
+            .replace(/\s+/g, '-') // spaces to dashes
+            .replace(/-+/g, '-'); // trim double dashes
+        }
+      });
+    }
+
+    // Live Markdown preview listener
+    if (postContentTextarea) {
+      postContentTextarea.addEventListener('input', () => {
+        updateMarkdownPreview(postContentTextarea.value);
+      });
+    }
+
+    function updateMarkdownPreview(markdown: string) {
+      const preview = document.getElementById('markdown-preview');
+      if (!preview) return;
+
+      if (!markdown) {
+        preview.innerHTML = `<p style="color: var(--text-muted); font-style: italic;">Empieza a escribir en el panel de la izquierda para ver la previsualización formateada aquí...</p>`;
+        return;
+      }
+
+      // Very simple parser for client preview (replaces common MD styles to HTML)
+      let html = markdown
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/^##\s+(.*$)/gim, '<h2>$1</h2>')
+        .replace(/^###\s+(.*$)/gim, '<h3>$1</h3>')
+        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+        .replace(/`([^`]+)`/gim, '<code>$1</code>')
+        .replace(/\n$/gim, '<br />')
+        .replace(/\n/gim, '<br />');
+
+      preview.innerHTML = html;
+    }
+
+    // Open forms actions
+    document.getElementById('btn-new-post')?.addEventListener('click', () => {
+      postForm.reset();
+      postIdInput.value = '';
+      showForm(false);
+    });
+
+    const cancelBtns = ['btn-cancel-form', 'btn-close-modal'];
+    cancelBtns.forEach(id => {
+      document.getElementById(id)?.addEventListener('click', hideForm);
+    });
+
+    postModal.addEventListener('click', (e) => {
+      if (e.target === postModal) {
+        hideForm();
+      }
+    });
+
+    function openEditForm(post: any) {
+      postIdInput.value = post.$id;
+      postTitleInput.value = post.title;
+      postSlugInput.value = post.slug;
+      postCategorySelect.value = post.category || 'automatizacion';
+      postStatusSelect.value = post.status || 'draft';
+      postAuthorInput.value = post.author || 'Equipo Kaptativa';
+      postImageInput.value = post.featured_image || '';
+      postTagsInput.value = post.tags || '';
+      postExcerptInput.value = post.excerpt || '';
+      postContentTextarea.value = post.content || '';
+      seoTitleInput.value = post.seo_title || '';
+      seoDescInput.value = post.seo_description || '';
+      
+      updateMarkdownPreview(post.content || '');
+      showForm(true);
+    }
+
+    // Save Article Submit
+    if (postForm) {
+      postForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const id = postIdInput.value;
+        const title = postTitleInput.value.trim();
+        const slug = postSlugInput.value.trim();
+        const category = postCategorySelect.value;
+        const status = postStatusSelect.value;
+        const author = postAuthorInput.value.trim();
+        const featured_image = postImageInput.value.trim();
+        const tags = postTagsInput.value.trim();
+        const excerpt = postExcerptInput.value.trim();
+        const content = postContentTextarea.value.trim();
+        const seo_title = seoTitleInput.value.trim();
+        const seo_description = seoDescInput.value.trim();
+
+        const postData = {
+          title,
+          slug,
+          category,
+          status,
+          author,
+          featured_image,
+          tags,
+          excerpt,
+          content,
+          seo_title,
+          seo_description,
+          published_at: status === 'published' ? new Date().toISOString() : ''
+        };
+
+        try {
+          if (id) {
+            // Update
+            await api.db.updatePost(id, postData);
+          } else {
+            // Create
+            await api.db.createPost(postData);
+          }
+          
+          hideForm();
+          loadBlogPosts();
+        } catch (err: any) {
+          alert(`Error al guardar el artículo: ${err.message || 'Error de base de datos'}`);
+        }
+      });
+    }
+
+    // Formatting utilities
+    function formatDate(isoString: string) {
+      if (!isoString) return 'No publicado';
+      const date = new Date(isoString);
+      return date.toLocaleDateString('es-AR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+    }
+
+    function formatCategory(cat: string) {
+      const mapping: Record<string, string> = {
+        'automatizacion': 'Automatizaciones',
+        'diseno-web': 'Diseño Web',
+        'inteligencia-artificial': 'Inteligencia Artificial',
+        'seo': 'SEO'
+      };
+      return mapping[cat] || cat;
+    }
+
+    // Initial Load
+    await loadBlogPosts();
+  });
+</script>

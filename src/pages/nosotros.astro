@@ -1,0 +1,655 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Equipo from '../components/Equipo.astro';
+---
+
+<Layout title="Quiénes Somos | kaptativa® Digital" description="Somos kaptativa®. Tu socio de transformación digital en La Rioja. Integramos marketing, tecnología y datos en una sola estrategia.">
+  <Header slot="header" />
+  
+  <main>
+    <!-- HERO INMERSIVO DE MARCA -->
+    <section class="hero hero-section" id="nosotros-hero">
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      
+      <div class="container hero-container">
+        <div class="hero-content reveal">
+          <span class="badge">
+            <span class="badge-dot-pulsing"></span> QUIÉNES SOMOS
+          </span>
+          <h1 class="hero-tagline"><span style="white-space: nowrap;">Somos <span class="text-gradient-crimson">kaptativa<sup>®</sup></span>. Tu socio</span><br />de transformación<br />digital.</h1>
+          <p class="hero-description"><span class="text-gradient-crimson" style="font-weight: 600;">kaptativa<sup>®</sup> Digital</span> es una agencia de transformación digital de La Rioja, fundada por Eliana Azcurra. Un equipo multidisciplinario que integra marketing, tecnología y datos en una sola estrategia para potenciar empresas con sistemas, no con parches.</p>
+          
+          <div class="hero-buttons">
+            <a href="/contacto" class="btn btn-primary btn-glow">Agendá una demo</a>
+            <a href="#nuestra-historia" class="btn btn-secondary">Ver el método</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUESTRA HISTORIA -->
+    <section class="section section-dark" id="nuestra-historia">
+      <div class="container">
+        <div class="story-card-wrapper reveal">
+          <div class="section-header" style="margin-bottom: 25px;">
+            <span class="badge">NUESTRA HISTORIA</span>
+            <h2>Kap de captación, Tativa de transformación.</h2>
+          </div>
+          <div class="story-body">
+            <p>
+              El nombre lo dice todo. <strong>Kap viene de captación y Tativa de transformación</strong>: las dos cosas que buscamos cada vez que entramos a un negocio. No nacimos para ejecutar tareas sueltas, nacimos para mover empresas hacia adelante.
+            </p>
+            <p>
+              <span class="text-gradient-crimson" style="font-weight: 600;">kaptativa<sup>®</sup></span> empezó con una idea simple y poco común en el rubro: la mayoría de las empresas no necesita más herramientas ni más campañas, necesita orden. Necesita que alguien lea su operación como un sistema y construya las piezas que faltan para que escale sin romperse.
+            </p>
+            <p>
+              Por eso no nos presentamos como una agencia. Una agencia te gestiona campañas; una fábrica de software te entrega un producto y desaparece. Nosotros nos integramos en tu negocio como un brazo estratégico, construimos los sistemas que necesitás y te enseñamos a operarlos. Desde La Rioja trabajamos con clientes en Argentina y en el exterior, en e-commerce, eventos, inmobiliarias, estética, salud y B2B.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ SOMOS Y QUÉ NO SOMOS (COMPARATIVA CON TARJETAS GLASS) -->
+    <section class="section" id="comparativa-identidad">
+      <div class="container">
+        <div class="section-header reveal text-center">
+          <span class="badge badge-accent">PARA QUE QUEDE CLARO</span>
+          <h2>Qué somos <span class="text-gradient-crimson">y qué no somos.</span></h2>
+          <p style="max-width: 650px; margin: 0 auto; color: var(--text-secondary);">La diferencia no es de marketing, es de forma de trabajar. Acá está, sin vueltas.</p>
+        </div>
+
+        <div class="comp-flex-container reveal">
+          <!-- Lo que sí somos -->
+          <div class="comp-box comp-box-yes">
+            <div class="comp-header">
+              <span class="badge-tag-yes">kaptativa<sup>®</sup></span>
+              <h3 class="comp-title">Lo que sí somos</h3>
+            </div>
+            <div class="comp-items-wrap">
+              <div class="comp-item">
+                <div class="comp-icon-circle icon-circle-yes">✓</div>
+                <div class="comp-item-text">
+                  <h4>Socio estratégico que se integra en tu negocio</h4>
+                  <p>Trabajamos como un brazo de tu equipo, alineando los objetivos a largo plazo.</p>
+                </div>
+              </div>
+              <div class="comp-item">
+                <div class="comp-icon-circle icon-circle-yes">✓</div>
+                <div class="comp-item-text">
+                  <h4>Sistemas medibles y escalables</h4>
+                  <p>Construimos estructuras técnicas listas para absorber 10x más volumen sin romperse.</p>
+                </div>
+              </div>
+              <div class="comp-item">
+                <div class="comp-icon-circle icon-circle-yes">✓</div>
+                <div class="comp-item-text">
+                  <h4>Transformación con transferencia</h4>
+                  <p>Tu equipo aprende y adquiere la capacidad de operar las herramientas de forma autónoma.</p>
+                </div>
+              </div>
+              <div class="comp-item">
+                <div class="comp-icon-circle icon-circle-yes">✓</div>
+                <div class="comp-item-text">
+                  <h4>Marketing, tecnología y datos en una sola estrategia</h4>
+                  <p>Una visión 360° unificada que conecta la captación con la ejecución operativa.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lo que no somos -->
+          <div class="comp-box comp-box-no">
+            <div class="comp-header">
+              <span class="badge-tag-no">Un proveedor tradicional</span>
+              <h3 class="comp-title">Lo que no somos</h3>
+            </div>
+            <div class="comp-items-wrap">
+              <div class="comp-item">
+                <div class="comp-icon-circle icon-circle-no">✕</div>
+                <div class="comp-item-text">
+                  <h4>Proveedor que solo ejecuta tickets</h4>
+                  <p>Hacer tareas a ciegas sin cuestionar si realmente le sirven al negocio.</p>
+                </div>
+              </div>
+              <div class="comp-item">
+                <div class="comp-icon-circle icon-circle-no">✕</div>
+                <div class="comp-item-text">
+                  <h4>Acciones sueltas sin medición</h4>
+                  <p>Lanzar campañas o parches aislados sin métricas de rentabilidad ni retorno.</p>
+                </div>
+              </div>
+              <div class="comp-item">
+                <div class="comp-icon-circle icon-circle-no">✕</div>
+                <div class="comp-item-text">
+                  <h4>Dependencia eterna del proveedor</h4>
+                  <p>Cajas negras donde necesitás pagar mensualmente para que te muevan un botón.</p>
+                </div>
+              </div>
+              <div class="comp-item">
+                <div class="comp-icon-circle icon-circle-no">✕</div>
+                <div class="comp-item-text">
+                  <h4>Una sola pata desconectada del resto</h4>
+                  <p>Equipos de diseño que no entienden de ventas, o programadores que no ven marketing.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO TRABAJAMOS (CARRUSEL MARQUEE INFINITO DE EXTREMO A EXTREMO) -->
+    <section class="section section-dark overflow-hidden" id="valores">
+      <div class="section-header reveal text-center" style="max-width: 750px; margin: 0 auto 40px auto;">
+        <span class="badge">CÓMO TRABAJAMOS</span>
+        <h2 style="margin-top: 12px; margin-bottom: 12px;">Siete valores que se notan <span class="text-gradient-crimson">en cada palabra.</span></h2>
+        <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; margin: 0 auto; max-width: 620px;">No son una placa en la pared. Son la forma en que hablamos, decidimos y entregamos.</p>
+      </div>
+
+      <!-- Full Bleed 100vw Marquee Slider -->
+      <div class="infinite-marquee-viewport reveal">
+        <div class="infinite-marquee-track">
+          <!-- SET 1 -->
+          <div class="val-marquee-card">
+            <div class="val-watermark">01</div>
+            <span class="val-tag-pill">01 • METODOLOGÍA</span>
+            <h3>Directa</h3>
+            <p>Sin rodeos ni relleno. Vamos al punto y te decimos lo que importa en cada etapa.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">02</div>
+            <span class="val-tag-pill">02 • METODOLOGÍA</span>
+            <h3>Honesta</h3>
+            <p>No inflamos expectativas. Si algo no conviene a tu negocio, te lo decimos sin vueltas.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">03</div>
+            <span class="val-tag-pill">03 • METODOLOGÍA</span>
+            <h3>Estratégica</h3>
+            <p>Todo comunica con propósito. Cada diseño y automatización responde a metas de rentabilidad.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">04</div>
+            <span class="val-tag-pill">04 • METODOLOGÍA</span>
+            <h3>Cálida</h3>
+            <p>Cercanos sin perder seriedad. Trabajamos mano a mano con líderes reales, no con tickets fríos.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">05</div>
+            <span class="val-tag-pill">05 • METODOLOGÍA</span>
+            <h3>Premium</h3>
+            <p>La calidad se nota en cada detalle. Desde el copy comercial hasta la velocidad del código.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">06</div>
+            <span class="val-tag-pill">06 • METODOLOGÍA</span>
+            <h3>Educativa</h3>
+            <p>Explicamos el porqué de cada decisión. Querés entender lo que se construye y nosotros también.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">07</div>
+            <span class="val-tag-pill">07 • METODOLOGÍA</span>
+            <h3>Accountable</h3>
+            <p>Nos hacemos cargo de los resultados. Si nos equivocamos, lo asumimos y lo resolvemos.</p>
+          </div>
+
+          <!-- SET 2 (DUPLICADO PARA LOOP INFINITO SIN CORTES) -->
+          <div class="val-marquee-card">
+            <div class="val-watermark">01</div>
+            <span class="val-tag-pill">01 • METODOLOGÍA</span>
+            <h3>Directa</h3>
+            <p>Sin rodeos ni relleno. Vamos al punto y te decimos lo que importa en cada etapa.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">02</div>
+            <span class="val-tag-pill">02 • METODOLOGÍA</span>
+            <h3>Honesta</h3>
+            <p>No inflamos expectativas. Si algo no conviene a tu negocio, te lo decimos sin vueltas.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">03</div>
+            <span class="val-tag-pill">03 • METODOLOGÍA</span>
+            <h3>Estratégica</h3>
+            <p>Todo comunica con propósito. Cada diseño y automatización responde a metas de rentabilidad.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">04</div>
+            <span class="val-tag-pill">04 • METODOLOGÍA</span>
+            <h3>Cálida</h3>
+            <p>Cercanos sin perder seriedad. Trabajamos mano a mano con líderes reales, no con tickets fríos.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">05</div>
+            <span class="val-tag-pill">05 • METODOLOGÍA</span>
+            <h3>Premium</h3>
+            <p>La calidad se nota en cada detalle. Desde el copy comercial hasta la velocidad del código.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">06</div>
+            <span class="val-tag-pill">06 • METODOLOGÍA</span>
+            <h3>Educativa</h3>
+            <p>Explicamos el porqué de cada decisión. Querés entender lo que se construye y nosotros también.</p>
+          </div>
+          <div class="val-marquee-card">
+            <div class="val-watermark">07</div>
+            <span class="val-tag-pill">07 • METODOLOGÍA</span>
+            <h3>Accountable</h3>
+            <p>Nos hacemos cargo de los resultados. Si nos equivocamos, lo asumimos y lo resolvemos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EL EQUIPO -->
+    <Equipo />
+
+    <!-- SECCIÓN DE CONTACTO FINAL -->
+    <section class="section section-dark" id="contacto-nosotros" style="padding: 100px 0;">
+      <div class="container" style="max-width: 860px;">
+        <div class="section-header reveal text-center" style="margin-bottom: 40px;">
+          <span class="badge badge-neon">CONECTEMOS</span>
+          <h2>¿Listo para impulsar <span class="text-gradient-crimson">tu transformación?</span></h2>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 10px auto 0;">Completá tus datos y contanos tu desafío. Te responderemos en menos de 24hs hábiles.</p>
+        </div>
+
+        <div class="contact-form-card reveal" style="background: rgba(15, 21, 36, 0.85); border: 1px solid rgba(138, 53, 229, 0.25); border-radius: 24px; padding: 45px 40px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+          <form id="contact-form" class="direct-contact-form" novalidate>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-name" class="form-label-uppercase">NOMBRE *</label>
+                <input type="text" id="form-name" class="form-control" placeholder="Tu nombre" required>
+              </div>
+              <div class="form-group">
+                <label for="form-email" class="form-label-uppercase">EMAIL *</label>
+                <input type="email" id="form-email" class="form-control" placeholder="tu@empresa.com" required>
+              </div>
+            </div>
+            
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-whatsapp" class="form-label-uppercase">TELÉFONO / WHATSAPP *</label>
+                <input type="tel" id="form-whatsapp" class="form-control" placeholder="+54 11 ..." required>
+              </div>
+              <div class="form-group">
+                <label for="form-business" class="form-label-uppercase">EMPRESA *</label>
+                <input type="text" id="form-business" class="form-control" placeholder="Nombre de tu empresa" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="form-website" class="form-label-uppercase">URL DEL SITIO (OPCIONAL)</label>
+              <input type="url" id="form-website" class="form-control" placeholder="https://tusitio.com">
+            </div>
+
+            <div class="form-group">
+              <label for="form-role" class="form-label-uppercase">¿QUÉ PUESTO OCUPÁS?</label>
+              <select id="form-role" class="form-control form-select-custom">
+                <option value="" disabled selected>Elegí una opción</option>
+                <option value="Fundador / CEO / Socio">Fundador / CEO / Socio</option>
+                <option value="Director Comercial / Ventas">Director Comercial / Ventas</option>
+                <option value="Gerente de Marketing">Gerente de Marketing</option>
+                <option value="Operaciones / Administración">Operaciones / Administración</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-uppercase" style="margin-bottom: 12px; display: block;">¿QUÉ TE INTERESA?</label>
+              <div class="services-checkbox-grid">
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="Paid Media"> <span>Paid Media</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="SEO & GEO"> <span>SEO & GEO</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="Social Media"> <span>Social Media</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="Web & E-commerce"> <span>Web & E-commerce</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="Email Marketing"> <span>Email Marketing</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="Software a Medida"> <span>Software a Medida</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="Automatización"> <span>Automatización</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="Agentes IA"> <span>Agentes IA</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="services" value="Consultoría"> <span>Consultoría</span></label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-message" class="form-label-uppercase">¿CUÁL ES TU PRINCIPAL DESAFÍO HOY? *</label>
+              <textarea id="form-message" class="form-control" rows="4" placeholder="Contanos en qué estás y qué te gustaría resolver" required></textarea>
+            </div>
+            
+            <div class="form-group" style="margin-top: 10px; margin-bottom: 20px;">
+              <label class="form-checkbox" id="label-checkbox-whatsapp">
+                <input type="checkbox" id="form-send-whatsapp" checked>
+                <span>Abrir chat de WhatsApp inmediatamente para agilizar mi consulta.</span>
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px rgba(234, 56, 77, 0.4);">
+              <span>Enviar →</span>
+            </button>
+            
+            <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">
+              Te respondemos en 24hs. Tus datos se tratan según nuestra <a href="/privacidad" style="color: var(--accent-pink); text-decoration: underline;">política de privacidad</a>.
+            </p>
+
+            <div class="form-feedback" id="form-feedback-status" style="display: none; margin-top: 20px;"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
+
+<script>
+  import { api } from '../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const feedback = document.getElementById('form-feedback-status');
+    const submitBtn = document.getElementById('btn-submit-form') as HTMLButtonElement;
+
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = (document.getElementById('form-name') as HTMLInputElement).value.trim();
+      const email = (document.getElementById('form-email') as HTMLInputElement).value.trim();
+      const whatsapp = (document.getElementById('form-whatsapp') as HTMLInputElement).value.trim();
+      const business = (document.getElementById('form-business') as HTMLInputElement).value.trim();
+      const website = (document.getElementById('form-website') as HTMLInputElement)?.value.trim() || '';
+      const role = (document.getElementById('form-role') as HTMLSelectElement)?.value || 'No especificado';
+      const message = (document.getElementById('form-message') as HTMLTextAreaElement).value.trim();
+      const sendWhatsapp = (document.getElementById('form-send-whatsapp') as HTMLInputElement)?.checked ?? true;
+
+      const checkedServices: string[] = [];
+      document.querySelectorAll('input[name="services"]:checked').forEach((cb) => {
+        checkedServices.push((cb as HTMLInputElement).value);
+      });
+
+      if (!feedback) return;
+
+      if (!name || !email || !whatsapp || !business || !message) {
+        feedback.style.display = 'block';
+        feedback.className = 'form-feedback feedback-error';
+        feedback.innerText = 'Por favor, completá todos los campos obligatorios (*).';
+        return;
+      }
+
+      feedback.style.display = 'block';
+      feedback.className = 'form-feedback feedback-info';
+      feedback.innerText = 'Enviando tu consulta...';
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const selectedServicesStr = checkedServices.length > 0 ? checkedServices.join(', ') : 'Ninguno seleccionado';
+        await api.db.createLead({
+          name,
+          email,
+          business,
+          whatsapp,
+          message: `Puesto: ${role}\nSitio Web: ${website}\nServicios de interés: ${selectedServicesStr}\n\nDesafío: ${message}`,
+          status: 'nuevo',
+          tags: 'Contacto Nosotros',
+          score: 0,
+          recommendations: `Lead generado desde la página Nosotros. Servicios: ${selectedServicesStr}`
+        });
+
+        feedback.className = 'form-feedback feedback-success';
+        feedback.innerText = `¡Gracias, ${name}! Tu consulta ha sido enviada con éxito.`;
+
+        if (sendWhatsapp) {
+          const agencyPhone = '541138830925';
+          const text = encodeURIComponent(`¡Hola Kaptativa! Acabo de enviar una consulta desde la web.\n\n*Datos:*\n- *Nombre:* ${name}\n- *Empresa:* ${business}\n- *Email:* ${email}\n- *WhatsApp:* ${whatsapp}\n- *Puesto:* ${role}\n- *Interés:* ${selectedServicesStr}\n- *Desafío:* ${message}`);
+          setTimeout(() => {
+            window.open(`https://wa.me/${agencyPhone}?text=${text}`, '_blank');
+          }, 1200);
+        }
+
+        contactForm.reset();
+      } catch (err) {
+        console.error('Error enviando formulario:', err);
+        feedback.className = 'form-feedback feedback-error';
+        feedback.innerText = 'Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente o contactanos por WhatsApp.';
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  .story-card-wrapper {
+    max-width: 880px;
+    margin: 0 auto;
+    background: rgba(15, 21, 36, 0.6);
+    border: 1px solid rgba(138, 53, 229, 0.25);
+    border-radius: 24px;
+    padding: 50px 45px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+  .story-body p {
+    font-size: 1.08rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 22px;
+  }
+  .story-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Comparison Section styling fix */
+  .comp-flex-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 45px auto 0;
+  }
+  .comp-box {
+    flex: 1;
+    background: rgba(15, 21, 36, 0.75) !important;
+    border-radius: 24px !important;
+    padding: 40px !important;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    display: block !important;
+  }
+  .comp-box-yes {
+    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(16, 185, 129, 0.15);
+  }
+  .comp-box-no {
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(15, 21, 36, 0.45) !important;
+  }
+  .comp-header {
+    margin-bottom: 30px;
+  }
+  .badge-tag-yes {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    margin-bottom: 12px;
+  }
+  .badge-tag-no {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 12px;
+  }
+  .comp-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  .comp-items-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .comp-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .comp-icon-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .icon-circle-yes {
+    background: rgba(16, 185, 129, 0.18);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+  }
+  .icon-circle-no {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .comp-item-text h4 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 4px 0;
+  }
+  .comp-item-text p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Full Bleed Infinite Marquee Carousel Styling */
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  .infinite-marquee-viewport {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+    padding: 20px 0 30px;
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  }
+  .infinite-marquee-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: marqueeSmooth 35s linear infinite;
+  }
+  .infinite-marquee-viewport:hover .infinite-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marqueeSmooth {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .val-marquee-card {
+    width: 350px;
+    min-width: 350px;
+    background: linear-gradient(135deg, rgba(15, 21, 36, 0.85) 0%, rgba(25, 12, 35, 0.85) 100%);
+    border: 1px solid rgba(138, 53, 229, 0.25);
+    border-radius: 22px;
+    padding: 36px 30px;
+    backdrop-filter: blur(16px);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  }
+  .val-marquee-card:hover {
+    border-color: rgba(234, 56, 77, 0.5);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(234, 56, 77, 0.2);
+  }
+  .val-watermark {
+    position: absolute;
+    top: -15px;
+    right: 15px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.03);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    transition: color 0.35s ease;
+  }
+  .val-marquee-card:hover .val-watermark {
+    color: rgba(234, 56, 77, 0.08);
+  }
+  .val-tag-pill {
+    display: inline-block;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-pink);
+    background: rgba(234, 56, 77, 0.15);
+    border: 1px solid rgba(234, 56, 77, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+    margin-bottom: 18px;
+  }
+  .val-marquee-card h3 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+  .val-marquee-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .comp-flex-container {
+      flex-direction: column;
+    }
+    .val-marquee-card {
+      width: 300px;
+      min-width: 300px;
+      padding: 28px 22px;
+    }
+  }
+</style>

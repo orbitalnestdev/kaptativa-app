@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Política de Privacidad | Kaptativa" description="Políticas de privacidad y tratamiento de datos personales de Kaptativa.">
+  <Header slot="header" />
+
+  <main>
+    <section class="legal-section">
+      <div class="container legal-container">
+        <div class="legal-header reveal">
+          <span class="badge legal-badge">LEGAL</span>
+          <h1>Política de <span class="text-gradient-cyan">Privacidad</span></h1>
+          <p class="last-updated">Última actualización: 18 de Julio, 2026</p>
+        </div>
+
+        <div class="legal-content reveal reveal-delay-1">
+          <p>En <strong>Kaptativa</strong>, accesible desde <a href="https://kaptativa.com">kaptativa.com</a>, una de nuestras principales prioridades es la privacidad de nuestros visitantes y clientes. Este documento de Política de Privacidad contiene los tipos de información que recopilamos y registramos, y cómo la utilizamos en el marco de nuestros desarrollos de software, automatizaciones y agentes de Inteligencia Artificial.</p>
+
+          <h2>1. Información que Recopilamos</h2>
+          <p>Recopilamos información personal de manera voluntaria a través de nuestros formularios de contacto, cotizadores digitales y simulaciones de chat. Esto incluye:</p>
+          <ul>
+            <li>Nombre y apellido.</li>
+            <li>Dirección de correo electrónico corporativo.</li>
+            <li>Número de teléfono / WhatsApp Comercial.</li>
+            <li>Nombre del negocio, empresa o sitio web.</li>
+            <li>Requerimientos técnicos y detalles del proyecto provistos por el usuario.</li>
+          </ul>
+
+          <h2>2. Cómo Utilizamos tu Información</h2>
+          <p>Utilizamos la información recopilada para diversos fines, tales como:</p>
+          <ul>
+            <li>Proveer, operar y mantener nuestro sitio web y herramientas.</li>
+            <li>Mejorar, personalizar y expandir la experiencia de usuario de nuestro sitio.</li>
+            <li>Comprender y analizar cómo utilizas nuestro portal y simuladores.</li>
+            <li>Desarrollar nuevos productos, servicios, características y funcionalidades.</li>
+            <li>Comunicarnos contigo, ya sea directamente o a través de nuestros canales automatizados (como WhatsApp), para enviarte diagnósticos de madurez digital, cotizaciones y propuestas comerciales.</li>
+          </ul>
+
+          <h2>3. Tratamiento de Datos en Integraciones de WhatsApp y CRM</h2>
+          <p>Nuestros servicios especializados incluyen la conexión de bases de datos y la automatización de flujos conversacionales mediante la API de WhatsApp Business. Bajo esta modalidad:</p>
+          <ul>
+            <li>Toda la información captada por los chatbots de Inteligencia Artificial se almacena de forma estructurada en las bases de datos del cliente (Appwrite, PostgreSQL u otros).</li>
+            <li>No comercializamos, alquilamos ni compartimos historiales de chat ni datos de contacto con terceros sin consentimiento explícito.</li>
+            <li>Implementamos protocolos seguros de transferencia de datos y encriptación SSL para resguardar la información de punta a punta.</li>
+          </ul>
+
+          <h2>4. Archivos de Registro (Logs)</h2>
+          <p>Kaptativa sigue un procedimiento estándar de uso de archivos de registro. Estos archivos registran a los visitantes cuando acceden a sitios web. La información recopilada por los archivos de registro incluye direcciones de protocolo de Internet (IP), tipo de navegador, proveedor de servicios de Internet (ISP), marca de fecha y hora, páginas de referencia/salida y, posiblemente, el número de clics. Estos datos no están vinculados a ninguna información que sea personalmente identificable.</p>
+
+          <h2>5. Derechos de Protección de Datos (GDPR / Ley 25.326 Argentina)</h2>
+          <p>Queremos asegurarnos de que conozcas todos tus derechos de protección de datos. Todo usuario tiene derecho a lo siguiente:</p>
+          <ul>
+            <li><strong>Derecho de acceso:</strong> Tienes derecho a solicitar copias de tus datos personales almacenados.</li>
+            <li><strong>Derecho de rectificación:</strong> Tienes derecho a solicitar que corrijamos cualquier información que consideres inexacta.</li>
+            <li><strong>Derecho de supresión (olvido):</strong> Tienes derecho a solicitar que eliminemos tus datos personales, bajo ciertas condiciones.</li>
+            <li><strong>Derecho a oponerte al tratamiento:</strong> Tienes derecho a oponerte a que tratemos tus datos personales para fines comerciales directos.</li>
+          </ul>
+          <p>Si deseas ejercer alguno de estos derechos o tienes preguntas sobre cómo gestionamos tus datos, por favor contáctanos vía email a <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .legal-section {
+    padding: 140px 0 100px 0;
+    background-color: var(--bg-primary);
+  }
+
+  .legal-container {
+    max-width: 800px !important;
+  }
+
+  .legal-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .legal-header h1 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+  }
+
+  .last-updated {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .legal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 50px;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .legal-content p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .legal-content h2 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 40px;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .legal-content ul {
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+
+  .legal-content li {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+
+  .legal-content a {
+    color: var(--accent-cyan, #00d2ff);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+
+  .legal-content a:hover {
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 768px) {
+    .legal-section {
+      padding: 100px 0 60px 0;
+    }
+    
+    .legal-header h1 {
+      font-size: 2.2rem;
+    }
+
+    .legal-content {
+      padding: 30px 24px;
+      border-radius: 16px;
+    }
+  }
+</style>

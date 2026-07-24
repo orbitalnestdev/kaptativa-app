@@ -1,0 +1,2957 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Configuración de Enlaces y Contactos (CRO / Campaña)
+const MERCADO_PAGO_PLAN_BASE = import.meta.env.MERCADO_PAGO_PLAN_BASE || "https://link.mercadopago.com.ar/tu-link-de-pago-web";
+const MERCADO_PAGO_PLAN_IA = import.meta.env.MERCADO_PAGO_PLAN_IA || "https://link.mercadopago.com.ar/tu-link-de-suscripcion-ia";
+const CONTACT_WHATSAPP_NUMBER = import.meta.env.CONTACT_WHATSAPP_NUMBER || "541138830925";
+
+// Generar enlaces dinámicos de WhatsApp
+const waContactUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la%20Landing%20Inmobiliaria%20y%20quiero%20hacerles%20una%20consulta`;
+const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la%20Landing%20Inmobiliaria%20y%20quiero%20una%20demo%20de%20mi%20marca`;
+---
+
+<Layout title="Inmo-Scale 360° | Software de Gestión y Catálogos Web Inmobiliarios" description="La plataforma digital inmobiliaria completa llave en mano. Tu panel de control administrativo, tu sitio web público ultra-rápido, tu CRM integrado y tu Agente IA de WhatsApp que atiende y agenda consultas 24/7.">
+  
+  <!-- JSON-LD Structured Data: SoftwareApplication & RealEstateAgent Service -->
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Inmo-Scale 360°",
+    "operatingSystem": "All",
+    "applicationCategory": "BusinessApplication",
+    "browserRequirements": "Requires HTML5/JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "360000.00",
+      "priceCurrency": "ARS"
+    },
+    "description": "Infraestructura digital exclusiva para inmobiliarias: Portal de propiedades premium autogestionable, CRM operativo integrado con embudo Kanban y módulo opcional de Agente IA en WhatsApp que atiende y califica consultas 24/7.",
+    "softwareHelp": {
+      "@type": "CreativeWork",
+      "name": "Kaptativa Soporte Técnico y Setup Llave en Mano"
+    }
+  }
+  </script>
+
+  <!-- ==========================================================================
+       HEADER DE CAMPAÑA PREMIUM (CERO FUGAS DE CONVERSIÓN)
+       ========================================================================== -->
+  <div slot="header">
+    <!-- Barra de Anuncios / Urgencia Superior (CRO Toolbar) -->
+    <div class="inmo-top-announcement-bar" id="top-urgency-bar">
+      <div class="container inmo-top-bar-container">
+        <div class="inmo-top-bar-content">
+          <span class="pulse-dot"></span>
+          <span class="scarcity-text">Solo 3 cupos disponibles</span>
+          <span class="scarcity-divider">|</span>
+          <span class="scarcity-timer"><span class="hide-mobile">La oferta termina en: </span><strong id="countdown-timer-top">00:00:00</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <header class="header inmo-campaign-header" id="header">
+      <div class="container inmo-header-container">
+        <a href="/" class="logo" id="logo-brand" aria-label="Volver al inicio de Kaptativa">
+          <svg class="header-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="150" height="34" style="display: block;">
+            <defs>
+              <linearGradient id="logo-gradient-inmo" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#EA384D" />
+                <stop offset="100%" stop-color="#8A35E5" />
+              </linearGradient>
+            </defs>
+            <g>
+              <path d="M 6 13 L 6 47" stroke="url(#logo-gradient-inmo)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+              <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="url(#logo-gradient-inmo)" stroke-width="6.5" stroke-linecap="round" fill="none" />
+              <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-inmo)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </g>
+            <text x="44" y="39" font-family="'Lexend', 'Inter', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">
+              kaptativa<tspan fill="#EA384D">.</tspan>
+            </text>
+          </svg>
+        </a>
+        
+        <nav class="nav inmo-nav" id="main-navigation">
+          <a href="#solucion" class="nav-link">Cómo Funciona</a>
+          <a href="/inmo-demo" target="_blank" rel="noopener noreferrer" class="nav-link">Demo</a>
+          <a href="#planes" class="nav-link">Precio</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+        </nav>
+        
+        <div class="header-actions">
+          <!-- Selector de Tema -->
+          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Cambiar tema de color">
+            <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+            <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+            </svg>
+          </button>
+          
+          <a href="#planes" class="btn btn-primary btn-sm">Quiero este sistema</a>
+          
+          <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <main class="inmo-main-content">
+    <!-- ==========================================================================
+         HERO SECTION: LA PROMESA COMERCIAL
+         ========================================================================== -->
+    <section class="inmo-hero" id="inicio">
+      <div class="inmo-hero-glow"></div>
+      <div class="container">
+        <div class="inmo-hero-wrapper">
+          <div class="inmo-hero-info reveal">
+            <span class="badge inmo-badge-gray">SISTEMA INMOBILIARIO WEB + CRM</span>
+            <h1 class="inmo-hero-title" id="dynamic-headline">
+              Tu portal inmobiliario y CRM, integrados en un solo sistema
+            </h1>
+            <p class="inmo-hero-desc">
+              Publicá propiedades, centralizá consultas y organizá el seguimiento comercial desde una plataforma diseñada para tu inmobiliaria.
+            </p>
+            <div class="inmo-hero-ctas">
+              <a href="/inmo-demo" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg inmo-btn-pulse">Ver demostración</a>
+              <a href="#planes" class="btn btn-secondary btn-lg">Quiero este sistema</a>
+            </div>
+
+            <div class="inmo-hero-social-proof">
+              <div class="inmo-avatar-stack">
+                <img loading="lazy" decoding="async" class="inmo-proof-avatar-badge" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=250&q=80" alt="Inmobiliaria Registrada 1" width="40" height="40" style="object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                <img loading="lazy" decoding="async" class="inmo-proof-avatar-badge" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=250&q=80" alt="Inmobiliaria Registrada 2" width="40" height="40" style="object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                <img loading="lazy" decoding="async" class="inmo-proof-avatar-badge" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=250&q=80" alt="Inmobiliaria Registrada 3" width="40" height="40" style="object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                <img loading="lazy" decoding="async" class="inmo-proof-avatar-badge" src="/broker_4.jpg" alt="Inmobiliaria Registrada 4" width="40" height="40" style="object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+              </div>
+              <div class="inmo-proof-text">
+                <strong>Más de 30 inmobiliarias</strong> ya gestionan su operación con nuestra tecnología
+              </div>
+            </div>
+            
+            <div class="inmo-hero-trust-bar">
+              <span class="inmo-trust-badge-mini" style="display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-pink);"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                Pago Único
+              </span>
+              <span class="inmo-trust-badge-mini" style="display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-pink);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Garantía de 30 Días
+              </span>
+              <span class="inmo-trust-badge-mini" style="display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-pink);"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Web + Sistema CRM
+              </span>
+            </div>
+          </div>
+          
+          <div class="inmo-hero-visual reveal">
+            <div class="inmo-layered-mockup">
+              
+              <!-- 1. BASE LAYER: PUBLIC PROPERTY PORTAL WEB MOCKUP -->
+              <div class="inmo-browser-mockup inmo-glass-panel">
+                <div class="inmo-browser-header">
+                  <div class="inmo-browser-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                  </div>
+                  <div class="inmo-browser-address">tuinmobiliaria.com/propiedades/palermo-modern</div>
+                </div>
+                
+                <div class="inmo-browser-body">
+                  <!-- Real Estate Listing Header -->
+                  <div class="inmo-listing-nav">
+                    <span class="inmo-listing-logo">Premium Inmuebles</span>
+                    <div class="inmo-listing-menu">
+                      <span>Comprar</span>
+                      <span>Alquilar</span>
+                      <span>Tasar</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Real Estate Property Info & Visual -->
+                  <div class="inmo-listing-hero">
+                    <div class="inmo-listing-img-placeholder" style="position: relative; overflow: hidden; height: 185px; border-radius: 12px;">
+                      <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80" alt="Departamento Moderno en Palermo" style="width: 100%; height: 100%; object-fit: cover;" />
+                      <div class="inmo-listing-tag" style="position: absolute; top: 12px; left: 12px; z-index: 2;">VENTA EXCLUSIVA</div>
+                    </div>
+                    
+                    <div class="inmo-listing-details">
+                      <span class="inmo-listing-price">USD 245.000</span>
+                      <h4 class="inmo-listing-title">Departamento moderno en Palermo</h4>
+                      <p class="inmo-listing-meta">3 ambientes · 85 m² · Cochera</p>
+                      
+                      <!-- Search simulator inside the page -->
+                      <div class="inmo-listing-search-bar">
+                        <span>🔍 Palermo, 3 ambientes…</span>
+                        <span class="search-btn">Buscar</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 2. FOREGROUND LAYER 1: WHATSAPP IA AGENT LIVE CHAT (FLOATING OVERLAY) -->
+              <div class="inmo-phone-chat-overlay inmo-glass-panel">
+                <div class="inmo-chat-header">
+                  <div class="inmo-chat-user">
+                    <div class="inmo-chat-avatar">IA</div>
+                    <div>
+                      <div class="inmo-chat-name">Sofía IA — Asesora inmobiliaria</div>
+                      <div class="inmo-chat-subtitle">Atención inmediata 🟢</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="inmo-chat-messages">
+                  <div class="inmo-msg incoming">¿Qué expensas tiene?</div>
+                  <div class="inmo-msg outgoing">Son $45.000. ¿Querés coordinar una visita?</div>
+                  <div class="inmo-msg incoming">Sí, el martes por la tarde.</div>
+                  <div class="inmo-msg outgoing">¡Listo! Agendé tu visita para el martes a las 16:30. 📅</div>
+                </div>
+              </div>
+              
+              <!-- 3. FOREGROUND LAYER 2: CRM CONSOLE CARD (FLOATING OVERLAY) -->
+              <div class="inmo-crm-card-overlay inmo-glass-panel">
+                <div class="inmo-crm-header">
+                  <span class="crm-indicator">● CRM COMERCIAL</span>
+                  <span class="crm-title">Visita agendada</span>
+                </div>
+                <div class="inmo-crm-lead-info">
+                  <div class="lead-avatar">PG</div>
+                  <div>
+                    <div class="lead-name">Pedro Gómez</div>
+                    <div class="lead-detail">Palermo · Martes 16:30</div>
+                  </div>
+                </div>
+                <span class="lead-badge-status">Contacto calificado por IA</span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ==========================================================================
+         SECCIÓN DOLORES CRÍTICOS: IDENTIFICACIÓN DEL DOLOR INMOBILIARIO
+         ========================================================================== -->
+    <section class="section inmo-dolores-section" id="dolores">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge inmo-badge-gray">FUGAS OPERATIVAS</span>
+          <h2>Lo que pierde tu inmobiliaria cuando depende solo de <span class="text-outline-purple">Instagram y WhatsApp</span></h2>
+          <p>Instagram y WhatsApp ayudan a generar consultas, pero no alcanzan para organizar propiedades, realizar seguimientos y escalar la operación comercial.</p>
+        </div>
+        
+        <div class="inmo-dolores-grid reveal">
+          <!-- Tarjeta 1: Propiedades difíciles de encontrar -->
+          <div class="inmo-pain-card inmo-glass-panel">
+            <div class="inmo-pain-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <h3>Propiedades difíciles de encontrar</h3>
+            <p>Las publicaciones desaparecen rápidamente del feed. Sin un catálogo organizado, los interesados no pueden buscar fácilmente por zona, precio, ambientes o tipo de propiedad.</p>
+          </div>
+          
+          <!-- Tarjeta 2: Consultas que se enfrían -->
+          <div class="inmo-pain-card inmo-glass-panel">
+            <div class="inmo-pain-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h3>Consultas que se enfrían</h3>
+            <p>Las demoras reducen las posibilidades de concretar una visita. Las consultas que llegan fuera de horario pueden perderse antes de que un asesor pueda responderlas.</p>
+          </div>
+          
+          <!-- Tarjeta 3: Horas perdidas enviando información -->
+          <div class="inmo-pain-card inmo-glass-panel">
+            <div class="inmo-pain-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            </div>
+            <h3>Horas perdidas enviando información</h3>
+            <p>Buscar fotografías, preparar fichas y enviar archivos manualmente consume tiempo que tu equipo podría dedicar a captar propiedades, realizar visitas y cerrar operaciones.</p>
+          </div>
+          
+          <!-- Tarjeta 4: Menor confianza para captar exclusivas -->
+          <div class="inmo-pain-card inmo-glass-panel">
+            <div class="inmo-pain-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+            </div>
+            <h3>Menor confianza para captar exclusivas</h3>
+            <p>Los propietarios buscan una inmobiliaria que proyecte profesionalismo y confianza. Una web propia, moderna y bien posicionada fortalece tu marca y mejora la captación de propiedades exclusivas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ==========================================================================
+         EL SERVICIO: DESGLOSE DEL SOFTWARE QUE ENTREGAMOS (INMO-SCALE 360)
+         ========================================================================== -->
+    <section class="section inmo-service-details-section" id="solucion">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge inmo-badge-gray">EL SISTEMA INTEGRAL</span>
+          <h2>Tu ecosistema inmobiliario, <span class="text-outline">conectado en una sola plataforma</span></h2>
+          <p>Integramos la web, el CRM, las consultas, la agenda y las automatizaciones para que puedas publicar propiedades, administrar oportunidades y acompañar a cada cliente desde un único sistema.</p>
+        </div>
+        
+        <div class="inmo-specs-grid reveal">
+          
+          <!-- Tarjeta 1: Portal Inmobiliario -->
+          <div class="inmo-spec-card inmo-glass-panel">
+            <div class="inmo-card-watermark-bg">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.84L18 11v7h-2v-6H8v6H6v-7l6-5.16z"/></svg>
+            </div>
+            <div class="inmo-spec-icon-wrapper inmo-crimson-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            </div>
+            <div class="inmo-spec-text">
+              <h3>1. Portal inmobiliario de alto rendimiento</h3>
+              <p>Una web profesional, rápida y adaptada a la identidad de tu inmobiliaria, diseñada para mostrar propiedades y generar consultas con una arquitectura optimizada para alta velocidad.</p>
+              <ul class="inmo-spec-features-list">
+                <li><span>✓</span> <span>Diseño personalizado con marca propia</span></li>
+                <li><span>✓</span> <span>Catálogo autogestionable de propiedades</span></li>
+                <li><span>✓</span> <span>Buscador por operación, zona, precio, ambientes y tipología</span></li>
+                <li><span>✓</span> <span>Fichas con fotos, mapas y tours 360°</span></li>
+                <li><span>✓</span> <span>Formularios de consulta y solicitud de tasaciones</span></li>
+                <li><span>✓</span> <span>Contacto directo por WhatsApp</span></li>
+                <li><span>✓</span> <span>Diseño responsive para celular, tablet y computadora</span></li>
+                <li><span>✓</span> <span>Optimización SEO local y estructura orientada a conversión</span></li>
+                <li><span>✓</span> <span>Dominio propio, certificado SSL y protección de datos</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Tarjeta 2: Panel de control e integraciones -->
+          <div class="inmo-spec-card inmo-glass-panel">
+            <div class="inmo-card-watermark-bg">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 2H9c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM5 20V10h2v10H5zm6 0V4h8v16h-8zm2-14h2v2h-2V6zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2zm4-8h2v2h-2V6zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/></svg>
+            </div>
+            <div class="inmo-spec-icon-wrapper inmo-indigo-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"></path></svg>
+            </div>
+            <div class="inmo-spec-text">
+              <h3>2. Panel de control e integraciones</h3>
+              <p>Centralizá la información de tu negocio y mantené actualizado el catálogo mediante integraciones con plataformas externas.</p>
+              <ul class="inmo-spec-features-list">
+                <li><span>✓</span> <span>Panel centralizado de administración</span></li>
+                <li><span>✓</span> <span>Estadísticas de visitas, consultas y favoritos</span></li>
+                <li><span>✓</span> <span>Identificación del origen de cada oportunidad</span></li>
+                <li><span>✓</span> <span>Integración con Tokko Broker y otras plataformas</span></li>
+                <li><span>✓</span> <span>Importación y actualización automática de propiedades</span></li>
+                <li><span>✓</span> <span>Sincronización con bases de datos externas mediante API</span></li>
+                <li><span>✓</span> <span>Control del estado de las integraciones</span></li>
+                <li><span>✓</span> <span>Reportes comerciales y de rendimiento</span></li>
+              </ul>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; font-style: italic; line-height: 1.3;">
+                Las integraciones dependen de la disponibilidad y los permisos de la API de cada plataforma.
+              </p>
+            </div>
+          </div>
+
+          <!-- Tarjeta 3: CRM y embudo comercial -->
+          <div class="inmo-spec-card inmo-glass-panel">
+            <div class="inmo-card-watermark-bg">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3zm15.41 7.41L21 12l-5.5 5.5-2.5-2.5L14.41 16.41 15.5 17.5l-1.5 1.5H12v-2.5l7.41-7.41z"/></svg>
+            </div>
+            <div class="inmo-spec-icon-wrapper inmo-orange-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+            </div>
+            <div class="inmo-spec-text">
+              <h3>3. CRM y embudo comercial</h3>
+              <p>Organizá todas las consultas y realizá el seguimiento de cada oportunidad desde el primer contacto hasta el cierre.</p>
+              <ul class="inmo-spec-features-list">
+                <li><span>✓</span> <span>Registro automático de consultas desde la web y WhatsApp</span></li>
+                <li><span>✓</span> <span>Ficha completa de cada contacto</span></li>
+                <li><span>✓</span> <span>Pipeline comercial visual estilo Kanban</span></li>
+                <li><span>✓</span> <span>Etapas personalizables según tu proceso de venta o alquiler</span></li>
+                <li><span>✓</span> <span>Asignación de oportunidades a asesores</span></li>
+                <li><span>✓</span> <span>Historial de conversaciones, notas y actividades</span></li>
+                <li><span>✓</span> <span>Recordatorios de llamadas, visitas y seguimientos</span></li>
+                <li><span>✓</span> <span>Gestión de señas, contratos y vencimientos</span></li>
+                <li><span>✓</span> <span>Usuarios y permisos para el equipo comercial</span></li>
+                <li><span>✓</span> <span>Panel de rendimiento por asesor</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Tarjeta 4: Agenda, seguridad e infraestructura -->
+          <div class="inmo-spec-card inmo-glass-panel">
+            <div class="inmo-card-watermark-bg">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+            </div>
+            <div class="inmo-spec-icon-wrapper inmo-indigo-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+            <div class="inmo-spec-text">
+              <h3>4. Agenda, seguridad e infraestructura</h3>
+              <p>Coordiná visitas sin superposiciones y protegé la información y el contenido de tu inmobiliaria.</p>
+              <ul class="inmo-spec-features-list">
+                <li><span>✓</span> <span>Agenda centralizada de visitas y reuniones</span></li>
+                <li><span>✓</span> <span>Disponibilidad individual por asesor</span></li>
+                <li><span>✓</span> <span>Confirmaciones y recordatorios automáticos</span></li>
+                <li><span>✓</span> <span>Prevención de turnos superpuestos</span></li>
+                <li><span>✓</span> <span>Copias de seguridad automáticas</span></li>
+                <li><span>✓</span> <span>Monitoreo de disponibilidad y seguridad</span></li>
+                <li><span>✓</span> <span>Optimización de imágenes y recursos</span></li>
+                <li><span>✓</span> <span>Marca de agua automática en fotografías</span></li>
+                <li><span>✓</span> <span>Hosting administrado y soporte técnico</span></li>
+                <li><span>✓</span> <span>Acceso seguro con usuarios y permisos</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Tarjeta 5: Agente inmobiliario virtual con IA -->
+          <div class="inmo-spec-card inmo-glass-panel span-2">
+            <div class="inmo-spec-icon-wrapper inmo-green-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            </div>
+            <div class="inmo-spec-text">
+              <h3>5. Agente inmobiliario virtual con IA — Opcional</h3>
+              <p>Incorporará un asistente conectado a tu catálogo para responder consultas, calificar interesados y automatizar tareas repetitivas.</p>
+              <ul class="inmo-spec-features-list">
+                <li><span>✓</span> <span>Atención automática por WhatsApp las 24 horas</span></li>
+                <li><span>✓</span> <span>Respuestas basadas en las propiedades disponibles</span></li>
+                <li><span>✓</span> <span>Consultas sobre precios, ubicación, expensas y características</span></li>
+                <li><span>✓</span> <span>Recomendación de propiedades según las necesidades del interesado</span></li>
+                <li><span>✓</span> <span>Calificación automática de prospectos</span></li>
+                <li><span>✓</span> <span>Derivación de oportunidades al asesor correspondiente</span></li>
+                <li><span>✓</span> <span>Coordinación de visitas mediante la agenda integrada</span></li>
+                <li><span>✓</span> <span>Generación de descripciones comerciales para propiedades</span></li>
+                <li><span>✓</span> <span>Optimización de contenidos para SEO local</span></li>
+                <li><span>✓</span> <span>Integración mediante Evolution API</span></li>
+                <li><span>✓</span> <span>Historial de conversaciones dentro del CRM</span></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <!-- ==========================================================================
+         SECCIÓN TESTIMONIOS Y CONFIANZA INMOBILIARIA
+         ========================================================================== -->
+    <section class="section inmo-testimonials-section" id="testimonios">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge inmo-badge-gray">REVIEWS</span>
+          <h2>Qué opinan nuestros clientes</h2>
+          <p>Corredores y brokers en Argentina que ya utilizan nuestra plataforma Web + CRM para organizar sus propiedades y consultas.</p>
+        </div>
+
+        <div class="inmo-dolores-grid reveal" style="margin-bottom: 50px;">
+          <div class="inmo-pain-card inmo-glass-panel inmo-testimonial-card">
+            <div>
+              <div class="inmo-testimonial-stars">★★★★★</div>
+              <p class="inmo-testimonial-text">
+                "Al principio tenía mis dudas de si la atención por WhatsApp por IA iba a sonar robótica con clientes en Palermo o Barrio Norte. Pero el resultado fue tremendo: responde sobre expensas y ambientes en segundos y nos arma la agenda de visitas sola para el fin de semana."
+              </p>
+            </div>
+            <div class="inmo-testimonial-author">
+              <img loading="lazy" decoding="async" src="/broker_1.jpg" alt="Nicolás Lepore" class="inmo-testimonial-avatar" style="object-fit: cover; border: 2px solid rgba(6, 182, 212, 0.5);">
+              <div>
+                <h4 class="inmo-testimonial-author-name">
+                  Nicolás Lepore
+                  <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: #06b6d4; display: inline-block; vertical-align: middle; margin-left: 4px;" title="Broker Verificado">
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </h4>
+                <p class="inmo-testimonial-author-title">Lepore Propiedades</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="inmo-pain-card inmo-glass-panel inmo-testimonial-card">
+            <div>
+              <div class="inmo-testimonial-stars">★★★★★</div>
+              <p class="inmo-testimonial-text">
+                "Antes perdíamos horas contestando mensajes repetidos en Instagram a las 11 de la noche. Con la web y el CRM integrados de Kaptativa, la consulta entra filtrada con presupuesto real y el corredor la toma directo para cerrar la reserva."
+              </p>
+            </div>
+            <div class="inmo-testimonial-author">
+              <img loading="lazy" decoding="async" src="/broker_2.jpg" alt="Valeria Achával" class="inmo-testimonial-avatar" style="object-fit: cover; border: 2px solid rgba(6, 182, 212, 0.5);">
+              <div>
+                <h4 class="inmo-testimonial-author-name">
+                  Valeria Achával
+                  <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: #06b6d4; display: inline-block; vertical-align: middle; margin-left: 4px;" title="Corredora Verificada">
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </h4>
+                <p class="inmo-testimonial-author-title">Achával Inmuebles</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="inmo-pain-card inmo-glass-panel inmo-testimonial-card">
+            <div>
+              <div class="inmo-testimonial-stars">★★★★★</div>
+              <p class="inmo-testimonial-text">
+                "La velocidad del catálogo web público y el organizador visual de propiedades marcaron una diferencia enorme. Los clientes navegan super cómodo y la solicitud de tasación llega calificada directo a nuestro WhatsApp comercial."
+              </p>
+            </div>
+            <div class="inmo-testimonial-author">
+              <img loading="lazy" decoding="async" src="/broker_3.jpg" alt="Mariano Tizado" class="inmo-testimonial-avatar" style="object-fit: cover; border: 2px solid rgba(6, 182, 212, 0.5);">
+              <div>
+                <h4 class="inmo-testimonial-author-name">
+                  Mariano Tizado
+                  <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: #06b6d4; display: inline-block; vertical-align: middle; margin-left: 4px;" title="Broker Verificado">
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </h4>
+                <p class="inmo-testimonial-author-title">Tizado Propiedades</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ==========================================================================
+         SECCIÓN DE PLANES Y PROPUESTAS COMERCIALES (INMO-SCALE PRICING)
+         ========================================================================== -->
+    <section class="section inmo-pricing-section" id="planes">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge inmo-badge-gray">PAGO ÚNICO</span>
+          <h2>Precio para escalar tu inmobiliaria</h2>
+          <p>Plataforma Web + CRM de Gestión por pago único. Sin comisiones por ventas ni cargos obligatorios por propiedad.</p>
+        </div>
+
+        <!-- Toggle de Formas de Pago -->
+        <div class="inmo-pricing-toggle-wrapper reveal">
+          <span class="inmo-toggle-label active" id="toggle-label-cuotas">3 Cuotas sin interés</span>
+          <label class="inmo-switch" aria-label="Cambiar método de pago">
+            <input type="checkbox" id="pricing-method-switch">
+            <span class="inmo-slider"></span>
+          </label>
+          <span class="inmo-toggle-label" id="toggle-label-transferencia">Transferencia (10% OFF)</span>
+        </div>
+
+        <div class="inmo-pricing-container reveal">
+          
+          <!-- Tarjeta Central Prominente: Web inmobiliaria premium + CRM integrado -->
+          <div class="inmo-pricing-card inmo-glass-panel featured-plan neon-style">
+
+
+            <div class="inmo-pricing-header">
+              <span class="inmo-plan-badge" style="background: rgba(59, 130, 246, 0.15) !important; color: #ffffff !important; font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.4) !important; text-shadow: 0 0 10px rgba(59,130,246,0.3);">PRECIO DE LANZAMIENTO</span>
+              <h3>Web inmobiliaria + CRM integrado</h3>
+              <p style="font-size: 0.95rem; font-weight: 300; color: var(--text-secondary); margin-top: 10px; line-height: 1.5;">
+                Publicá propiedades, centralizá consultas y organizá el seguimiento comercial desde una sola plataforma.
+              </p>
+              
+              <div class="inmo-plan-price-box">
+                <span class="price-label" style="text-decoration: line-through; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px; display: block;">ARS 780.000</span>
+                
+                <div id="pricing-amount" style="font-size: 3rem; font-weight: 600; color: var(--text-primary); font-family: 'Lexend', sans-serif; line-height: 1.1; margin-bottom: 6px;">
+                  ARS 360.000
+                </div>
+                
+                <div id="pricing-installments-badge" class="inmo-installments-badge">
+                  3 cuotas sin interés de ARS 120.000
+                </div>
+              </div>
+            </div>
+
+
+            
+            <div class="inmo-pricing-features-wrapper">
+              <ul class="inmo-pricing-features-list">
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Web inmobiliaria profesional y autogestionable</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Publicación ilimitada de propiedades</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Buscador por ubicación, operación, tipo y precio</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Fichas completas con fotos, mapas y características</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>CRM inmobiliario integrado</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Registro automático de consultas y contactos</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Seguimiento de oportunidades y estados comerciales</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Formularios y contacto directo por WhatsApp</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Panel de administración simple e intuitivo</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Usuarios y permisos para el equipo comercial</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Diseño responsive para celular, tablet y computadora</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Optimización SEO para propiedades y búsquedas locales</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Integración con Google Maps y redes sociales</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Hosting, seguridad y copias de respaldo incluidos</div>
+                </li>
+                <li>
+                  <span class="feature-check">✓</span>
+                  <div>Soporte técnico y mantenimiento incluido</div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="inmo-pricing-cta-box" style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%; margin-top: 30px;">
+              <a id="pricing-cta-btn" href="/checkout?method=mp" class="btn btn-primary btn-full">Comenzar mi proyecto</a>
+              
+              <!-- Payment logos -->
+              <div class="inmo-payment-methods" style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 6px; opacity: 0.6; font-size: 0.75rem; color: var(--text-muted);">
+                <span class="inmo-payment-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                  Tarjetas
+                </span>
+                <span>•</span>
+                <span class="inmo-payment-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M11 10v11M13 10v11M20 10v11"/></svg>
+                  Transferencia
+                </span>
+                <span>•</span>
+                <span class="inmo-payment-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4M3 5v14a2 2 0 0 0 2 2h16v-5M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+                  Mercado Pago
+                </span>
+              </div>
+              
+              <div style="font-size: 0.8rem; line-height: 1.4; color: var(--text-secondary); text-align: center; margin-top: 8px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 6px; color: var(--text-muted);"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><strong style="vertical-align: middle;">Incluye personalización de marca, configuración, puesta en marcha, dominio .com.ar, hosting, seguridad y soporte técnico durante el primer año.</strong>
+              </div>
+
+
+            </div>
+          </div>
+      </div>
+
+        <!-- Tarjetas de Ventajas / Garantías -->
+        <div class="inmo-pricing-trust-grid reveal">
+          
+          <!-- Tarjeta 1: Sistema Web & CRM Propio -->
+          <div class="inmo-glass-panel inmo-trust-card">
+            <div class="inmo-trust-card-icon inmo-green-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            </div>
+            <div class="inmo-trust-card-body">
+              <h4 class="inmo-trust-card-title">Sistema Web & CRM Propio</h4>
+              <p class="inmo-trust-card-desc">Portal web autogestionable con catálogo interactivo, vinculado a tu WhatsApp comercial y panel CRM de seguimiento sin pagos mensuales obligatorios.</p>
+            </div>
+          </div>
+
+          <!-- Tarjeta 2: Implementación llave en mano -->
+          <div class="inmo-glass-panel inmo-trust-card">
+            <div class="inmo-trust-card-icon inmo-violet-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <div class="inmo-trust-card-body">
+              <h4 class="inmo-trust-card-title">Implementación llave en mano</h4>
+              <p class="inmo-trust-card-desc">Nos encargamos de la configuración técnica, el hosting, el dominio .com.ar y la puesta en funcionamiento del sistema.</p>
+            </div>
+          </div>
+
+          <!-- Tarjeta 3: Garantía de implementación por 30 días -->
+          <div class="inmo-glass-panel inmo-trust-card">
+            <div class="inmo-trust-card-icon inmo-green-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <div class="inmo-trust-card-body">
+              <h4 class="inmo-trust-card-title">Garantía de implementación por 30 días</h4>
+              <p class="inmo-trust-card-desc">Durante los primeros 30 días corregimos sin cargo cualquier falla relacionada con el alcance contratado. Las condiciones completas se detallan en el contrato.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN PREGUNTAS Y RESPUESTAS (FAQ ACORDEÓN INTERACTIVO)
+         ========================================================================== -->
+    <section class="section inmo-faq-section" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge inmo-badge-gray">FAQ</span>
+          <h2>Preguntas Frecuentes</h2>
+          <p>Resolvemos las consultas más habituales sobre la entrega llave en mano, sincronización y funcionamiento.</p>
+        </div>
+        
+        <div class="inmo-faq-accordion-wrapper reveal">
+          
+          <!-- Pregunta 1 -->
+          <div class="inmo-faq-item inmo-glass-panel">
+            <button class="inmo-faq-question">
+              <span>¿Cómo funciona el Agente IA de WhatsApp?</span>
+              <span class="inmo-faq-arrow">+</span>
+            </button>
+            <div class="inmo-faq-answer">
+              <p>El agente se conecta directamente a tu número de WhatsApp a través de Evolution API (mediante un simple escaneo de código QR). Cuando un cliente te escribe, la IA consulta de forma instantánea la base de datos de tus propiedades y responde dudas sobre expensas, metros o amenities en lenguaje natural, facilitando el contacto del interesado.</p>
+            </div>
+          </div>
+          
+          <!-- Pregunta 2 -->
+          <div class="inmo-faq-item inmo-glass-panel">
+            <button class="inmo-faq-question">
+              <span>¿Cómo se suben y actualizan las propiedades a la Web App?</span>
+              <span class="inmo-faq-arrow">+</span>
+            </button>
+            <div class="inmo-faq-answer">
+              <p>El sistema está diseñado para ser autogestionable y extremadamente sencillo. Te entregamos un panel simple o, si lo preferís, una hoja de Google Sheets sincronizada. Para añadir una propiedad, solo completás los datos (precio, zona, ambientes) y subís las fotos en una fila de Sheets; el catálogo web se actualiza automáticamente en menos de 2 segundos.</p>
+            </div>
+          </div>
+
+          <!-- Pregunta 3 -->
+          <div class="inmo-faq-item inmo-glass-panel">
+            <button class="inmo-faq-question">
+              <span>¿Cómo ayuda la IA con las descripciones y el SEO local?</span>
+              <span class="inmo-faq-arrow">+</span>
+            </button>
+            <div class="inmo-faq-answer">
+              <p>El sistema cuenta con un asistente inteligente que redacta y optimiza automáticamente las descripciones de tus propiedades al momento de cargarlas. Utiliza técnicas de SEO local enfocadas en los barrios y zonas donde operás, facilitando que tus inmuebles posicionen de manera orgánica en los primeros resultados de Google.</p>
+            </div>
+          </div>
+
+          <!-- Pregunta 4 -->
+          <div class="inmo-faq-item inmo-glass-panel">
+            <button class="inmo-faq-question">
+              <span>¿El bot suena robótico con los compradores?</span>
+              <span class="inmo-faq-arrow">+</span>
+            </button>
+            <div class="inmo-faq-answer">
+              <p>No. Entrenamos la Inteligencia Artificial con el tono de voz de tu inmobiliaria, utilizando lenguaje natural, modismos de tu región y emojis amigables. Además, el bot está diseñado únicamente para calificar el interés y presupuesto inicial. En cuanto detecta que el lead cumple con los requisitos mínimos de compra, lo transfiere de inmediato a un agente de ventas humano para el cierre de la operación.</p>
+            </div>
+          </div>
+
+          <!-- Pregunta 5 -->
+          <div class="inmo-faq-item inmo-glass-panel">
+            <button class="inmo-faq-question">
+              <span>¿El sistema cobra comisiones sobre las ventas cerradas?</span>
+              <span class="inmo-faq-arrow">+</span>
+            </button>
+            <div class="inmo-faq-answer">
+              <p>No, en absoluto. Todas las comisiones por la venta o alquiler de tus propiedades son 100% tuyas. Nosotros solo cobramos la tarifa fija única por el sistema (Web + CRM) y el abono mensual en caso de que decidas activar el Agente IA de WhatsApp.</p>
+            </div>
+          </div>
+
+          <!-- Pregunta 6 -->
+          <div class="inmo-faq-item inmo-glass-panel">
+            <button class="inmo-faq-question">
+              <span>¿Tengo que pagar un abono mensual obligatorio por la Web y el CRM?</span>
+              <span class="inmo-faq-arrow">+</span>
+            </button>
+            <div class="inmo-faq-answer">
+              <p>No. El Sitio Web Inmobiliario y el CRM de Gestión son tuyos para siempre mediante un único pago de ARS $360.000 (el cual podés abonar en 3 cuotas sin interés con Mercado Pago). Este precio incluye el hosting y el mantenimiento del servidor gratis durante el primer año. El único servicio mensual es el Agente IA de WhatsApp, el cual es 100% opcional, se contrata por separado y podés darlo de baja o pausarlo cuando quieras sin afectar tu web.</p>
+            </div>
+          </div>
+
+          <!-- Pregunta 7 -->
+          <div class="inmo-faq-item inmo-glass-panel">
+            <button class="inmo-faq-question">
+              <span>¿Qué costo tiene mantener la Web activa después del primer año bonificado?</span>
+              <span class="inmo-faq-arrow">+</span>
+            </button>
+            <div class="inmo-faq-answer">
+              <p>A partir del mes 13, solo pagás la renovación anual básica del hosting y soporte técnico del servidor (hoy equivalente a menos de $40.000 ARS al año). No hay ningún costo fijo mensual oculto ni cargos obligatorios de por vida.</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FORMULARIO DE CONTACTO E INSCRIPCIÓN (CRO)
+         ========================================================================== -->
+    <section class="section contact-section" id="contacto" style="position: relative; overflow: hidden; padding: 80px 0 100px;">
+      <div class="container" style="position: relative; z-index: 2; max-width: 1000px;">
+        <div class="reveal inmo-glass-panel" style="text-align: center; padding: 60px 40px; border-radius: 24px; border: 1px solid rgba(138, 53, 229, 0.25); background: rgba(15, 21, 36, 0.6); backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(138, 53, 229, 0.1);">
+          <span class="badge inmo-badge-gray" style="margin-bottom: 20px; font-size: 0.75rem; letter-spacing: 0.08em;">DIAGNÓSTICO GRATUITO</span>
+          <h2 style="font-size: 2.4rem; font-weight: 600; color: var(--text-primary); margin-bottom: 18px; font-family: 'Lexend', sans-serif; line-height: 1.2;">
+            ¿Listo para <span class="text-gradient-crimson">impulsar tu negocio?</span>
+          </h2>
+          <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 35px; max-width: 680px; margin-left: auto; margin-right: auto;">
+            Adquirí tu Plataforma Web + CRM Base hoy en 3 cuotas sin interés y empezá a captar clientes en piloto automático en solo 7 días.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;">
+            <a href="#planes" class="btn btn-primary btn-lg inmo-btn-pulse" style="min-width: 240px; display: inline-block; text-align: center;">
+              Quiero este sistema
+            </a>
+            <a href={waContactUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg" style="min-width: 240px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-align: center; color: #ffffff !important; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.25);">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="color: #25D366;"><path d="M12.004 0C5.378 0 0 5.378 0 12.004c0 2.118.553 4.106 1.52 5.882l-1.52 5.544 5.674-1.488a11.968 11.968 0 005.83 1.516c6.626 0 12.004-5.378 12.004-12.004C24.008 5.378 18.63 0 12.004 0zm6.096 17.144c-.266.743-1.53 1.35-2.096 1.41-.4.04-1.07.07-2.67-.59-1.6-.66-2.63-2.28-2.71-2.39-.08-.11-.68-.9-.68-1.72 0-.82.43-1.22.58-1.39.15-.17.33-.21.44-.21h.31c.11 0 .26.01.41.34.15.35.53 1.3.58 1.41.05.11.08.24 0 .41-.08.17-.16.27-.26.39-.1.12-.22.25-.1.45.12.2.52.85 1.11 1.38.76.68 1.4.89 1.6.99.2.1.32.08.44-.06.12-.14.53-.61.67-.82.14-.2.28-.17.47-.1.19.07 1.2.56 1.4.67.2.11.34.16.39.25.05.09.05.53-.16 1.27z"/></svg>
+              Escribinos por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER SIMPLIFICADO
+       ========================================================================== -->
+  <footer slot="footer" class="footer campaign-footer" id="footer">
+    <div class="container">
+      <div class="footer-content-wrap">
+        <img loading="lazy" decoding="async" src="/logo.svg" alt="Kaptativa Logo" width="140" height="35" style="opacity:0.8;">
+        <p class="footer-tagline">Creamos automatizaciones y desarrollo digital enfocado en resultados comerciales.</p>
+        <p class="footer-copy">&copy; 2026 Kaptativa. Todos los derechos reservados. Optimizado para campañas comerciales.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón de WhatsApp Flotante Inteligente -->
+  <a href={waDemoUrl} class="whatsapp-float-btn" id="wa-float" target="_blank" rel="noopener noreferrer">
+    <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M12.004 0C5.378 0 0 5.378 0 12.004c0 2.118.553 4.106 1.52 5.882l-1.52 5.544 5.674-1.488a11.968 11.968 0 005.83 1.516c6.626 0 12.004-5.378 12.004-12.004C24.008 5.378 18.63 0 12.004 0zm6.096 17.144c-.266.743-1.53 1.35-2.096 1.41-.4.04-1.07.07-2.67-.59-1.6-.66-2.63-2.28-2.71-2.39-.08-.11-.68-.9-.68-1.72 0-.82.43-1.22.58-1.39.15-.17.33-.21.44-.21h.31c.11 0 .26.01.41.34.15.35.53 1.3.58 1.41.05.11.08.24 0 .41-.08.17-.16.27-.26.39-.1.12-.22.25-.1.45.12.2.52.85 1.11 1.38.76.68 1.4.89 1.6.99.2.1.32.08.44-.06.12-.14.53-.61.67-.82.14-.2.28-.17.47-.1.19.07 1.2.56 1.4.67.2.11.34.16.39.25.05.09.05.53-.16 1.27z"/></svg>
+    <span class="wa-tooltip">¿Quieres ver tu catálogo aquí? Hablemos</span>
+  </a>
+
+</Layout>
+
+<!-- ==========================================================================
+     ESTILOS CSS VANILLA (DISEÑO PREMIUM SAAS, GLOWS Y MOCKUPS REALISTAS)
+     COLOCADOS AL ROOT LEVEL DE ASTRO PARA EVITAR ERRORES DE COMPILACIÓN Y SCOPING
+     ========================================================================== -->
+<style>
+/* luxury body override */
+:global([data-theme="dark"] body) {
+  background-color: #030206 !important;
+  /* background-image: 
+    radial-gradient(circle at 50% -20%, rgba(124, 58, 237, 0.12) 0%, rgba(124, 58, 237, 0) 60%),
+    radial-gradient(circle at 10% 40%, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0) 40%),
+    radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.06) 0%, rgba(124, 58, 237, 0) 45%) !important; */
+  /* background-attachment: fixed !important; */
+  background-size: cover !important;
+}
+:global([data-theme="light"] body) {
+  background-color: #f8f7fa !important;
+  /* background-image: 
+    radial-gradient(circle at 50% -20%, rgba(124, 58, 237, 0.04) 0%, rgba(124, 58, 237, 0) 60%),
+    radial-gradient(circle at 10% 40%, rgba(16, 185, 129, 0.03) 0%, rgba(16, 185, 129, 0) 40%),
+    radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.02) 0%, rgba(124, 58, 237, 0) 45%) !important; */
+  /* background-attachment: fixed !important; */
+  background-size: cover !important;
+}
+/* Page-level typography override */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lexend', sans-serif;
+}
+/* Padding to main content to avoid header overlap */
+.inmo-main-content {
+    padding-top: 0;
+  }
+/* Base Layout y Ajustes del Header - Pill Floating Style */
+.inmo-top-announcement-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: #0d0c10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.inmo-top-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+}
+.inmo-top-bar-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.2;
+}
+.inmo-top-bar-content .pulse-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  animation: pulse-animation-red 1.5s infinite ease-in-out;
+}
+@keyframes pulse-animation-red {
+  0% { transform: scale(0.8); opacity: 1; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1.2); opacity: 0.4; box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.8); opacity: 1; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+.inmo-top-bar-content .scarcity-text {
+  color: var(--text-secondary);
+}
+[data-theme="light"] .inmo-top-bar-content .scarcity-text {
+  color: #4a4855;
+}
+.inmo-top-bar-content .scarcity-divider {
+  color: rgba(255, 255, 255, 0.15);
+  margin: 0 4px;
+}
+.inmo-top-bar-content .scarcity-timer {
+  color: var(--text-primary);
+}
+[data-theme="light"] .inmo-top-bar-content .scarcity-timer {
+  color: #111016;
+}
+.inmo-top-bar-content #countdown-timer-top {
+  font-family: inherit;
+  font-weight: 600;
+  color: #ffffff;
+  margin-left: 4px;
+}
+[data-theme="light"] .inmo-top-bar-content #countdown-timer-top {
+  color: #0f172a;
+}
+.inmo-top-bar-cta {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.725rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-left: 12px;
+  transition: all 0.2s ease;
+}
+.inmo-top-bar-cta:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+[data-theme="light"] .inmo-top-bar-cta {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #0f172a;
+}
+[data-theme="light"] .inmo-top-bar-cta:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.inmo-campaign-header {
+    position: fixed;
+    top: 56px !important; /* Gap elegante debajo de la barra de anuncios fixed de 40px */
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 1000px;
+    height: 64px;
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 10, 12, 0.7);
+    border-radius: 9999px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+  }
+[data-theme="light"] .inmo-top-announcement-bar {
+  background: #f1f0f3;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .inmo-campaign-header {
+    background: rgba(248, 247, 250, 0.8);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+.inmo-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 24px;
+    height: 100%;
+  }
+.inmo-header-container .logo {
+    width: auto;
+    height: 28px;
+    display: flex;
+    align-items: center;
+  }
+.inmo-header-container .logo img {
+    height: 100%;
+    width: auto;
+  }
+.inmo-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+.inmo-nav .nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #94a3b8;
+    padding: 6px 0;
+    transition: color var(--transition-fast);
+  }
+.inmo-nav .nav-link:hover, .inmo-nav .nav-link.active {
+    color: #ffffff;
+  }
+[data-theme="light"] .inmo-nav .nav-link {
+    color: #475569;
+  }
+[data-theme="light"] .inmo-nav .nav-link:hover, [data-theme="light"] .inmo-nav .nav-link.active {
+    color: #0f172a;
+  }
+.inmo-campaign-header .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+.inmo-campaign-header .header-actions .theme-toggle-btn {
+    color: #94a3b8;
+    transition: color var(--transition-fast);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.inmo-campaign-header .header-actions .theme-toggle-btn:hover {
+    color: #ffffff;
+  }
+[data-theme="light"] .inmo-campaign-header .header-actions .theme-toggle-btn {
+    color: #475569;
+  }
+[data-theme="light"] .inmo-campaign-header .header-actions .theme-toggle-btn:hover {
+    color: #0f172a;
+  }
+.inmo-campaign-header .header-actions .btn-primary {
+    background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%) !important;
+    border: none !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    padding: 8px 20px !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3) !important;
+    transition: all var(--transition-fast) !important;
+  }
+.inmo-campaign-header .header-actions .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4), 0 0 0 2px rgba(236, 72, 153, 0.2) !important;
+    background: linear-gradient(90deg, #f43f5e 0%, #a855f7 100%) !important;
+  }
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  .inmo-campaign-header {
+    top: 56px !important; /* Gap elegante de 16px bajo la barra de anuncios fixed */
+    width: calc(100% - 32px);
+    height: 56px;
+  }
+  .inmo-header-container {
+    padding: 0 16px;
+  }
+  .inmo-campaign-header .header-actions .btn-primary {
+    display: inline-flex !important;
+    padding: 6px 14px !important;
+    font-size: 0.75rem !important;
+  }
+  .inmo-nav {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    width: 100%;
+    height: auto !important;
+    background: rgba(10, 10, 12, 0.95) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 20px;
+    padding: 20px 24px !important;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-theme="light"] .inmo-nav {
+    background: rgba(248, 247, 250, 0.98) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  .inmo-nav.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+  }
+}
+/* Hero Section Overhaul */
+.inmo-hero {
+    position: relative;
+    padding: 200px 0 100px;
+    overflow: hidden;
+  }
+.inmo-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 5;
+}
+.inmo-hero-glow {
+    position: absolute;
+    top: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 700px;
+    background: radial-gradient(ellipse at 50% 30%, rgba(217, 70, 239, 0.12) 0%, rgba(16, 185, 129, 0.05) 50%, rgba(16, 185, 129, 0) 100%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(80px);
+  }
+.inmo-hero-wrapper {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+.inmo-hero-title {
+    font-size: clamp(2.3rem, 4.5vw, 3.5rem);
+    font-family: 'Lexend', sans-serif;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+.inmo-hero-desc {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 35px;
+    line-height: 1.6;
+    max-width: 650px;
+  }
+.inmo-hero-social-proof {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+.inmo-hero-trust-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 30px;
+}
+.inmo-trust-badge-mini {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+[data-theme="light"] .inmo-trust-badge-mini {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.06);
+  color: var(--text-secondary);
+}
+.inmo-avatar-stack {
+    display: flex;
+    align-items: center;
+  }
+.inmo-proof-avatar-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid #030206;
+    margin-left: -12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+    font-family: 'Lexend', sans-serif;
+    transition: transform 0.2s ease;
+    user-select: none;
+  }
+.inmo-proof-avatar-badge:first-child {
+    margin-left: 0;
+  }
+.inmo-proof-avatar-badge:hover {
+    transform: translateY(-4px) scale(1.1);
+    z-index: 2;
+  }
+.inmo-proof-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+.inmo-proof-text strong {
+    color: white;
+    font-weight: 600;
+  }
+/* Real Estate Layered Mockup styles */
+.inmo-layered-mockup {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+@media (max-width: 768px) {
+  .inmo-layered-mockup {
+      max-width: 320px;
+      padding: 20px 0;
+    }
+}
+
+.inmo-browser-mockup {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden;
+    font-family: 'Lexend', sans-serif;
+  }
+.inmo-browser-header {
+    background: rgba(10, 10, 12, 0.5);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+.inmo-browser-dots {
+    display: flex;
+    gap: 6px;
+  }
+.inmo-browser-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+.inmo-browser-dots .dot.red { background: #ff5f56; }
+.inmo-browser-dots .dot.yellow { background: #ffbd2e; }
+.inmo-browser-dots .dot.green { background: #27c93f; }
+.inmo-browser-address {
+    font-size: 0.65rem;
+    color: #475569;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 3px 12px;
+    border-radius: 6px;
+    flex-grow: 1;
+    text-align: center;
+    font-family: monospace;
+  }
+
+.inmo-browser-body {
+    padding: 16px;
+  }
+.inmo-listing-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+.inmo-listing-logo {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+  }
+.inmo-listing-menu {
+    display: flex;
+    gap: 10px;
+    font-size: 0.65rem;
+    color: #64748b;
+  }
+
+.inmo-listing-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+.inmo-listing-img-placeholder {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+.inmo-listing-tag {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #d4ff00;
+    color: #000;
+    font-size: 0.55rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+/* Drawing a simple geometric house vector */
+.inmo-house-vector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+  }
+.inmo-house-vector .house-roof {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 20px solid rgba(16, 185, 129, 0.8);
+  }
+.inmo-house-vector .house-wall {
+    width: 50px;
+    height: 30px;
+    background: rgba(139, 92, 246, 0.6);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 8px;
+  }
+.inmo-house-vector .house-window {
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 2px;
+  }
+
+.inmo-listing-details {
+    text-align: left;
+  }
+.inmo-listing-price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #d4ff00;
+  }
+.inmo-listing-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 4px 0;
+  }
+.inmo-listing-meta {
+    font-size: 0.7rem;
+    color: #64748b;
+    margin-bottom: 12px;
+  }
+.inmo-listing-search-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    color: #475569;
+  }
+.inmo-listing-search-bar .search-btn {
+    background: var(--accent-indigo);
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-weight: 600;
+  }
+
+/* Floating overlay: WhatsApp IA Agent */
+.inmo-phone-chat-overlay {
+    position: absolute;
+    bottom: 20px;
+    right: -25px;
+    width: 250px;
+    border-radius: 12px;
+    padding: 10px;
+    background: rgba(10, 10, 12, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+    font-family: 'Lexend', sans-serif;
+    z-index: 10;
+    animation: floatEffect 6s ease-in-out infinite;
+  }
+.inmo-phone-chat-overlay .inmo-chat-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+.inmo-phone-chat-overlay .inmo-chat-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+  }
+.inmo-phone-chat-overlay .inmo-chat-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #EA384D;
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.inmo-phone-chat-overlay .inmo-chat-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #fff;
+  }
+.inmo-phone-chat-overlay .inmo-chat-subtitle {
+    font-size: 0.55rem;
+    color: #10b981;
+  }
+.inmo-phone-chat-overlay .inmo-chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+.inmo-phone-chat-overlay .inmo-msg {
+    max-width: 85%;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.65rem;
+    line-height: 1.3;
+  }
+.inmo-phone-chat-overlay .inmo-msg.incoming {
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    align-self: flex-start;
+    border-bottom-left-radius: 1px;
+  }
+.inmo-phone-chat-overlay .inmo-msg.outgoing {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    align-self: flex-end;
+    border-bottom-right-radius: 1px;
+  }
+
+/* Floating overlay: CRM card */
+.inmo-crm-card-overlay {
+    position: absolute;
+    top: 20px;
+    left: -25px;
+    width: 210px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+    font-family: 'Lexend', sans-serif;
+    z-index: 10;
+    animation: floatEffect 6s ease-in-out infinite 3s;
+  }
+.inmo-crm-card-overlay .inmo-crm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+    font-size: 0.55rem;
+  }
+.inmo-crm-card-overlay .crm-indicator {
+    color: #a78bfa;
+    font-weight: 600;
+  }
+.inmo-crm-card-overlay .crm-title {
+    color: #64748b;
+  }
+.inmo-crm-card-overlay .inmo-crm-lead-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+  }
+.inmo-crm-card-overlay .lead-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.2);
+    color: #a78bfa;
+    font-size: 0.65rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+  }
+.inmo-crm-card-overlay .lead-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #fff;
+  }
+.inmo-crm-card-overlay .lead-detail {
+    font-size: 0.55rem;
+    color: #64748b;
+  }
+.inmo-crm-card-overlay .lead-badge-status {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 600;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 8px;
+    text-align: center;
+    width: fit-content;
+  }
+
+/* Animations */
+@keyframes floatEffect {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Light Theme Overrides for Layered Mockup */
+[data-theme="light"] .inmo-browser-mockup {
+    background: rgba(255, 255, 255, 0.75) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08) !important;
+  }
+[data-theme="light"] .inmo-browser-header {
+    background: rgba(0, 0, 0, 0.03);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+[data-theme="light"] .inmo-browser-address {
+    color: #64748b;
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.04);
+  }
+[data-theme="light"] .inmo-listing-logo {
+    color: #0f172a;
+  }
+[data-theme="light"] .inmo-listing-title {
+    color: #0f172a;
+  }
+[data-theme="light"] .inmo-listing-search-bar {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.04);
+    color: #64748b;
+  }
+[data-theme="light"] .inmo-phone-chat-overlay {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+  }
+[data-theme="light"] .inmo-phone-chat-overlay .inmo-chat-header {
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+  }
+[data-theme="light"] .inmo-phone-chat-overlay .inmo-chat-name {
+    color: #0f172a;
+  }
+[data-theme="light"] .inmo-phone-chat-overlay .inmo-msg.incoming {
+    background: rgba(0, 0, 0, 0.04);
+    color: #334155;
+  }
+[data-theme="light"] .inmo-phone-chat-overlay .inmo-msg.outgoing {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+    border-color: rgba(124, 58, 237, 0.1);
+    color: #0f172a;
+  }
+[data-theme="light"] .inmo-crm-card-overlay {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+  }
+[data-theme="light"] .inmo-crm-card-overlay .inmo-crm-header {
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+  }
+[data-theme="light"] .inmo-crm-card-overlay .lead-name {
+    color: #0f172a;
+  }
+[data-theme="light"] .inmo-crm-card-overlay .lead-avatar {
+    background: rgba(124, 58, 237, 0.08);
+    border-color: rgba(124, 58, 237, 0.15);
+  }
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+.inmo-badge {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--accent-indigo);
+    border-color: rgba(124, 58, 237, 0.2);
+  }
+.inmo-badge-green {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+.inmo-badge-indigo {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--accent-indigo);
+    border-color: rgba(124, 58, 237, 0.2);
+  }
+.inmo-badge-gray {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+[data-theme="light"] .inmo-badge-gray {
+    background: rgba(0, 0, 0, 0.04);
+    color: #64748b;
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+/* Secciones Estándar */
+.section {
+    padding: 100px 0;
+    position: relative;
+  }
+.text-outline-purple {
+    background-image: var(--gradient-text-crimson);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--accent-crimson);
+    -webkit-text-stroke: 0px;
+    font-weight: 600;
+  }
+.section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+.section-header h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-family: 'Lexend', sans-serif;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+  }
+.section-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+  }
+/* Glass Panels */
+.inmo-glass-panel {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(14px);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+/* Dolores Section Cards */
+.inmo-dolores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+.inmo-pain-card {
+    padding: 40px 30px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+.inmo-pain-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-indigo);
+    box-shadow: 0 10px 30px var(--accent-indigo-glow);
+  }
+.inmo-pain-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+.inmo-pain-card:nth-child(1) .inmo-pain-icon {
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.05);
+  }
+.inmo-pain-card:nth-child(2) .inmo-pain-icon {
+    background: rgba(167, 139, 250, 0.08);
+    color: #a78bfa;
+    border: 1px solid rgba(167, 139, 250, 0.15);
+    box-shadow: 0 4px 15px rgba(167, 139, 250, 0.05);
+  }
+.inmo-pain-card:nth-child(3) .inmo-pain-icon {
+    background: rgba(245, 158, 11, 0.08);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.05);
+  }
+.inmo-pain-card:nth-child(4) .inmo-pain-icon {
+    background: rgba(16, 185, 129, 0.08);
+    color: #EA384D;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.05);
+  }
+/* Light theme overrides for pain card icons */
+[data-theme="light"] .inmo-pain-card:nth-child(1) .inmo-pain-icon { background: rgba(239, 68, 68, 0.04); }
+[data-theme="light"] .inmo-pain-card:nth-child(2) .inmo-pain-icon { background: rgba(167, 139, 250, 0.04); }
+[data-theme="light"] .inmo-pain-card:nth-child(3) .inmo-pain-icon { background: rgba(245, 158, 11, 0.04); }
+[data-theme="light"] .inmo-pain-card:nth-child(4) .inmo-pain-icon { background: rgba(16, 185, 129, 0.04); }
+.inmo-pain-card h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    font-family: 'Lexend', sans-serif;
+  }
+.inmo-pain-card p {
+    font-size: 1.0rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+/* Service Package: Specs List Grid */
+.inmo-specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+.inmo-specs-grid .span-2 {
+    grid-column: span 2;
+  }
+.inmo-spec-card {
+    display: flex;
+    gap: 25px;
+    padding: 35px;
+    align-items: flex-start;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+  }
+.inmo-card-watermark-bg {
+    position: absolute;
+    right: -25px;
+    bottom: -25px;
+    width: 170px;
+    height: 170px;
+    opacity: 0.05;
+    pointer-events: none;
+    user-select: none;
+    transition: opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
+    color: var(--text-primary);
+  }
+.inmo-spec-card:hover .inmo-card-watermark-bg {
+    opacity: 0.14;
+    transform: scale(1.1) rotate(-4deg);
+    color: #EA384D;
+  }
+.inmo-spec-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-hover);
+  }
+.inmo-spec-icon-wrapper {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--accent-indigo);
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(124,58,237,0.1);
+  }
+.inmo-spec-icon-wrapper.inmo-crimson-icon {
+    background: rgba(234, 56, 77, 0.1);
+    color: #EA384D;
+    box-shadow: 0 4px 15px rgba(234, 56, 77, 0.1);
+  }
+.inmo-spec-icon-wrapper.inmo-indigo-icon {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--accent-indigo);
+    box-shadow: 0 4px 15px rgba(124,58,237,0.1);
+  }
+.inmo-spec-icon-wrapper.inmo-orange-icon {
+    background: rgba(249, 115, 22, 0.1);
+    color: #F97316;
+    box-shadow: 0 4px 15px rgba(249,115,22,0.1);
+  }
+.inmo-spec-icon-wrapper.inmo-green-icon {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+    box-shadow: 0 4px 15px rgba(16,185,129,0.1);
+  }
+.inmo-spec-text h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+.inmo-spec-text p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+.inmo-spec-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+.inmo-spec-features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+.inmo-spec-features-list li span:first-child {
+    color: var(--accent-crimson);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+.inmo-spec-features-list li span:last-child {
+    color: var(--text-secondary);
+  }
+/* Hero Mockup Overlay Responsive Styles */
+@media (max-width: 768px) {
+  .inmo-layered-mockup {
+    max-width: 320px !important;
+    padding: 20px 0 !important;
+  }
+  .inmo-phone-chat-overlay {
+    width: 200px !important;
+    right: -10px !important;
+    bottom: 10px !important;
+  }
+  .inmo-crm-card-overlay {
+    width: 170px !important;
+    left: -10px !important;
+    top: 10px !important;
+  }
+}
+
+
+/* Featured Plan Static Border Glow */
+.featured-plan.neon-style {
+  position: relative;
+  border: 1px solid rgba(138, 53, 229, 0.35) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(138, 53, 229, 0.12) !important;
+  background: radial-gradient(circle at top right, rgba(138, 53, 229, 0.08) 0%, rgba(15, 21, 36, 0.85) 60%) !important;
+  border-radius: 24px;
+}
+.featured-plan.neon-style::before,
+.featured-plan.neon-style::after {
+  display: none !important;
+  content: none !important;
+  animation: none !important;
+}
+.featured-plan.neon-style > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Light theme overrides for Neon */
+[data-theme="light"] .featured-plan.neon-style::after {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Pricing Section Styling */
+.inmo-pricing-section {
+    position: relative;
+    padding: 100px 0;
+  }
+.inmo-pricing-container {
+    max-width: 540px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+.inmo-pricing-features-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 25px 0 0 0;
+  }
+.inmo-pricing-features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+.inmo-pricing-features-list li .feature-check {
+    color: #10B981;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+.inmo-pricing-card-upgrade {
+    width: 100%;
+    padding: 35px 30px;
+    border-radius: var(--border-radius-md);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+  }
+.inmo-pricing-card-upgrade:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.05);
+  }
+.inmo-upgrade-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+@media (max-width: 768px) {
+  .inmo-upgrade-body {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+}
+.inmo-upgrade-info h4 {
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+.inmo-upgrade-info p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+.inmo-upgrade-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+.inmo-upgrade-bullets span {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+.inmo-upgrade-bullets span::before {
+    content: '✓';
+    color: var(--accent-violet);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+.inmo-upgrade-pricing-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+  }
+.inmo-upgrade-price-box {
+    text-align: center;
+  }
+.inmo-upgrade-price {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'Lexend', sans-serif;
+  }
+.inmo-upgrade-price .inmo-price-unit {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+.inmo-upgrade-pricing-cta .inmo-price-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+
+/* Light Theme overrides for new elements */
+[data-theme="light"] .inmo-pricing-card-upgrade {
+    background: var(--card-bg);
+  }
+[data-theme="light"] .inmo-upgrade-info h4 {
+    color: #0f172a;
+  }
+[data-theme="light"] .inmo-upgrade-pricing-cta {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.04);
+  }
+[data-theme="light"] .inmo-upgrade-price {
+    color: #0f172a;
+  }
+:global(.inmo-pricing-card) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 30px;
+    position: relative;
+    text-align: left;
+    transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+    max-width: 100%;
+    margin: 0;
+    width: 100%;
+  }
+:global(.inmo-pricing-card:hover) {
+    transform: translateY(-5px);
+  }
+:global(.inmo-pricing-card.featured-plan) {
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);
+    background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0.02) 60%);
+  }
+:global(.inmo-pricing-card.featured-plan::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(217, 70, 239, 0.2)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+:global(.inmo-pricing-card.featured-plan.neon-style) {
+    border-color: rgba(138, 53, 229, 0.35) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(138, 53, 229, 0.12) !important;
+    background: radial-gradient(circle at top right, rgba(138, 53, 229, 0.08) 0%, rgba(15, 21, 36, 0.75) 60%) !important;
+  }
+:global(.inmo-pricing-card.featured-plan.neon-style::before) {
+    display: none !important;
+  }
+:global(.inmo-pricing-card.featured-plan.neon-style .btn-primary) {
+    background: var(--gradient-primary) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(234, 56, 77, 0.35);
+  }
+:global(.inmo-pricing-card.featured-plan.neon-style .btn-primary:hover) {
+    background: var(--gradient-hover) !important;
+    box-shadow: 0 6px 25px rgba(234, 56, 77, 0.5);
+  }
+:global(.inmo-pricing-card.featured-plan.neon-style .feature-check) {
+    color: var(--accent-pink) !important;
+  }
+
+/* Light theme overrides for pricing neon-style cards */
+[data-theme="light"] :global(.inmo-pricing-card.featured-plan.neon-style) {
+    border-color: rgba(124, 58, 237, 0.4) !important;
+    box-shadow: 0 10px 40px rgba(124, 58, 237, 0.1) !important;
+    background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.05) 0%, rgba(255, 255, 255, 0.02) 60%) !important;
+  }
+[data-theme="light"] :global(.inmo-pricing-card.featured-plan.neon-style::before) {
+    background: linear-gradient(135deg, var(--accent-indigo), rgba(124, 58, 237, 0.2)) border-box !important;
+  }
+[data-theme="light"] :global(.inmo-pricing-card.featured-plan.neon-style .btn-primary) {
+    background: var(--accent-indigo) !important;
+    color: #fff !important;
+    font-weight: 600;
+  }
+[data-theme="light"] :global(.inmo-pricing-card.featured-plan.neon-style .btn-primary:hover) {
+    background: var(--accent-indigo-hover) !important;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3) !important;
+  }
+[data-theme="light"] :global(.inmo-pricing-card.featured-plan.neon-style .feature-check) {
+    color: #10B981 !important;
+  }
+
+/* Installments Badge */
+.inmo-installments-badge {
+  background: rgba(138, 53, 229, 0.08);
+  border: 1px solid rgba(138, 53, 229, 0.25);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Lexend', sans-serif;
+}
+.inmo-installments-badge span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+[data-theme="light"] .inmo-installments-badge {
+  background: rgba(124, 58, 237, 0.06);
+  border-color: rgba(124, 58, 237, 0.2);
+  color: var(--accent-indigo);
+}
+[data-theme="light"] .inmo-installments-badge span {
+  color: var(--text-secondary);
+}
+:global(.inmo-btn-pulse) {
+    animation: inmoPulseGlow 2.2s infinite ease-in-out;
+    transition: all 0.3s ease;
+  }
+@keyframes inmoPulseGlow {
+  0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+    }
+  70% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+    }
+  100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+:global(.inmo-btn-pulse:hover) {
+    animation: none;
+    transform: scale(1.08);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.7);
+  }
+:global(.inmo-plan-badge) {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    margin-bottom: 15px;
+    width: fit-content;
+  }
+:global(.inmo-plan-badge.premium) {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(124, 58, 237, 0.2));
+    border-color: rgba(16, 185, 129, 0.3);
+    color: var(--accent-crimson);
+  }
+:global(.inmo-pricing-header h3) {
+    font-size: 1.65rem;
+    font-weight: 400;
+    margin: 5px 0 10px 0;
+    color: white;
+    font-family: 'Lexend', sans-serif;
+    text-align: left;
+    letter-spacing: -0.01em;
+  }
+:global(.inmo-plan-price-box) {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+  }
+:global(.price-label) {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+:global(.feature-check) {
+    color: var(--accent-indigo);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+:global(.feature-check.premium) {
+    color: var(--accent-crimson);
+  }
+:global(.inmo-pricing-cta-box) {
+    margin-top: auto;
+  }
+
+/* Scarcity Banner styling with Pulse Dot */
+.inmo-scarcity-banner {
+  background: rgba(10, 10, 12, 0.4);
+  border: 1px solid rgba(234, 56, 77, 0.25);
+  color: var(--text-primary);
+  font-size: 0.825rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+[data-theme="light"] .inmo-scarcity-banner {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(239, 68, 68, 0.18);
+  color: #000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+.inmo-scarcity-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.4;
+  width: 100%;
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ea445a;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  animation: pulse-animation 1.5s infinite ease-in-out;
+}
+[data-theme="light"] .pulse-dot {
+  background-color: #ef4444;
+}
+@keyframes pulse-animation {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(234, 56, 77, 0.7);
+  }
+  70% {
+    transform: scale(1.2);
+    opacity: 0.4;
+    box-shadow: 0 0 0 8px rgba(234, 56, 77, 0);
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(234, 56, 77, 0);
+  }
+}
+.scarcity-text {
+  color: var(--text-secondary);
+}
+[data-theme="light"] .scarcity-text {
+  color: #4a4855;
+}
+.scarcity-divider {
+  opacity: 0.3;
+  color: var(--text-muted);
+}
+.scarcity-timer {
+  font-weight: 500;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+}
+[data-theme="light"] .scarcity-timer {
+  color: #111016;
+}
+#countdown-timer {
+  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ea445a;
+  background: rgba(234, 56, 77, 0.1);
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-left: 6px;
+  border: 1px solid rgba(234, 56, 77, 0.2);
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 10px rgba(234, 56, 77, 0.08);
+  display: inline-block;
+}
+[data-theme="light"] #countdown-timer {
+  background: rgba(239, 68, 68, 0.05);
+  border-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+@media (max-width: 640px) {
+  .inmo-scarcity-banner {
+    padding: 14px 16px;
+    align-items: flex-start;
+  }
+  .inmo-scarcity-content {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .scarcity-divider {
+    display: none;
+  }
+  .pulse-dot {
+    margin-top: 4px;
+  }
+}
+
+
+/* Pricing Toggle Switch styling */
+.inmo-pricing-toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 0 auto 35px;
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 10px 24px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+[data-theme="light"] .inmo-pricing-toggle-wrapper {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+.inmo-toggle-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  user-select: none;
+}
+.inmo-toggle-label.active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.inmo-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+.inmo-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.inmo-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: .3s;
+  border-radius: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+[data-theme="light"] .inmo-slider {
+  background-color: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+.inmo-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #d4ff00;
+  transition: .3s;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(212, 255, 0, 0.5);
+}
+[data-theme="light"] .inmo-slider:before {
+  background-color: var(--accent-indigo);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+}
+input:checked + .inmo-slider {
+  background-color: rgba(212, 255, 0, 0.05);
+}
+[data-theme="light"] input:checked + .inmo-slider {
+  background-color: rgba(124, 58, 237, 0.05);
+}
+input:checked + .inmo-slider:before {
+  transform: translateX(22px);
+}
+
+/* Addon Box styling */
+.inmo-pricing-addon-box h4 {
+  color: #fff !important;
+}
+[data-theme="light"] .inmo-pricing-addon-box {
+  background: rgba(124, 58, 237, 0.03) !important;
+  border-color: rgba(124, 58, 237, 0.15) !important;
+}
+[data-theme="light"] .inmo-pricing-addon-box h4 {
+  color: #0f172a !important;
+}
+[data-theme="light"] .inmo-pricing-addon-box span {
+  color: var(--accent-indigo) !important;
+}
+
+/* FAQ Accordion Overhaul */
+.inmo-faq-accordion-wrapper {
+    max-width: 850px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+.inmo-faq-question {
+    width: 100%;
+    padding: 24px 30px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+.inmo-faq-question:hover {
+    background: rgba(255,255,255,0.01);
+  }
+.inmo-faq-arrow {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    transition: transform 0.3s ease, color 0.3s ease;
+    margin-left: 20px;
+    flex-shrink: 0;
+  }
+.inmo-faq-item.open {
+    border-color: var(--accent-crimson);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.08);
+  }
+.inmo-faq-item.open .inmo-faq-question {
+    color: var(--accent-crimson);
+  }
+.inmo-faq-item.open .inmo-faq-arrow {
+    transform: rotate(45deg);
+    color: var(--accent-crimson);
+  }
+.inmo-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+    background: rgba(0,0,0,0.1);
+  }
+.inmo-faq-answer p {
+    padding: 0 30px 25px;
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+.inmo-faq-item.open .inmo-faq-answer {
+    max-height: 500px;
+    transition: max-height 0.4s cubic-bezier(1, 0, 1, 0);
+  }
+/* Formulario de Contacto (CRO) */
+/* Form Success state */
+/* Footer campaign */
+.campaign-footer {
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    padding: 40px 0;
+    text-align: center;
+  }
+.footer-content-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+.footer-tagline {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin: 0;
+  }
+.footer-copy {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+/* Whatsapp Floating Button */
+.whatsapp-float-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #25D366;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3), 0 0 20px rgba(37, 211, 102, 0.2);
+    z-index: 999;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+  }
+.whatsapp-float-btn:hover {
+    transform: scale(1.1);
+  }
+.wa-tooltip {
+    position: absolute;
+    right: 75px;
+    background: #1e293b;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    transform: translateX(10px);
+    box-shadow: var(--shadow-md);
+  }
+.whatsapp-float-btn:hover .wa-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+/* Utility classes */
+.hidden {
+    display: none !important;
+  }
+/* Responsive Design */
+@media (max-width: 992px) {
+  .inmo-hero-wrapper {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 35px;
+    }
+  .inmo-hero-desc {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  .inmo-hero-social-proof {
+      justify-content: center;
+    }
+  .inmo-dolores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  .inmo-specs-grid {
+      grid-template-columns: 1fr;
+    }
+  .inmo-specs-grid .span-2 {
+      grid-column: auto;
+    }
+}
+@media (max-width: 768px) {
+  .section {
+      padding: 60px 0;
+    }
+  .inmo-dolores-grid {
+      grid-template-columns: 1fr;
+    }
+  :global(.inmo-pricing-card) {
+      padding: 30px 20px;
+    }
+  .inmo-faq-question {
+      padding: 18px 20px;
+      font-size: 1rem;
+    }
+  .inmo-faq-answer p {
+      padding: 0 20px 20px;
+    }
+}
+/* ==========================================
+     GLOBAL LIGHT TEMPLATE CONTRAST OVERRIDES
+     ========================================== */
+/* Evitar que los textos hereden el color blanco/gris de Kaptativa global */
+[data-theme="light"] :global(.inmo-pricing-header h3) {
+  color: var(--text-primary) !important;
+}
+[data-theme="light"] .inmo-proof-text strong {
+  color: var(--text-primary) !important;
+}
+[data-theme="light"] .inmo-listing-price {
+  color: var(--accent-indigo) !important;
+}
+
+/* Testimonial Cards Refactor */
+.inmo-testimonial-card {
+  padding: 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  height: 100% !important;
+}
+.inmo-testimonial-stars {
+  color: #fbbf24;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 4px;
+}
+.inmo-testimonial-text {
+  color: var(--text-secondary);
+  font-size: 0.925rem;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+.inmo-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+.inmo-testimonial-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-crimson);
+  flex-shrink: 0;
+}
+.inmo-testimonial-author-name {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+[data-theme="light"] .inmo-testimonial-author-name {
+  color: var(--text-primary);
+}
+.inmo-testimonial-author-title {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 2px 0 0 0;
+}
+
+/* Pricing Trust Section Refactor */
+.inmo-pricing-trust-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  margin-top: 50px !important;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .inmo-pricing-trust-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+.inmo-trust-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 28px 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  text-align: left;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.inmo-trust-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-indigo);
+  box-shadow: 0 10px 30px var(--accent-indigo-glow);
+}
+
+.inmo-trust-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Color theme wrappers for trust icons */
+
+.inmo-violet-icon {
+  background: rgba(167, 139, 250, 0.08);
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+}
+.inmo-green-icon {
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+.inmo-orange-icon {
+  background: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+/* Light theme overrides for trust icons and cards */
+[data-theme="light"] .inmo-trust-card {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .inmo-violet-icon { background: rgba(167, 139, 250, 0.04); }
+[data-theme="light"] .inmo-green-icon { background: rgba(16, 185, 129, 0.04); }
+[data-theme="light"] .inmo-orange-icon { background: rgba(245, 158, 11, 0.04); }
+
+.inmo-trust-card-body {
+  flex-grow: 1;
+}
+
+.inmo-trust-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+  font-family: 'Lexend', sans-serif;
+}
+
+.inmo-trust-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* GPU Acceleration for smooth glassmorphism performance on mobile */
+.inmo-campaign-header,
+.inmo-nav-menu,
+.inmo-glass-panel,
+.featured-plan.neon-style::after,
+.inmo-trust-card {
+  will-change: transform, opacity;
+}
+</style>
+
+<!-- ==========================================================================
+     SCRIPTS CLIENT-SIDE (VANILLA JAVASCRIPT EXTREMAMENTE OPTIMIZADO)
+     COLOCADOS AL ROOT LEVEL DE ASTRO PARA EVITAR ERRORES DE COMPILACIÓN Y SCOPING
+     ========================================================================== -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    /* ==========================================================
+       1. PERSONALIZACIÓN DINÁMICA POR PARÁMETROS URL (UTM)
+       ========================================================== */
+    const urlParams = new URLSearchParams(window.location.search);
+    const cityParam = urlParams.get('city');
+    
+    if (cityParam) {
+      const headline = document.getElementById('dynamic-headline');
+      if (headline) {
+        const formattedCity = cityParam
+          .replace(/([A-Z])/g, ' $1')
+          .trim();
+        const capitalizedCity = formattedCity.charAt(0).toUpperCase() + formattedCity.slice(1);
+        headline.innerHTML = `Vender propiedades en <span class="text-outline">${capitalizedCity}</span> sin Web es un caos administrativo.`;
+      }
+    }
+
+    /* ==========================================================
+       2. ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ)
+       ========================================================== */
+    const faqItems = document.querySelectorAll('.inmo-faq-item');
+    faqItems.forEach(item => {
+      const questionBtn = item.querySelector('.inmo-faq-question');
+      const answer = item.querySelector('.inmo-faq-answer');
+      
+      if (questionBtn) {
+        questionBtn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          
+          faqItems.forEach(otherItem => {
+            otherItem.classList.remove('open');
+            const otherAnswer = otherItem.querySelector('.inmo-faq-answer');
+            if (otherAnswer) otherAnswer.style.maxHeight = null;
+          });
+          
+          if (!isOpen) {
+            item.classList.add('open');
+            if (answer) answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      }
+    });
+
+    /* ==========================================================
+       3. CALCULADORA DINÁMICA DE PRECIOS Y CROSS-SELLING
+       ========================================================== */
+    const pricingSwitch = document.getElementById('pricing-method-switch');
+    
+    const priceDisplay = document.getElementById('pricing-amount');
+    const installmentsBadge = document.getElementById('pricing-installments-badge');
+    const pricingCtaBtn = document.getElementById('pricing-cta-btn');
+    
+    const labelCuotas = document.getElementById('toggle-label-cuotas');
+    const labelTransferencia = document.getElementById('toggle-label-transferencia');
+    
+    const CONTACT_WHATSAPP_NUMBER = "541138830925";
+    
+    function updatePricing() {
+      const isTransfer = pricingSwitch ? pricingSwitch.checked : false;
+      
+      let basePrice = 360000;
+      let displayPriceText = "";
+      let installmentsText = "";
+      let ctaLink = "";
+      
+      if (isTransfer) {
+        // Transferencia: 10% OFF
+        const discountPrice = basePrice * 0.9;
+        displayPriceText = `ARS ${discountPrice.toLocaleString('es-AR')}`;
+        installmentsText = `⚡ Ahorrás ARS 36.000 pagando por transferencia`;
+        if (labelCuotas) labelCuotas.classList.remove('active');
+        if (labelTransferencia) labelTransferencia.classList.add('active');
+        
+        ctaLink = `/checkout?method=transfer`;
+      } else {
+        // Cuotas: Precio de lista normal
+        displayPriceText = `ARS ${basePrice.toLocaleString('es-AR')}`;
+        installmentsText = `3 cuotas sin interés de ARS ${(basePrice / 3).toLocaleString('es-AR')}`;
+        if (labelCuotas) labelCuotas.classList.add('active');
+        if (labelTransferencia) labelTransferencia.classList.remove('active');
+        ctaLink = `/checkout?method=mp`;
+      }
+      
+      if (priceDisplay) priceDisplay.textContent = displayPriceText;
+      if (installmentsBadge) {
+        if (isTransfer) {
+          installmentsBadge.innerHTML = installmentsText;
+          installmentsBadge.style.background = 'rgba(16, 185, 129, 0.08)';
+          installmentsBadge.style.borderColor = 'rgba(16, 185, 129, 0.2)';
+          installmentsBadge.style.color = '#10B981';
+        } else {
+          installmentsBadge.innerHTML = installmentsText;
+          installmentsBadge.style.background = 'rgba(138, 53, 229, 0.08)';
+          installmentsBadge.style.borderColor = 'rgba(138, 53, 229, 0.25)';
+          installmentsBadge.style.color = '#ffffff';
+        }
+      }
+      if (pricingCtaBtn) pricingCtaBtn.setAttribute('href', ctaLink);
+    }
+    
+    if (pricingSwitch) pricingSwitch.addEventListener('change', updatePricing);
+
+    /* ==========================================================
+       4. CRONÓMETRO DE URGENCIA (COUNTDOWN TIMER TO MIDNIGHT)
+       ========================================================== */
+    const timerElement = document.getElementById('countdown-timer-top');
+    
+    function updateTimer() {
+      const now = new Date();
+      const midnight = new Date();
+      midnight.setHours(23, 59, 59, 999); // Establecer al final de la jornada de hoy
+      
+      const diff = midnight - now;
+      
+      if (diff <= 0) {
+        if (timerElement) timerElement.textContent = "00:00:00";
+        return;
+      }
+      
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      const formattedTime = [
+        hours.toString().padStart(2, '0'),
+        minutes.toString().padStart(2, '0'),
+        seconds.toString().padStart(2, '0')
+      ].join(':');
+      
+      if (timerElement) timerElement.textContent = formattedTime;
+    }
+    
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+  });
+</script>
+

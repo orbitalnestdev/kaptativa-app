@@ -1,0 +1,635 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import TrustedLogos from '../components/TrustedLogos.astro';
+import ServicesTicker from '../components/ServicesTicker.astro';
+import TechStack from '../components/TechStack.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Servicios from '../components/Servicios.astro';
+import Faq from '../components/Faq.astro';
+import Equipo from '../components/Equipo.astro';
+---
+
+<Layout title="Kaptativa | Diseño Web, Automatización e Inteligencia Artificial">
+  <Header slot="header" />
+  
+  <main>
+
+        <Hero />
+
+        <TrustedLogos />
+
+        <ServicesTicker />
+
+        <Servicios />
+
+
+    <!-- ==========================================================================
+         SECCIÓN PARA QUIÉN ES
+         ========================================================================== -->
+    <section class="section for-whom" id="para-quien">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge">¿Con quién trabajamos?</span>
+          <h2>A quiénes ayudamos a crecer</h2>
+          <p>Diseñado para negocios y profesionales que buscan automatizar procesos y marca, sin complicaciones.</p>
+        </div>
+        
+        <div class="for-grid reveal reveal-delay-1">
+          <div class="for-card">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="rubro-icon-wrapper wrapper-purple">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                </div>
+                <h3>Empresas de Servicios</h3>
+              </div>
+              <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <p>Estudios contables, consultoras o agencias que requieren captar datos estructurados y agendar reuniones calificadas.</p>
+          </div>
+          
+          <div class="for-card">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="rubro-icon-wrapper wrapper-crimson">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <h3>Profesionales Independientes</h3>
+              </div>
+              <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <p>Médicos, abogados o asesores que quieren automatizar su agenda de reservas de turnos y responder dudas recurrentes.</p>
+          </div>
+          
+          <div class="for-card">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="rubro-icon-wrapper wrapper-emerald">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                </div>
+                <h3>Inmobiliarias y Corredores</h3>
+              </div>
+              <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <p>Para calificar las intenciones de compra/alquiler antes de derivar el prospecto a un asesor humano de ventas.</p>
+          </div>
+          
+          <div class="for-card">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="rubro-icon-wrapper wrapper-orange">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                </div>
+                <h3>Tiendas y E-commerce</h3>
+              </div>
+              <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <p>Negocios minoristas que buscan sincronizar sus ventas con facturación automática y flujos de soporte en post-venta.</p>
+          </div>
+          
+          <div class="for-card">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="rubro-icon-wrapper wrapper-cyan">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><path d="M12 7v6l4 2"></path></svg>
+                </div>
+                <h3>Negocios Locales</h3>
+              </div>
+              <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <p>Locales comerciales que necesitan una web informativa para derivar tráfico geolocalizado a su tienda física.</p>
+          </div>
+          
+          <div class="for-card">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="rubro-icon-wrapper wrapper-blue">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+                <h3>Equipos Operativos</h3>
+              </div>
+              <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <p>Negocios tradicionales saturados de tareas administrativas repetitivas de entrada de datos que pueden ser automatizadas.</p>
+          </div>
+          
+          <div class="for-card">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="rubro-icon-wrapper wrapper-pink">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                </div>
+                <h3>Marcas en Crecimiento</h3>
+              </div>
+              <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <p>Negocios que han crecido en ventas pero su estructura operativa digital actual no da abasto para procesar las consultas.</p>
+          </div>
+          
+          <div class="for-card">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="rubro-icon-wrapper wrapper-amber">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                </div>
+                <h3>Líderes Tradicionales</h3>
+              </div>
+              <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <p>Empresas consolidadas que necesitan dar el salto definitivo hacia la digitalización para no perder mercado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <TechStack />
+
+
+        <Testimonials />
+
+        <Equipo />
+
+
+    <!-- ==========================================================================
+         SECCIÓN PROCESO DE TRABAJO
+         ========================================================================== -->
+    <section class="section" id="proceso">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge">Nuestra Metodología</span>
+          <h2>Cómo trabajamos paso a paso</h2>
+          <p>Un proceso ordenado y transparente de principio a fin para garantizar que las soluciones digitales se integren perfectamente a tu operación.</p>
+        </div>
+        
+        <div class="process-grid reveal reveal-delay-1">
+          <div class="process-card">
+            <div class="process-number">01</div>
+            <h3>Diagnóstico Inicial</h3>
+            <p>Analizamos cómo opera tu negocio hoy. Identificamos los cuellos de botella manuales y dónde perdés tiempo o clientes.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-number">02</div>
+            <h3>Planificación y Estrategia</h3>
+            <p>Definimos el sistema digital ideal para tu caso: estructura web, automatizaciones y cómo debe responder la IA.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-number">03</div>
+            <h3>Diseño y Desarrollo</h3>
+            <p>Estructuramos un diseño moderno y programamos el frontend optimizando la velocidad y adaptabilidad móvil.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-number">04</div>
+            <h3>Integraciones</h3>
+            <p>Conectamos tu web con tus canales: formularios, bases de datos e integramos IA en WhatsApp.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-number">05</div>
+            <h3>Lanzamiento</h3>
+            <p>Publicamos el proyecto y brindamos acompañamiento técnico para asegurar una transición fluida.</p>
+          </div>
+        </div>
+        
+        <!-- Mobile Carousel Navigation Dots -->
+        <div class="process-dots reveal reveal-delay-2">
+          <span class="process-dot active" data-index="0"></span>
+          <span class="process-dot" data-index="1"></span>
+          <span class="process-dot" data-index="2"></span>
+          <span class="process-dot" data-index="3"></span>
+          <span class="process-dot" data-index="4"></span>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ==========================================================================
+         SECCIÓN DE CONTACTO Y DIAGNÓSTICO
+         ========================================================================== -->
+    <section class="section home-contact-section" id="contacto-rapido">
+      <div class="container" style="text-align: center;">
+        <div class="section-header reveal" style="text-align: center; margin-bottom: 30px;">
+          <span class="badge home-contact-badge">
+            <span class="badge-dot"></span> EMPECEMOS
+          </span>
+          <h2>¿Listo para <span class="text-gradient-crimson">impulsar tu negocio?</span></h2>
+          <p style="max-width: 750px; margin: 0 auto; color: var(--text-secondary);">Dejanos tus datos y te contactamos en 24 horas. ¿Preferís resolverlo ahora? Agendá tu diagnóstico o escribinos por WhatsApp.</p>
+        </div>
+
+        <div class="home-contact-buttons reveal reveal-delay-1" style="margin-top: 25px; margin-bottom: 40px;">
+          <a href="https://wa.me/541138830925" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="padding: 12px 28px; font-weight: 600;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>Escribinos por WhatsApp</span>
+          </a>
+        </div>
+
+        <div class="home-contact-form-card reveal reveal-delay-2" style="background: rgba(15, 21, 36, 0.85); border: 1px solid rgba(138, 53, 229, 0.25); border-radius: 24px; padding: 45px 40px; backdrop-filter: blur(16px); max-width: 860px; margin: 0 auto; text-align: left;">
+          <form id="contact-form" class="direct-contact-form" novalidate>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-name" class="form-label-uppercase">NOMBRE *</label>
+                <input type="text" id="form-name" class="form-control" placeholder="Tu nombre" required>
+              </div>
+              <div class="form-group">
+                <label for="form-email" class="form-label-uppercase">EMAIL *</label>
+                <input type="email" id="form-email" class="form-control" placeholder="tu@empresa.com" required>
+              </div>
+            </div>
+            
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-whatsapp" class="form-label-uppercase">TELÉFONO / WHATSAPP *</label>
+                <input type="tel" id="form-whatsapp" class="form-control" placeholder="+54 11 ..." required>
+              </div>
+              <div class="form-group">
+                <label for="form-business" class="form-label-uppercase">EMPRESA *</label>
+                <input type="text" id="form-business" class="form-control" placeholder="Nombre de tu empresa" required>
+              </div>
+            </div>
+            
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-website" class="form-label-uppercase">URL DEL SITIO (OPCIONAL)</label>
+                <input type="url" id="form-website" class="form-control" placeholder="https://tusitio.com">
+              </div>
+              <div class="form-group">
+                <label for="form-role" class="form-label-uppercase">¿QUÉ PUESTO OCUPÁS?</label>
+                <select id="form-role" class="form-control form-select-custom">
+                  <option value="" disabled selected>Elegí una opción</option>
+                  <option value="Fundador / CEO / Socio">Fundador / CEO / Socio</option>
+                  <option value="Director Comercial / Ventas">Director Comercial / Ventas</option>
+                  <option value="Gerente de Marketing">Gerente de Marketing</option>
+                  <option value="Operaciones / Administración">Operaciones / Administración</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-service-interest" class="form-label-uppercase">¿QUÉ TE INTERESA?</label>
+              <select id="form-service-interest" class="form-control form-select-custom">
+                <option value="" disabled selected>Elegí el servicio de tu interés</option>
+                <option value="Paid Media / Publicidad Digital">Paid Media / Publicidad Digital</option>
+                <option value="SEO & GEO Search">SEO & GEO Search</option>
+                <option value="Social Media Manager">Social Media Manager</option>
+                <option value="Web & E-commerce">Web & E-commerce</option>
+                <option value="Email Marketing & CRM">Email Marketing & CRM</option>
+                <option value="Software a Medida">Software a Medida</option>
+                <option value="Automatización & Integraciones">Automatización & Integraciones</option>
+                <option value="Agentes de Inteligencia Artificial">Agentes de Inteligencia Artificial</option>
+                <option value="Consultoría Enterprise">Consultoría Enterprise</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="form-message" class="form-label-uppercase">¿CUÁL ES TU PRINCIPAL DESAFÍO HOY? *</label>
+              <textarea id="form-message" class="form-control" rows="4" placeholder="Contanos en qué estás y qué te gustaría resolver" required></textarea>
+            </div>
+            
+            <div class="form-group" style="margin-top: 10px; margin-bottom: 20px;">
+              <label class="form-checkbox" id="label-checkbox-whatsapp">
+                <input type="checkbox" id="form-send-whatsapp" checked>
+                <span>Abrir chat de WhatsApp para agilizar mi consulta</span>
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px rgba(234, 56, 77, 0.4);">
+              <span>Enviar →</span>
+            </button>
+            
+            <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">
+              Te respondemos en 24hs. Tus datos se tratan según nuestra <a href="/privacidad" style="color: var(--accent-pink); text-decoration: underline;">política de privacidad</a>.
+            </p>
+
+            <div class="form-feedback" id="form-feedback-status" style="display: none; margin-top: 20px;"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      import { api } from '../lib/appwrite.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+
+      // Toggle sector cards description on mobile
+      document.querySelectorAll('.for-card, .rubro-card').forEach(card => {
+        card.addEventListener('click', () => {
+          if (window.innerWidth <= 768) {
+            card.classList.toggle('active');
+          }
+        });
+      });
+
+        const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+        const feedback = document.getElementById('form-feedback-status');
+        const submitBtn = document.getElementById('btn-submit-form') as HTMLButtonElement;
+
+        if (!contactForm) return;
+
+        contactForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const name = (document.getElementById('form-name') as HTMLInputElement).value.trim();
+          const email = (document.getElementById('form-email') as HTMLInputElement).value.trim();
+          const whatsapp = (document.getElementById('form-whatsapp') as HTMLInputElement).value.trim();
+          const business = (document.getElementById('form-business') as HTMLInputElement).value.trim();
+          const website = (document.getElementById('form-website') as HTMLInputElement)?.value.trim() || '';
+          const role = (document.getElementById('form-role') as HTMLSelectElement)?.value || 'No especificado';
+          const message = (document.getElementById('form-message') as HTMLTextAreaElement).value.trim();
+          const sendWhatsapp = (document.getElementById('form-send-whatsapp') as HTMLInputElement)?.checked ?? true;
+
+          const checkedServices: string[] = [];
+          document.querySelectorAll('input[name="services"]:checked').forEach((cb) => {
+            checkedServices.push((cb as HTMLInputElement).value);
+          });
+
+          if (!feedback) return;
+
+          if (!name || !email || !whatsapp || !business || !message) {
+            feedback.style.display = 'block';
+            feedback.className = 'form-feedback feedback-error';
+            feedback.innerText = 'Por favor, completá todos los campos obligatorios (*).';
+            return;
+          }
+
+          feedback.style.display = 'block';
+          feedback.className = 'form-feedback feedback-info';
+          feedback.innerText = 'Enviando tu consulta...';
+          if (submitBtn) submitBtn.disabled = true;
+
+          try {
+            const selectedServicesStr = checkedServices.length > 0 ? checkedServices.join(', ') : 'Ninguno seleccionado';
+            await api.db.createLead({
+              name,
+              email,
+              business,
+              whatsapp,
+              message: `Puesto: ${role}\nSitio Web: ${website}\nServicios de interés: ${selectedServicesStr}\n\nDesafío: ${message}`,
+              status: 'nuevo',
+              tags: 'Contacto Home',
+              score: 0,
+              recommendations: `Lead generado desde la Home. Servicios: ${selectedServicesStr}`
+            });
+
+            feedback.className = 'form-feedback feedback-success';
+            feedback.innerText = `¡Gracias, ${name}! Tu consulta ha sido enviada con éxito.`;
+
+            if (sendWhatsapp) {
+              const agencyPhone = '541138830925';
+              const text = encodeURIComponent(`¡Hola Kaptativa! Acabo de enviar una consulta desde la web.\n\n*Datos:*\n- *Nombre:* ${name}\n- *Empresa:* ${business}\n- *Email:* ${email}\n- *WhatsApp:* ${whatsapp}\n- *Puesto:* ${role}\n- *Interés:* ${selectedServicesStr}\n- *Desafío:* ${message}`);
+              setTimeout(() => {
+                window.open(`https://wa.me/${agencyPhone}?text=${text}`, '_blank');
+              }, 1200);
+            }
+
+            contactForm.reset();
+          } catch (err) {
+            console.error('Error enviando formulario:', err);
+            feedback.className = 'form-feedback feedback-error';
+            feedback.innerText = 'Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente o contactanos por WhatsApp.';
+          } finally {
+            if (submitBtn) submitBtn.disabled = false;
+          }
+        });
+
+        // Mobile Process Carousel Indicators
+        const processGrid = document.querySelector('.process-grid');
+        const dots = document.querySelectorAll('.process-dot');
+
+        if (processGrid && dots.length > 0) {
+          const updateActiveDot = () => {
+            if (window.innerWidth > 768) return;
+            
+            const firstCard = processGrid.querySelector('.process-card');
+            if (!firstCard) return;
+            
+            const cardWidth = firstCard.clientWidth + 15; // card width + gap
+            const scrollLeft = processGrid.scrollLeft;
+            const activeIndex = Math.round(scrollLeft / cardWidth);
+
+            dots.forEach((dot, index) => {
+              if (index === activeIndex) {
+                dot.classList.add('active');
+              } else {
+                dot.classList.remove('active');
+              }
+            });
+          };
+
+          processGrid.addEventListener('scroll', updateActiveDot);
+
+          // Allow clicking dots to scroll to that slide
+          dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+              const firstCard = processGrid.querySelector('.process-card');
+              if (!firstCard) return;
+              
+              const cardWidth = firstCard.clientWidth + 15; // card width + gap
+              processGrid.scrollTo({
+                left: index * cardWidth,
+                behavior: 'smooth'
+              });
+            });
+          });
+        }
+      });
+    </script>
+
+  <style>
+    .process-dots {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .process-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 24px;
+      }
+
+      .process-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+      }
+
+      :global([data-theme="light"]) .process-dot {
+        background: rgba(0, 0, 0, 0.15);
+      }
+
+      .process-dot.active {
+        background: var(--accent-indigo);
+        width: 20px;
+        border-radius: 4px;
+      }
+    }
+
+    .home-contact-section {
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .home-contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 25px;
+      margin-bottom: 50px;
+    }
+
+    .home-contact-form-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      padding: 50px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.02) !important;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    :global(html[data-theme="light"]) .form-input,
+    :global(html[data-theme="light"]) .form-select,
+    :global(html[data-theme="light"]) .form-textarea {
+      background: rgba(0, 0, 0, 0.03) !important;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 10px var(--accent-indigo-glow);
+      background: rgba(255, 255, 255, 0.02) !important;
+    }
+
+    .checkboxes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+      margin-top: 5px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-label input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent-indigo);
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--gradient-primary);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(138, 53, 229, 0.25);
+    }
+
+    .btn-submit:hover {
+      background: var(--gradient-hover);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+
+    .form-footer-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .form-footer-note a {
+      color: var(--text-secondary);
+      text-decoration: underline;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .form-footer-note a:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .form-row-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .home-contact-form-card {
+        padding: 30px 20px;
+      }
+      .checkboxes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+    <!-- ==========================================================================
+         PREGUNTAS FRECUENTES (FAQ)
+         ========================================================================== -->
+    <Faq />
+
+  
+  </main>
+  
+  <Footer slot="footer" />
+</Layout>

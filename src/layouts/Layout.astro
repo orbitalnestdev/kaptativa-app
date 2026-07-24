@@ -1,0 +1,124 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title, 
+  description = "Transformamos tu negocio con tecnología que conecta, automatiza y escala."
+} = Astro.props;
+
+import Chatbot from '../components/Chatbot.astro';
+import '../styles/global.css';
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://kaptativa.com');
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Optimization -->
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta name="keywords" content="Kaptativa, diseño web, automatizacion de procesos, inteligencia artificial aplicada, digitalizacion de negocios, landing page, ecommerce, chatbots whatsapp">
+  <meta name="author" content="Kaptativa">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href={canonicalURL.href}>
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonicalURL.href}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content="https://kaptativa.com/og-image.png">
+  
+  <!-- Critical Above-The-Fold Asset Preload -->
+  <link rel="preload" href="/logo.svg" as="image" type="image/svg+xml" fetchpriority="high">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  
+  <!-- CDN Preconnects & DNS Prefetch -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <!-- Google Fonts DNS Preconnect & Font Loading Optimization -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  
+  <!-- JSON-LD Structured Data (Organization Schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Kaptativa",
+    "url": "https://kaptativa.com/",
+    "logo": "https://kaptativa.com/logo.svg",
+    "description": "Transformamos tu negocio con tecnología que conecta, automatiza y escala.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+54-9-11-3883-0925",
+      "contactType": "customer service",
+      "email": "contacto@kaptativa.com",
+      "availableLanguage": "Spanish"
+    }
+  }
+  </script>
+  <script is:inline>
+    const theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
+</head>
+<body>
+  <!-- Global Sticky Top Reading Progress Bar -->
+  <div id="reading-progress-bar" style="position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: linear-gradient(90deg, #EA384D 0%, #8A35E5 50%, #B7A6FF 100%); z-index: 999999; transition: width 0.08s ease-out; box-shadow: 0 0 12px rgba(234, 56, 77, 0.9); pointer-events: none;"></div>
+
+  <script is:inline>
+    (function() {
+      function updateReadingProgress() {
+        const winScroll = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const height = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+        const bar = document.getElementById('reading-progress-bar');
+        if (!bar) return;
+        if (height <= 0) {
+          bar.style.width = '0%';
+          return;
+        }
+        const scrolled = (winScroll / height) * 100;
+        const finalWidth = Math.max(2, Math.min(100, scrolled));
+        bar.style.width = finalWidth + '%';
+      }
+
+      window.addEventListener('scroll', updateReadingProgress, { passive: true });
+      window.addEventListener('resize', updateReadingProgress, { passive: true });
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateReadingProgress);
+      } else {
+        updateReadingProgress();
+      }
+    })();
+  </script>
+
+  <div id="scroll-sentinel"></div>
+  
+  <slot name="header" />
+  
+  <slot />
+  
+  <slot name="footer" />
+
+  <!-- Chatbot IA -->
+  {!Astro.url.pathname.startsWith('/admin') && !Astro.url.pathname.includes('/checkout') && <Chatbot />}
+
+  <!-- JavaScript Scripts -->
+  <script src="/app.js" is:inline></script>
+</body>
+</html>

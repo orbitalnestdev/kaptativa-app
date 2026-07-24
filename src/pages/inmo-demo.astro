@@ -1,0 +1,140 @@
+---
+import DemoInmobiliaria from '../components/DemoInmobiliaria.jsx';
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador Dual Inmobiliario | Kaptativa</title>
+  <meta name="description" content="Prueba el sistema inmobiliario digital de Kaptativa en tiempo real. Gestiona propiedades en el panel administrativo y simula el WhatsApp del cliente.">
+  <link rel="canonical" href="https://kaptativa.com/inmo-demo">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kaptativa.com/inmo-demo">
+  <meta property="og:title" content="Simulador Dual Inmobiliario | Kaptativa 360°">
+  <meta property="og:description" content="Experimenta en tiempo real cómo interactúa tu Web Inmobiliaria, tu Agente IA de WhatsApp y tu Panel CRM.">
+  <meta property="og:image" content="https://kaptativa.com/project_b2b.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://kaptativa.com/inmo-demo">
+  <meta name="twitter:title" content="Simulador Dual Inmobiliario | Kaptativa 360°">
+  <meta name="twitter:description" content="Experimenta en tiempo real cómo interactúa tu Web Inmobiliaria, tu Agente IA de WhatsApp y tu Panel CRM.">
+  <meta name="twitter:image" content="https://kaptativa.com/project_b2b.png">
+  
+  <!-- CDN Preconnects for High Speed Image Loading -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script is:inline>
+    const theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
+</head>
+<body style="background: #070a12; margin: 0; padding: 0; min-height: 100vh; width: 100vw; font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;">
+  
+  <!-- Simulador React Directo en Fullscreen -->
+  <DemoInmobiliaria openDirect={true} client:only="react" />
+
+
+  <!-- Skeleton Loading Shell for Instant Visual Feedback & 0 CLS -->
+  <div id="inmo-demo-skeleton" style="position: fixed; inset: 0; background: #070a12; z-index: 9999; display: flex; flex-direction: column; opacity: 1; transition: opacity 0.3s ease; pointer-events: none;">
+    <!-- Top Nav Skeleton -->
+    <div style="height: 60px; background: rgba(15, 18, 28, 0.9); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 24px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,0.08);"></div>
+        <div style="width: 140px; height: 16px; border-radius: 4px; background: rgba(255,255,255,0.08);"></div>
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <div style="width: 100px; height: 32px; border-radius: 20px; background: rgba(255,255,255,0.08);"></div>
+        <div style="width: 100px; height: 32px; border-radius: 20px; background: rgba(255,255,255,0.08);"></div>
+      </div>
+    </div>
+    <!-- Main Content Dual Panel Skeleton -->
+    <div style="flex: 1; display: grid; grid-template-columns: 1fr 420px; gap: 1px; background: rgba(255,255,255,0.05);">
+      <!-- Left Panel Grid Skeleton -->
+      <div style="background: #070a12; padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="height: 48px; border-radius: 12px; background: rgba(15, 18, 28, 0.8); width: 100%;"></div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;">
+          
+            <div style="background: rgba(15, 18, 28, 0.7); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px;">
+              <div style="height: 180px; width: 100%; background: rgba(255,255,255,0.04);"></div>
+              <div style="height: 16px; width: 70%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.08);"></div>
+              <div style="height: 14px; width: 40%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.05);"></div>
+            </div>
+          
+            <div style="background: rgba(15, 18, 28, 0.7); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px;">
+              <div style="height: 180px; width: 100%; background: rgba(255,255,255,0.04);"></div>
+              <div style="height: 16px; width: 70%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.08);"></div>
+              <div style="height: 14px; width: 40%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.05);"></div>
+            </div>
+          
+            <div style="background: rgba(15, 18, 28, 0.7); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px;">
+              <div style="height: 180px; width: 100%; background: rgba(255,255,255,0.04);"></div>
+              <div style="height: 16px; width: 70%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.08);"></div>
+              <div style="height: 14px; width: 40%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.05);"></div>
+            </div>
+          
+            <div style="background: rgba(15, 18, 28, 0.7); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px;">
+              <div style="height: 180px; width: 100%; background: rgba(255,255,255,0.04);"></div>
+              <div style="height: 16px; width: 70%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.08);"></div>
+              <div style="height: 14px; width: 40%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.05);"></div>
+            </div>
+          
+            <div style="background: rgba(15, 18, 28, 0.7); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px;">
+              <div style="height: 180px; width: 100%; background: rgba(255,255,255,0.04);"></div>
+              <div style="height: 16px; width: 70%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.08);"></div>
+              <div style="height: 14px; width: 40%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.05);"></div>
+            </div>
+          
+            <div style="background: rgba(15, 18, 28, 0.7); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px;">
+              <div style="height: 180px; width: 100%; background: rgba(255,255,255,0.04);"></div>
+              <div style="height: 16px; width: 70%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.08);"></div>
+              <div style="height: 14px; width: 40%; margin: 0 16px; border-radius: 4px; background: rgba(255,255,255,0.05);"></div>
+            </div>
+          
+        </div>
+      </div>
+      <!-- Right Panel Chat Skeleton -->
+      <div style="background: #0c0f1d; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="height: 40px; border-radius: 10px; background: rgba(255,255,255,0.06);"></div>
+          <div style="height: 60px; border-radius: 12px; width: 80%; background: rgba(255,255,255,0.04);"></div>
+          <div style="height: 60px; border-radius: 12px; width: 75%; align-self: flex-end; background: rgba(6, 182, 212, 0.15);"></div>
+        </div>
+        <div style="height: 48px; border-radius: 24px; background: rgba(255,255,255,0.06);"></div>
+      </div>
+    </div>
+  </div>
+  <script is:inline>
+    // Fade out skeleton as soon as React component renders
+    window.addEventListener('load', () => {
+      const sk = document.getElementById('inmo-demo-skeleton');
+      if (sk) {
+        sk.style.opacity = '0';
+        setTimeout(() => sk.remove(), 300);
+      }
+    });
+    // Fallback timer if load event already fired
+    setTimeout(() => {
+      const sk = document.getElementById('inmo-demo-skeleton');
+      if (sk) {
+        sk.style.opacity = '0';
+        setTimeout(() => sk.remove(), 300);
+      }
+    }, 1200);
+  </script>
+
+</body>
+</html>
+

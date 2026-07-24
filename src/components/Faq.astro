@@ -1,0 +1,64 @@
+---
+import { faqsData } from '../data/content.js';
+---
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="badge">FAQ</span>
+      <h2>Preguntas Frecuentes</h2>
+      <p>Despejá las dudas operativas más comunes sobre cómo diseñamos e implementamos nuestros sistemas digitales.</p>
+    </div>
+    
+    <div class="faq-wrapper reveal reveal-delay-1">
+      {faqsData.map((faq, index) => (
+        <div class="faq-item">
+          <button class="faq-header" aria-expanded="false">
+            <span>{faq.question}</span>
+            <svg class="faq-icon-toggle" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="faq-content">
+            <p>{faq.answer}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // FAQ ACCORDION LOGIC
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const headerBtn = item.querySelector('.faq-header');
+      const content = item.querySelector('.faq-content') as HTMLElement;
+
+      if(headerBtn) {
+        headerBtn.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+
+          faqItems.forEach(otherItem => {
+            otherItem.classList.remove('active');
+            const otherHeader = otherItem.querySelector('.faq-header');
+            if(otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+            const otherContent = otherItem.querySelector('.faq-content') as HTMLElement;
+            if(otherContent) otherContent.style.maxHeight = '';
+          });
+
+          if (!isActive) {
+            item.classList.add('active');
+            headerBtn.setAttribute('aria-expanded', 'true');
+            if(content) content.style.maxHeight = content.scrollHeight + "px";
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<style is:global>
+</style>

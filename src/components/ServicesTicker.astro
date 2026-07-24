@@ -1,0 +1,140 @@
+---
+// ServicesTicker.astro
+---
+<div class="services-ticker">
+  <div class="ticker-wrap">
+    <div class="ticker-move">
+      <!-- Group 1 -->
+      <span class="ticker-item">AGENTES IA</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">CONSULTORÍA</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">PAID MEDIA</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">SEO & GEO</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">SOFTWARE</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">DESARROLLO WEB</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">AUTOMATIZACIÓN</span>
+      <span class="ticker-dot">•</span>
+      
+      <!-- Group 2 (Repeated for seamless loop) -->
+      <span class="ticker-item">AGENTES IA</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">CONSULTORÍA</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">PAID MEDIA</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">SEO & GEO</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">SOFTWARE</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">DESARROLLO WEB</span>
+      <span class="ticker-dot">•</span>
+      <span class="ticker-item">AUTOMATIZACIÓN</span>
+      <span class="ticker-dot">•</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .services-ticker {
+    width: 100%;
+    background-color: var(--bg-secondary);
+    overflow: hidden;
+    padding: 18px 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ticker-move {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: 40px;
+    animation: ticker-slide 28s linear infinite;
+    will-change: transform;
+  }
+
+  .ticker-item {
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    cursor: default;
+  }
+
+  .ticker-item:hover {
+    color: var(--text-primary);
+  }
+
+  .ticker-dot {
+    color: var(--accent-pink);
+    font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 10px rgba(234, 56, 77, 0.35);
+    cursor: default;
+  }
+
+  @keyframes ticker-slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-50% - 20px)); /* translate exactly half (group 1) taking gap into account */
+    }
+  }
+
+  .ticker-move:hover {
+    animation-play-state: paused;
+  }
+
+  /* Fade gradient on edges */
+  .services-ticker::before,
+  .services-ticker::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  .services-ticker::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-secondary) 0%, transparent 100%);
+  }
+  
+  .services-ticker::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-secondary) 0%, transparent 100%);
+  }
+
+  @media (max-width: 768px) {
+    .services-ticker {
+      padding: 14px 0;
+    }
+    .ticker-item {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+    }
+    .services-ticker::before,
+    .services-ticker::after {
+      width: 70px;
+    }
+  }
+</style>
+

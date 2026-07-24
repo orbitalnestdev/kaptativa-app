@@ -1,0 +1,444 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import AdminSidebar from '../../components/AdminSidebar.astro';
+
+// SSR Authentication Guard
+const sessionCookie = Astro.cookies.get('kaptativa_session');
+if (!sessionCookie) {
+  return Astro.redirect('/admin/login');
+}
+---
+
+<AdminLayout title="Gestión de Servicios y Módulos | Kaptativa">
+  <div class="admin-wrapper" id="admin-main-view">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <AdminSidebar activeTab="services" />
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="admin-content-area">
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 20px;">
+          <div>
+            <h1 class="admin-page-title" style="margin: 0; font-size: 1.6rem; font-weight: 600; color: white; font-family: 'Space Grotesk', sans-serif;">Servicios y Módulos</h1>
+          </div>
+          <button class="btn btn-primary" id="btn-new-item" style="padding: 10px 20px; font-size: 0.85rem; font-weight: 600; display: flex; gap: 8px; align-items: center; align-self: center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nuevo Elemento
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEW TOGGLE TABS -->
+      <div class="view-toggle-container" style="display: flex; gap: 10px; margin-bottom: 25px;">
+        <button class="btn btn-secondary btn-sm toggle-tab active-tab" id="tab-templates" style="border-radius: 20px; padding: 6px 18px; font-size: 0.85rem;">Plantillas de Servicio</button>
+        <button class="btn btn-secondary btn-sm toggle-tab" id="tab-blocks" style="border-radius: 20px; padding: 6px 18px; font-size: 0.85rem;">Módulos Adicionales</button>
+      </div>
+
+      <!-- TEMPLATES TAB SECTION -->
+      <section id="section-templates" style="display: block;">
+        <div class="services-grid" id="templates-list-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto;">
+          <!-- Will be loaded dynamically -->
+          <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-muted);">
+            Cargando plantillas de servicio...
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOCKS TAB SECTION -->
+      <section id="section-blocks" style="display: none;">
+        <div class="services-grid" id="blocks-list-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto;">
+          <!-- Will be loaded dynamically -->
+          <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-muted);">
+            Cargando módulos adicionales...
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL OVERLAY FOR ADD/EDIT
+       ========================================================================== -->
+  <div class="admin-modal-backdrop" id="editor-modal" style="display: none;">
+    <div class="admin-modal admin-modal-sm">
+      <header class="modal-header">
+        <h3 id="modal-title" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: white;">
+          Editar Elemento
+        </h3>
+        <button id="modal-close" class="admin-modal-close" type="button">✕</button>
+      </header>
+      
+      <div class="modal-body" style="display: block;">
+        <!-- TEMPLATE FORM -->
+        <form id="template-editor-form" style="display: block;">
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label class="form-label">Nombre de Plantilla *</label>
+            <input type="text" id="tpl-label" class="form-control" placeholder="Ej. Diseño Web Corporativo" required>
+          </div>
+          <div class="form-grid-2" style="margin-bottom: 15px;">
+            <div class="form-group">
+              <label class="form-label">Precio Base (USD) *</label>
+              <input type="number" id="tpl-price" class="form-control" placeholder="600" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Emoji Icono *</label>
+              <input type="text" id="tpl-icon" class="form-control" placeholder="🌐, ⚡, 🤖, etc." required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label class="form-label">Características Incluidas (una por línea)</label>
+            <textarea id="tpl-features" class="form-control" style="min-height: 120px;" placeholder="Ej. Diseño mobile responsive&#10;Optimización SEO básica&#10;Integración con WhatsApp"></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label class="form-label">Descripción</label>
+            <textarea id="tpl-desc" class="form-control" style="min-height: 60px;" placeholder="Sitio web o landing page premium..."></textarea>
+          </div>
+          <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button type="button" class="btn btn-secondary btn-cancel" style="padding: 10px 20px;">Cancelar</button>
+            <button type="submit" class="btn btn-primary" style="padding: 10px 24px;">Guardar Template</button>
+          </div>
+        </form>
+
+        <!-- BLOCK FORM -->
+        <form id="block-editor-form" style="display: none;">
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label class="form-label">Nombre del Módulo *</label>
+            <input type="text" id="blk-label" class="form-control" placeholder="Ej. Integración de API" required>
+          </div>
+          <div class="form-grid-2" style="margin-bottom: 15px;">
+            <div class="form-group">
+              <label class="form-label">Precio Adicional (USD) *</label>
+              <input type="number" id="blk-price" class="form-control" placeholder="250" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Categoría *</label>
+              <input type="text" id="blk-category" class="form-control" placeholder="Ej. Desarrollo, Optimización" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label class="form-label">Descripción o Subtítulo</label>
+            <textarea id="blk-desc" class="form-control" style="min-height: 80px;" placeholder="Conexión autónoma de sistemas, APIs y flujos..."></textarea>
+          </div>
+          <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button type="button" class="btn btn-secondary btn-cancel" style="padding: 10px 20px;">Cancelar</button>
+            <button type="submit" class="btn btn-primary" style="padding: 10px 24px;">Guardar Módulo</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+
+<script>
+  import { api } from '../../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    
+    // ==========================================================================
+    // 2. STATE & DOM ELEMENTS
+    // ==========================================================================
+    let activeTab = 'templates'; // 'templates' | 'blocks'
+    let editingId: string | null = null;
+    let loadedTemplates: any[] = [];
+    let loadedBlocks: any[] = [];
+
+    const tabTemplatesBtn = document.getElementById('tab-templates') as HTMLButtonElement;
+    const tabBlocksBtn = document.getElementById('tab-blocks') as HTMLButtonElement;
+    const secTemplates = document.getElementById('section-templates') as HTMLElement;
+    const secBlocks = document.getElementById('section-blocks') as HTMLElement;
+    
+    const templatesContainer = document.getElementById('templates-list-container') as HTMLElement;
+    const blocksContainer = document.getElementById('blocks-list-container') as HTMLElement;
+
+    const editorModal = document.getElementById('editor-modal') as HTMLElement;
+    const modalTitle = document.getElementById('modal-title') as HTMLElement;
+    const tplForm = document.getElementById('template-editor-form') as HTMLFormElement;
+    const blkForm = document.getElementById('block-editor-form') as HTMLFormElement;
+
+    // Form inputs
+    const tplLabelInput = document.getElementById('tpl-label') as HTMLInputElement;
+    const tplPriceInput = document.getElementById('tpl-price') as HTMLInputElement;
+    const tplIconInput = document.getElementById('tpl-icon') as HTMLInputElement;
+    const tplFeaturesInput = document.getElementById('tpl-features') as HTMLTextAreaElement;
+    const tplDescInput = document.getElementById('tpl-desc') as HTMLTextAreaElement;
+
+    const blkLabelInput = document.getElementById('blk-label') as HTMLInputElement;
+    const blkPriceInput = document.getElementById('blk-price') as HTMLInputElement;
+    const blkCategoryInput = document.getElementById('blk-category') as HTMLInputElement;
+    const blkDescInput = document.getElementById('blk-desc') as HTMLTextAreaElement;
+
+    // ==========================================================================
+    // 3. TAB CONTROLLER
+    // ==========================================================================
+    tabTemplatesBtn.addEventListener('click', () => {
+      activeTab = 'templates';
+      tabTemplatesBtn.classList.add('active-tab');
+      tabBlocksBtn.classList.remove('active-tab');
+      secTemplates.style.display = 'block';
+      secBlocks.style.display = 'none';
+    });
+
+    tabBlocksBtn.addEventListener('click', () => {
+      activeTab = 'blocks';
+      tabBlocksBtn.classList.add('active-tab');
+      tabTemplatesBtn.classList.remove('active-tab');
+      secBlocks.style.display = 'block';
+      secTemplates.style.display = 'none';
+    });
+
+    // ==========================================================================
+    // 4. LOAD & RENDER SERVICE DATA
+    // ==========================================================================
+    async function loadData() {
+      // 1. Fetch templates
+      templatesContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-muted);">Cargando plantillas de servicio...</div>`;
+      try {
+        const res = await api.db.listServiceTemplates();
+        loadedTemplates = res.documents || [];
+        renderTemplates();
+      } catch (err: any) {
+        templatesContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #ef4444;">Error al cargar templates: ${err.message}</div>`;
+      }
+
+      // 2. Fetch blocks
+      blocksContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-muted);">Cargando módulos adicionales...</div>`;
+      try {
+        const res = await api.db.listModularBlocks();
+        loadedBlocks = res.documents || [];
+        renderBlocks();
+      } catch (err: any) {
+        blocksContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #ef4444;">Error al cargar módulos: ${err.message}</div>`;
+      }
+    }
+
+    function renderTemplates() {
+      if (loadedTemplates.length === 0) {
+        templatesContainer.innerHTML = `
+          <div style="grid-column: 1 / -1;">
+            <div class="admin-empty-state">
+              <div class="admin-empty-icon">🛠️</div>
+              <h4 class="admin-empty-title">Sin plantillas de servicio</h4>
+              <p class="admin-empty-desc">Crea tu primera plantilla de servicio base para calcular presupuestos automáticamente.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      templatesContainer.innerHTML = '';
+      loadedTemplates.forEach(t => {
+        const featuresList = Array.isArray(t.features) ? t.features : (t.features || '').split('\n').filter((f: string) => f.trim() !== '');
+        const featuresHtml = featuresList.map((f: string) => `<li style="font-size: 0.775rem; color: var(--text-secondary); margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">🟢 ${f}</li>`).join('');
+
+        const card = document.createElement('div');
+        card.className = 'service-mgmt-card';
+        card.innerHTML = `
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+              <div style="font-size: 2.2rem;">${t.icon || '🌐'}</div>
+              <div style="font-size: 1.15rem; font-weight: 600; color: var(--accent-crimson); font-family: 'Lexend', sans-serif;">$${t.basePrice} USD</div>
+            </div>
+            <h4 style="margin: 0 0 10px 0; font-size: 1.05rem; font-weight: 600; color: white;">${t.label}</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 15px;">${t.desc || 'Sin descripción.'}</p>
+            <div style="border-top: 1px solid rgba(255,255,255,0.04); padding-top: 12px; margin-bottom: 20px;">
+              <h5 style="margin: 0 0 8px 0; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Características:</h5>
+              <ul style="margin: 0; padding: 0; list-style: none;">
+                ${featuresHtml || '<li style="font-size: 0.775rem; color: var(--text-muted);">Ninguna</li>'}
+              </ul>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: auto;">
+            <button class="btn btn-secondary btn-edit-tpl" data-id="${t.$id}" style="flex: 1; font-size: 0.775rem; padding: 8px 12px;">✏️ Editar</button>
+            <button class="btn btn-secondary btn-delete-tpl" data-id="${t.$id}" style="border-color: #ef4444; color: #ef4444; font-size: 0.775rem; padding: 8px 12px;">🗑️ Borrar</button>
+          </div>
+        `;
+
+        card.querySelector('.btn-edit-tpl')?.addEventListener('click', () => openModal(t));
+        card.querySelector('.btn-delete-tpl')?.addEventListener('click', () => deleteTemplate(t.$id, t.label));
+
+        templatesContainer.appendChild(card);
+      });
+    }
+
+    function renderBlocks() {
+      if (loadedBlocks.length === 0) {
+        blocksContainer.innerHTML = `
+          <div style="grid-column: 1 / -1;">
+            <div class="admin-empty-state">
+              <div class="admin-empty-icon">🧩</div>
+              <h4 class="admin-empty-title">Sin módulos adicionales</h4>
+              <p class="admin-empty-desc">Registra módulos de integración (WhatsApp, CRM, Pasarelas) para ofrecer como opcionales.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+
+      blocksContainer.innerHTML = '';
+      loadedBlocks.forEach(b => {
+        const card = document.createElement('div');
+        card.className = 'service-mgmt-card';
+        card.innerHTML = `
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+              <span class="badge" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); color: var(--accent-crimson); font-size: 0.7rem;">${b.category || 'Módulo'}</span>
+              <div style="font-size: 1.1rem; font-weight: 600; color: var(--accent-crimson); font-family: 'Lexend', sans-serif;">+$${b.price} USD</div>
+            </div>
+            <h4 style="margin: 0 0 10px 0; font-size: 1.05rem; font-weight: 600; color: white;">${b.label}</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 20px;">${b.desc || 'Sin descripción.'}</p>
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: auto;">
+            <button class="btn btn-secondary btn-edit-blk" data-id="${b.$id}" style="flex: 1; font-size: 0.775rem; padding: 8px 12px;">✏️ Editar</button>
+            <button class="btn btn-secondary btn-delete-blk" data-id="${b.$id}" style="border-color: #ef4444; color: #ef4444; font-size: 0.775rem; padding: 8px 12px;">🗑️ Borrar</button>
+          </div>
+        `;
+
+        card.querySelector('.btn-edit-blk')?.addEventListener('click', () => openModal(b));
+        card.querySelector('.btn-delete-blk')?.addEventListener('click', () => deleteBlock(b.$id, b.label));
+
+        blocksContainer.appendChild(card);
+      });
+    }
+
+    // ==========================================================================
+    // 5. MODAL FORM ACTIONS
+    // ==========================================================================
+    const newBtn = document.getElementById('btn-new-item') as HTMLButtonElement;
+    const closeBtn = document.getElementById('modal-close') as HTMLButtonElement;
+    const cancelBtns = document.querySelectorAll('.btn-cancel');
+
+    newBtn.addEventListener('click', () => openModal(null));
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtns.forEach(btn => btn.addEventListener('click', closeModal));
+
+    function openModal(item: any = null) {
+      editingId = item ? item.$id : null;
+      editorModal.style.display = 'flex';
+      setTimeout(() => editorModal.classList.add('active'), 10);
+
+      if (activeTab === 'templates') {
+        modalTitle.innerText = item ? `Editar Plantilla: ${item.label}` : 'Nueva Plantilla de Servicio';
+        tplForm.style.display = 'block';
+        blkForm.style.display = 'none';
+
+        if (item) {
+          tplLabelInput.value = item.label || '';
+          tplPriceInput.value = item.basePrice?.toString() || '';
+          tplIconInput.value = item.icon || '';
+          tplFeaturesInput.value = Array.isArray(item.features) ? item.features.join('\n') : item.features || '';
+          tplDescInput.value = item.desc || '';
+        } else {
+          tplForm.reset();
+        }
+      } else {
+        modalTitle.innerText = item ? `Editar Módulo: ${item.label}` : 'Nuevo Módulo Adicional';
+        tplForm.style.display = 'none';
+        blkForm.style.display = 'block';
+
+        if (item) {
+          blkLabelInput.value = item.label || '';
+          blkPriceInput.value = item.price?.toString() || '';
+          blkCategoryInput.value = item.category || '';
+          blkDescInput.value = item.desc || '';
+        } else {
+          blkForm.reset();
+        }
+      }
+    }
+
+    function closeModal() {
+      editorModal.classList.remove('active');
+      setTimeout(() => {
+        editorModal.style.display = 'none';
+        editingId = null;
+      }, 250);
+    }
+
+    // ==========================================================================
+    // 6. FORM SUBMITS (CREATE & UPDATE)
+    // ==========================================================================
+    tplForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const payload = {
+        label: tplLabelInput.value.trim(),
+        basePrice: parseInt(tplPriceInput.value) || 0,
+        icon: tplIconInput.value.trim(),
+        features: tplFeaturesInput.value.split('\n').map(f => f.trim()).filter(f => f !== ''),
+        desc: tplDescInput.value.trim(),
+        status: 'activo'
+      };
+
+      try {
+        if (editingId) {
+          await api.db.updateServiceTemplate(editingId, payload);
+        } else {
+          await api.db.createServiceTemplate(payload);
+        }
+        closeModal();
+        await loadData();
+      } catch (err: any) {
+        alert('Error al guardar plantilla: ' + err.message);
+      }
+    });
+
+    blkForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        label: blkLabelInput.value.trim(),
+        price: parseInt(blkPriceInput.value) || 0,
+        category: blkCategoryInput.value.trim(),
+        desc: blkDescInput.value.trim(),
+        status: 'activo'
+      };
+
+      try {
+        if (editingId) {
+          await api.db.updateModularBlock(editingId, payload);
+        } else {
+          await api.db.createModularBlock(payload);
+        }
+        closeModal();
+        await loadData();
+      } catch (err: any) {
+        alert('Error al guardar módulo: ' + err.message);
+      }
+    });
+
+    // ==========================================================================
+    // 7. DELETE ACTIONS
+    // ==========================================================================
+    async function deleteTemplate(id: string, name: string) {
+      if (confirm(`¿Estás seguro de eliminar la plantilla de servicio "${name}"?`)) {
+        try {
+          await api.db.deleteServiceTemplate(id);
+          await loadData();
+        } catch (err: any) {
+          alert('Error al eliminar plantilla: ' + err.message);
+        }
+      }
+    }
+
+    async function deleteBlock(id: string, name: string) {
+      if (confirm(`¿Estás seguro de eliminar el módulo adicional "${name}"?`)) {
+        try {
+          await api.db.deleteModularBlock(id);
+          await loadData();
+        } catch (err: any) {
+          alert('Error al eliminar módulo: ' + err.message);
+        }
+      }
+    }
+
+    // Load initial data
+
+    // Load initial data
+    await loadData();
+  });
+</script>
+

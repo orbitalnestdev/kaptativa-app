@@ -1,0 +1,1045 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import AdminSidebar from '../../components/AdminSidebar.astro';
+
+// SSR Authentication Guard
+const sessionCookie = Astro.cookies.get('kaptativa_session');
+if (!sessionCookie) {
+  return Astro.redirect('/admin/login');
+}
+---
+
+<AdminLayout title="Panel de Administración CRM | Kaptativa">
+  <div class="admin-wrapper" id="admin-main-view">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <AdminSidebar activeTab="crm" />
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="admin-content-area">
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div>
+          <h1 class="admin-page-title" id="admin-main-title" style="margin: 0; font-size: 1.6rem; font-weight: 600; color: white; font-family: 'Space Grotesk', sans-serif;">Pipeline Comercial & CRM Leads</h1>
+        </div>
+        <div style="display: flex; gap: 10px; align-self: flex-start; margin-top: 8px;">
+          <button class="btn btn-primary btn-sm" id="btn-refresh-leads" style="display: flex; align-items: center; gap: 6px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Recargar Datos
+          </button>
+        </div>
+      </header>
+
+
+      <!-- SEARCH & FILTER BAR -->
+      <div class="admin-filter-bar" style="margin-top: 25px; margin-bottom: 25px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+        <div class="search-input-wrapper" style="position: relative; flex: 1; min-width: 280px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="admin-search-input" placeholder="Buscar por cliente, empresa, correo o etiquetas..." style="width: 100%; padding: 12px 20px 12px 42px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 30px; font-size: 0.875rem; color: var(--text-primary); transition: all var(--transition-fast);" />
+        </div>
+        <div class="filter-dropdown-wrapper" id="score-filter-wrapper" style="display: flex; gap: 10px; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">Filtrar por Score:</span>
+          <select id="admin-score-filter" style="padding: 10px 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.825rem; color: var(--text-secondary); cursor: pointer; outline: none;">
+            <option value="all" style="background-color: var(--bg-primary);">Todos los Scores</option>
+            <option value="high" style="background-color: var(--bg-primary);">Alto (> 75 pts)</option>
+            <option value="mid" style="background-color: var(--bg-primary);">Medio (40 - 75 pts)</option>
+            <option value="low" style="background-color: var(--bg-primary);">Bajo (< 40 pts)</option>
+          </select>
+        </div>
+      </div>
+
+      <section class="admin-metrics-grid" id="sales-metrics-section">
+        <div class="admin-metric-card">
+          <div class="metric-info">
+            <span class="metric-title">Prospectos Totales</span>
+            <h3 class="metric-value" id="stat-total-leads">0</h3>
+          </div>
+          <div class="metric-icon" style="background: rgba(217, 70, 239, 0.1); color: #D946EF; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        </div>
+        
+        <div class="admin-metric-card">
+          <div class="metric-info">
+            <span class="metric-title">Cerrado Ganado</span>
+            <h3 class="metric-value" id="stat-won-leads">0</h3>
+          </div>
+          <div class="metric-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a8 8 0 0 0-8 8h16a8 8 0 0 0-8-8z"/></svg></div>
+        </div>
+        
+        <div class="admin-metric-card">
+          <div class="metric-info">
+            <span class="metric-title">Promedio Madurez</span>
+            <h3 class="metric-value" id="stat-avg-score">0%</h3>
+          </div>
+          <div class="metric-icon" style="background: rgba(6, 182, 212, 0.1); color: #EA384D; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        </div>
+
+        <div class="admin-metric-card">
+          <div class="metric-info">
+            <span class="metric-title">Tasa de Conversión</span>
+            <h3 class="metric-value" id="stat-conv-rate">0%</h3>
+          </div>
+          <div class="metric-icon" style="background: rgba(249, 115, 22, 0.1); color: #F97316; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        </div>
+      </section>
+
+      <!-- METRICS GRID (Proyectos Activos) -->
+      <section class="admin-metrics-grid" id="projects-metrics-section" style="display: none;">
+        <div class="admin-metric-card">
+          <div class="metric-info">
+            <span class="metric-title">Proyectos Activos</span>
+            <h3 class="metric-value" id="stat-total-projects">0</h3>
+          </div>
+          <div class="metric-icon" style="background: rgba(6, 182, 212, 0.1); color: #EA384D; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 3.38-2 4.41.9.1 2.91-.06 4.18-1.51l8.52-8.52a4 4 0 0 0-5.66-5.66L4.5 16.5z"/><path d="m19 5 3-3"/><path d="m14 10 3-3"/><path d="m5 14 5 5"/><path d="m19 14-3.5 3.5-1.5-1.5 3.5-3.5 1.5 1.5z"/></svg></div>
+        </div>
+        
+        <div class="admin-metric-card">
+          <div class="metric-info">
+            <span class="metric-title">En Desarrollo / Test</span>
+            <h3 class="metric-value" id="stat-active-dev">0</h3>
+          </div>
+          <div class="metric-icon" style="background: rgba(217, 70, 239, 0.1); color: #D946EF; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.01 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        </div>
+        
+        <div class="admin-metric-card">
+          <div class="metric-info">
+            <span class="metric-title">Entregados</span>
+            <h3 class="metric-value" id="stat-delivered-projects">0</h3>
+          </div>
+          <div class="metric-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        </div>
+
+        <div class="admin-metric-card">
+          <div class="metric-info">
+            <span class="metric-title">En Mantenimiento</span>
+            <h3 class="metric-value" id="stat-maint-projects">0</h3>
+          </div>
+          <div class="metric-icon" style="background: rgba(249, 115, 22, 0.1); color: #F97316; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        </div>
+      </section>
+
+      <!-- BOARD WRAPPERS -->
+      <section class="kanban-board-container">
+        
+        <!-- SALES KANBAN WRAPPER -->
+        <div class="kanban-scroll-wrapper" id="sales-board-wrapper">
+          <!-- Column: Nuevo -->
+          <div class="kanban-column" data-status="nuevo">
+            <div class="kanban-column-header">
+              <span class="column-title">Nuevo</span>
+              <span class="column-count admin-badge" id="count-nuevo">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-nuevo" dropzone="true"></div>
+          </div>
+          
+          <!-- Column: Contactado -->
+          <div class="kanban-column" data-status="contactado">
+            <div class="kanban-column-header" style="border-top-color: var(--accent-crimson);">
+              <span class="column-title">Contactado</span>
+              <span class="column-count admin-badge admin-badge-cyan" id="count-contactado">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-contactado" dropzone="true"></div>
+          </div>
+
+          <!-- Column: Calificado -->
+          <div class="kanban-column" data-status="calificado">
+            <div class="kanban-column-header" style="border-top-color: var(--accent-pink);">
+              <span class="column-title">Calificado</span>
+              <span class="column-count admin-badge admin-badge-pink" id="count-calificado">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-calificado" dropzone="true"></div>
+          </div>
+
+          <!-- Column: Propuesta Enviada -->
+          <div class="kanban-column" data-status="propuesta_enviada">
+            <div class="kanban-column-header" style="border-top-color: var(--accent-orange);">
+              <span class="column-title">Propuesta</span>
+              <span class="column-count admin-badge admin-badge-orange" id="count-propuesta_enviada">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-propuesta_enviada" dropzone="true"></div>
+          </div>
+
+          <!-- Column: Negociación -->
+          <div class="kanban-column" data-status="negociacion">
+            <div class="kanban-column-header" style="border-top-color: #8B5CF6;">
+              <span class="column-title">Negociación</span>
+              <span class="column-count admin-badge" style="background: rgba(139, 92, 246, 0.08); border-color: rgba(139, 92, 246, 0.2); color: #a78bfa;" id="count-negociacion">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-negociacion" dropzone="true"></div>
+          </div>
+
+          <!-- Column: Cerrado Ganado -->
+          <div class="kanban-column" data-status="cerrado_ganado">
+            <div class="kanban-column-header" style="border-top-color: #10B981;">
+              <span class="column-title" style="color: #10B981;">Ganado</span>
+              <span class="column-count admin-badge admin-badge-emerald" id="count-cerrado_ganado">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-cerrado_ganado" dropzone="true"></div>
+          </div>
+
+          <!-- Column: Cerrado Perdido -->
+          <div class="kanban-column" data-status="cerrado_perdido">
+            <div class="kanban-column-header" style="border-top-color: #ef4444;">
+              <span class="column-title" style="color: #ef4444;">Perdido</span>
+              <span class="column-count admin-badge" style="background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.2); color: #ef4444;" id="count-cerrado_perdido">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-cerrado_perdido" dropzone="true"></div>
+          </div>
+        </div>
+
+        <!-- PROJECTS KANBAN WRAPPER -->
+        <div class="kanban-scroll-wrapper" id="projects-board-wrapper" style="display: none;">
+          <!-- Column: Mapeo -->
+          <div class="kanban-column" data-status="mapeo">
+            <div class="kanban-column-header">
+              <span class="column-title">Mapeo de Flujos</span>
+              <span class="column-count admin-badge" id="count-mapeo">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-mapeo" dropzone="true"></div>
+          </div>
+          
+          <!-- Column: Desarrollo -->
+          <div class="kanban-column" data-status="desarrollo">
+            <div class="kanban-column-header" style="border-top-color: var(--accent-crimson);">
+              <span class="column-title">Desarrollo/Conexión</span>
+              <span class="column-count admin-badge admin-badge-cyan" id="count-desarrollo">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-desarrollo" dropzone="true"></div>
+          </div>
+
+          <!-- Column: Pruebas -->
+          <div class="kanban-column" data-status="pruebas">
+            <div class="kanban-column-header" style="border-top-color: var(--accent-pink);">
+              <span class="column-title">Pruebas & QA</span>
+              <span class="column-count admin-badge admin-badge-pink" id="count-pruebas">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-pruebas" dropzone="true"></div>
+          </div>
+
+          <!-- Column: Entrega -->
+          <div class="kanban-column" data-status="entrega">
+            <div class="kanban-column-header" style="border-top-color: var(--accent-orange);">
+              <span class="column-title">Entrega & Video</span>
+              <span class="column-count admin-badge admin-badge-orange" id="count-entrega">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-entrega" dropzone="true"></div>
+          </div>
+
+          <!-- Column: Soporte / Mantenimiento -->
+          <div class="kanban-column" data-status="mantenimiento">
+            <div class="kanban-column-header" style="border-top-color: #10B981;">
+              <span class="column-title" style="color: #10B981;">Soporte Activo</span>
+              <span class="column-count admin-badge admin-badge-emerald" id="count-mantenimiento">0</span>
+            </div>
+            <div class="kanban-cards-area" id="cards-mantenimiento" dropzone="true"></div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- LEAD / PROJECT DETAILS MODAL -->
+    <div class="admin-modal-backdrop" id="lead-modal">
+      <div class="admin-modal admin-modal-md">
+        <header class="modal-header">
+          <div>
+            <h3 id="modal-lead-business" style="margin: 0; font-size: 1.3rem;">Nombre del Negocio</h3>
+            <p id="modal-lead-name" style="margin: 3px 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Representante del Negocio</p>
+          </div>
+          <button class="admin-modal-close" id="btn-close-modal">✕</button>
+        </header>
+        
+        <div class="modal-body">
+          <div class="modal-left">
+            <div class="detail-section">
+              <h4>Información de Contacto</h4>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <span class="detail-label">WhatsApp</span>
+                  <a href="#" id="modal-lead-whatsapp" target="_blank" class="detail-value whatsapp-link">WhatsApp Link</a>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Correo Electrónico</span>
+                  <a href="#" id="modal-lead-email" class="detail-value">Email Link</a>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Fecha de Registro</span>
+                  <span id="modal-lead-date" class="detail-value">Fecha</span>
+                </div>
+              </div>
+              <div style="margin-top: 15px;">
+                <a href="#" id="modal-btn-create-quote" class="btn btn-secondary btn-sm" style="width: 100%; text-align: center; justify-content: center; align-items: center; display: flex; gap: 8px; border-color: var(--accent-indigo); color: var(--accent-indigo); background: rgba(217, 70, 239, 0.03);">
+                  💰 Generar Presupuesto
+                </a>
+              </div>
+            </div>
+
+            <!-- WHATSAPP TEMPLATES DRAWER -->
+            <div class="detail-section" id="whatsapp-templates-section" style="background: rgba(255, 255, 255, 0.02); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+              <h4 style="color: var(--accent-indigo); margin-bottom: 12px;">Plantillas de WhatsApp Rápidas</h4>
+              <div class="form-group" style="margin-bottom: 12px;">
+                <select id="modal-wa-template-select" class="form-control" style="background-color: var(--bg-primary);">
+                  <option value="">-- Seleccionar Plantilla --</option>
+                  <option value="intro">Introducción y Diagnóstico</option>
+                  <option value="seguimiento">Seguimiento de Propuesta</option>
+                  <option value="inicio_proyecto">Cierre e Inicio de Proyecto</option>
+                </select>
+              </div>
+              <a href="#" id="modal-btn-send-template" target="_blank" class="btn btn-secondary btn-sm" style="display: none; width: 100%; text-align: center; border-color: #10b981; color: #10b981; background: rgba(16, 185, 129, 0.05); justify-content: center; align-items: center; gap: 8px;">
+                💬 Enviar Plantilla por WhatsApp
+              </a>
+            </div>
+
+            <div class="detail-section" id="modal-desc-section">
+              <h4>Descripción / Dolor Operativo</h4>
+              <p id="modal-lead-message" class="detail-text">Obstáculo operativo...</p>
+            </div>
+
+            <div class="detail-section" id="modal-diagnostic-section">
+              <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 10px;">
+                <div class="modal-score-badge" id="modal-lead-score">0</div>
+                <div>
+                  <h4 style="margin: 0;">Diagnóstico de Madurez Digital</h4>
+                  <span id="modal-lead-level" class="detail-value" style="font-weight: 600;">Nivel Crítico</span>
+                </div>
+              </div>
+              <p id="modal-lead-recommendations" class="detail-text" style="background: rgba(6, 182, 212, 0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);"></p>
+            </div>
+          </div>
+
+          <div class="modal-right">
+            <form id="lead-edit-form">
+              <input type="hidden" id="edit-lead-id">
+              
+              <div class="form-group">
+                <label for="edit-lead-status" class="form-label" id="label-edit-status">Estado del Lead</label>
+                <!-- Dynamically swapped options based on lead vs project mode -->
+                <select id="edit-lead-status" class="form-control" style="background-color: var(--bg-primary);">
+                  <!-- Sales status -->
+                  <optgroup label="Pipeline Ventas" id="group-status-sales">
+                    <option value="nuevo">Nuevo</option>
+                    <option value="contactado">Contactado</option>
+                    <option value="calificado">Calificado</option>
+                    <option value="propuesta_enviada">Propuesta Enviada</option>
+                    <option value="negociacion">Negociación</option>
+                    <option value="cerrado_ganado">Cerrado Ganado (Vendido)</option>
+                    <option value="cerrado_perdido">Cerrado Perdido</option>
+                  </optgroup>
+                  <!-- Projects status -->
+                  <optgroup label="Pipeline Operativo" id="group-status-projects" style="display: none;">
+                    <option value="mapeo">Mapeo de Flujos</option>
+                    <option value="desarrollo">Desarrollo/Conexión</option>
+                    <option value="pruebas">Pruebas & QA</option>
+                    <option value="entrega">Entrega & Video</option>
+                    <option value="mantenimiento">Soporte Activo</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-lead-tags" class="form-label">Etiquetas (Separadas por comas)</label>
+                <input type="text" id="edit-lead-tags" class="form-control" placeholder="Ej. Web, IA, Alta Prioridad">
+              </div>
+
+              <div class="form-group">
+                <label for="edit-lead-notes" class="form-label" id="label-edit-notes">Notas de CRM e Historial</label>
+                <textarea id="edit-lead-notes" class="form-control" style="min-height: 120px;" placeholder="Agrega notas sobre llamadas, reuniones o acuerdos comerciales..."></textarea>
+              </div>
+              
+              <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button type="submit" class="btn btn-primary btn-sm" style="flex: 1;">Guardar Cambios</button>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-delete-lead" style="border-color: #ef4444; color: #ef4444; background: rgba(239, 68, 68, 0.05);">Eliminar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</AdminLayout>
+
+<style is:global>
+  /* Extra style updates for view tabs */
+  .toggle-tab {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    color: var(--text-secondary) !important;
+    border-color: var(--border-color) !important;
+  }
+  .toggle-tab.active-tab {
+    background: var(--gradient-primary) !important;
+    border-color: transparent !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(217, 70, 239, 0.2);
+  }
+  
+  #admin-search-input:focus {
+    border-color: var(--accent-indigo) !important;
+    box-shadow: 0 0 15px rgba(217, 70, 239, 0.15) !important;
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    outline: none;
+  }
+  
+  #admin-score-filter:focus {
+    border-color: var(--accent-indigo) !important;
+    outline: none;
+  }
+</style>
+
+<script>
+  import { api } from '../../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    function escapeHtml(str: string) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+    
+    // Active view state
+    let currentView: 'sales' | 'projects' = 'sales';
+    let allLeads: any[] = [];
+    let allProjects: any[] = [];
+    
+    let filterQuery = '';
+    let scoreFilterVal = 'all';
+
+    const salesBoard = document.getElementById('sales-board-wrapper') as HTMLElement;
+    const projectsBoard = document.getElementById('projects-board-wrapper') as HTMLElement;
+    const salesMetrics = document.getElementById('sales-metrics-section') as HTMLElement;
+    const projectsMetrics = document.getElementById('projects-metrics-section') as HTMLElement;
+    
+    const mainTitle = document.getElementById('admin-main-title') as HTMLElement;
+    const mainDesc = document.getElementById('admin-main-desc') as HTMLElement;
+
+    const tabSales = document.getElementById('toggle-view-sales') as HTMLButtonElement;
+    const tabProjects = document.getElementById('toggle-view-projects') as HTMLButtonElement;
+    
+    const scoreFilterWrapper = document.getElementById('score-filter-wrapper') as HTMLElement;
+    const searchInput = document.getElementById('admin-search-input') as HTMLInputElement;
+    const scoreFilter = document.getElementById('admin-score-filter') as HTMLSelectElement;
+
+    // Toggle view handlers
+    if (tabSales && tabProjects) {
+      tabSales.addEventListener('click', () => {
+        tabSales.classList.add('active-tab');
+        tabProjects.classList.remove('active-tab');
+        currentView = 'sales';
+        
+        salesBoard.style.display = 'flex';
+        projectsBoard.style.display = 'none';
+        salesMetrics.style.display = 'grid';
+        projectsMetrics.style.display = 'none';
+        if (scoreFilterWrapper) scoreFilterWrapper.style.display = 'flex';
+        
+        mainTitle.innerText = 'Pipeline Comercial';
+        mainDesc.innerText = 'Gestiona tus prospectos calificados y haz seguimiento del embudo de ventas.';
+        
+        loadAllData();
+      });
+
+      tabProjects.addEventListener('click', () => {
+        tabProjects.classList.add('active-tab');
+        tabSales.classList.remove('active-tab');
+        currentView = 'projects';
+        
+        projectsBoard.style.display = 'flex';
+        salesBoard.style.display = 'none';
+        projectsMetrics.style.display = 'grid';
+        salesMetrics.style.display = 'none';
+        if (scoreFilterWrapper) scoreFilterWrapper.style.display = 'none';
+        
+        mainTitle.innerText = 'Proyectos Operativos';
+        mainDesc.innerText = 'Controla el estado de desarrollo, integraciones y soporte de tus automatizaciones.';
+        
+        loadAllData();
+      });
+    }
+
+    // Input and filter event listeners
+    if (searchInput) {
+      searchInput.addEventListener('input', (e: any) => {
+        filterQuery = e.target.value.toLowerCase().trim();
+        if (currentView === 'sales') {
+          renderSalesBoard();
+        } else {
+          renderProjectsBoard();
+        }
+      });
+    }
+
+    if (scoreFilter) {
+      scoreFilter.addEventListener('change', (e: any) => {
+        scoreFilterVal = e.target.value;
+        renderSalesBoard();
+      });
+    }
+
+    // ==========================================================================
+    // 3. LOAD DATA & RENDER BOARDS
+    // ==========================================================================
+    async function loadAllData() {
+      try {
+        if (currentView === 'sales') {
+          const res = await api.db.listLeads();
+          allLeads = res.documents || [];
+          renderSalesBoard();
+          calculateSalesStats();
+        } else {
+          const res = await api.db.listProjects();
+          allProjects = res.documents || [];
+          renderProjectsBoard();
+          calculateProjectsStats();
+        }
+      } catch (err) {
+        console.error("Error loading CRM board data:", err);
+      }
+    }
+
+    function renderSalesBoard() {
+      // Clear sales columns
+      const statuses = ['nuevo', 'contactado', 'calificado', 'propuesta_enviada', 'negociacion', 'cerrado_ganado', 'cerrado_perdido'];
+      const counts: Record<string, number> = {};
+      statuses.forEach(s => {
+        counts[s] = 0;
+        const area = document.getElementById(`cards-${s}`);
+        if (area) area.innerHTML = '';
+      });
+
+      allLeads.forEach((lead: any) => {
+        // Apply text filter
+        if (filterQuery) {
+          const nameMatch = (lead.name || '').toLowerCase().includes(filterQuery);
+          const bizMatch = (lead.business || '').toLowerCase().includes(filterQuery);
+          const emailMatch = (lead.email || '').toLowerCase().includes(filterQuery);
+          const tagsMatch = (lead.tags || '').toLowerCase().includes(filterQuery);
+          if (!nameMatch && !bizMatch && !emailMatch && !tagsMatch) return;
+        }
+
+        // Apply score filter
+        if (scoreFilterVal !== 'all') {
+          const score = lead.score || 0;
+          if (scoreFilterVal === 'high' && score <= 75) return;
+          if (scoreFilterVal === 'mid' && (score < 40 || score > 75)) return;
+          if (scoreFilterVal === 'low' && score >= 40) return;
+        }
+
+        const status = lead.status || 'nuevo';
+        counts[status] = (counts[status] || 0) + 1;
+
+        const area = document.getElementById(`cards-${status}`);
+        if (!area) return;
+
+        let scoreClass = 'score-low';
+        if (lead.score >= 40 && lead.score <= 75) scoreClass = 'score-mid';
+        else if (lead.score > 75) scoreClass = 'score-high';
+
+        const tagsHtml = (lead.tags || '')
+          .split(',')
+          .map((t: string) => t.trim())
+          .filter((t: string) => t !== '')
+          .map((t: string) => `<span class="card-tag">${escapeHtml(t)}</span>`)
+          .join('');
+
+        const card = document.createElement('div');
+        card.className = 'kanban-card';
+        card.setAttribute('draggable', 'true');
+        card.setAttribute('data-id', lead.$id);
+        card.innerHTML = `
+          <h4 class="card-business-name">${escapeHtml(lead.business || 'Negocio Sin Nombre')}</h4>
+          <p class="card-lead-name">${escapeHtml(lead.name || 'Contacto')}</p>
+          <div class="card-tags">${tagsHtml}</div>
+          <div class="card-footer">
+            <span>${formatDateString(lead.created_at || lead.$createdAt)}</span>
+            <span class="card-score-pill ${scoreClass}">${lead.score || 0} pts</span>
+          </div>
+        `;
+
+        card.addEventListener('click', () => openLeadModal(lead, false));
+        
+        card.addEventListener('dragstart', (e: any) => {
+          e.dataTransfer.setData('text/plain', lead.$id);
+          card.style.opacity = '0.5';
+        });
+        card.addEventListener('dragend', () => card.style.opacity = '1');
+
+        area.appendChild(card);
+      });
+
+      // Update counters and render column empty states
+      statuses.forEach(s => {
+        const badge = document.getElementById(`count-${s}`);
+        if (badge) badge.innerText = (counts[s] || 0).toString();
+        const area = document.getElementById(`cards-${s}`);
+        if (area && (counts[s] || 0) === 0) {
+          area.innerHTML = '<div style="text-align: center; padding: 25px 10px; color: var(--text-muted); font-size: 0.78rem; border: 1.5px dashed rgba(255,255,255,0.04); border-radius: 10px; margin-top: 5px;">Sin prospectos</div>';
+        }
+      });
+    }
+
+
+    function renderProjectsBoard() {
+      // Clear projects columns
+      const statuses = ['mapeo', 'desarrollo', 'pruebas', 'entrega', 'mantenimiento'];
+      const counts: Record<string, number> = {};
+      statuses.forEach(s => {
+        counts[s] = 0;
+        const area = document.getElementById(`cards-${s}`);
+        if (area) area.innerHTML = '';
+      });
+
+      allProjects.forEach((proj: any) => {
+        // Apply text filter
+        if (filterQuery) {
+          const nameMatch = (proj.name || '').toLowerCase().includes(filterQuery);
+          const bizMatch = (proj.business || '').toLowerCase().includes(filterQuery);
+          const emailMatch = (proj.email || '').toLowerCase().includes(filterQuery);
+          const tagsMatch = (proj.tags || '').toLowerCase().includes(filterQuery);
+          if (!nameMatch && !bizMatch && !emailMatch && !tagsMatch) return;
+        }
+
+        const status = proj.status || 'mapeo';
+        counts[status] = (counts[status] || 0) + 1;
+
+        const area = document.getElementById(`cards-${status}`);
+        if (!area) return;
+
+        const tagsHtml = (proj.tags || '')
+          .split(',')
+          .map((t: string) => t.trim())
+          .filter((t: string) => t !== '')
+          .map((t: string) => `<span class="card-tag" style="border-color: rgba(6, 182, 212, 0.2); color: var(--accent-crimson);">${escapeHtml(t)}</span>`)
+          .join('');
+
+        const card = document.createElement('div');
+        card.className = 'kanban-card';
+        card.setAttribute('draggable', 'true');
+        card.setAttribute('data-id', proj.$id);
+        card.innerHTML = `
+          <h4 class="card-business-name" style="color: var(--accent-crimson);">${escapeHtml(proj.business || 'Negocio')}</h4>
+          <p class="card-lead-name">${escapeHtml(proj.name || 'Representante')}</p>
+          <div class="card-tags">${tagsHtml}</div>
+          <div class="card-footer">
+            <span>Inicio: ${formatDateString(proj.created_at || proj.$createdAt).split(' ')[0]}</span>
+            <span class="card-score-pill score-high" style="background: rgba(6, 182, 212, 0.1); color: var(--accent-crimson); font-size: 0.65rem;">ACTIVO</span>
+          </div>
+        `;
+
+        card.addEventListener('click', () => openLeadModal(proj, true));
+        
+        card.addEventListener('dragstart', (e: any) => {
+          e.dataTransfer.setData('text/plain', proj.$id);
+          card.style.opacity = '0.5';
+        });
+        card.addEventListener('dragend', () => card.style.opacity = '1');
+
+        area.appendChild(card);
+      });
+
+      // Update counters and render column empty states
+      statuses.forEach(s => {
+        const badge = document.getElementById(`count-${s}`);
+        if (badge) badge.innerText = (counts[s] || 0).toString();
+        const area = document.getElementById(`cards-${s}`);
+        if (area && (counts[s] || 0) === 0) {
+          area.innerHTML = '<div style="text-align: center; padding: 25px 10px; color: var(--text-muted); font-size: 0.78rem; border: 1.5px dashed rgba(255,255,255,0.04); border-radius: 10px; margin-top: 5px;">Sin proyectos</div>';
+        }
+      });
+    }
+
+
+    // Stats Calculators
+    function calculateSalesStats() {
+      const total = allLeads.length;
+      const won = allLeads.filter(l => l.status === 'cerrado_ganado').length;
+      
+      let sumScore = 0;
+      allLeads.forEach(l => sumScore += (l.score || 0));
+      const avg = total > 0 ? Math.round(sumScore / total) : 0;
+      
+      const lost = allLeads.filter(l => l.status === 'cerrado_perdido').length;
+      const pipelineTotal = total - lost;
+      const rate = pipelineTotal > 0 ? Math.round((won / pipelineTotal) * 100) : 0;
+
+      (document.getElementById('stat-total-leads') as HTMLElement).innerText = total.toString();
+      (document.getElementById('stat-won-leads') as HTMLElement).innerText = won.toString();
+      (document.getElementById('stat-avg-score') as HTMLElement).innerText = `${avg}%`;
+      (document.getElementById('stat-conv-rate') as HTMLElement).innerText = `${rate}%`;
+    }
+
+    function calculateProjectsStats() {
+      const total = allProjects.length;
+      const dev = allProjects.filter(p => p.status === 'desarrollo' || p.status === 'pruebas').length;
+      const delivered = allProjects.filter(p => p.status === 'entrega').length;
+      const maint = allProjects.filter(p => p.status === 'mantenimiento').length;
+
+      (document.getElementById('stat-total-projects') as HTMLElement).innerText = total.toString();
+      (document.getElementById('stat-active-dev') as HTMLElement).innerText = dev.toString();
+      (document.getElementById('stat-delivered-projects') as HTMLElement).innerText = delivered.toString();
+      (document.getElementById('stat-maint-projects') as HTMLElement).innerText = maint.toString();
+    }
+
+    // Initialize HTML5 Drag & Drop listeners on all columns
+    const columns = document.querySelectorAll('.kanban-cards-area');
+    columns.forEach(col => {
+      col.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        col.classList.add('dragover');
+      });
+
+      col.addEventListener('dragleave', () => {
+        col.classList.remove('dragover');
+      });
+
+      col.addEventListener('drop', async (e: any) => {
+        e.preventDefault();
+        col.classList.remove('dragover');
+        
+        const cardId = e.dataTransfer.getData('text/plain');
+        const newStatus = col.closest('.kanban-column')?.getAttribute('data-status');
+        
+        if (cardId && newStatus) {
+          if (currentView === 'sales') {
+            const lead = allLeads.find(l => l.$id === cardId);
+            if (lead && lead.status !== newStatus) {
+              const oldStatus = lead.status;
+              lead.status = newStatus;
+              
+              // If lead changes to cerrado_ganado, spawn active project post-sale
+              if (newStatus === 'cerrado_ganado') {
+                await spawnProjectFromLead(lead);
+              }
+
+              renderSalesBoard();
+              calculateSalesStats();
+              
+              try {
+                await api.db.updateLead(cardId, { status: newStatus });
+                triggerWebhookEvent('lead_status_updated', lead);
+              } catch (err) {
+                console.error(err);
+                loadAllData(); // Reload on error to sync board
+              }
+            }
+          } else {
+            const proj = allProjects.find(p => p.$id === cardId);
+            if (proj && proj.status !== newStatus) {
+              proj.status = newStatus;
+              renderProjectsBoard();
+              calculateProjectsStats();
+              
+              try {
+                await api.db.updateProject(cardId, { status: newStatus });
+                triggerWebhookEvent('project_status_updated', proj);
+              } catch (err) {
+                console.error(err);
+                loadAllData();
+              }
+            }
+          }
+        }
+      });
+    });
+
+    // Spawn active project from closed-won sales lead
+    async function spawnProjectFromLead(lead: any) {
+      try {
+        const projectsRes = await api.db.listProjects();
+        const existing = (projectsRes.documents || []).find((p: any) => p.lead_id === lead.$id);
+        
+        // Only spawn if it doesn't already exist
+        if (!existing) {
+          await api.db.createProject({
+            name: lead.name,
+            business: lead.business,
+            whatsapp: lead.whatsapp,
+            email: lead.email,
+            status: 'mapeo',
+            notes: `Proyecto iniciado post-venta. Recoms: ${lead.recommendations || ''}`,
+            tags: lead.tags || 'Automatización',
+            lead_id: lead.$id
+          });
+          console.log(`[CRM Project Spawned] Active project created for ${lead.business}`);
+        }
+      } catch (err) {
+        console.error("Failed to spawn project from won lead:", err);
+      }
+    }
+
+    // Refresh Leads
+    const refreshBtn = document.getElementById('btn-refresh-leads');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', loadAllData);
+    }
+
+    // ==========================================================================
+    // 4. WEBHOOK TRIGGERS MANAGER
+    // ==========================================================================
+    function triggerWebhookEvent(event: string, data: any) {
+      const savedSettings = localStorage.getItem('crm_settings');
+      if (!savedSettings) return;
+
+      const settings = JSON.parse(savedSettings);
+      const webhookUrl = settings.webhook_url;
+
+      if (!webhookUrl) {
+        console.log(`[Local Mock Webhook] Event: ${event}. Webhook URL not set. Payload:`, data);
+        return;
+      }
+
+      // Perform async post trigger
+      console.log(`[Webhook Triggered] URL: ${webhookUrl} Event: ${event}`);
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          event,
+          timestamp: new Date().toISOString(),
+          data
+        })
+      }).catch(err => {
+        console.error(`[Webhook Failed] Connection error calling ${webhookUrl}:`, err);
+      });
+    }
+
+    // ==========================================================================
+    // 5. INSPECTION MODAL, WHATSAPP TEMPLATES & CRM CRUD
+    // ==========================================================================
+    const modal = document.getElementById('lead-modal') as HTMLElement;
+    const closeModalBtn = document.getElementById('btn-close-modal');
+    const editForm = document.getElementById('lead-edit-form') as HTMLFormElement;
+    const deleteBtn = document.getElementById('btn-delete-lead') as HTMLButtonElement;
+
+    // WA templates elements
+    const waTemplatesSection = document.getElementById('whatsapp-templates-section') as HTMLElement;
+    const waSelect = document.getElementById('modal-wa-template-select') as HTMLSelectElement;
+    const waSendBtn = document.getElementById('modal-btn-send-template') as HTMLAnchorElement;
+
+    let selectedLeadOrProject: any = null;
+    let isProjectMode = false;
+
+    function openLeadModal(item: any, isProject: boolean) {
+      if (!modal) return;
+      selectedLeadOrProject = item;
+      isProjectMode = isProject;
+
+      // Reset WA templates select
+      if (waSelect) waSelect.value = '';
+      if (waSendBtn) waSendBtn.style.display = 'none';
+
+      // Swapping modal layout labels based on lead vs project
+      const titleEl = document.getElementById('modal-lead-business') as HTMLElement;
+      titleEl.innerText = item.business || 'Negocio';
+      if (isProject) {
+        titleEl.innerHTML = `<span style="color: var(--accent-crimson); font-size: 0.8rem; display: block; text-transform: uppercase;">Proyecto Activo</span>` + escapeHtml(item.business || 'Negocio');
+      }
+
+      (document.getElementById('modal-lead-name') as HTMLElement).innerText = `Representante: ${item.name || 'Sin Nombre'}`;
+
+      const whatsappA = document.getElementById('modal-lead-whatsapp') as HTMLAnchorElement;
+      const cleanWa = (item.whatsapp || '').replace(/[^0-9]/g, '');
+      whatsappA.href = `https://wa.me/${cleanWa}`;
+      whatsappA.innerText = item.whatsapp;
+
+      const emailA = document.getElementById('modal-lead-email') as HTMLAnchorElement;
+      emailA.href = `mailto:${item.email}`;
+      emailA.innerText = item.email;
+
+      (document.getElementById('modal-lead-date') as HTMLElement).innerText = formatDateString(item.created_at || item.$createdAt);
+
+      const createQuoteBtn = document.getElementById('modal-btn-create-quote') as HTMLAnchorElement;
+      if (createQuoteBtn) {
+        createQuoteBtn.href = `/admin/presupuestos?leadId=${item.$id}&mode=${isProject ? 'project' : 'lead'}`;
+      }
+
+      const descSection = document.getElementById('modal-desc-section') as HTMLElement;
+      const diagnosticSection = document.getElementById('modal-diagnostic-section') as HTMLElement;
+
+      if (isProject) {
+        // Project mode
+        descSection.style.display = 'none';
+        diagnosticSection.style.display = 'none';
+        waTemplatesSection.style.display = 'block'; // Projects can still send WA templates
+        
+        // Hide sales dropdown group, show projects group
+        (document.getElementById('group-status-sales') as HTMLElement).style.display = 'none';
+        (document.getElementById('group-status-projects') as HTMLElement).style.display = 'block';
+        (document.getElementById('label-edit-status') as HTMLElement).innerText = 'Fase del Proyecto';
+        (document.getElementById('label-edit-notes') as HTMLElement).innerText = 'Historial Técnico & Notas';
+      } else {
+        // Sales Lead mode
+        descSection.style.display = 'block';
+        diagnosticSection.style.display = 'block';
+        waTemplatesSection.style.display = 'block';
+
+        (document.getElementById('modal-lead-message') as HTMLElement).innerText = item.message || 'Sin observaciones.';
+        
+        const scoreDiv = document.getElementById('modal-lead-score') as HTMLElement;
+        scoreDiv.innerText = item.score || 0;
+        
+        const levelSpan = document.getElementById('modal-lead-level') as HTMLElement;
+        const levelText = item.score < 40 ? 'Nivel Crítico' : (item.score <= 75 ? 'Nivel Operativo' : 'Nivel Avanzado');
+        levelSpan.innerText = levelText;
+        levelSpan.className = 'detail-value ' + (item.score < 40 ? 'level-critico' : (item.score <= 75 ? 'level-operativo' : 'level-avanzado'));
+
+        (document.getElementById('modal-lead-recommendations') as HTMLElement).innerText = item.recommendations || 'Sin recomendaciones.';
+
+        // Show sales dropdown group, hide projects group
+        (document.getElementById('group-status-sales') as HTMLElement).style.display = 'block';
+        (document.getElementById('group-status-projects') as HTMLElement).style.display = 'none';
+        (document.getElementById('label-edit-status') as HTMLElement).innerText = 'Estado del Lead';
+        (document.getElementById('label-edit-notes') as HTMLElement).innerText = 'Notas de CRM e Historial';
+      }
+
+      // Populate form
+      (document.getElementById('edit-lead-id') as HTMLInputElement).value = item.$id;
+      (document.getElementById('edit-lead-status') as HTMLSelectElement).value = item.status || (isProject ? 'mapeo' : 'nuevo');
+      (document.getElementById('edit-lead-tags') as HTMLInputElement).value = item.tags || '';
+      (document.getElementById('edit-lead-notes') as HTMLTextAreaElement).value = item.notes || '';
+
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('active'), 10);
+    }
+
+    function closeModal() {
+      if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 250);
+      }
+    }
+
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+
+    // Click outside modal closing
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    // CRM / PROJECT SAVE EDITS SUBMIT
+    if (editForm) {
+      editForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const id = (document.getElementById('edit-lead-id') as HTMLInputElement).value;
+        const status = (document.getElementById('edit-lead-status') as HTMLSelectElement).value;
+        const tags = (document.getElementById('edit-lead-tags') as HTMLInputElement).value.trim();
+        const notes = (document.getElementById('edit-lead-notes') as HTMLTextAreaElement).value.trim();
+
+        if (!id) return;
+
+        try {
+          if (isProjectMode) {
+            await api.db.updateProject(id, { status, tags, notes });
+            const proj = allProjects.find(p => p.$id === id);
+            if (proj) {
+              proj.status = status;
+              proj.tags = tags;
+              proj.notes = notes;
+              triggerWebhookEvent('project_updated', proj);
+            }
+          } else {
+            await api.db.updateLead(id, { status, tags, notes });
+            const lead = allLeads.find(l => l.$id === id);
+            if (lead) {
+              lead.status = status;
+              lead.tags = tags;
+              lead.notes = notes;
+              
+              if (status === 'cerrado_ganado') {
+                await spawnProjectFromLead(lead);
+              }
+              triggerWebhookEvent('lead_updated', lead);
+            }
+          }
+          closeModal();
+          loadAllData();
+        } catch (err) {
+          alert("Error al intentar guardar los cambios.");
+        }
+      });
+    }
+
+    // Lead / Project permanent deletion
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', async () => {
+        const id = (document.getElementById('edit-lead-id') as HTMLInputElement).value;
+        if (!id) return;
+
+        const confirmMsg = isProjectMode
+          ? "¿Estás seguro de que deseas eliminar este proyecto activo? Esta acción es irreversible."
+          : "¿Estás seguro de que deseas eliminar permanentemente este prospecto del CRM de ventas?";
+
+        if (confirm(confirmMsg)) {
+          try {
+            if (isProjectMode) {
+              await api.db.deleteProject(id);
+              triggerWebhookEvent('project_deleted', { $id: id });
+            } else {
+              await api.db.deleteLead(id);
+              triggerWebhookEvent('lead_deleted', { $id: id });
+            }
+            closeModal();
+            loadAllData();
+          } catch (err) {
+            alert("Error al intentar eliminar el registro.");
+          }
+        }
+      });
+    }
+
+    // WhatsApp Templates Generation
+    if (waSelect && waSendBtn) {
+      waSelect.addEventListener('change', () => {
+        const val = waSelect.value;
+        if (!val || !selectedLeadOrProject) {
+          waSendBtn.style.display = 'none';
+          return;
+        }
+
+        const name = selectedLeadOrProject.name || '';
+        const business = selectedLeadOrProject.business || '';
+        const score = selectedLeadOrProject.score || 0;
+        const level = score < 40 ? 'Crítico' : (score <= 75 ? 'Operativo' : 'Avanzado');
+        const recs = selectedLeadOrProject.recommendations || '';
+
+        let message = '';
+
+        if (val === 'intro') {
+          message = `¡Hola ${name}! Te escribo de Kaptativa. Estuve revisando el Diagnóstico de Madurez Digital de tu negocio "${business}" que completaste en nuestra web. Tu score fue de ${score}/100 (Nivel ${level}). Las oportunidades recomendadas para automatizar son: ${recs}. ¿Te vendría bien coordinar una videollamada corta de 15 minutos esta semana para analizarlo sin cargo?`;
+        } else if (val === 'seguimiento') {
+          message = `Hola ${name}, ¿cómo estás? Te escribo de Kaptativa para dar seguimiento a los flujos de automatización que analizamos para tu negocio "${business}". ¿Tuviste oportunidad de revisar la propuesta técnica que te enviamos? Quedo a disposición si tienes alguna duda operativa.`;
+        } else if (val === 'inicio_proyecto') {
+          message = `¡Hola ${name}! Qué excelente noticia que decidamos iniciar la digitalización de "${business}". Ya registramos tu proyecto en nuestro pipeline de desarrollo interno. La primera etapa es el Mapeo de Procesos para diagramar los flujos. Te comparto este enlace para coordinar nuestra primera sesión técnica...`;
+        }
+
+        const cleanPhone = (selectedLeadOrProject.whatsapp || '').replace(/[^0-9]/g, '');
+        waSendBtn.href = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+        waSendBtn.style.display = 'inline-flex';
+      });
+    }
+
+    // Formatting utilities
+    function formatDateString(isoString: string) {
+      if (!isoString) return '';
+      const date = new Date(isoString);
+      return date.toLocaleDateString('es-AR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }) + ' hs';
+    }
+
+    // Initial board load
+    await loadAllData();
+  });
+</script>

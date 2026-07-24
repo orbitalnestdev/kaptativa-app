@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Inmobiliaria Socten — Departamentos, locales y tinglados en alquiler y venta en La Rioja, Argentina. Atención personalizada.">
+  <title>Inmobiliaria Socten — Alquileres y Ventas en La Rioja</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__logo">
+      <svg class="preloader__mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 24 24 8l18 16" />
+        <path d="M11 22v18h26V22" />
+        <path d="M20 40V28h8v12" />
+      </svg>
+      <span class="preloader__word">SOCTEN</span>
+      <span class="preloader__sub">INMOBILIARIA</span>
+    </div>
+    <div class="preloader__bar"><span></span></div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar__inner container">
+      <a href="#inicio" class="logo" aria-label="Inmobiliaria Socten — Inicio">
+        <svg class="logo__mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 24 24 8l18 16" />
+          <path d="M11 22v18h26V22" />
+          <path d="M20 40V28h8v12" />
+        </svg>
+        <span class="logo__text">
+          <span class="logo__name">SOCTEN</span>
+          <span class="logo__sub">INMOBILIARIA</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#inicio" class="nav__link">Inicio</a>
+        <a href="#propiedades" class="nav__link">Propiedades</a>
+        <a href="#servicios" class="nav__link">Servicios</a>
+        <a href="#nosotros" class="nav__link">Nosotros</a>
+        <a href="#contacto" class="nav__link">Contacto</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <a href="https://wa.me/5493804548961?text=Hola%20Socten,%20quiero%20publicar%20mi%20propiedad" target="_blank" rel="noopener noreferrer" class="btn btn--brand btn--pill" data-magnetic>Publicá tu propiedad</a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menú mobile fullscreen -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav class="mobile-menu__nav" aria-label="Menú móvil">
+      <a href="#inicio" class="mobile-menu__link">Inicio</a>
+      <a href="#propiedades" class="mobile-menu__link">Propiedades</a>
+      <a href="#servicios" class="mobile-menu__link">Servicios</a>
+      <a href="#nosotros" class="mobile-menu__link">Nosotros</a>
+      <a href="#contacto" class="mobile-menu__link">Contacto</a>
+    </nav>
+    <a href="https://wa.me/5493804548961?text=Hola%20Socten,%20quiero%20publicar%20mi%20propiedad" target="_blank" rel="noopener noreferrer" class="btn btn--brand mobile-menu__cta">Publicá tu propiedad</a>
+  </div>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="hero__bg" id="heroBg">
+        <img src="fotos/01-hero-casa-con-piscina.png" alt="Casa moderna con piscina al atardecer" class="hero__img">
+        <div class="hero__overlay"></div>
+      </div>
+
+      <div class="container hero__content" id="heroContent">
+        <h1 class="hero__title">
+          <span class="line"><span class="line__inner">Encontrá el depto ideal</span></span>
+          <span class="line"><span class="line__inner">con <em class="brand-italic">atención personalizada</em></span></span>
+        </h1>
+        <p class="hero__lead">Te acompañamos en cada paso para que encuentres<br>el lugar perfecto para vos en La Rioja.</p>
+
+        <!-- Buscador -->
+        <form class="search" id="searchForm" aria-label="Buscador de propiedades">
+          <div class="search__field">
+            <label for="operacion">Operación</label>
+            <div class="search__control">
+              <select id="operacion" name="operacion">
+                <option>Alquiler</option>
+                <option>Venta</option>
+              </select>
+            </div>
+          </div>
+          <div class="search__field">
+            <label for="tipo">Tipo</label>
+            <div class="search__control">
+              <select id="tipo" name="tipo">
+                <option>Departamento</option>
+                <option>Local</option>
+                <option>Tinglado</option>
+                <option>Casa</option>
+              </select>
+            </div>
+          </div>
+          <div class="search__field">
+            <label for="ubicacion">Ubicación</label>
+            <div class="search__control">
+              <select id="ubicacion" name="ubicacion">
+                <option>La Rioja, Argentina</option>
+                <option>Centro</option>
+                <option>Cerca de UNLAR</option>
+                <option>Zona Sur</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn--dark search__btn" data-magnetic>
+            Buscar propiedades
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+        </form>
+
+        <!-- Stats -->
+        <div class="hero__stats">
+          <div class="stat reveal" data-delay="0">
+            <span class="stat__num" data-count="150" data-prefix="+">+0</span>
+            <span class="stat__label">Propiedades</span>
+          </div>
+          <div class="stat reveal" data-delay="0.1">
+            <span class="stat__num" data-count="300" data-prefix="+">+0</span>
+            <span class="stat__label">Clientes felices</span>
+          </div>
+          <div class="stat reveal" data-delay="0.2">
+            <span class="stat__num" data-count="5" data-prefix="+">+0</span>
+            <span class="stat__label">Años de experiencia</span>
+          </div>
+          <div class="stat reveal" data-delay="0.3">
+            <span class="stat__num" data-count="100" data-suffix="%">0%</span>
+            <span class="stat__label">Compromiso</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#propiedades" class="hero__scroll" aria-label="Deslizar hacia abajo">
+        <span class="hero__scroll-track"><span class="hero__scroll-dot"></span></span>
+      </a>
+    </section>
+
+    <!-- ============ PROPIEDADES DESTACADAS ============ -->
+    <section class="section properties" id="propiedades">
+      <div class="container">
+        <div class="section__head reveal">
+          <div>
+            <span class="eyebrow">Propiedades disponibles</span>
+            <h2 class="h2">Explorá las mejores <em class="brand-italic">oportunidades</em></h2>
+          </div>
+          <a href="https://wa.me/5493804548961?text=Hola%20Socten,%20quiero%20ver%20todas%20las%20propiedades%20disponibles" target="_blank" rel="noopener noreferrer" class="link-arrow">Ver todas las propiedades
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="properties__grid">
+
+          <article class="card reveal" data-delay="0" data-tilt>
+            <div class="card__media">
+              <img src="fotos/socten-gaucho-rivero.jpg" alt="Edificio del departamento en calle Gaucho Rivero" loading="lazy">
+              <span class="badge badge--brand">Destacada</span>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Departamento en Gaucho Rivero</h3>
+              <p class="card__location">A pocas cuadras de la UNLAR</p>
+              <div class="card__features">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18"/><path d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/></svg>1 dormitorio</span>
+              </div>
+              <p class="card__price">$ 480.000<span class="card__period">/mes</span></p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="0.08" data-tilt>
+            <div class="card__media">
+              <img src="fotos/socten-peron465.png" alt="Edificio del departamento en Av. Perón 465" loading="lazy">
+              <span class="badge badge--dark">Nueva</span>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Departamento en Av. Perón 465</h3>
+              <p class="card__location">Excelente ubicación</p>
+              <div class="card__features">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18"/><path d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/></svg>2 dormitorios</span>
+              </div>
+              <p class="card__price">$ 650.000<span class="card__period">/mes</span></p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="0.16" data-tilt>
+            <div class="card__media">
+              <img src="fotos/socten-dalmacio-velez.png" alt="Departamento en Dalmacio Vélez 1100" loading="lazy">
+              <span class="badge badge--brand">Destacada</span>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Departamento en Dalmacio Vélez</h3>
+              <p class="card__location">Dalmacio Vélez 1100</p>
+              <div class="card__features">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18"/><path d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/></svg>2 dormitorios</span>
+              </div>
+              <p class="card__price">$ 690.000<span class="card__period">/mes</span></p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="0.24" data-tilt>
+            <div class="card__media">
+              <img src="fotos/socten-rivadavia296.png" alt="Departamento en Av. Rivadavia 296" loading="lazy">
+              <span class="badge badge--dark">Nueva</span>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Departamento en Av. Rivadavia</h3>
+              <p class="card__location">Rivadavia 296 · Excelente ubicación</p>
+              <div class="card__features">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18"/><path d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/></svg>1 dormitorio</span>
+              </div>
+              <p class="card__price">$ 520.000<span class="card__period">/mes</span></p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="0" data-tilt>
+            <div class="card__media">
+              <img src="fotos/socten-jvgonzalez.png" alt="Monoambiente en calle Joaquín V. González" loading="lazy">
+              <span class="badge badge--dark">Nueva</span>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Monoambiente céntrico</h3>
+              <p class="card__location">Joaquín V. González · A 5 cuadras de Plaza 25 de Mayo</p>
+              <div class="card__features">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg>Monoambiente</span>
+              </div>
+              <p class="card__price">$ 380.000<span class="card__period">/mes</span></p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="0.08" data-tilt>
+            <div class="card__media">
+              <img src="fotos/socten-peron1062.png" alt="Monoambiente en Av. Perón 1062" loading="lazy">
+              <span class="badge badge--brand">Destacada</span>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Monoambiente en Av. Perón</h3>
+              <p class="card__location">Perón 1062 · Excelente ubicación</p>
+              <div class="card__features">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg>Monoambiente</span>
+              </div>
+              <p class="card__price">$ 420.000<span class="card__period">/mes</span></p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="0.16" data-tilt>
+            <div class="card__media">
+              <img src="fotos/socten-tupa-amaru.png" alt="Departamento en Tupa Amarú" loading="lazy">
+              <span class="badge badge--dark">Nueva</span>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Departamento en Tupa Amarú</h3>
+              <p class="card__location">A 1 cuadra del Hospital Vera Barros</p>
+              <div class="card__features">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18"/><path d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/></svg>1 dormitorio</span>
+              </div>
+              <p class="card__price">$ 450.000<span class="card__period">/mes</span></p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="0.24" data-tilt>
+            <div class="card__media">
+              <img src="fotos/socten-local-rivadavia1100.png" alt="Local comercial en Av. Rivadavia 1100" loading="lazy">
+              <span class="badge badge--brand">Destacada</span>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Local Comercial en Av. Rivadavia</h3>
+              <p class="card__location">Rivadavia 1100 · Zona comercial</p>
+              <div class="card__features">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v10h16V10"/><path d="M3 6l1.5-3h15L21 6"/><path d="M3 6h18v4H3z"/><path d="M9 20v-6h6v6"/></svg>Local comercial</span>
+              </div>
+              <p class="card__price">$ 1.500.000<span class="card__period">/mes</span></p>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="properties__more reveal">
+          <a href="https://wa.me/5493804548961?text=Hola%20Socten,%20quiero%20ver%20m%C3%A1s%20propiedades" target="_blank" rel="noopener noreferrer" class="btn btn--outline" data-magnetic>Ver más propiedades
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ POR QUÉ ELEGIRNOS ============ -->
+    <section class="section why" id="servicios">
+      <div class="container">
+        <div class="section__head section__head--center reveal">
+          <span class="eyebrow">Nuestros diferenciales</span>
+          <h2 class="h2">¿Por qué elegir <em class="brand-italic">Socten?</em></h2>
+        </div>
+
+        <div class="why__grid">
+          <div class="feature reveal" data-delay="0">
+            <div class="feature__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M9 21v-4a3 3 0 0 1 6 0v4"/></svg>
+            </div>
+            <div class="feature__text">
+              <h3>Atención personalizada</h3>
+              <p>Te acompañamos en cada paso del proceso para que tu experiencia sea simple y segura.</p>
+            </div>
+          </div>
+
+          <div class="feature reveal" data-delay="0.12">
+            <div class="feature__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 8l10 6 10-6-10-6Z"/><path d="m6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/><path d="M22 8v6"/></svg>
+            </div>
+            <div class="feature__text">
+              <h3>Asesoramiento profesional</h3>
+              <p>Contamos con un equipo de expertos en el mercado inmobiliario riojano.</p>
+            </div>
+          </div>
+
+          <div class="feature reveal" data-delay="0.24">
+            <div class="feature__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div class="feature__text">
+              <h3>Transparencia y confianza</h3>
+              <p>Operaciones claras, seguras y con total compromiso.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NOSOTROS ============ -->
+    <section class="section about" id="nosotros">
+      <div class="container about__grid">
+        <div class="about__media reveal">
+          <img src="fotos/10-oficina-moderna.png" alt="Oficina de Inmobiliaria Socten" loading="lazy">
+          <button class="about__play" aria-label="Reproducir video institucional">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
+          </button>
+        </div>
+
+        <div class="about__content">
+          <span class="eyebrow reveal">Conocé más sobre nosotros</span>
+          <h2 class="h2 reveal" data-delay="0.1">Más que una inmobiliaria,<br><em class="brand-italic">somos tu aliado.</em></h2>
+          <p class="about__text reveal" data-delay="0.2">En Socten nos enfocamos en brindarte las mejores oportunidades del mercado riojano, con un servicio cercano, transparente y profesional.</p>
+
+          <div class="about__stats reveal" data-delay="0.3">
+            <div class="stat">
+              <span class="stat__num" data-count="5" data-prefix="+">+0</span>
+              <span class="stat__label">Años de experiencia</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num" data-count="300" data-prefix="+">+0</span>
+              <span class="stat__label">Clientes satisfechos</span>
+            </div>
+          </div>
+
+          <a href="#contacto" class="btn btn--outline reveal" data-delay="0.4" data-magnetic>Conocer más</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section class="section contact" id="contacto">
+      <div class="contact__bg" aria-hidden="true"></div>
+      <div class="container contact__grid">
+
+        <div class="contact__info">
+          <h2 class="h2 h2--light reveal">¿Tenés dudas? <em class="brand-italic">Estamos para ayudarte</em></h2>
+          <p class="contact__lead reveal" data-delay="0.1">Contactanos y recibí asesoramiento personalizado.</p>
+
+          <ul class="contact__list">
+            <li class="reveal" data-delay="0.15">
+              <span class="contact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg></span>
+              <a href="tel:+5493804548961">380 454 8961</a>
+            </li>
+            <li class="reveal" data-delay="0.2">
+              <span class="contact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.4A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 10c.5 2 2.5 4 4.5 4.5l1-1.5 2 1c-.5 1.5-1.5 2-3 1.5-3-1-5.5-3.5-6.5-6.5-.5-1.5 0-2.5 1.5-3l1 2L9 10Z"/></svg></span>
+              <a href="https://wa.me/5493804548961" target="_blank" rel="noopener noreferrer">WhatsApp directo</a>
+            </li>
+            <li class="reveal" data-delay="0.25">
+              <span class="contact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <a href="https://maps.app.goo.gl/Gf7NpVeDFbJVTDza9" target="_blank" rel="noopener noreferrer">Mariano Moreno 234, La Rioja</a>
+            </li>
+          </ul>
+
+          <div class="contact__social reveal" data-delay="0.3">
+            <a href="https://www.instagram.com/socten_inmobiliaria" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+            <a href="https://www.facebook.com/socteninmobiliaira" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2Z"/></svg></a>
+            <a href="https://wa.me/5493804548961" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.4A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 10c.5 2 2.5 4 4.5 4.5l1-1.5 2 1c-.5 1.5-1.5 2-3 1.5-3-1-5.5-3.5-6.5-6.5-.5-1.5 0-2.5 1.5-3l1 2L9 10Z"/></svg></a>
+          </div>
+        </div>
+
+        <form class="contact__form reveal" id="contactForm" data-delay="0.2" novalidate>
+          <div class="form__row">
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+            <input type="email" name="email" placeholder="Tu email" required>
+            <input type="tel" name="telefono" placeholder="Tu teléfono">
+          </div>
+          <select name="motivo" required>
+            <option value="" disabled selected>¿En qué podemos ayudarte?</option>
+            <option>Quiero alquilar una propiedad</option>
+            <option>Quiero publicar mi propiedad</option>
+            <option>Quiero vender mi propiedad</option>
+            <option>Tasación de mi propiedad</option>
+            <option>Otra consulta</option>
+          </select>
+          <textarea name="mensaje" rows="5" placeholder="Contanos tu consulta…" required></textarea>
+          <button type="submit" class="btn btn--brand btn--full" data-magnetic>
+            <span class="btn__label">Enviar consulta</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </button>
+          <p class="form__feedback" id="formFeedback" role="status"></p>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="#inicio" class="logo logo--footer" aria-label="Inmobiliaria Socten">
+          <svg class="logo__mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 24 24 8l18 16" />
+            <path d="M11 22v18h26V22" />
+            <path d="M20 40V28h8v12" />
+          </svg>
+          <span class="logo__text">
+            <span class="logo__name">SOCTEN</span>
+            <span class="logo__sub">INMOBILIARIA</span>
+          </span>
+        </a>
+        <p>Encontrá tu próximo hogar con la confianza y el respaldo de un equipo profesional.</p>
+      </div>
+
+      <nav class="footer__col" aria-label="Navegación del pie">
+        <h4>Navegación</h4>
+        <a href="#inicio">Inicio</a>
+        <a href="#propiedades">Propiedades</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <nav class="footer__col" aria-label="Servicios">
+        <h4>Servicios</h4>
+        <a href="#servicios">Alquileres</a>
+        <a href="#servicios">Ventas</a>
+        <a href="#servicios">Administración</a>
+        <a href="#servicios">Tasaciones</a>
+      </nav>
+
+      <div class="footer__col footer__newsletter">
+        <h4>Newsletter</h4>
+        <p>Suscribite para recibir nuestras novedades y oportunidades.</p>
+        <form class="newsletter" id="newsletterForm" novalidate>
+          <input type="email" placeholder="Tu email" aria-label="Tu email" required>
+          <button type="submit" aria-label="Suscribirse">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </button>
+        </form>
+        <p class="newsletter__feedback" id="newsletterFeedback" role="status"></p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© <span id="year">2025</span> Inmobiliaria Socten. Todos los derechos reservados.</p>
+        <p>La Rioja, Argentina</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5493804548961?text=Hola%20Socten,%20quiero%20consultar%20por%20una%20propiedad" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Escribinos por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  </a>
+
+  <!-- Volver arriba -->
+  <button class="to-top" id="toTop" aria-label="Volver arriba">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

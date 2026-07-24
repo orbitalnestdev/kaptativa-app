@@ -1,0 +1,299 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contacto y Diagnóstico de Madurez Digital | Kaptativa" description="Escribinos para solicitar tu diagnóstico digital gratuito en 24 horas y resolver los cuellos de botella de tu negocio.">
+  <Header slot="header" />
+  
+  <main>
+    <!-- ==========================================================================
+         SECCIÓN DE CONTACTO SIMPLE Y DIRECTO
+         ========================================================================== -->
+    <section class="section" id="contacto">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge">¿Hablamos?</span>
+          <h1>Contactá con <span class="text-gradient-crimson">kaptativa<sup>®</sup></span></h1>
+          <p>Completá el formulario para recibir un diagnóstico gratuito y propuestas de automatización en 24 horas, o contactanos directamente.</p>
+        </div>
+        
+        <div class="contact-grid reveal reveal-delay-1">
+          <!-- Left side info channels -->
+          <div class="contact-info">
+            <p style="color: var(--text-secondary); margin-bottom: 25px;">Elegí el medio que te resulte más cómodo. Nuestro equipo responde todas las consultas en menos de 24 horas hábiles.</p>
+            
+            <div class="contact-channels">
+              <div class="channel-card">
+                <div class="icon">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                  </svg>
+                </div>
+                <div class="channel-details">
+                  <h4>WhatsApp Comercial</h4>
+                  <p>Iniciá un chat directo para resolver dudas inmediatas o agendar llamadas rápidamente.</p>
+                  <a href="https://wa.me/541138830925" target="_blank" class="channel-link">Chatear ahora &rarr;</a>
+                </div>
+              </div>
+              
+              <div class="channel-card">
+                <div class="icon">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div class="channel-details">
+                  <h4>Email Oficial</h4>
+                  <p>Para propuestas de proyectos a medida, alianzas de negocio o consultas formales.</p>
+                  <a href="mailto:hola@kaptativa.com" class="channel-link">hola@kaptativa.com &rarr;</a>
+                </div>
+              </div>
+              
+              <div class="channel-card">
+                <div class="icon">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div class="channel-details">
+                  <h4>Horario de Atención</h4>
+                  <p>Lunes a Viernes de 9:00 a 18:00 (GMT-3). Las consultas fuera de hora serán atendidas al siguiente día hábil.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right side Direct Contact Form -->
+          <div class="contact-form-card">
+            <h3 class="form-card-title">Completá tus datos</h3>
+            <p class="form-card-subtitle">Contanos tu desafío y te responderemos a la brevedad con soluciones específicas.</p>
+            
+            <div class="wizard-validation-error" id="form-error-banner" style="display: none; margin-bottom: 20px;"></div>
+            
+            <form id="contact-form" class="direct-contact-form" novalidate>
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="form-name" class="form-label-uppercase">NOMBRE *</label>
+                  <input type="text" id="form-name" class="form-control" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                  <label for="form-email" class="form-label-uppercase">EMAIL *</label>
+                  <input type="email" id="form-email" class="form-control" placeholder="tu@empresa.com" required>
+                </div>
+              </div>
+              
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="form-whatsapp" class="form-label-uppercase">TELÉFONO / WHATSAPP *</label>
+                  <input type="tel" id="form-whatsapp" class="form-control" placeholder="+54 11 ..." required>
+                </div>
+                <div class="form-group">
+                  <label for="form-business" class="form-label-uppercase">EMPRESA *</label>
+                  <input type="text" id="form-business" class="form-control" placeholder="Nombre de tu empresa" required>
+                </div>
+              </div>
+              
+              <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-website" class="form-label-uppercase">URL DEL SITIO (OPCIONAL)</label>
+                <input type="url" id="form-website" class="form-control" placeholder="https://tusitio.com">
+              </div>
+              <div class="form-group">
+                <label for="form-role" class="form-label-uppercase">¿QUÉ PUESTO OCUPÁS?</label>
+                <select id="form-role" class="form-control form-select-custom">
+                  <option value="" disabled selected>Elegí una opción</option>
+                  <option value="Fundador / CEO / Socio">Fundador / CEO / Socio</option>
+                  <option value="Director Comercial / Ventas">Director Comercial / Ventas</option>
+                  <option value="Gerente de Marketing">Gerente de Marketing</option>
+                  <option value="Operaciones / Administración">Operaciones / Administración</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-service-interest" class="form-label-uppercase">¿QUÉ TE INTERESA?</label>
+              <select id="form-service-interest" class="form-control form-select-custom">
+                <option value="" disabled selected>Elegí el servicio de tu interés</option>
+                <option value="Paid Media / Publicidad Digital">Paid Media / Publicidad Digital</option>
+                <option value="SEO & GEO Search">SEO & GEO Search</option>
+                <option value="Social Media Manager">Social Media Manager</option>
+                <option value="Web & E-commerce">Web & E-commerce</option>
+                <option value="Email Marketing & CRM">Email Marketing & CRM</option>
+                <option value="Software a Medida">Software a Medida</option>
+                <option value="Automatización & Integraciones">Automatización & Integraciones</option>
+                <option value="Agentes de Inteligencia Artificial">Agentes de Inteligencia Artificial</option>
+                <option value="Consultoría Enterprise">Consultoría Enterprise</option>
+              </select>
+            </div>
+
+              <div class="form-group">
+                <label for="form-message" class="form-label-uppercase">¿CUÁL ES TU PRINCIPAL DESAFÍO HOY? *</label>
+                <textarea id="form-message" class="form-control" rows="4" placeholder="Contanos en qué estás y qué te gustaría resolver" required></textarea>
+              </div>
+              
+              <div class="form-group" style="margin-top: 10px; margin-bottom: 20px;">
+                <label class="form-checkbox" id="label-checkbox-whatsapp">
+                  <input type="checkbox" id="form-send-whatsapp" checked>
+                  <span>Abrir chat de WhatsApp para agilizar mi consulta</span>
+                </label>
+              </div>
+              
+              <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px var(--accent-indigo-glow);">
+                <span>Enviar →</span>
+              </button>
+              
+              <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">
+                Te respondemos en 24hs. Tus datos se tratan según nuestra <a href="/privacidad" style="color: var(--accent-pink); text-decoration: underline;">política de privacidad</a>.
+              </p>
+
+              <div class="form-feedback" id="form-feedback-status" style="display: none; margin-top: 20px;"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .form-card-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .form-card-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    line-height: 1.5;
+  .form-select-custom {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+  }
+  .channel-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff !important;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  .channel-link:hover {
+    opacity: 0.85;
+    color: #ffffff !important;
+  }
+</style>
+
+<script>
+  import { api } from '../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const errorBanner = document.getElementById('form-error-banner');
+    const feedbackStatus = document.getElementById('form-feedback-status');
+
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = (document.getElementById('form-name') as HTMLInputElement).value.trim();
+      const business = (document.getElementById('form-business') as HTMLInputElement).value.trim();
+      const whatsapp = (document.getElementById('form-whatsapp') as HTMLInputElement).value.trim();
+      const email = (document.getElementById('form-email') as HTMLInputElement).value.trim();
+      const message = (document.getElementById('form-message') as HTMLTextAreaElement).value.trim();
+      const sendWhatsApp = (document.getElementById('form-send-whatsapp') as HTMLInputElement).checked;
+
+      // Hide previous states
+      if (errorBanner) errorBanner.style.display = 'none';
+      if (feedbackStatus) {
+        feedbackStatus.style.display = 'none';
+        feedbackStatus.className = 'form-feedback';
+      }
+
+      // Simple validation
+      if (!name || !business || !whatsapp || !email || !message) {
+        showError('Por favor, completa todos los campos obligatorios (*).');
+        return;
+      }
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        showError('Por favor, ingresa un correo electrónico válido.');
+        return;
+      }
+
+      const leadData = {
+        name,
+        business,
+        whatsapp,
+        email,
+        message: `Desafío: ${message}`,
+        status: 'nuevo',
+        tags: 'Contacto Directo',
+        score: 0,
+        recommendations: 'Contacto desde formulario directo de la página de contacto.'
+      };
+
+      showFeedback('Enviando tu consulta...', 'processing');
+
+      try {
+        // Save lead in Appwrite CRM
+        await api.db.createLead(leadData);
+
+        const agencyPhoneNumber = '541138830925';
+        const introMessage = `¡Hola Kaptativa! Acabo de enviar una consulta desde el formulario de contacto web.`;
+        const details = `*Datos de contacto:*\n- *Nombre:* ${name}\n- *Negocio:* ${business}\n- *WhatsApp:* ${whatsapp}\n- *Email:* ${email}\n\n*Desafío:* ${message}`;
+        const fullText = encodeURIComponent(`${introMessage}\n\n${details}`);
+
+        if (sendWhatsApp) {
+          showFeedback('¡Consulta enviada con éxito! Redirigiendo a WhatsApp...', 'success');
+          setTimeout(() => {
+            window.open(`https://wa.me/${agencyPhoneNumber}?text=${fullText}`, '_blank');
+            contactForm.reset();
+            if (feedbackStatus) feedbackStatus.style.display = 'none';
+          }, 1500);
+        } else {
+          showFeedback(`¡Gracias por contactarnos, ${name}! Tu consulta ha sido registrada. Te responderemos al correo ${email} en menos de 24 horas.`, 'success');
+          contactForm.reset();
+        }
+      } catch (error: any) {
+        console.error(error);
+        showFeedback(`Error al enviar datos: ${error.message || 'Inténtalo de nuevo.'}`, 'error');
+      }
+    });
+
+    function showError(msg: string) {
+      if (errorBanner) {
+        errorBanner.innerText = msg;
+        errorBanner.style.display = 'block';
+        errorBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function showFeedback(msg: string, type: 'processing' | 'success' | 'error') {
+      if (feedbackStatus) {
+        feedbackStatus.style.display = 'block';
+        feedbackStatus.innerText = msg;
+        feedbackStatus.className = 'form-feedback';
+        
+        if (type === 'success') {
+          feedbackStatus.classList.add('success');
+        } else if (type === 'error') {
+          feedbackStatus.classList.add('error');
+        }
+      }
+    }
+  });
+</script>

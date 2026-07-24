@@ -1,0 +1,163 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Términos y Condiciones | Kaptativa" description="Términos de servicio y condiciones comerciales de Kaptativa.">
+  <Header slot="header" />
+
+  <main>
+    <section class="legal-section">
+      <div class="container legal-container">
+        <div class="legal-header reveal">
+          <span class="badge legal-badge">LEGAL</span>
+          <h1>Términos y <span class="text-gradient-cyan">Condiciones</span></h1>
+          <p class="last-updated">Última actualización: 18 de Julio, 2026</p>
+        </div>
+
+        <div class="legal-content reveal reveal-delay-1">
+          <p>Al acceder a nuestro sitio web en <a href="https://kaptativa.com">kaptativa.com</a> y contratar cualquiera de nuestros servicios de desarrollo de software a medida, integraciones de API, automatizaciones de procesos o agentes de Inteligencia Artificial, aceptas cumplir con los siguientes Términos y Condiciones de Servicio.</p>
+
+          <h2>1. Descripción del Servicio</h2>
+          <p><strong>Kaptativa</strong> ofrece soluciones tecnológicas personalizadas orientadas a la transformación digital de negocios. Nuestros servicios clave incluyen:</p>
+          <ul>
+            <li>Diseño y desarrollo web profesional y e-commerce autogestionables.</li>
+            <li>Automatización de flujos y tareas administrativas (Make, n8n, Google Sheets, CRMs).</li>
+            <li>Implementación y entrenamiento de asistentes virtuales y chatbots (Evolution API, OpenAI, Appwrite).</li>
+            <li>Diagnósticos técnicos de madurez digital.</li>
+          </ul>
+
+          <h2>2. Propiedad Intelectual</h2>
+          <p>Salvo acuerdo por escrito en contrario, el software, las bases de datos y el código fuente desarrollados específicamente para el cliente serán de propiedad exclusiva del cliente una vez saldado el pago total de la cotización acordada. Kaptativa retiene la propiedad de sus librerías internas, algoritmos base y configuraciones de infraestructura genéricas reutilizables.</p>
+
+          <h2>3. Condiciones de Pago</h2>
+          <p>Los precios y modalidades de pago se definen detalladamente en la propuesta/presupuesto comercial individual de cada proyecto:</p>
+          <ul>
+            <li>Por regla general, el inicio del desarrollo requiere el abono de una seña equivalente al 50% del total presupuestado.</li>
+            <li>El saldo restante (50%) se cancelará a la entrega del proyecto o puesta en producción.</li>
+            <li>Ofrecemos un descuento del 15% por pago de contado vía transferencia bancaria y opciones de pago en cuotas mediante Mercado Pago.</li>
+            <li>Los abonos mensuales por mantenimiento del servidor, hosting o servicios continuos de Inteligencia Artificial se facturan por adelantado.</li>
+          </ul>
+
+          <h2>4. Responsabilidades del Cliente</h2>
+          <p>Para garantizar el cumplimiento de los plazos de entrega, el cliente se compromete a:</p>
+          <ul>
+            <li>Proporcionar el material, accesos y credenciales (ej. dominios, APIs, accesos a CRM) requeridos de manera oportuna.</li>
+            <li>Entregar información verídica y estructurada para el entrenamiento de los agentes conversacionales de IA.</li>
+            <li>Validar los entregables intermedios en los tiempos de revisión pactados.</li>
+          </ul>
+
+          <h2>5. Limitación de Responsabilidad</h2>
+          <p>En Kaptativa aplicamos las mejores prácticas de la industria en cuanto a calidad de software y seguridad de datos. Sin embargo, no nos hacemos responsables por:</p>
+          <ul>
+            <li>Interrupciones del servicio causadas por fallas en proveedores externos (como caídas en servidores de Meta, fallas en la API de WhatsApp Business, hosting contratados por terceros, etc.).</li>
+            <li>Pérdida de beneficios indirectos resultantes del uso o la imposibilidad de uso del software desarrollado.</li>
+            <li>Bloqueos de números telefónicos o cuentas de WhatsApp impuestos por Meta debido al uso inadecuado o spam en campañas de mensajería masiva por parte del cliente.</li>
+          </ul>
+
+          <h2>6. Modificación de los Términos</h2>
+          <p>Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. La fecha de última actualización en la parte superior reflejará los cambios más recientes. Te recomendamos revisar esta página periódicamente para mantenerte informado.</p>
+
+          <p>Si tienes cualquier duda técnica o comercial sobre estos términos, podés comunicarte directamente a nuestro WhatsApp oficial o escribirnos a <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .legal-section {
+    padding: 140px 0 100px 0;
+    background-color: var(--bg-primary);
+  }
+
+  .legal-container {
+    max-width: 800px !important;
+  }
+
+  .legal-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .legal-header h1 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+  }
+
+  .last-updated {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .legal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 50px;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .legal-content p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .legal-content h2 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 40px;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .legal-content ul {
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+
+  .legal-content li {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+
+  .legal-content a {
+    color: var(--accent-cyan, #00d2ff);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+
+  .legal-content a:hover {
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 768px) {
+    .legal-section {
+      padding: 100px 0 60px 0;
+    }
+    
+    .legal-header h1 {
+      font-size: 2.2rem;
+    }
+
+    .legal-content {
+      padding: 30px 24px;
+      border-radius: 16px;
+    }
+  }
+</style>

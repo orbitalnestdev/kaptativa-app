@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Isotipo Pink-Red to Violet Gradient -->
+    <linearGradient id="logo-gradient-fav" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EA384D" />
+      <stop offset="100%" stop-color="#8A35E5" />
+    </linearGradient>
+  </defs>
+
+  <!-- Dark Rounded Container Background -->
+  <rect width="64" height="64" rx="16" fill="#090B14" />
+  <rect width="64" height="64" rx="16" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5" />
+
+  <!-- Centered Isotipo SVG -->
+  <g transform="translate(14, 10) scale(1.05)">
+    <!-- Vertical Stem -->
+    <path d="M 6 13 L 6 47" stroke="url(#logo-gradient-fav)" stroke-width="5.5" stroke-linecap="round" fill="none" />
+    <!-- Smooth S-curve for diagonals -->
+    <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="url(#logo-gradient-fav)" stroke-width="5.5" stroke-linecap="round" fill="none" />
+    <!-- Arrowhead pointing up-right -->
+    <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-fav)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+</svg>

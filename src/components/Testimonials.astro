@@ -1,0 +1,459 @@
+---
+// Testimonials Component
+const testimonials = [
+  {
+    quote: "Excelente la atención. Nos ayudaron a armar respuestas muy naturales para WhatsApp. Ahora el filtro responde dudas básicas de la inmobiliaria, nos pasa solo clientes realmente interesados en visitar y nos ahorró muchísimo tiempo de trabajo diario.",
+    name: "Eduardo Cánepa",
+    role: "Cánepa Inmobiliaria • Salta",
+    image: "https://randomuser.me/api/portraits/men/81.jpg",
+    borderColor: "#a3e635"
+  },
+  {
+    quote: "Muy conforme con el trabajo de los chicos. Nos armaron una web nueva y súper rápida. Hoy nos entran consultas para tasaciones directamente de gente de acá de Tucumán que nos encuentra buscando en Google. Excelente servicio y muy recomendables.",
+    name: "Virginia Marcos",
+    role: "Marcos Inmobiliaria • Tucumán",
+    image: "https://randomuser.me/api/portraits/women/62.jpg",
+    borderColor: "#f472b6"
+  },
+  {
+    quote: "Excelente experiencia. Los chicos de Kaptativa nos armaron un sistema que pasa de forma automática todas las consultas de ZonaProp y Argenprop directo a nuestra planilla. Ya no se nos pierde ningún cliente y el equipo trabaja mucho más aliviado.",
+    name: "Esteban Gualtieri",
+    role: "Gualtieri Propiedades • Jujuy",
+    image: "https://randomuser.me/api/portraits/men/22.jpg",
+    borderColor: "#facc15"
+  },
+  {
+    quote: "Al principio tenía mis dudas sobre automatizar los pedidos por WhatsApp, pero hoy funciona espectacular. El sistema toma pedidos, calcula el costo del delivery y nos deja todo listo para cocinar. Nos agilizó las ventas y nos cambió la vida.",
+    name: "Carlos Valenzuela",
+    role: "\"Sabor & Fuego\" • Gastronomía",
+    image: "https://randomuser.me/api/portraits/men/54.jpg",
+    borderColor: "#22d3ee"
+  },
+  {
+    quote: "Una de las mejores decisiones que tomamos. Montar la tienda online conectada a Mercado Pago y envíos fue muy simple con su ayuda. Hoy la web vende sola a todo el país y nos encargamos únicamente de preparar los paquetes. Excelente atención.",
+    name: "Florencia Diaz",
+    role: "\"Moda Express\" • E-commerce Retail",
+    image: "https://randomuser.me/api/portraits/women/11.jpg",
+    borderColor: "#c084fc"
+  },
+  {
+    quote: "Muy contentos con el desarrollo para nuestra distribuidora. Nos armaron un presupuestador automático de envíos conectado a los fleteros que nos solucionó un gran problema tarifario de los fines de semana. Soporte rápido y gran equipo.",
+    name: "Roberto Funes",
+    role: "\"FerroMetal S.A.\" • Distribuidora Industrial",
+    image: "https://randomuser.me/api/portraits/men/60.jpg",
+    borderColor: "#fb923c"
+  }
+];
+---
+<!-- ==========================================================================
+     TESTIMONIOS (CARRUSEL INTERACTIVO)
+     ========================================================================== -->
+<section class="section" id="testimonios">
+  <div class="container">
+    <div class="section-header reveal" style="text-align: center; margin-bottom: 50px;">
+      <span class="badge testimonials-badge">Reviews</span>
+      <h2>Qué opinan nuestros clientes</h2>
+      <p style="max-width: 750px; margin: 0 auto; color: var(--text-secondary);">Descubrí cómo otros negocios lograron optimizar su tiempo, reducir costos y vender más con nuestras soluciones.</p>
+    </div>
+    
+    <div class="testimonials-carousel-container reveal reveal-delay-1">
+      <div class="testimonials-track-wrapper">
+        <div class="testimonials-track" id="testimonials-track">
+          {testimonials.map((t) => (
+            <div class="testimonial-card">
+              <div class="testimonial-content-wrapper">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">
+                  "{t.quote}"
+                </p>
+              </div>
+              
+              <div class="testimonial-card-footer">
+                <img src={t.image} alt={t.name} class="testimonial-avatar" loading="lazy" / decoding="async">
+                <div class="testimonial-author-info">
+                  <h4 class="testimonial-author-name">
+                    {t.name}
+                  </h4>
+                  <p class="testimonial-author-role">{t.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Controles de Navegación -->
+      <div class="carousel-controls">
+        <button class="carousel-btn prev-btn" id="prev-testimonial" aria-label="Anterior">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <button class="carousel-btn next-btn" id="next-testimonial" aria-label="Siguiente">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-badge {
+    margin-bottom: 16px;
+  }
+
+  .testimonials-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px 0 20px 0;
+  }
+
+  .testimonials-track-wrapper {
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .testimonials-track {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+    width: 100%;
+  }
+
+  /* Testimonial Card Style Product Hunt */
+  .testimonials-track .testimonial-card {
+    flex: 0 0 calc((100% - 48px) / 3);
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 24px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .testimonial-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .testimonials-track .testimonial-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px var(--accent-indigo-glow);
+  }
+
+  .testimonial-stars {
+    color: #fbbf24;
+    font-size: 1.15rem;
+    margin-bottom: 0;
+    display: flex;
+    gap: 4px;
+  }
+
+  /* Divider removed in favor of footer border-top */
+
+  .testimonial-quote {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #e2e8f0;
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .testimonial-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 12px;
+  }
+
+  .testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .testimonial-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+    min-width: 0;
+  }
+
+  .testimonial-author-name {
+    font-size: 0.95rem;
+    color: white;
+    margin: 0;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .testimonial-author-role {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .verified-badge {
+    color: var(--accent-crimson);
+    font-size: 0.8rem;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .carousel-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+
+  .carousel-btn:hover:not(:disabled) {
+    background: var(--accent-indigo-glow);
+    border-color: var(--accent-indigo);
+    color: var(--accent-indigo);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px var(--accent-indigo-glow);
+  }
+
+  .carousel-btn:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+
+  .carousel-dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* We style the dots dynamically generated in script */
+  :global(.carousel-dot) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    transition: all 0.3s ease !important;
+  }
+
+  :global(.carousel-dot.active) {
+    background: var(--accent-indigo) !important;
+    transform: scale(1.2) !important;
+    box-shadow: 0 0 8px var(--accent-indigo) !important;
+  }
+
+  @media (max-width: 992px) {
+    .testimonials-track .testimonial-card {
+      flex: 0 0 calc((100% - 30px) / 2);
+    }
+  }
+
+  @media (max-width: 650px) {
+    .testimonials-track .testimonial-card {
+      flex: 0 0 100%;
+    }
+  }
+</style>
+
+<script>
+  function initTestimonialsCarousel() {
+    const track = document.getElementById('testimonials-track');
+    const prevBtn = document.getElementById('prev-testimonial') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-testimonial') as HTMLButtonElement;
+    const dotsContainer = document.getElementById('carousel-dots');
+    
+    if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
+    
+    const cards = Array.from(track.children) as HTMLElement[];
+    const totalCards = cards.length;
+    let currentIndex = 0;
+    
+    function getVisibleCardsCount() {
+      if (window.innerWidth <= 650) return 1;
+      if (window.innerWidth <= 992) return 2;
+      return 3;
+    }
+    
+    function getMaxIndex() {
+      return totalCards - getVisibleCardsCount();
+    }
+    
+    function createDots() {
+      dotsContainer.innerHTML = '';
+      const dotsCount = getMaxIndex() + 1;
+      
+      for (let i = 0; i < dotsCount; i++) {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${i === currentIndex ? 'active' : ''}`;
+        dot.setAttribute('aria-label', `Ir al testimonio ${i + 1}`);
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          updateCarousel();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+    
+    function updateCarousel() {
+      const maxIndex = getMaxIndex();
+      
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+      if (currentIndex < 0) currentIndex = 0;
+      
+      const cardWidth = cards[0].getBoundingClientRect().width;
+      const gap = 24; // gap from CSS
+      
+      const offset = currentIndex * (cardWidth + gap);
+      track.style.transform = `translateX(-${offset}px)`;
+      
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === maxIndex;
+      
+      const dots = Array.from(dotsContainer.children);
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+    
+    prevBtn.addEventListener('click', () => {
+      currentIndex--;
+      updateCarousel();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      currentIndex++;
+      updateCarousel();
+    });
+
+    // Swipe Touch Support for mobile devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    track.addEventListener('touchstart', (e: TouchEvent) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    track.addEventListener('touchend', (e: TouchEvent) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+      const threshold = 50; // minimum distance in px to register swipe
+      const swipeDistance = touchEndX - touchStartX;
+      
+      if (swipeDistance < -threshold) {
+        // Swiped left -> next
+        const maxIndex = getMaxIndex();
+        if (currentIndex < maxIndex) {
+          currentIndex++;
+          updateCarousel();
+          resetAutoplay();
+        }
+      } else if (swipeDistance > threshold) {
+        // Swiped right -> prev
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateCarousel();
+          resetAutoplay();
+        }
+      }
+    }
+    
+    // Autoplay logic
+    let autoplayInterval = setInterval(() => {
+      const maxIndex = getMaxIndex();
+      if (currentIndex < maxIndex) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;
+      }
+      updateCarousel();
+    }, 6000);
+    
+    function resetAutoplay() {
+      clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(() => {
+        const maxIndex = getMaxIndex();
+        if (currentIndex < maxIndex) {
+          currentIndex++;
+        } else {
+          currentIndex = 0;
+        }
+        updateCarousel();
+      }, 6000);
+    }
+    
+    const container = document.querySelector('.testimonials-carousel-container');
+    if (container) {
+      container.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+      container.addEventListener('mouseleave', () => resetAutoplay());
+    }
+    
+    let resizeTimeout: any;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        createDots();
+        updateCarousel();
+      }, 100);
+    });
+    
+    createDots();
+    updateCarousel();
+  }
+
+  // Support views transition or standard load
+  document.addEventListener('DOMContentLoaded', initTestimonialsCarousel);
+</script>

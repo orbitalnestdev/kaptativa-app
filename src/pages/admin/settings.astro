@@ -1,0 +1,381 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import AdminSidebar from '../../components/AdminSidebar.astro';
+
+// SSR Authentication Guard
+const sessionCookie = Astro.cookies.get('kaptativa_session');
+if (!sessionCookie) {
+  return Astro.redirect('/admin/login');
+}
+---
+
+<AdminLayout title="Configuración del Sistema | Kaptativa">
+  <div class="admin-wrapper" id="admin-main-view">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <AdminSidebar activeTab="settings" />
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="admin-content-area">
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div>
+          <h1 class="admin-page-title" style="margin: 0; font-size: 1.6rem; font-weight: 600; color: white; font-family: 'Space Grotesk', sans-serif;">Ajustes de Configuración</h1>
+        </div>
+      </header>
+
+      <!-- SETTINGS FORM -->
+      <section class="settings-container" style="max-width: 800px; margin: 0 auto; width: 100%;">
+        <form id="settings-form" style="width: 100%;">
+          
+          <div class="settings-form-panel">
+            
+            <div class="login-alert" id="settings-db-mode" style="margin-bottom: 25px;">
+              <!-- Will be dynamically populated with Appwrite or Mock notice -->
+            </div>
+
+            <!-- SECTION 1: INTEGRATIONS -->
+            <div style="margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+              <h3 style="margin-top: 0; font-size: 1.15rem; color: #ffffff; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; font-weight: 600;">1. Integraciones y Webhooks</h3>
+              
+              <div class="form-group">
+                <label for="set-webhook-url" class="form-label">URL del Webhook Saliente (Make / Zapier / N8N)</label>
+                <input type="url" id="set-webhook-url" class="form-control" placeholder="https://hook.us1.make.com/your-custom-webhook-id">
+                <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 5px; margin-bottom: 0;">* Este webhook se disparará automáticamente mediante un método POST cada vez que cambies el estado de un lead en el tablero Kanban.</p>
+              </div>
+
+              <div class="form-group" style="margin-top: 20px;">
+                <label for="set-mp-public-key" class="form-label">Public Key (Mercado Pago)</label>
+                <input type="text" id="set-mp-public-key" class="form-control" placeholder="Ej. APP_USR-xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+              </div>
+              
+              <div class="form-group" style="margin-top: 15px; margin-bottom: 20px;">
+                <label for="set-mp-webhook-url" class="form-label">URL del Webhook de Pago / n8n (Opcional)</label>
+                <input type="url" id="set-mp-webhook-url" class="form-control" placeholder="https://primary-production.up.railway.app/webhook/mp-pay">
+              </div>
+            </div>
+
+            <!-- SECTION 2: CONTACT -->
+            <div style="margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+              <h3 style="margin-top: 0; font-size: 1.15rem; color: #ffffff; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; font-weight: 600;">2. Contacto Comercial</h3>
+              
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="set-whatsapp" class="form-label">Número de WhatsApp de la Agencia *</label>
+                  <input type="text" id="set-whatsapp" class="form-control" placeholder="Ej. 5491112345678" required>
+                  <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">Código de país + código de área + número, sin espacios ni caracteres especiales.</p>
+                </div>
+                <div class="form-group">
+                  <label for="set-email" class="form-label">Email Corporativo de Soporte *</label>
+                  <input type="email" id="set-email" class="form-control" placeholder="contacto@kaptativa.com" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 3: RATES -->
+            <div style="margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+              <h3 style="margin-top: 0; font-size: 1.15rem; color: #ffffff; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; font-weight: 600;">3. Tarifas Base del Cotizador (Presupuesto)</h3>
+              
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="set-cost-web" class="form-label">Costo Base: Diseño Web (USD)</label>
+                  <input type="number" id="set-cost-web" class="form-control" placeholder="600" required>
+                </div>
+                <div class="form-group">
+                  <label for="set-cost-auto" class="form-label">Costo Base: Automatización (USD)</label>
+                  <input type="number" id="set-cost-auto" class="form-control" placeholder="500" required>
+                </div>
+              </div>
+              <div class="form-grid-2" style="margin-top: 15px;">
+                <div class="form-group">
+                  <label for="set-cost-ia" class="form-label">Costo Base: Inteligencia Artificial (USD)</label>
+                  <input type="number" id="set-cost-ia" class="form-control" placeholder="800" required>
+                </div>
+                <div class="form-group">
+                  <label for="set-cost-sistema" class="form-label">Costo Base: Sistema Completo (USD)</label>
+                  <input type="number" id="set-cost-sistema" class="form-control" placeholder="1500" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 4: BANK & DOLLAR -->
+            <div style="margin-bottom: 20px;">
+              <h3 style="margin-top: 0; font-size: 1.15rem; color: #ffffff; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; font-weight: 600;">4. Cobro y Tipo de Cambio</h3>
+              
+              <div class="form-grid-2" style="margin-bottom: 20px;">
+                <div class="form-group">
+                  <label for="set-dollar-rate" class="form-label">Valor del Dólar Oficial (ARS)</label>
+                  <input type="number" id="set-dollar-rate" class="form-control" placeholder="1000" required>
+                </div>
+              </div>
+
+              <h4 style="color: white; font-size: 0.9rem; margin-top: 25px; margin-bottom: 15px; font-family: 'Space Grotesk', sans-serif; font-weight: 600;">Datos de Transferencia Bancaria (ARS)</h4>
+              
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="set-bank-name" class="form-label">Banco / Entidad Financiera</label>
+                  <input type="text" id="set-bank-name" class="form-control" placeholder="Ej. Banco Galicia / Mercado Pago">
+                </div>
+                <div class="form-group">
+                  <label for="set-bank-titular" class="form-label">Titular de la Cuenta</label>
+                  <input type="text" id="set-bank-titular" class="form-control" placeholder="Ej. Eliana Azcurra">
+                </div>
+              </div>
+              <div class="form-grid-2" style="margin-top: 15px;">
+                <div class="form-group">
+                  <label for="set-bank-alias" class="form-label">Alias CBU/CVU</label>
+                  <input type="text" id="set-bank-alias" class="form-control" placeholder="Ej. eliana.azcurra.dev">
+                </div>
+                <div class="form-group">
+                  <label for="set-bank-cbu" class="form-label">CBU / CVU (22 dígitos)</label>
+                  <input type="text" id="set-bank-cbu" class="form-control" placeholder="Ej. 0070123456789012345678">
+                </div>
+              </div>
+            </div>
+
+            <!-- Save button footer -->
+            <div style="display: flex; gap: 15px; margin-top: 35px; border-top: 1px solid var(--border-color); padding-top: 25px;">
+              <button type="submit" class="btn btn-primary" style="padding: 12px 28px;">Guardar Cambios</button>
+              <button type="button" class="btn btn-secondary" id="btn-reset-settings">Restablecer Valores</button>
+            </div>
+
+            <div class="login-feedback" id="settings-feedback" style="margin-top: 20px; text-align: left;"></div>
+
+          </div>
+        </form>
+      </section>
+
+    </main>
+  </div>
+</AdminLayout>
+
+<script>
+  import { api } from '../../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    
+    // ==========================================================================
+    // 1. TABS SWITCHER (linked to sidebar submenu)
+    // ==========================================================================
+    function switchTab(tabId: string) {
+      const contents = document.querySelectorAll('.settings-tab-content');
+      contents.forEach(c => c.classList.remove('active'));
+      
+      const target = document.getElementById('tab-' + tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+    }
+
+    // Read initial tab parameter from URL search params on load
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTab = urlParams.get('tab') || 'integrations';
+    switchTab(initialTab);
+
+    // Listen to custom SPA switch event dispatched from sidebar submenu links
+    window.addEventListener('settings-tab-change', (e: any) => {
+      if (e.detail && e.detail.tab) {
+        switchTab(e.detail.tab);
+      }
+    });
+
+    // ==========================================================================
+    // 2. CONFIGURATION LOAD / SAVE
+    // ==========================================================================
+    const dbModeDiv = document.getElementById('settings-db-mode') as HTMLElement;
+    const settingsForm = document.getElementById('settings-form') as HTMLFormElement;
+    const feedback = document.getElementById('settings-feedback') as HTMLElement;
+    
+    const webhookUrlInput = document.getElementById('set-webhook-url') as HTMLInputElement;
+    const whatsappInput = document.getElementById('set-whatsapp') as HTMLInputElement;
+    const emailInput = document.getElementById('set-email') as HTMLInputElement;
+    
+    const costWebInput = document.getElementById('set-cost-web') as HTMLInputElement;
+    const costAutoInput = document.getElementById('set-cost-auto') as HTMLInputElement;
+    const costIaInput = document.getElementById('set-cost-ia') as HTMLInputElement;
+    const costSistemaInput = document.getElementById('set-cost-sistema') as HTMLInputElement;
+    
+    const dollarRateInput = document.getElementById('set-dollar-rate') as HTMLInputElement;
+    const bankNameInput = document.getElementById('set-bank-name') as HTMLInputElement;
+    const bankTitularInput = document.getElementById('set-bank-titular') as HTMLInputElement;
+    const bankAliasInput = document.getElementById('set-bank-alias') as HTMLInputElement;
+    const bankCbuInput = document.getElementById('set-bank-cbu') as HTMLInputElement;
+    const mpPublicKeyInput = document.getElementById('set-mp-public-key') as HTMLInputElement;
+    const mpWebhookUrlInput = document.getElementById('set-mp-webhook-url') as HTMLInputElement;
+
+    const resetBtn = document.getElementById('btn-reset-settings');
+
+    // Default settings
+    const defaultSettings = {
+      webhook_url: '',
+      whatsapp_phone: '5491112345678',
+      support_email: 'contacto@kaptativa.com',
+      cost_web: '600',
+      cost_auto: '500',
+      cost_ia: '800',
+      cost_sistema: '1500',
+      dollar_rate: '1000',
+      bank_name: '',
+      bank_alias: '',
+      bank_cbu: '',
+      bank_titular: '',
+      mp_public_key: '',
+      mp_webhook_url: ''
+    };
+
+    // Load Database Mode Indicator
+    if (dbModeDiv) {
+      if (api.isConfigured) {
+        dbModeDiv.innerHTML = `
+          <strong>Base de Datos: Conectado a Appwrite (Nube)</strong><br>
+          Las configuraciones se persisten en la colección de nube. Asegúrate de tener los permisos de escritura adecuados.
+        `;
+        dbModeDiv.style.borderColor = 'rgba(16, 185, 129, 0.25)';
+        dbModeDiv.style.backgroundColor = 'rgba(16, 185, 129, 0.05)';
+        dbModeDiv.style.color = '#10B981';
+      } else {
+        dbModeDiv.innerHTML = `
+          <strong>Base de Datos: Modo Mock Activo (LocalStorage)</strong><br>
+          Las configuraciones se guardan localmente en el navegador de desarrollo y no afectarán a otros usuarios.
+        `;
+      }
+    }
+
+    // Load Settings function
+    function loadSettings() {
+      const saved = localStorage.getItem('crm_settings');
+      const settings = saved ? JSON.parse(saved) : defaultSettings;
+
+      webhookUrlInput.value = settings.webhook_url || '';
+      whatsappInput.value = settings.whatsapp_phone || '5491112345678';
+      emailInput.value = settings.support_email || 'contacto@kaptativa.com';
+      
+      costWebInput.value = settings.cost_web || '600';
+      costAutoInput.value = settings.cost_auto || '500';
+      costIaInput.value = settings.cost_ia || '800';
+      costSistemaInput.value = settings.cost_sistema || '1500';
+
+      dollarRateInput.value = settings.dollar_rate || '1000';
+      bankNameInput.value = settings.bank_name || '';
+      bankTitularInput.value = settings.bank_titular || '';
+      bankAliasInput.value = settings.bank_alias || '';
+      bankCbuInput.value = settings.bank_cbu || '';
+      mpPublicKeyInput.value = settings.mp_public_key || '';
+      mpWebhookUrlInput.value = settings.mp_webhook_url || '';
+    }
+
+    // Save Settings submit handler
+    if (settingsForm) {
+      settingsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const settings = {
+          webhook_url: webhookUrlInput.value.trim(),
+          whatsapp_phone: whatsappInput.value.trim().replace(/[^0-9]/g, ''),
+          support_email: emailInput.value.trim(),
+          cost_web: costWebInput.value,
+          cost_auto: costAutoInput.value,
+          cost_ia: costIaInput.value,
+          cost_sistema: costSistemaInput.value,
+          dollar_rate: dollarRateInput.value.trim() || '1000',
+          bank_name: bankNameInput.value.trim(),
+          bank_titular: bankTitularInput.value.trim(),
+          bank_alias: bankAliasInput.value.trim(),
+          bank_cbu: bankCbuInput.value.trim(),
+          mp_public_key: mpPublicKeyInput.value.trim(),
+          mp_webhook_url: mpWebhookUrlInput.value.trim()
+        };
+
+        try {
+          localStorage.setItem('crm_settings', JSON.stringify(settings));
+          showFeedback('¡Configuraciones guardadas correctamente!', 'success');
+        } catch (err) {
+          showFeedback('Error al intentar guardar las configuraciones.', 'error');
+        }
+      });
+    }
+
+    // Reset settings
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (confirm("¿Estás seguro de que deseas restablecer todas las configuraciones a sus valores de fábrica?")) {
+          localStorage.setItem('crm_settings', JSON.stringify(defaultSettings));
+          loadSettings();
+          showFeedback('Configuraciones restablecidas por defecto.', 'success');
+        }
+      });
+    }
+
+    function showFeedback(msg: string, type: 'success' | 'error') {
+      if (typeof (window as any).showToast === 'function') {
+        (window as any).showToast({
+          title: type === 'success' ? 'Ajustes Guardados' : 'Error de Guardado',
+          message: msg,
+          type: type
+        });
+      }
+      if (!feedback) return;
+      feedback.innerText = msg;
+      feedback.className = `login-feedback ${type}`;
+      feedback.style.display = 'block';
+      setTimeout(() => {
+        feedback.style.display = 'none';
+      }, 3000);
+    }
+
+
+    // Run Load
+    loadSettings();
+  });
+</script>
+
+<style is:global>
+  /* SETTINGS PAGE MINIMAL OVERRIDES */
+  .settings-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .settings-tab-content {
+    display: none;
+  }
+
+  .settings-tab-content.active {
+    display: block;
+    animation: settingsFadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes settingsFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .settings-container .form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .settings-container .form-grid-2 {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+  }
+
+  .settings-container .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all var(--transition-fast);
+  }
+</style>

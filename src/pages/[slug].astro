@@ -1,0 +1,371 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { BLOG_POSTS, getPostBySlug } from '../data/blogPosts.js';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return BLOG_POSTS.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = Astro.props.post || getPostBySlug(slug);
+
+if (!post) {
+  return Astro.redirect('/blog/');
+}
+
+function slugify(text) {
+  return text.toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
+function extractTocItems(md) {
+  if (!md) return [];
+  const lines = md.split('\n');
+  const items = [];
+  for (const line of lines) {
+    const match = line.trim().match(/^##\s+(.*$)/);
+    if (match) {
+      const cleanTitle = match[1].replace(/\*\*/g, '').replace(/`/g, '').trim();
+      items.push({
+        text: cleanTitle,
+        slug: slugify(cleanTitle)
+      });
+    }
+  }
+  return items;
+}
+
+const tocItems = extractTocItems(post.content);
+
+// Line-by-line Markdown Table Parser
+function convertMarkdownTables(text) {
+  const lines = text.split('\n');
+  let result = [];
+  let tableRows = [];
+  let inTable = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (line.startsWith('|') && line.endsWith('|')) {
+      const isSeparator = line.replace(/[\s|:\-]/g, '').length === 0;
+      if (!isSeparator) {
+        tableRows.push(line);
+      }
+      inTable = true;
+    } else {
+      if (inTable && tableRows.length > 0) {
+        result.push(buildHtmlTable(tableRows));
+        tableRows = [];
+        inTable = false;
+      }
+      result.push(lines[i]);
+    }
+  }
+
+  if (inTable && tableRows.length > 0) {
+    result.push(buildHtmlTable(tableRows));
+  }
+
+  return result.join('\n');
+}
+
+function buildHtmlTable(rows) {
+  if (rows.length === 0) return '';
+  const parseRow = (row) => row.split('|').slice(1, -1).map(c => c.trim());
+  
+  const headerCells = parseRow(rows[0]).map(c => `<th>${c}</th>`).join('');
+  const bodyRows = rows.slice(1).map(row => {
+    const cells = parseRow(row).map(c => `<td>${c}</td>`).join('');
+    return `<tr>${cells}</tr>`;
+  }).join('');
+
+  return `<div class="blog-table-responsive"><table><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+}
+
+// Markdown parser helper for SSR
+function parseMarkdown(md) {
+  if (!md) return '';
+  let html = md.replace(/\r\n/g, '\n');
+  
+  // 1. Process Markdown Tables FIRST before formatting tags
+  html = convertMarkdownTables(html);
+  
+  // 2. Horizontal Rules
+  html = html.replace(/^---$/gim, '<hr />');
+  
+  // 3. Headings H2 with slugified IDs for Table of Contents & H3
+  html = html.replace(/^##\s+(.*$)/gim, (match, p1) => {
+    const cleanText = p1.replace(/\*\*/g, '').replace(/`/g, '').trim();
+    const id = slugify(cleanText);
+    return `<h2 id="${id}">${p1}</h2>`;
+  });
+  html = html.replace(/^###\s+(.*$)/gim, '<h3>$1</h3>');
+  
+  // 4. Formatting (Bold, Italic, Code)
+  html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+  html = html.replace(/`([^`]+)`/gim, '<code>$1</code>');
+  
+  // 5. Ordered Lists (1. 2. 3.)
+  html = html.replace(/^\d+\.\s+(.*$)/gim, '<li class="blog-ol-item">$1</li>');
+  html = html.replace(/(<li class="blog-ol-item">[\s\S]*?<\/li>(?:\n<li class="blog-ol-item">[\s\S]*?<\/li>)*)/gim, '<ol>$1</ol>');
+  html = html.replace(/ class="blog-ol-item"/g, '');
+
+  // 6. Unordered Lists (* or -)
+  html = html.replace(/^[\*\-]\s+(.*$)/gim, '<li class="blog-ul-item">$1</li>');
+  html = html.replace(/(<li class="blog-ul-item">[\s\S]*?<\/li>(?:\n<li class="blog-ul-item">[\s\S]*?<\/li>)*)/gim, '<ul>$1</ul>');
+  html = html.replace(/ class="blog-ul-item"/g, '');
+
+  // 7. Links
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/gim, (match, p1, p2) => {
+    const isExternal = p2.startsWith('http');
+    const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+    return `<a href="${p2}" ${target}>${p1}</a>`;
+  });
+  
+  // 8. Paragraphs
+  const paragraphs = html.split(/\n\s*\n/);
+  return paragraphs.map(p => {
+    const trimmed = p.trim();
+    if (trimmed.startsWith('<h') || trimmed.startsWith('<ul') || trimmed.startsWith('<ol') || trimmed.startsWith('<li') || trimmed.startsWith('<hr') || trimmed.startsWith('<div') || trimmed.startsWith('<table') || trimmed.startsWith('>')) {
+      return trimmed;
+    }
+    return `<p>${trimmed.replace(/\n/g, '<br />')}</p>`;
+  }).join('\n');
+}
+
+const parsedContent = parseMarkdown(post.content);
+const datePublishedFormatted = new Date(post.publishedAt).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+const canonicalUrl = `https://kaptativa.com/${post.slug}/`;
+
+// Schema.org BlogPosting
+const schemaBlogPosting = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.seoDescription,
+  "image": [post.featuredImage],
+  "datePublished": post.publishedAt,
+  "dateModified": post.modifiedAt || post.publishedAt,
+  "author": {
+    "@type": "Organization",
+    "name": "Kaptativa",
+    "url": "https://kaptativa.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Kaptativa",
+    "url": "https://kaptativa.com/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kaptativa.com/logo.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  },
+  "keywords": post.tags.join(', ')
+};
+
+// Schema.org FAQPage
+const schemaFAQ = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": post.faq.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+
+// Schema.org BreadcrumbList
+const schemaBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://kaptativa.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://kaptativa.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": post.title,
+      "item": canonicalUrl
+    }
+  ]
+};
+---
+
+<Layout title={`${post.seoTitle} | Kaptativa 2.0`} description={post.seoDescription}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={post.seoTitle} />
+    <meta property="og:description" content={post.seoDescription} />
+    <meta property="og:image" content={post.featuredImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="article:published_time" content={post.publishedAt} />
+    <meta property="article:modified_time" content={post.modifiedAt || post.publishedAt} />
+    <meta property="article:author" content="Kaptativa" />
+    {post.tags.map(tag => <meta property="article:tag" content={tag} />)}
+
+    <!-- JSON-LD Schemas -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaBlogPosting)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaFAQ)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+  </Fragment>
+
+  <Header slot="header" />
+
+  <main style="padding-top: 130px;">
+    <article class="blog-article-container">
+      
+      <!-- Breadcrumb Navigation -->
+      <nav aria-label="Breadcrumb" class="blog-breadcrumb-nav">
+        <a href="/" class="blog-breadcrumb-link">Inicio</a>
+        <span>/</span>
+        <a href="/blog/" class="blog-breadcrumb-link">Blog</a>
+        <span>/</span>
+        <span class="blog-breadcrumb-current">{post.categoryLabel}</span>
+      </nav>
+
+      <!-- Category Pill -->
+      <span class="blog-article-category-badge">
+        {post.categoryLabel}
+      </span>
+
+      <!-- Main H1 Article Title -->
+      <h1 class="blog-article-title">
+        {post.title}
+      </h1>
+
+      <!-- Institutional Author & Metadata Bar -->
+      <div class="blog-article-author-bar">
+        <img src="/favicon.svg" alt="Kaptativa" width="44" height="44" style="width: 44px; height: 44px; border-radius: 50%; object-fit: contain; box-shadow: 0 0 15px rgba(234, 56, 77, 0.3); border: 1px solid rgba(255, 255, 255, 0.12);" loading="eager" decoding="async" />
+        <div>
+          <div class="blog-article-author-name">Kaptativa</div>
+          <div class="blog-article-author-meta">
+            {post.authorRole} • Publicado el {datePublishedFormatted} • {post.readingTime}
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Image Banner with Eager LCP -->
+      <div class="blog-article-banner-wrapper">
+        <img src={post.featuredImage} alt={post.featuredImageAlt || post.title} width="1200" height="675" loading="eager" class="blog-article-banner-img" / decoding="async">
+      </div>
+
+      <!-- KEY TAKEAWAYS BOX (Puntos Principales) -->
+      <div class="blog-takeaways-box">
+        <h3 class="blog-takeaways-header">
+          <svg class="blog-takeaways-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span>Puntos Principales</span>
+        </h3>
+        <ul class="blog-takeaways-list">
+          {post.keyTakeaways.map(point => (
+            <li>{point}</li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- DYNAMIC TABLE OF CONTENTS (Índice del Artículo - Solo con 3 o más H2) -->
+      {tocItems.length >= 3 && (
+        <div class="blog-toc-box">
+          <h3 class="blog-toc-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #38bdf8;">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+            <span>Índice del Artículo</span>
+          </h3>
+          <ol class="blog-toc-list">
+            {tocItems.map((item, idx) => (
+              <li>
+                <a href={`#${item.slug}`} class="blog-toc-link">
+                  <span class="toc-num">{idx + 1}.</span> {item.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+
+      <!-- Parsed Markdown Article Body -->
+      <div class="blog-article-body" set:html={parsedContent}></div>
+
+      <!-- FAQ SECTION -->
+      <section class="blog-faq-section">
+        <h2 class="blog-faq-title">
+          Preguntas Frecuentes
+        </h2>
+
+        <div class="blog-faq-grid">
+          {post.faq.map((item) => (
+            <div class="blog-faq-item">
+              <h3 class="blog-faq-question" style="font-size: 1.05rem; margin: 0 0 10px 0;">
+                {item.question}
+              </h3>
+              <p class="blog-faq-answer">
+                {item.answer}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- TAGS -->
+      <div class="blog-tags-container">
+        {post.tags.map(tag => (
+          <span class="blog-tag-pill">
+            #{tag}
+          </span>
+        ))}
+      </div>
+
+      <!-- BOTTOM CONVERSION CTA BANNER (Brief & Non-invasive) -->
+      <div class="blog-cta-banner">
+        <h3 class="blog-cta-title">
+          ¿Querés optimizar la gestión digital de tu Inmobiliaria?
+        </h3>
+        <p class="blog-cta-desc">
+          Conocé la plataforma de catálogo web autogestionable y CRM para inmobiliarias o consultá directamente con nuestro equipo.
+        </p>
+        <div class="blog-cta-actions">
+          <a href="/inmobiliarias" class="btn btn-primary">Ver Sistema Inmobiliario</a>
+          <a href="https://wa.me/541138830925?text=Hola!%20Le%C3%AD%20el%20art%C3%ADculo%20en%20el%20blog%20y%20quisiera%20realizar%20una%20consulta." target="_blank" class="btn btn-whatsapp">Consultar por WhatsApp</a>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
