@@ -8930,9 +8930,28 @@ img, svg, video, canvas {
   font-weight: 600 !important;
 }
 
-/* Fix desktop chevron visibility */
+/* Fix desktop chevron visibility and force text display */
 @media (min-width: 769px) {
   .card-chevron {
     display: none !important;
+  }
+  .for-card::after,
+  .rubro-card::after {
+    display: none !important;
+    content: none !important;
+  }
+  .for-card p,
+  .rubro-card p {
+    display: block !important;
+    opacity: 1 !important;
+    max-height: none !important;
+    visibility: visible !important;
+    margin-top: 14px !important;
+    border-top: none !important;
+  }
+  /* Ensure header row doesn't act as an accordion header on desktop */
+  .for-card .card-header-row,
+  .rubro-card .card-header-row {
+    pointer-events: none !important;
   }
 }
