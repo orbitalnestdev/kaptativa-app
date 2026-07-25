@@ -185,7 +185,7 @@ import Casos from '../components/Casos.astro';
         feedback.innerText = `¡Gracias, ${name}! Tu consulta ha sido enviada con éxito.`;
 
         if (sendWhatsapp) {
-          const agencyPhone = '541138830925';
+          const agencyPhone = '5493804890834';
           const text = encodeURIComponent(`¡Hola Kaptativa! Acabo de enviar una consulta desde la web.\n\n*Datos:*\n- *Nombre:* ${name}\n- *Empresa:* ${business}\n- *Email:* ${email}\n- *WhatsApp:* ${whatsapp}\n- *Puesto:* ${role}\n- *Interés:* ${selectedServicesStr}\n- *Desafío:* ${message}`);
           setTimeout(() => {
             window.open(`https://wa.me/${agencyPhone}?text=${text}`, '_blank');

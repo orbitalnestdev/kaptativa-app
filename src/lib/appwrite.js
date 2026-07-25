@@ -270,7 +270,7 @@ Nuestros **Agentes de Inteligencia Artificial en WhatsApp** se integran a tu bas
 
 Digitalizar tu inmobiliaria no requiere meses de desarrollo ni suscripciones mensuales abusivas. En Kaptativa te entregamos la infraestructura digital completa lista en solo 7 días.
 
-👉 **¿Querés escalar las ventas de tu inmobiliaria?** Conocé los detalles de nuestra plataforma [Inmo-Scale 360°](/inmobiliarias) o comunicate con nuestro equipo por [WhatsApp](https://wa.me/541138830925).`,
+👉 **¿Querés escalar las ventas de tu inmobiliaria?** Conocé los detalles de nuestra plataforma [Inmo-Scale 360°](/inmobiliarias) o comunicate con nuestro equipo por [WhatsApp](https://wa.me/5493804890834).`,
           excerpt: 'Guía paso a paso para transformar la operación de tu inmobiliaria con un portal de propiedades autogestionable, CRM de seguimiento y atención 24/7 en WhatsApp.',
           category: 'inmobiliarias',
           tags: 'Inmobiliaria, CRM, WhatsApp IA, Desarrollo Web',
@@ -382,7 +382,7 @@ Conocé más sobre nuestro módulo de [Agentes de Inteligencia Artificial](/serv
 
 ## 📈 ¿Querés implementar IA en tu Inmobiliaria?
 
-Hablá hoy con nuestro equipo técnico para integrar un Agente de WhatsApp en tu negocio. Escribinos por [WhatsApp](https://wa.me/541138830925) o solicitá un [Diagnóstico Digital](/contacto).`,
+Hablá hoy con nuestro equipo técnico para integrar un Agente de WhatsApp en tu negocio. Escribinos por [WhatsApp](https://wa.me/5493804890834) o solicitá un [Diagnóstico Digital](/contacto).`,
           excerpt: 'Cómo entrenar un asistente de Inteligencia Artificial para responder valores de expensas, ubicaciones y coordinar visitas presenciales sin intervención humana.',
           category: 'inteligencia-artificial',
           tags: 'IA, WhatsApp Bot, Agentes Virtuales, Inmobiliarias',

@@ -1730,7 +1730,7 @@ function LeadDrawer({ lead, onClose, onUpdateStatus, messages }) {
 
         <div style={S.drawerActions}>
           <a
-            href={`https://wa.me/${lead.contacto?.replace(/\D/g, '') || '5491138830925'}?text=Hola%20${encodeURIComponent(lead.nombre || '')},%20te%20contacto%20de%20Grupo%20Aurora`}
+            href={`https://wa.me/${lead.contacto?.replace(/\D/g, '') || '5493804890834'}?text=Hola%20${encodeURIComponent(lead.nombre || '')},%20te%20contacto%20de%20Grupo%20Aurora`}
             target="_blank"
             rel="noopener noreferrer"
             style={{ ...S.drawerBtnWa, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
