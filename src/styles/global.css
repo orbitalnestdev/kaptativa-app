@@ -8929,3 +8929,10 @@ img, svg, video, canvas {
   color: #ffffff !important;
   font-weight: 600 !important;
 }
+
+/* Fix desktop chevron visibility */
+@media (min-width: 769px) {
+  .card-chevron {
+    display: none !important;
+  }
+}
