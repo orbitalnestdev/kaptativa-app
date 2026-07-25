@@ -5014,7 +5014,7 @@ p, .body-text {
 
 /* WhatsApp Button Pill */
 .btn-whatsapp {
-  background: #25D366 !important;
+  background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important;
   color: #ffffff !important;
   font-family: 'Lexend', sans-serif !important;
   font-weight: 600 !important;
@@ -6587,33 +6587,36 @@ body:has(.badge-blue) .pillar-icon {
     display: flex !important;
     flex-direction: column !important;
     gap: 12px !important;
-    margin-top: auto !important;
-    padding-top: 24px !important;
+  .mobile-nav-footer {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 30px auto 0 auto !important;
+    padding-top: 20px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
   .mobile-nav-footer .mobile-nav-cta {
-    width: 100% !important;
+    display: inline-flex !important;
+    align-items: center !important;
     justify-content: center !important;
+    width: 100% !important;
+    padding: 15px 28px !important;
+    font-family: 'Lexend', sans-serif !important;
+    font-size: 1.05rem !important;
     font-weight: 600 !important;
-    padding: 14px 20px !important;
-    border-radius: 50px !important;
-    background: linear-gradient(135deg, #EA384D, #8A35E5) !important;
     color: #ffffff !important;
-    box-shadow: 0 0 20px rgba(234, 56, 77, 0.4) !important;
+    background: linear-gradient(135deg, #EA384D 0%, #8A35E5 100%) !important;
+    border-radius: 50px !important;
+    box-shadow: 0 4px 25px rgba(234, 56, 77, 0.5) !important;
+    text-decoration: none !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
   }
 
-  .mobile-nav-footer .btn-whatsapp {
-    width: 100% !important;
-    justify-content: center !important;
-    font-weight: 600 !important;
-    padding: 14px 20px !important;
-    border-radius: 50px !important;
-    background: #25D366 !important;
-    color: #ffffff !important;
-    border: none !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
+  .mobile-nav-footer .mobile-nav-cta:active {
+    transform: scale(0.96) !important;
   }
 }
 
@@ -6940,7 +6943,7 @@ body:has(.badge-blue) .pillar-icon {
     font-weight: 600 !important;
     padding: 14px 20px !important;
     border-radius: 50px !important;
-    background: #25D366 !important;
+    background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important;
     color: #ffffff !important;
     border: none !important;
     display: flex !important;
@@ -7139,7 +7142,7 @@ body:has(.badge-blue) .pillar-icon {
     font-weight: 600 !important;
     padding: 14px 20px !important;
     border-radius: 50px !important;
-    background: #25D366 !important;
+    background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important;
     color: #ffffff !important;
     border: none !important;
     display: flex !important;
@@ -7825,7 +7828,7 @@ body:has(.badge-blue) .pillar-icon {
     font-size: 1rem !important;
     padding: 16px 24px !important;
     border-radius: 50px !important;
-    background: #25D366 !important;
+    background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important;
     color: #ffffff !important;
     border: none !important;
     display: flex !important;
