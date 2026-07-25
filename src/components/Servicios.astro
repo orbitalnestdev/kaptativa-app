@@ -1,5 +1,9 @@
 ---
 // Servicios.astro
+export interface Props {
+  isPage?: boolean;
+}
+const { isPage = false } = Astro.props;
 ---
 <section class="section" id="servicios">
   <div class="container">
@@ -23,7 +27,7 @@
           </svg>
         </div>
         <h3>Publicidad Digital</h3>
-        <p>Paid media en Meta y Google con ROI medible.</p>
+        <p>{isPage ? "Campañas orientadas a rentabilidad con tracking avanzado." : "Paid media en Meta y Google con ROI medible."}</p>
         <a href="/servicios/publicidad-digital" class="conocer-mas-link">
           <span>Conocer más</span>
           <div class="arrow-circle">
@@ -45,7 +49,7 @@
           </svg>
         </div>
         <h3>Posicionamiento SEO & GEO</h3>
-        <p>Que te encuentren en Google y en la IA.</p>
+        <p>{isPage ? "Presencia orgánica integral en buscadores y motores LLM." : "Que te encuentren en Google y en la IA."}</p>
         <a href="/servicios/seo-geo" class="conocer-mas-link">
           <span>Conocer más</span>
           <div class="arrow-circle">
@@ -67,7 +71,7 @@
           </svg>
         </div>
         <h3>Desarrollo de Software</h3>
-        <p>Sistemas a medida que el mercado no te da.</p>
+        <p>{isPage ? "Soluciones tecnológicas personalizadas para tus operaciones." : "Sistemas a medida que el mercado no te da."}</p>
         <a href="/servicios/desarrollo-software" class="conocer-mas-link">
           <span>Conocer más</span>
           <div class="arrow-circle">
@@ -90,7 +94,7 @@
           </svg>
         </div>
         <h3>Desarrollo Web & E-commerce</h3>
-        <p>Herramientas de conversión, no páginas.</p>
+        <p>{isPage ? "Plataformas web corporativas y tiendas online escalables." : "Herramientas de conversión, no páginas."}</p>
         <a href="/servicios/diseno-web" class="conocer-mas-link">
           <span>Conocer más</span>
           <div class="arrow-circle">
@@ -112,7 +116,7 @@
           </svg>
         </div>
         <h3>Automatización & Integraciones</h3>
-        <p>Eliminá el trabajo repetitivo.</p>
+        <p>{isPage ? "Integración de herramientas para operar sin fricción." : "Eliminá el trabajo repetitivo."}</p>
         <a href="/servicios/automatizacion" class="conocer-mas-link">
           <span>Conocer más</span>
           <div class="arrow-circle">
@@ -142,7 +146,7 @@
           </svg>
         </div>
         <h3>Agentes de IA</h3>
-        <p>Atienden, califican y resuelven 24/7.</p>
+        <p>{isPage ? "Modelos de inteligencia artificial para agilizar tu soporte." : "Atienden, califican y resuelven 24/7."}</p>
         <a href="/servicios/agentes-ia" class="conocer-mas-link">
           <span>Conocer más</span>
           <div class="arrow-circle">
@@ -167,7 +171,7 @@
           </svg>
         </div>
         <h3>Social Media Manager</h3>
-        <p>Estrategias de contenido y redes sociales.</p>
+        <p>{isPage ? "Branding corporativo y gestión visual de alta calidad." : "Estrategias de contenido y redes sociales."}</p>
         <a href="/servicios/social-media" class="conocer-mas-link">
           <span>Conocer más</span>
           <div class="arrow-circle">
@@ -189,7 +193,7 @@
           </svg>
         </div>
         <h3>Email Marketing</h3>
-        <p>Campañas de conversión e integración con Perfit.</p>
+        <p>{isPage ? "Infraestructura técnica para envíos estratégicos." : "Campañas de conversión e integración con Perfit."}</p>
         <a href="/servicios/email-marketing" class="conocer-mas-link">
           <span>Conocer más</span>
           <div class="arrow-circle">

@@ -48,7 +48,7 @@ const team: Member[] = [
         <div class="team-portrait-card">
           <div class="team-portrait-image-wrapper" style={`background: ${member.gradient}; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 5; width: 100%; position: relative; border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; overflow: hidden;`}>
             {member.image ? (
-              <img src={member.image} alt={member.name} class="team-portrait-image" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block;" / loading="lazy" decoding="async">
+              <img src={member.image} alt={member.name} class="team-portrait-image custom-dark-filter" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block;" loading="lazy" decoding="async" />
             ) : (
               member.iconType === 'social' && (
                 <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: #ec4899; filter: drop-shadow(0 0 20px rgba(236,72,153,0.6));">
@@ -60,7 +60,7 @@ const team: Member[] = [
                 </svg>
               )
             )}
-            <div class="image-gradient-overlay"></div>
+            <div class="image-gradient-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); z-index: 1; pointer-events: none; transition: opacity 0.4s ease;"></div>
           </div>
           <div class="team-portrait-card-footer">
             <div class="team-portrait-card-info">
@@ -81,6 +81,19 @@ const team: Member[] = [
   </div>
 </section>
 
+<style is:global>
+  .custom-dark-filter {
+    filter: brightness(0.3) contrast(1.1) saturate(0.2) !important;
+    transition: filter 0.5s ease, transform 0.5s ease !important;
+  }
+  .team-portrait-card:hover .custom-dark-filter {
+    filter: brightness(1.05) contrast(1.05) saturate(1.1) !important;
+    transform: scale(1.06) !important;
+  }
+  .team-portrait-card:hover .image-gradient-overlay {
+    opacity: 0 !important;
+  }
+</style>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const teamGrid = document.querySelector('.team-grid');
