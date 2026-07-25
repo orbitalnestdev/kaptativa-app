@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /checkout
+Disallow: /logo-proposals
+Disallow: /presupuestos/
+Disallow: /demo-sistema
+Disallow: /inmo-demo
+Disallow: /api/
 
 Sitemap: https://kaptativa.com/sitemap-index.xml

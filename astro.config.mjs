@@ -11,7 +11,19 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone'
   }),
-  integrations: [sitemap(), react()],
+  integrations: [
+    sitemap({
+      filter: (page) => 
+        !page.includes('/admin') &&
+        !page.includes('/checkout') &&
+        !page.includes('/logo-proposals') &&
+        !page.includes('/presupuestos/') &&
+        !page.includes('/demo-sistema') &&
+        !page.includes('/inmo-demo') &&
+        !page.includes('/api/'),
+    }),
+    react()
+  ],
   vite: {
     optimizeDeps: {
       include: [
