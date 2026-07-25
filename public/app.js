@@ -31,9 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           return;
         }
+
+        const href = link.getAttribute('href');
         mainNav.classList.remove('open');
         mobileToggle.classList.remove('open');
         mobileToggle.setAttribute('aria-expanded', 'false');
+
+        if (href && href.includes('#')) {
+          const hashIndex = href.indexOf('#');
+          const hash = href.substring(hashIndex);
+          const isCurrentPage = window.location.pathname === '/' || window.location.pathname === '' || href.startsWith('#') || href.startsWith('/#');
+
+          if (isCurrentPage) {
+            const targetId = hash.replace('#', '');
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              setTimeout(() => {
+                const headerOffset = 90;
+                const elementPosition = targetEl.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: 'smooth'
+                });
+              }, 80);
+            }
+          }
+        }
       });
     });
 
