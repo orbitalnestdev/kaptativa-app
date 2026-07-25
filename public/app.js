@@ -53,14 +53,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (dropdownTrigger && dropdownContainer) {
       dropdownTrigger.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 992) {
           e.preventDefault();
           e.stopPropagation();
           const isActive = dropdownContainer.classList.toggle('active');
+          dropdownContainer.classList.toggle('open');
           dropdownTrigger.setAttribute('aria-expanded', isActive);
         }
       });
     }
+
+    // Close mobile nav drawer when clicking on any dropdown item
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth <= 992) {
+          mainNav.classList.remove('open');
+          mobileToggle.classList.remove('open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
   }
 
   // ==========================================================================
@@ -157,41 +170,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================================
-  // 6. ACCORDION FOR RUBROS (ON MOBILE)
+  // 6. ACCORDION FOR RUBROS AND PARA-QUIEN (MOBILE <= 768px)
   // ==========================================================================
-  const rubroCards = document.querySelectorAll('.rubro-card');
+  const accordionCards = document.querySelectorAll('.rubro-card, .for-card');
   
-  rubroCards.forEach(card => {
-    card.addEventListener('click', () => {
-      if (window.innerWidth > 768) return; // Only accordion on mobile
+  accordionCards.forEach(card => {
+    card.addEventListener('click', function() {
+      if (window.innerWidth > 768) return;
 
-      const isActive = card.classList.contains('active');
+      const isActive = this.classList.contains('active');
 
-      // Close all other cards (single-open accordion behavior)
-      rubroCards.forEach(c => c.classList.remove('active'));
-
-      if (!isActive) {
-        card.classList.add('active');
+      // Close sibling cards inside the same container
+      const parentContainer = this.parentElement;
+      if (parentContainer) {
+        const siblings = parentContainer.querySelectorAll('.rubro-card, .for-card');
+        siblings.forEach(s => s.classList.remove('active'));
       }
-    });
-  });
-
-  // ==========================================================================
-  // 7. ACCORDION FOR PARA-QUIEN (ON MOBILE)
-  // ==========================================================================
-  const forCards = document.querySelectorAll('.for-card');
-  
-  forCards.forEach(card => {
-    card.addEventListener('click', () => {
-      if (window.innerWidth > 768) return; // Only accordion on mobile
-
-      const isActive = card.classList.contains('active');
-
-      // Close all other cards (single-open accordion behavior)
-      forCards.forEach(c => c.classList.remove('active'));
 
       if (!isActive) {
-        card.classList.add('active');
+        this.classList.add('active');
       }
     });
   });

@@ -19,7 +19,7 @@ import Equipo from '../components/Equipo.astro';
           <span class="badge">
             <span class="badge-dot-pulsing"></span> QUIÉNES SOMOS
           </span>
-          <h1 class="hero-tagline"><span style="white-space: nowrap;">Somos <span class="text-gradient-crimson">kaptativa<sup>®</sup></span>. Tu socio</span><br />de transformación<br />digital.</h1>
+          <h1 class="hero-tagline">Somos <span class="text-gradient-crimson">kaptativa<sup>®</sup></span>. Tu socio de transformación digital.</h1>
           <p class="hero-description"><span class="text-gradient-crimson" style="font-weight: 600;">kaptativa<sup>®</sup> Digital</span> es una agencia de transformación digital de La Rioja, fundada por Eliana Azcurra. Un equipo multidisciplinario que integra marketing, tecnología y datos en una sola estrategia para potenciar empresas con sistemas, no con parches.</p>
           
           <div class="hero-buttons">
@@ -249,14 +249,29 @@ import Equipo from '../components/Equipo.astro';
 
     <!-- SECCIÓN DE CONTACTO FINAL -->
     <section class="section section-dark" id="contacto-nosotros" style="padding: 100px 0;">
-      <div class="container" style="max-width: 860px;">
-        <div class="section-header reveal text-center" style="margin-bottom: 40px;">
+      <div class="container" style="text-align: center;">
+        <div class="section-header reveal text-center" style="margin-bottom: 30px;">
           <span class="badge badge-neon">CONECTEMOS</span>
           <h2>¿Listo para impulsar <span class="text-gradient-crimson">tu transformación?</span></h2>
           <p style="color: var(--text-secondary); max-width: 600px; margin: 10px auto 0;">Completá tus datos y contanos tu desafío. Te responderemos en menos de 24hs hábiles.</p>
         </div>
 
-        <div class="contact-form-card reveal" style="background: rgba(15, 21, 36, 0.85); border: 1px solid rgba(138, 53, 229, 0.25); border-radius: 24px; padding: 45px 40px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+        <div class="home-contact-buttons reveal reveal-delay-1" style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 25px; margin-bottom: 40px; flex-wrap: wrap;">
+          <a href="/contacto" class="btn btn-primary btn-glow" style="padding: 12px 28px; font-weight: 600; border-radius: 50px;">
+            <span>Agendá un diagnóstico &rarr;</span>
+          </a>
+          <a href="https://wa.me/541138830925" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 12px 28px; font-weight: 600; border-radius: 50px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ffffff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>WhatsApp</span>
+          </a>
+        </div>
+
+        <div class="contact-form-card reveal" style="background: rgba(15, 21, 36, 0.85); border: 1px solid rgba(138, 53, 229, 0.25); border-radius: 24px; padding: 40px 35px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-width: 720px; margin: 0 auto; text-align: left;">
+          <h3 class="form-card-title">Completá tus datos</h3>
+          <p class="form-card-subtitle">Contanos tu desafío y te responderemos a la brevedad con soluciones específicas.</p>
+          
+          <div class="wizard-validation-error" id="form-error-banner" style="display: none; margin-bottom: 20px;"></div>
+
           <form id="contact-form" class="direct-contact-form" novalidate>
             <div class="form-group-row">
               <div class="form-group">
@@ -280,35 +295,37 @@ import Equipo from '../components/Equipo.astro';
               </div>
             </div>
             
-            <div class="form-group">
-              <label for="form-website" class="form-label-uppercase">URL DEL SITIO (OPCIONAL)</label>
-              <input type="url" id="form-website" class="form-control" placeholder="https://tusitio.com">
-            </div>
-
-            <div class="form-group">
-              <label for="form-role" class="form-label-uppercase">¿QUÉ PUESTO OCUPÁS?</label>
-              <select id="form-role" class="form-control form-select-custom">
-                <option value="" disabled selected>Elegí una opción</option>
-                <option value="Fundador / CEO / Socio">Fundador / CEO / Socio</option>
-                <option value="Director Comercial / Ventas">Director Comercial / Ventas</option>
-                <option value="Gerente de Marketing">Gerente de Marketing</option>
-                <option value="Operaciones / Administración">Operaciones / Administración</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label-uppercase" style="margin-bottom: 12px; display: block;">¿QUÉ TE INTERESA?</label>
-              <div class="services-checkbox-grid">
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="Paid Media"> <span>Paid Media</span></label>
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="SEO & GEO"> <span>SEO & GEO</span></label>
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="Social Media"> <span>Social Media</span></label>
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="Web & E-commerce"> <span>Web & E-commerce</span></label>
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="Email Marketing"> <span>Email Marketing</span></label>
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="Software a Medida"> <span>Software a Medida</span></label>
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="Automatización"> <span>Automatización</span></label>
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="Agentes IA"> <span>Agentes IA</span></label>
-                <label class="checkbox-pill"><input type="checkbox" name="services" value="Consultoría"> <span>Consultoría</span></label>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-website" class="form-label-uppercase">URL DEL SITIO (OPCIONAL)</label>
+                <input type="url" id="form-website" class="form-control" placeholder="https://tusitio.com">
               </div>
+              <div class="form-group">
+                <label for="form-role" class="form-label-uppercase">¿QUÉ PUESTO OCUPÁS?</label>
+                <select id="form-role" class="form-control form-select-custom">
+                  <option value="" disabled selected>Elegí una opción</option>
+                  <option value="Fundador / CEO / Socio">Fundador / CEO / Socio</option>
+                  <option value="Director Comercial / Ventas">Director Comercial / Ventas</option>
+                  <option value="Gerente de Marketing">Gerente de Marketing</option>
+                  <option value="Operaciones / Administración">Operaciones / Administración</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-service-interest" class="form-label-uppercase">¿QUÉ TE INTERESA?</label>
+              <select id="form-service-interest" class="form-control form-select-custom">
+                <option value="" disabled selected>Elegí el servicio de tu interés</option>
+                <option value="Paid Media / Publicidad Digital">Paid Media / Publicidad Digital</option>
+                <option value="SEO & GEO Search">SEO & GEO Search</option>
+                <option value="Social Media Manager">Social Media Manager</option>
+                <option value="Web & E-commerce">Web & E-commerce</option>
+                <option value="Email Marketing & CRM">Email Marketing & CRM</option>
+                <option value="Software a Medida">Software a Medida</option>
+                <option value="Automatización & Integraciones">Automatización & Integraciones</option>
+                <option value="Agentes de Inteligencia Artificial">Agentes de Inteligencia Artificial</option>
+                <option value="Consultoría Enterprise">Consultoría Enterprise</option>
+              </select>
             </div>
 
             <div class="form-group">
@@ -319,11 +336,11 @@ import Equipo from '../components/Equipo.astro';
             <div class="form-group" style="margin-top: 10px; margin-bottom: 20px;">
               <label class="form-checkbox" id="label-checkbox-whatsapp">
                 <input type="checkbox" id="form-send-whatsapp" checked>
-                <span>Abrir chat de WhatsApp inmediatamente para agilizar mi consulta.</span>
+                <span>Abrir chat de WhatsApp para agilizar mi consulta</span>
               </label>
             </div>
             
-            <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px rgba(234, 56, 77, 0.4);">
+            <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px var(--accent-indigo-glow);">
               <span>Enviar →</span>
             </button>
             
@@ -346,7 +363,8 @@ import Equipo from '../components/Equipo.astro';
 
   document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form') as HTMLFormElement;
-    const feedback = document.getElementById('form-feedback-status');
+    const errorBanner = document.getElementById('form-error-banner');
+    const feedbackStatus = document.getElementById('form-feedback-status');
     const submitBtn = document.getElementById('btn-submit-form') as HTMLButtonElement;
 
     if (!contactForm) return;
@@ -360,58 +378,66 @@ import Equipo from '../components/Equipo.astro';
       const business = (document.getElementById('form-business') as HTMLInputElement).value.trim();
       const website = (document.getElementById('form-website') as HTMLInputElement)?.value.trim() || '';
       const role = (document.getElementById('form-role') as HTMLSelectElement)?.value || 'No especificado';
+      const serviceInterest = (document.getElementById('form-service-interest') as HTMLSelectElement)?.value || 'No especificado';
       const message = (document.getElementById('form-message') as HTMLTextAreaElement).value.trim();
       const sendWhatsapp = (document.getElementById('form-send-whatsapp') as HTMLInputElement)?.checked ?? true;
 
-      const checkedServices: string[] = [];
-      document.querySelectorAll('input[name="services"]:checked').forEach((cb) => {
-        checkedServices.push((cb as HTMLInputElement).value);
-      });
-
-      if (!feedback) return;
+      if (errorBanner) errorBanner.style.display = 'none';
+      if (feedbackStatus) {
+        feedbackStatus.style.display = 'none';
+        feedbackStatus.className = 'form-feedback';
+      }
 
       if (!name || !email || !whatsapp || !business || !message) {
-        feedback.style.display = 'block';
-        feedback.className = 'form-feedback feedback-error';
-        feedback.innerText = 'Por favor, completá todos los campos obligatorios (*).';
+        if (errorBanner) {
+          errorBanner.innerText = 'Por favor, completá todos los campos obligatorios (*).';
+          errorBanner.style.display = 'block';
+        }
         return;
       }
 
-      feedback.style.display = 'block';
-      feedback.className = 'form-feedback feedback-info';
-      feedback.innerText = 'Enviando tu consulta...';
+      if (feedbackStatus) {
+        feedbackStatus.style.display = 'block';
+        feedbackStatus.className = 'form-feedback feedback-info';
+        feedbackStatus.innerText = 'Enviando tu consulta...';
+      }
       if (submitBtn) submitBtn.disabled = true;
 
       try {
-        const selectedServicesStr = checkedServices.length > 0 ? checkedServices.join(', ') : 'Ninguno seleccionado';
         await api.db.createLead({
           name,
           email,
           business,
           whatsapp,
-          message: `Puesto: ${role}\nSitio Web: ${website}\nServicios de interés: ${selectedServicesStr}\n\nDesafío: ${message}`,
+          message: `Puesto: ${role}\nSitio Web: ${website}\nServicio de interés: ${serviceInterest}\n\nDesafío: ${message}`,
           status: 'nuevo',
           tags: 'Contacto Nosotros',
           score: 0,
-          recommendations: `Lead generado desde la página Nosotros. Servicios: ${selectedServicesStr}`
+          recommendations: `Lead generado desde la página Nosotros. Servicio: ${serviceInterest}`
         });
 
-        feedback.className = 'form-feedback feedback-success';
-        feedback.innerText = `¡Gracias, ${name}! Tu consulta ha sido enviada con éxito.`;
+        if (feedbackStatus) {
+          feedbackStatus.className = 'form-feedback feedback-success';
+          feedbackStatus.innerText = `¡Gracias, ${name}! Tu consulta ha sido enviada con éxito.`;
+        }
 
         if (sendWhatsapp) {
           const agencyPhone = '541138830925';
-          const text = encodeURIComponent(`¡Hola Kaptativa! Acabo de enviar una consulta desde la web.\n\n*Datos:*\n- *Nombre:* ${name}\n- *Empresa:* ${business}\n- *Email:* ${email}\n- *WhatsApp:* ${whatsapp}\n- *Puesto:* ${role}\n- *Interés:* ${selectedServicesStr}\n- *Desafío:* ${message}`);
+          const text = encodeURIComponent(`¡Hola Kaptativa! Acabo de enviar una consulta desde la web.\n\n*Datos:*\n- *Nombre:* ${name}\n- *Empresa:* ${business}\n- *Email:* ${email}\n- *WhatsApp:* ${whatsapp}\n- *Puesto:* ${role}\n- *Interés:* ${serviceInterest}\n- *Desafío:* ${message}`);
           setTimeout(() => {
             window.open(`https://wa.me/${agencyPhone}?text=${text}`, '_blank');
+            contactForm.reset();
+            if (feedbackStatus) feedbackStatus.style.display = 'none';
           }, 1200);
+        } else {
+          contactForm.reset();
         }
-
-        contactForm.reset();
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error enviando formulario:', err);
-        feedback.className = 'form-feedback feedback-error';
-        feedback.innerText = 'Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente o contactanos por WhatsApp.';
+        if (feedbackStatus) {
+          feedbackStatus.className = 'form-feedback feedback-error';
+          feedbackStatus.innerText = 'Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente o contactanos por WhatsApp.';
+        }
       } finally {
         if (submitBtn) submitBtn.disabled = false;
       }

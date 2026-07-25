@@ -202,6 +202,65 @@ import Equipo from '../components/Equipo.astro';
         </div>
       </div>
     </section>
+    </section>
+
+        <TechStack />
+
+
+        <Testimonials />
+
+        <Equipo />
+
+
+    <!-- ==========================================================================
+         SECCIÓN PROCESO DE TRABAJO
+         ========================================================================== -->
+    <section class="section" id="proceso">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge">Nuestra Metodología</span>
+          <h2>Cómo trabajamos paso a paso</h2>
+          <p>Un proceso ordenado y transparente de principio a fin para garantizar que las soluciones digitales se integren perfectamente a tu operación.</p>
+        </div>
+        
+        <div class="process-grid reveal reveal-delay-1">
+          <div class="process-card">
+            <div class="process-number">01</div>
+            <h3>Diagnóstico Inicial</h3>
+            <p>Analizamos cómo opera tu negocio hoy. Identificamos los cuellos de botella manuales y dónde perdés tiempo o clientes.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-number">02</div>
+            <h3>Planificación y Estrategia</h3>
+            <p>Definimos el sistema digital ideal para tu caso: estructura web, automatizaciones y cómo debe responder la IA.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-number">03</div>
+            <h3>Diseño y Desarrollo</h3>
+            <p>Estructuramos un diseño moderno y programamos el frontend optimizando la velocidad y adaptabilidad móvil.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-number">04</div>
+            <h3>Integraciones</h3>
+            <p>Conectamos tu web con tus canales: formularios, bases de datos e integramos IA en WhatsApp.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-number">05</div>
+            <h3>Lanzamiento</h3>
+            <p>Publicamos el proyecto y brindamos acompañamiento técnico para asegurar una transición fluida.</p>
+          </div>
+        </div>
+        
+        <!-- Mobile Carousel Navigation Dots -->
+        <div class="process-dots reveal reveal-delay-2">
+          <span class="process-dot active" data-index="0"></span>
+          <span class="process-dot" data-index="1"></span>
+          <span class="process-dot" data-index="2"></span>
+          <span class="process-dot" data-index="3"></span>
+          <span class="process-dot" data-index="4"></span>
+        </div>
+      </div>
+    </section>
 
 
 
@@ -218,14 +277,22 @@ import Equipo from '../components/Equipo.astro';
           <p style="max-width: 750px; margin: 0 auto; color: var(--text-secondary);">Dejanos tus datos y te contactamos en 24 horas. ¿Preferís resolverlo ahora? Agendá tu diagnóstico o escribinos por WhatsApp.</p>
         </div>
 
-        <div class="home-contact-buttons reveal reveal-delay-1" style="margin-top: 25px; margin-bottom: 40px;">
-          <a href="https://wa.me/541138830925" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="padding: 12px 28px; font-weight: 600;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            <span>Escribinos por WhatsApp</span>
+        <div class="home-contact-buttons reveal reveal-delay-1" style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 25px; margin-bottom: 40px; flex-wrap: wrap;">
+          <a href="/contacto" class="btn btn-primary btn-glow" style="padding: 12px 28px; font-weight: 600; border-radius: 50px;">
+            <span>Agendá un diagnóstico &rarr;</span>
+          </a>
+          <a href="https://wa.me/541138830925" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 12px 28px; font-weight: 600; border-radius: 50px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ffffff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>WhatsApp</span>
           </a>
         </div>
 
-        <div class="home-contact-form-card reveal reveal-delay-2" style="background: rgba(15, 21, 36, 0.85); border: 1px solid rgba(138, 53, 229, 0.25); border-radius: 24px; padding: 45px 40px; backdrop-filter: blur(16px); max-width: 860px; margin: 0 auto; text-align: left;">
+        <div class="home-contact-form-card reveal reveal-delay-2" style="background: rgba(15, 21, 36, 0.85); border: 1px solid rgba(138, 53, 229, 0.25); border-radius: 24px; padding: 40px 35px; backdrop-filter: blur(16px); max-width: 720px; margin: 0 auto; text-align: left;">
+          <h3 class="form-card-title">Completá tus datos</h3>
+          <p class="form-card-subtitle">Contanos tu desafío y te responderemos a la brevedad con soluciones específicas.</p>
+          
+          <div class="wizard-validation-error" id="form-error-banner" style="display: none; margin-bottom: 20px;"></div>
+
           <form id="contact-form" class="direct-contact-form" novalidate>
             <div class="form-group-row">
               <div class="form-group">
@@ -294,7 +361,7 @@ import Equipo from '../components/Equipo.astro';
               </label>
             </div>
             
-            <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px rgba(234, 56, 77, 0.4);">
+            <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px var(--accent-indigo-glow);">
               <span>Enviar →</span>
             </button>
             
@@ -308,328 +375,156 @@ import Equipo from '../components/Equipo.astro';
       </div>
     </section>
 
-    <script>
-      import { api } from '../lib/appwrite.js';
-
-      document.addEventListener('DOMContentLoaded', () => {
-
-      // Toggle sector cards description on mobile
-      document.querySelectorAll('.for-card, .rubro-card').forEach(card => {
-        card.addEventListener('click', () => {
-          if (window.innerWidth <= 768) {
-            card.classList.toggle('active');
-          }
-        });
-      });
-
-        const contactForm = document.getElementById('contact-form') as HTMLFormElement;
-        const feedback = document.getElementById('form-feedback-status');
-        const submitBtn = document.getElementById('btn-submit-form') as HTMLButtonElement;
-
-        if (!contactForm) return;
-
-        contactForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-
-          const name = (document.getElementById('form-name') as HTMLInputElement).value.trim();
-          const email = (document.getElementById('form-email') as HTMLInputElement).value.trim();
-          const whatsapp = (document.getElementById('form-whatsapp') as HTMLInputElement).value.trim();
-          const business = (document.getElementById('form-business') as HTMLInputElement).value.trim();
-          const website = (document.getElementById('form-website') as HTMLInputElement)?.value.trim() || '';
-          const role = (document.getElementById('form-role') as HTMLSelectElement)?.value || 'No especificado';
-          const message = (document.getElementById('form-message') as HTMLTextAreaElement).value.trim();
-          const sendWhatsapp = (document.getElementById('form-send-whatsapp') as HTMLInputElement)?.checked ?? true;
-
-          const checkedServices: string[] = [];
-          document.querySelectorAll('input[name="services"]:checked').forEach((cb) => {
-            checkedServices.push((cb as HTMLInputElement).value);
-          });
-
-          if (!feedback) return;
-
-          if (!name || !email || !whatsapp || !business || !message) {
-            feedback.style.display = 'block';
-            feedback.className = 'form-feedback feedback-error';
-            feedback.innerText = 'Por favor, completá todos los campos obligatorios (*).';
-            return;
-          }
-
-          feedback.style.display = 'block';
-          feedback.className = 'form-feedback feedback-info';
-          feedback.innerText = 'Enviando tu consulta...';
-          if (submitBtn) submitBtn.disabled = true;
-
-          try {
-            const selectedServicesStr = checkedServices.length > 0 ? checkedServices.join(', ') : 'Ninguno seleccionado';
-            await api.db.createLead({
-              name,
-              email,
-              business,
-              whatsapp,
-              message: `Puesto: ${role}\nSitio Web: ${website}\nServicios de interés: ${selectedServicesStr}\n\nDesafío: ${message}`,
-              status: 'nuevo',
-              tags: 'Contacto Home',
-              score: 0,
-              recommendations: `Lead generado desde la Home. Servicios: ${selectedServicesStr}`
-            });
-
-            feedback.className = 'form-feedback feedback-success';
-            feedback.innerText = `¡Gracias, ${name}! Tu consulta ha sido enviada con éxito.`;
-
-            if (sendWhatsapp) {
-              const agencyPhone = '541138830925';
-              const text = encodeURIComponent(`¡Hola Kaptativa! Acabo de enviar una consulta desde la web.\n\n*Datos:*\n- *Nombre:* ${name}\n- *Empresa:* ${business}\n- *Email:* ${email}\n- *WhatsApp:* ${whatsapp}\n- *Puesto:* ${role}\n- *Interés:* ${selectedServicesStr}\n- *Desafío:* ${message}`);
-              setTimeout(() => {
-                window.open(`https://wa.me/${agencyPhone}?text=${text}`, '_blank');
-              }, 1200);
-            }
-
-            contactForm.reset();
-          } catch (err) {
-            console.error('Error enviando formulario:', err);
-            feedback.className = 'form-feedback feedback-error';
-            feedback.innerText = 'Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente o contactanos por WhatsApp.';
-          } finally {
-            if (submitBtn) submitBtn.disabled = false;
-          }
-        });
-
-        // Mobile Process Carousel Indicators
-        const processGrid = document.querySelector('.process-grid');
-        const dots = document.querySelectorAll('.process-dot');
-
-        if (processGrid && dots.length > 0) {
-          const updateActiveDot = () => {
-            if (window.innerWidth > 768) return;
-            
-            const firstCard = processGrid.querySelector('.process-card');
-            if (!firstCard) return;
-            
-            const cardWidth = firstCard.clientWidth + 15; // card width + gap
-            const scrollLeft = processGrid.scrollLeft;
-            const activeIndex = Math.round(scrollLeft / cardWidth);
-
-            dots.forEach((dot, index) => {
-              if (index === activeIndex) {
-                dot.classList.add('active');
-              } else {
-                dot.classList.remove('active');
-              }
-            });
-          };
-
-          processGrid.addEventListener('scroll', updateActiveDot);
-
-          // Allow clicking dots to scroll to that slide
-          dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-              const firstCard = processGrid.querySelector('.process-card');
-              if (!firstCard) return;
-              
-              const cardWidth = firstCard.clientWidth + 15; // card width + gap
-              processGrid.scrollTo({
-                left: index * cardWidth,
-                behavior: 'smooth'
-              });
-            });
-          });
-        }
-      });
-    </script>
-
-  <style>
-    .process-dots {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .process-dots {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 24px;
-      }
-
-      .process-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        cursor: pointer;
-      }
-
-      :global([data-theme="light"]) .process-dot {
-        background: rgba(0, 0, 0, 0.15);
-      }
-
-      .process-dot.active {
-        background: var(--accent-indigo);
-        width: 20px;
-        border-radius: 4px;
-      }
-    }
-
-    .home-contact-section {
-      padding: 100px 0;
-      position: relative;
-      overflow: hidden;
-      background: transparent;
-    }
-
-    .home-contact-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 25px;
-      margin-bottom: 50px;
-    }
-
-    .home-contact-form-card {
-      max-width: 700px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius-md);
-      padding: 50px;
-      backdrop-filter: blur(10px);
-    }
-
-    .form-row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 10px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .form-group label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      padding: 14px 18px;
-      background: rgba(255, 255, 255, 0.02) !important;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-      outline: none;
-    }
-
-    :global(html[data-theme="light"]) .form-input,
-    :global(html[data-theme="light"]) .form-select,
-    :global(html[data-theme="light"]) .form-textarea {
-      background: rgba(0, 0, 0, 0.03) !important;
-    }
-
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: var(--accent-indigo);
-      box-shadow: 0 0 10px var(--accent-indigo-glow);
-      background: rgba(255, 255, 255, 0.02) !important;
-    }
-
-    .checkboxes-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px 20px;
-      margin-top: 5px;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .checkbox-label input {
-      width: 16px;
-      height: 16px;
-      accent-color: var(--accent-indigo);
-      cursor: pointer;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 16px;
-      background: var(--gradient-primary);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 1rem;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-      margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(138, 53, 229, 0.25);
-    }
-
-    .btn-submit:hover {
-      background: var(--gradient-hover);
-      box-shadow: var(--shadow-glow);
-      transform: translateY(-2px);
-    }
-
-    .form-footer-note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 20px;
-      text-align: center;
-    }
-    
-    .form-footer-note a {
-      color: var(--text-secondary);
-      text-decoration: underline;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-    
-    .form-footer-note a:hover {
-      color: var(--text-primary);
-    }
-
-    @media (max-width: 768px) {
-      .form-row-2 {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-      .home-contact-form-card {
-        padding: 30px 20px;
-      }
-      .checkboxes-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-
     <!-- ==========================================================================
          PREGUNTAS FRECUENTES (FAQ)
          ========================================================================== -->
     <Faq />
-
-  
   </main>
   
   <Footer slot="footer" />
 </Layout>
+
+<script>
+  import { api } from '../lib/appwrite.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const errorBanner = document.getElementById('form-error-banner');
+    const feedbackStatus = document.getElementById('form-feedback-status');
+    const submitBtn = document.getElementById('btn-submit-form') as HTMLButtonElement;
+
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = (document.getElementById('form-name') as HTMLInputElement).value.trim();
+      const email = (document.getElementById('form-email') as HTMLInputElement).value.trim();
+      const whatsapp = (document.getElementById('form-whatsapp') as HTMLInputElement).value.trim();
+      const business = (document.getElementById('form-business') as HTMLInputElement).value.trim();
+      const website = (document.getElementById('form-website') as HTMLInputElement)?.value.trim() || '';
+      const role = (document.getElementById('form-role') as HTMLSelectElement)?.value || 'No especificado';
+      const serviceInterest = (document.getElementById('form-service-interest') as HTMLSelectElement)?.value || 'No especificado';
+      const message = (document.getElementById('form-message') as HTMLTextAreaElement).value.trim();
+      const sendWhatsapp = (document.getElementById('form-send-whatsapp') as HTMLInputElement)?.checked ?? true;
+
+      if (errorBanner) errorBanner.style.display = 'none';
+      if (feedbackStatus) {
+        feedbackStatus.style.display = 'none';
+        feedbackStatus.className = 'form-feedback';
+      }
+
+      if (!name || !email || !whatsapp || !business || !message) {
+        if (errorBanner) {
+          errorBanner.innerText = 'Por favor, completá todos los campos obligatorios (*).';
+          errorBanner.style.display = 'block';
+        }
+        return;
+      }
+
+      if (feedbackStatus) {
+        feedbackStatus.style.display = 'block';
+        feedbackStatus.className = 'form-feedback feedback-info';
+        feedbackStatus.innerText = 'Enviando tu consulta...';
+      }
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        await api.db.createLead({
+          name,
+          email,
+          business,
+          whatsapp,
+          message: `Puesto: ${role}\nSitio Web: ${website}\nServicio de interés: ${serviceInterest}\n\nDesafío: ${message}`,
+          status: 'nuevo',
+          tags: 'Contacto Home',
+          score: 0,
+          recommendations: `Lead generado desde la Home. Servicio: ${serviceInterest}`
+        });
+
+        if (feedbackStatus) {
+          feedbackStatus.className = 'form-feedback feedback-success';
+          feedbackStatus.innerText = `¡Gracias, ${name}! Tu consulta ha sido enviada con éxito.`;
+        }
+
+        if (sendWhatsapp) {
+          const agencyPhone = '541138830925';
+          const text = encodeURIComponent(`¡Hola Kaptativa! Acabo de enviar una consulta desde la web.\n\n*Datos:*\n- *Nombre:* ${name}\n- *Empresa:* ${business}\n- *Email:* ${email}\n- *WhatsApp:* ${whatsapp}\n- *Puesto:* ${role}\n- *Interés:* ${serviceInterest}\n- *Desafío:* ${message}`);
+          setTimeout(() => {
+            window.open(`https://wa.me/${agencyPhone}?text=${text}`, '_blank');
+            contactForm.reset();
+            if (feedbackStatus) feedbackStatus.style.display = 'none';
+          }, 1200);
+        } else {
+          contactForm.reset();
+        }
+      } catch (err: any) {
+        console.error('Error enviando formulario:', err);
+        if (feedbackStatus) {
+          feedbackStatus.className = 'form-feedback feedback-error';
+          feedbackStatus.innerText = 'Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente o contactanos por WhatsApp.';
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .home-contact-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .home-contact-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 25px;
+    margin-bottom: 50px;
+  }
+
+  .home-contact-form-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: rgba(15, 21, 36, 0.85);
+    border: 1px solid rgba(138, 53, 229, 0.25);
+    border-radius: 24px;
+    padding: 40px 35px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .form-card-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .form-card-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+
+  .form-select-custom {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+  }
+
+  @media (max-width: 768px) {
+    .home-contact-form-card {
+      padding: 30px 20px;
+    }
+  }
+</style>
