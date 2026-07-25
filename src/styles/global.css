@@ -8620,14 +8620,14 @@ body:has(.badge-blue) .glass-card-premium .card-bg-number {
 }
 
 .team-portrait-image {
-  filter: grayscale(100%) brightness(0.7) contrast(1.15) !important;
-  transition: filter 0.4s ease, transform 0.4s ease !important;
+  filter: brightness(0.35) contrast(1.2) saturate(0.2) !important;
+  transition: filter 0.5s ease-in-out, transform 0.5s ease-in-out !important;
 }
 
 .team-portrait-card:hover .team-portrait-image,
 .team-portrait-image-wrapper:hover .team-portrait-image {
-  filter: grayscale(0%) brightness(1.05) contrast(1) !important;
-  transform: scale(1.05) !important;
+  filter: brightness(1.1) contrast(1.05) saturate(1.1) !important;
+  transform: scale(1.06) !important;
 }
 
 .team-portrait-card:hover .team-portrait-image-wrapper::after,
