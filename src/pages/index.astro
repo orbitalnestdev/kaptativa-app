@@ -413,7 +413,26 @@ import Equipo from '../components/Equipo.astro';
   });
 </script>
 
-<style>
+<style is:global>
+  /* FORCED OVERRIDES FOR DESKTOP CARDS */
+  @media (min-width: 769px) {
+    .for-card p, .rubro-card p {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      max-height: none !important;
+      margin-top: 15px !important;
+    }
+    .card-chevron, .for-card::after, .rubro-card::after {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+    .for-card .card-header-row, .rubro-card .card-header-row {
+      pointer-events: none !important;
+    }
+  }
+
   .home-contact-section {
     padding: 100px 0;
     position: relative;
