@@ -27,6 +27,19 @@ const trackFormbricksLead = async (data) => {
   }
 };
 
+const sendEmailNotification = async (data) => {
+  if (typeof window === 'undefined') return;
+  try {
+    await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch (err) {
+    console.error("Email notification error:", err);
+  }
+};
+
 // 1. Check if Appwrite variables are configured in environment
 const ENDPOINT = import.meta.env.PUBLIC_APPWRITE_ENDPOINT || '';
 const PROJECT_ID = import.meta.env.PUBLIC_APPWRITE_PROJECT_ID || '';
@@ -1045,6 +1058,7 @@ export const api = {
     listLeads: () => databases.listDocuments(DATABASE_ID, 'leads'),
     createLead: async (data) => {
       await trackFormbricksLead(data);
+      sendEmailNotification(data);
       return databases.createDocument(DATABASE_ID, 'leads', ID.unique(), data);
     },
     updateLead: (id, data) => databases.updateDocument(DATABASE_ID, 'leads', id, data),
@@ -1111,6 +1125,7 @@ export const api = {
     listLeads: async () => new MockDB().listDocuments(DATABASE_ID, 'leads'),
     createLead: async (data) => {
       await trackFormbricksLead(data);
+      sendEmailNotification(data);
       return new MockDB().createDocument(DATABASE_ID, 'leads', 'unique()', data);
     },
     updateLead: async (id, data) => new MockDB().updateDocument(DATABASE_ID, 'leads', id, data),
