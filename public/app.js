@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Close menu when clicking on any navigation link (except dropdown trigger)
-    navLinks.forEach(link => {
+    const drawerLinks = mainNav.querySelectorAll('a');
+    drawerLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         if (link.classList.contains('dropdown-trigger')) {
           if (window.innerWidth <= 992) {
