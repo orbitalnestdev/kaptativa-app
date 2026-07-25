@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { ShieldAlert } from 'lucide-react';
 
 const seoTitle = "Página no encontrada | Kaptativa";
 const seoDescription = "La página que estás buscando no existe. Regresa a nuestro inicio para conocer nuestras soluciones de automatización e inteligencia artificial.";
@@ -15,7 +14,11 @@ const seoDescription = "La página que estás buscando no existe. Regresa a nues
     <div class="container error-container">
       <div class="error-content">
         <div class="error-badge">
-          <ShieldAlert size={48} color="#EA384D" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#EA384D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+            <path d="M12 8v4"/>
+            <path d="M12 16h.01"/>
+          </svg>
         </div>
         <h1 class="heading-1 text-gradient">404</h1>
         <h2 class="heading-3">Parece que nos hemos desviado</h2>
