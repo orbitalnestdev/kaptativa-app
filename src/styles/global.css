@@ -7552,6 +7552,33 @@ body:has(.badge-blue) .pillar-icon {
   content: none !important;
 }
 
+.for-card .card-header-row,
+.rubro-card .card-header-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  gap: 14px !important;
+}
+
+.for-card .card-header-left,
+.rubro-card .card-header-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.card-chevron {
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+  width: 18px !important;
+  height: 18px !important;
+  color: #94a3b8 !important;
+  transition: transform 0.3s ease, color 0.3s ease !important;
+}
+
 .for-card h3,
 .rubro-card h3 {
   font-family: 'Lexend', sans-serif !important;
@@ -7561,6 +7588,7 @@ body:has(.badge-blue) .pillar-icon {
   margin: 0 !important;
   line-height: 1.3 !important;
   word-break: break-word !important;
+  flex: 1 !important;
 }
 
 .for-card p,
@@ -8196,11 +8224,12 @@ strong, b, .font-weight-bold, .fw-bold, .fw-700 {
 .blog-article-title {
   font-family: 'Lexend', sans-serif !important;
   font-weight: 600 !important;
-  font-size: 2.5rem !important;
+  font-size: clamp(1.6rem, 5.5vw, 2.5rem) !important;
   line-height: 1.25 !important;
   color: #ffffff !important;
   margin-bottom: 24px !important;
   letter-spacing: -0.02em !important;
+  word-break: break-word !important;
 }
 
 .blog-article-author-bar {
@@ -8315,7 +8344,7 @@ strong, b, .font-weight-bold, .fw-bold, .fw-700 {
 
 /* Article Body Typography */
 .blog-article-body p {
-  font-size: 1.08rem !important;
+  font-size: clamp(0.96rem, 2vw, 1.08rem) !important;
   line-height: 1.75 !important;
   color: #cbd5e1 !important;
   margin-bottom: 24px !important;
@@ -8325,21 +8354,24 @@ strong, b, .font-weight-bold, .fw-bold, .fw-700 {
 .blog-article-body h2 {
   font-family: 'Lexend', sans-serif !important;
   font-weight: 600 !important;
-  font-size: 1.75rem !important;
+  font-size: clamp(1.3rem, 4.5vw, 1.75rem) !important;
   line-height: 1.3 !important;
   color: #ffffff !important;
-  margin: 44px 0 20px 0 !important;
+  margin: 40px 0 18px 0 !important;
   padding-bottom: 12px !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   letter-spacing: -0.01em !important;
+  word-break: break-word !important;
 }
 
 .blog-article-body h3 {
   font-family: 'Lexend', sans-serif !important;
   font-weight: 600 !important;
-  font-size: 1.35rem !important;
+  font-size: clamp(1.1rem, 3.8vw, 1.35rem) !important;
   color: #f8fafc !important;
-  margin: 32px 0 16px 0 !important;
+  margin: 28px 0 14px 0 !important;
+  line-height: 1.35 !important;
+  word-break: break-word !important;
 }
 
 .blog-article-body strong {
@@ -8355,7 +8387,7 @@ strong, b, .font-weight-bold, .fw-bold, .fw-700 {
 
 .blog-article-body li {
   color: #cbd5e1 !important;
-  font-size: 1.05rem !important;
+  font-size: clamp(0.92rem, 2vw, 1.05rem) !important;
   line-height: 1.7 !important;
   margin-bottom: 8px !important;
 }
@@ -8392,14 +8424,14 @@ strong, b, .font-weight-bold, .fw-bold, .fw-700 {
 .blog-cta-title {
   font-family: 'Lexend', sans-serif !important;
   font-weight: 600 !important;
-  font-size: 1.45rem !important;
+  font-size: clamp(1.2rem, 4vw, 1.45rem) !important;
   color: #ffffff !important;
   margin-bottom: 12px !important;
 }
 
 .blog-cta-desc {
   color: #cbd5e1 !important;
-  font-size: 1rem !important;
+  font-size: clamp(0.9rem, 2vw, 1rem) !important;
   line-height: 1.6 !important;
   max-width: 620px !important;
   margin: 0 auto 24px auto !important;
@@ -8410,6 +8442,44 @@ strong, b, .font-weight-bold, .fw-bold, .fw-700 {
   justify-content: center !important;
   gap: 14px !important;
   flex-wrap: wrap !important;
+}
+
+@media (max-width: 768px) {
+  .blog-article-container {
+    padding: 0 16px 40px 16px !important;
+  }
+  .blog-article-author-bar {
+    gap: 10px !important;
+    padding-bottom: 16px !important;
+    margin-bottom: 24px !important;
+  }
+  .blog-article-author-meta {
+    font-size: 0.8rem !important;
+  }
+  .blog-takeaways-box,
+  .blog-toc-box,
+  .blog-cta-banner {
+    padding: 20px 18px !important;
+    border-radius: 14px !important;
+    margin-bottom: 28px !important;
+  }
+  .blog-takeaways-list li {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+  }
+  .blog-toc-link {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+  }
+  .blog-cta-actions {
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  .blog-cta-actions .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }
 
 
