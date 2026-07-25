@@ -8918,6 +8918,7 @@ img, svg, video, canvas {
   font-weight: 600 !important;
 }
 
+}
 /* Fix desktop chevron visibility and force text display */
 @media (min-width: 769px) {
   .card-chevron {
@@ -8942,5 +8943,4 @@ img, svg, video, canvas {
   .rubro-card .card-header-row {
     pointer-events: none !important;
   }
-}
 }
