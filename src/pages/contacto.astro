@@ -7,11 +7,11 @@ import Footer from '../components/Footer.astro';
 <Layout title="Contacto y Diagnóstico de Madurez Digital | Kaptativa" description="Escribinos para solicitar tu diagnóstico digital en 24 horas y resolver los cuellos de botella de tu negocio.">
   <Header slot="header" />
   
-  <main style="padding-top: 130px;">
+  <main>
     <!-- ==========================================================================
          SECCIÓN DE CONTACTO SIMPLE Y DIRECTO
          ========================================================================== -->
-    <section class="section" id="contacto">
+    <section class="section hero-contacto" id="contacto">
       <div class="container">
         <div class="section-header reveal">
           <span class="badge">¿Hablamos?</span>
@@ -297,3 +297,24 @@ import Footer from '../components/Footer.astro';
     }
   });
 </script>
+
+<style>
+  .hero-contacto {
+    padding-top: 140px;
+    padding-bottom: 80px;
+  }
+
+  @media (max-width: 992px) {
+    .hero-contacto {
+      padding-top: 120px;
+      padding-bottom: 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-contacto {
+      padding-top: 110px;
+      padding-bottom: 40px;
+    }
+  }
+</style>
