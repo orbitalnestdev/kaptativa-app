@@ -5840,7 +5840,7 @@ h1, h2, h3, h4, h5, h6,
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
   gap: 30px !important;
-  max-width: 1140px !important;
+  max-width: 960px !important;
   margin: 0 auto !important;
   align-items: start !important;
 }
