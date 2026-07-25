@@ -18,14 +18,34 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
         <div class="hero-content reveal">
           <span class="badge badge-emerald">
             <span class="badge-dot-pulsing"></span> SEO & GEO SEARCH
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import TrustedLogos from '../../components/TrustedLogos.astro';
+---
+
+<Layout title="Posicionamiento SEO & GEO de Alta Autoridad | Kaptativa" description="Posiciona tu negocio en Google y en los nuevos buscadores impulsados por Inteligencia Artificial (ChatGPT, Gemini, Perplexity). Estrategias avanzadas de SEO técnico, semántico y GEO (Generative Engine Optimization).">
+  <Header slot="header" />
+  
+  <main>
+    <!-- HERO INMERSIVO -->
+    <section class="hero hero-section" id="inicio">
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      
+      <div class="container hero-container">
+        <div class="hero-content reveal">
+          <span class="badge badge-emerald">
+            <span class="badge-dot-pulsing"></span> SEO & GEO SEARCH
           </span>
           <h1 class="hero-tagline">Que te encuentren en <span class="text-gradient-cyan">Google y en la IA</span></h1>
           <p class="hero-description">Aparecé en los primeros resultados cuando tus clientes buscan en Google o le preguntan a ChatGPT. Optimizamos tu web para motores de búsqueda tradicionales y de respuesta por Inteligencia Artificial (ChatGPT, Gemini, Perplexity) para captar intenciones de compra reales.</p>
           
           <div class="hero-buttons">
             <a href="/contacto/" class="btn btn-primary btn-glow">Agendá un diagnóstico</a>
-            <a href="https://wa.me/5493804890834?text=Hola!%20Quiero%20posicionar%20mi%20sitio%20web%20en%20Google%20y%20en%20la%20IA." target="_blank" class="btn btn-secondary btn-whatsapp">
-              Escribinos por WhatsApp
+            <a href="https://wa.me/5493804890834?text=Hola!%20Quiero%20posicionar%20mi%20sitio%20web%20en%20Google%20y%20en%20la%20IA." target="_blank" class="btn btn-secondary btn-whatsapp" style="display: inline-flex; align-items: center; justify-content: center;">
+              Chateá por WhatsApp
             </a>
           </div>
         </div>
@@ -332,101 +352,6 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
               </div>
               <svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
-            <p>Alineación SEO local y fichas de mapa para capturar intenciones de viaje, reservas de hospedaje directas y búsquedas geolocalizadas por temporada.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- PREGUNTAS Y RESPUESTAS (FAQ) -->
-    <section class="section" id="preguntas">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="badge badge-accent">FAQ</span>
-          <h2>Preguntas frecuentes</h2>
-          <p>Aclaramos tus dudas técnicas sobre el posicionamiento web orgánico.</p>
-        </div>
-
-        
-        <div class="faq-accordion reveal">
-          <!-- Item 1 -->
-          <details class="faq-item-premium">
-            <summary class="faq-trigger">
-              <span>¿Cuánto tiempo tardan en verse los resultados del SEO tradicional?</span>
-              <svg class="faq-icon-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-            </summary>
-            <div class="faq-content-premium">
-              <p>El SEO es una estrategia a mediano y largo plazo. Por lo general, los primeros cambios significativos en el tráfico orgánico se perciben entre los 3 y 6 meses. Sin embargo, una vez logrado el posicionamiento, el flujo de visitas calificadas es constante y sin costo por clic.</p>
-            </div>
-          </details>
-
-          <!-- Item 2 -->
-          <details class="faq-item-premium">
-            <summary class="faq-trigger">
-              <span>¿Qué es el GEO (Generative Engine Optimization) y en qué se diferencia del SEO tradicional?</span>
-              <svg class="faq-icon-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-            </summary>
-            <div class="faq-content-premium">
-              <p>El SEO tradicional posiciona links en buscadores como Google. El GEO (Generative Engine Optimization) optimiza la semántica y la estructura de tus datos para que los nuevos motores de respuesta por Inteligencia Artificial (ChatGPT, Gemini, Perplexity) citen y recomienden tu negocio en sus respuestas.</p>
-            </div>
-          </details>
-
-          <!-- Item 3 -->
-          <details class="faq-item-premium">
-            <summary class="faq-trigger">
-              <span>¿Es necesario escribir artículos de blog todos los días para posicionar?</span>
-              <svg class="faq-icon-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-            </summary>
-            <div class="faq-content-premium">
-              <p>No, la calidad y relevancia temática son mucho más importantes que la cantidad. Google premia el contenido con autoridad real que responde de verdad a la intención de búsqueda del usuario. Una buena estrategia suele requerir entre 2 y 4 artículos profundos al mes.</p>
-            </div>
-          </details>
-
-          <!-- Item 4 -->
-          <details class="faq-item-premium">
-            <summary class="faq-trigger">
-              <span>¿Mi sitio web debe estar optimizado en velocidad antes de hacer SEO?</span>
-              <svg class="faq-icon-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-            </summary>
-            <div class="faq-content-premium">
-              <p>Sí, la velocidad de carga móvil es un factor de posicionamiento crítico de Google (Core Web Vitals). Si tu web tarda más de 3 segundos en cargar o es lenta en celulares, Google la penalizará relegándola a puestos inferiores.</p>
-            </div>
-          </details>
-
-          <!-- Item 5 -->
-          <details class="faq-item-premium">
-            <summary class="faq-trigger">
-              <span>¿Qué es el marcado de datos estructurados (JSON-LD) y para qué sirve?</span>
-              <svg class="faq-icon-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-            </summary>
-            <div class="faq-content-premium">
-              <p>Es código oculto en el backend que le dice a buscadores y motores de IA el significado preciso de tus contenidos (si es un producto con precio, una dirección física, un evento o una valoración), ayudando a generar resultados enriquecidos.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA DE CIERRE (CONTACTO) -->
-    <section class="section section-cta">
-      <div class="container">
-        <div class="cta-card-neon reveal">
-          <div class="cta-glow-overlay"></div>
-          
-          <!-- Columna Izquierda: Información -->
-          <div class="cta-info-side">
-            <span class="badge badge-neon-secondary">AUDITORÍA SEO</span>
-            <h2>¿Qué tan visible es tu negocio <span class="text-gradient-cyan">en Google y en la IA?</span></h2>
-            <p style="margin-bottom: 25px;">Auditemos la velocidad técnica, marcado semántico y posicionamiento orgánico de tu sitio web sin costo.</p>
-            
-            <a href="https://wa.me/5493804890834?text=Hola!%20Quiero%20posicionar%20mi%20sitio%20web%20en%20Google%20y%20en%20la%20IA." target="_blank" class="btn btn-secondary btn-whatsapp" style="display: inline-flex; align-items: center;">
-              O consultanos por WhatsApp
-            </a>
-          </div>
-
-          <!-- Columna Derecha: Formulario de Captura -->
-          <div class="cta-form-side">
             <form id="seo-contact-form" novalidate style="display: flex; flex-direction: column; gap: 15px; text-align: left; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04);">
               <div id="seo-form-feedback" style="display: none; padding: 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-align: center; margin-bottom: 5px;"></div>
               
