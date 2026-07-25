@@ -125,13 +125,20 @@ import Footer from '../components/Footer.astro';
   .legal-content ul {
     margin-bottom: 24px;
     padding-left: 24px;
+    list-style: disc !important;
   }
 
   .legal-content li {
     color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1.02rem;
+    line-height: 1.7;
     margin-bottom: 10px;
+    display: list-item !important;
+    list-style-type: disc !important;
+  }
+
+  .legal-content li::marker {
+    color: var(--accent-crimson, #ea384d);
   }
 
   .legal-content a {
