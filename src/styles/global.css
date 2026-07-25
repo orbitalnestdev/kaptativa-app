@@ -1702,6 +1702,10 @@ letter-spacing: -0.02em;
   position: relative;
 }
 
+.form-group-row .form-group {
+  margin-bottom: 0 !important;
+}
+
 .form-label {
   display: block;
   font-size: 0.85rem;

@@ -60,7 +60,7 @@ const team: Member[] = [
                 </svg>
               )
             )}
-            <div class="image-gradient-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); z-index: 1; pointer-events: none; transition: opacity 0.4s ease;"></div>
+            <div class="image-gradient-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.05); z-index: 1; pointer-events: none; transition: opacity 0.4s ease;"></div>
           </div>
           <div class="team-portrait-card-footer">
             <div class="team-portrait-card-info">
@@ -83,11 +83,11 @@ const team: Member[] = [
 
 <style is:global>
   .custom-dark-filter {
-    filter: brightness(0.3) contrast(1.1) saturate(0.2) !important;
+    filter: grayscale(100%) brightness(0.85) contrast(1.1) !important;
     transition: filter 0.5s ease, transform 0.5s ease !important;
   }
   .team-portrait-card:hover .custom-dark-filter {
-    filter: brightness(1.05) contrast(1.05) saturate(1.1) !important;
+    filter: grayscale(0%) brightness(1.05) contrast(1.05) !important;
     transform: scale(1.06) !important;
   }
   .team-portrait-card:hover .image-gradient-overlay {
