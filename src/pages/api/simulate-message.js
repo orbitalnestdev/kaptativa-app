@@ -4,7 +4,7 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY || '';
 
 const DEFAULT_BOT_PROMPT =
   `Eres el asistente virtual inteligente de Kaptativa (empresa de desarrollo de software y automatizaciones con IA).
-Tu objetivo es calificar al lead conversando amigablemente y coordinar por chat una videollamada corta de 15 minutos para un diagnóstico gratuito.
+Tu objetivo es calificar al lead conversando amigablemente y coordinar por chat una videollamada corta de 15 minutos para un diagnóstico.
 Sé breve, profesional y directo. No uses textos largos ni envíes enlaces de reservas.
 Si el usuario pregunta precios, menciónale los precios base:
 - Diseños web profesionales desde USD 600.

@@ -382,7 +382,7 @@ Conocé más sobre nuestro módulo de [Agentes de Inteligencia Artificial](/serv
 
 ## 📈 ¿Querés implementar IA en tu Inmobiliaria?
 
-Hablá hoy con nuestro equipo técnico para integrar un Agente de WhatsApp en tu negocio. Escribinos por [WhatsApp](https://wa.me/541138830925) o solicitá un [Diagnóstico Digital Gratuito](/contacto).`,
+Hablá hoy con nuestro equipo técnico para integrar un Agente de WhatsApp en tu negocio. Escribinos por [WhatsApp](https://wa.me/541138830925) o solicitá un [Diagnóstico Digital](/contacto).`,
           excerpt: 'Cómo entrenar un asistente de Inteligencia Artificial para responder valores de expensas, ubicaciones y coordinar visitas presenciales sin intervención humana.',
           category: 'inteligencia-artificial',
           tags: 'IA, WhatsApp Bot, Agentes Virtuales, Inmobiliarias',
@@ -719,7 +719,7 @@ Conocé nuestra solución integral [Inmo-Scale 360° para Inmobiliarias](/inmobi
           gancho = sinWeb
             ? ` y noté que no tienen una web donde la gente pueda ver las clases y reservar su lugar directamente.`
             : ` y vi que ya tienen presencia armada, pero noté que las reservas de clases y turnos se manejan manuales.`;
-          cierre = ` Justo ayudamos a gimnasios a automatizar reservas + agenda + WhatsApp con IA para que no pierdan clientes. ¿Te va un diagnóstico gratuito de 15 min?`;
+          cierre = ` Justo ayudamos a gimnasios a automatizar reservas + agenda + WhatsApp con IA para que no pierdan clientes. ¿Te va un diagnóstico de 15 min?`;
         } 
         else if (rubroL === "estudio contable") {
           gancho = sinWeb
@@ -843,7 +843,7 @@ Conocé nuestra solución integral [Inmo-Scale 360° para Inmobiliarias](/inmobi
         { $id: "msg-1", chatId: "chat-1", sender: "client", text: "¡Hola! Vi su publicación sobre agentes de WhatsApp. ¿Cómo funciona?", time: "10:05", created_at: new Date(Date.now() - 3500000).toISOString() },
         { $id: "msg-2", chatId: "chat-1", sender: "bot", text: "¡Hola! Un gusto saludarte. Soy el asistente virtual de Kaptativa. Ayudamos a automatizar reservas, agendas y respuestas 24/7 vinculando todo a WhatsApp con IA. ¿De qué rubro es tu negocio?", time: "10:06", created_at: new Date(Date.now() - 3400000).toISOString() },
         { $id: "msg-3", chatId: "chat-1", sender: "client", text: "Es un estudio contable, Estudio Mendoza.", time: "10:08", created_at: new Date(Date.now() - 3200000).toISOString() },
-        { $id: "msg-4", chatId: "chat-1", sender: "bot", text: "Excelente. Justo ayudamos a estudios contables a automatizar la facturación y la agenda, vinculando todo a WhatsApp con asistentes inteligentes para responder dudas de clientes 24/7. ¿Te interesaría agendar un diagnóstico gratuito de 15 minutos para ver cómo funciona?", time: "10:09", created_at: new Date(Date.now() - 3100000).toISOString() },
+        { $id: "msg-4", chatId: "chat-1", sender: "bot", text: "Excelente. Justo ayudamos a estudios contables a automatizar la facturación y la agenda, vinculando todo a WhatsApp con asistentes inteligentes para responder dudas de clientes 24/7. ¿Te interesaría agendar un diagnóstico de 15 minutos para ver cómo funciona?", time: "10:09", created_at: new Date(Date.now() - 3100000).toISOString() },
         { $id: "msg-5", chatId: "chat-1", sender: "client", text: "Sí, me interesa. Quiero agendar la reunión para ver el bot.", time: "10:14", created_at: new Date(Date.now() - 3000000).toISOString() },
         
         { $id: "msg-6", chatId: "chat-2", sender: "client", text: "Buenas tardes, ¿se puede programar una llamada hoy?", time: "Ayer 15:30", created_at: new Date(Date.now() - 86400000).toISOString() },
@@ -874,7 +874,7 @@ Conocé nuestra solución integral [Inmo-Scale 360° para Inmobiliarias](/inmobi
           $id: 'global_settings',
           bot_active: true,
           bot_prompt: `Eres el asistente virtual inteligente de Kaptativa (empresa de desarrollo de software and automatizaciones con IA).
-Tu objetivo es calificar al lead conversando amigablemente y coordinar por chat una videollamada corta de 15 minutos para un diagnóstico gratuito.
+Tu objetivo es calificar al lead conversando amigablemente y coordinar por chat una videollamada corta de 15 minutos para un diagnóstico.
 Sé breve, profesional y directo. No uses textos largos ni envíes enlaces de reservas.
 Si el usuario pregunta precios, menciónale los precios base:
 - Diseños web profesionales desde USD 600.
