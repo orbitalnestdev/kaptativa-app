@@ -24,5 +24,11 @@
     "react-dom": "^19.2.7",
     "react-is": "^19.2.7",
     "recharts": "^3.9.0"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^8.0.0",
+    "cssnano": "^8.0.2",
+    "lightningcss": "^1.33.0",
+    "postcss": "^8.5.23"
   }
 }

@@ -3245,11 +3245,6 @@ textarea.form-control {
     opacity: 0 !important;
     transition: max-height 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease, margin-top 0.3s ease !important;
   }
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 15px !important;
-  }
-
   .for-card {
     cursor: pointer !important;
     position: relative !important;
@@ -4359,7 +4354,7 @@ main, section, .section, .hero, .hero-section, .hero-blog-section, .page-header,
   padding: 24px 28px !important;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(138, 53, 229, 0.2) !important;
   opacity: 0 !important;
-  visibility: hidden !hidden !important;
+  visibility: hidden hidden !important;
   transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
   pointer-events: none !important;
   z-index: 999999 !important;
@@ -5776,17 +5771,6 @@ h1, h2, h3, h4, h5, h6,
   
 
   
-}
-
-
-  50% {
-    left: 45%;
-    opacity: 1;
-  }
-  100% {
-    left: 82%;
-    opacity: 0.2;
-  }
 }
 
 .process-card {
@@ -8958,4 +8942,5 @@ img, svg, video, canvas {
   .rubro-card .card-header-row {
     pointer-events: none !important;
   }
+}
 }
