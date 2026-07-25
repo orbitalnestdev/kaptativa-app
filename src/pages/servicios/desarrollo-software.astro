@@ -391,6 +391,29 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     </section>
 
     <!-- CTA DE CIERRE (CONTACTO) -->
+    <section class="section section-cta">
+      <div class="container">
+        <div class="cta-card-neon reveal">
+          <div class="cta-glow-overlay"></div>
+          
+          <!-- Columna Izquierda: Información -->
+          <div class="cta-info-side">
+            <span class="badge badge-neon-secondary">COTIZACIÓN SIN CARGO</span>
+            <h2>¿Listo para construir un sistema que <span class="text-gradient-cyan">escale con tu negocio?</span></h2>
+            <p style="margin-bottom: 25px;">Agendá una breve sesión técnica de 45 minutos para analizar tus necesidades y darte un presupuesto exacto adaptado a tu escala.</p>
+            
+            <a href="https://wa.me/5493804890834?text=Hola!%20Quiero%20cotizar%20el%20desarrollo%20de%20un%20software%20a%20medida%20para%20mi%20empresa." target="_blank" class="btn btn-secondary btn-whatsapp" style="display: inline-flex; align-items: center; justify-content: center;">
+              Chateá por WhatsApp
+            </a>
+          </div>
+
+          <!-- Columna Derecha: Formulario de Captura -->
+          <div class="cta-form-side">
+            <form id="software-contact-form" novalidate style="display: flex; flex-direction: column; gap: 15px; text-align: left; background: var(--bg-tertiary); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color);">
+              <div id="software-form-feedback" style="display: none; padding: 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-align: center; margin-bottom: 5px;"></div>
+              
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="form-nombre" style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Nombre completo</label>
                 <input type="text" id="form-nombre" class="form-input" required style="width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.02) !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s;" />
               </div>
               
@@ -401,7 +424,7 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
 
               <div style="display: flex; flex-direction: column; gap: 6px;">
                 <label for="form-proyecto" style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Tipo de software a desarrollar</label>
-                <select id="form-proyecto" required style="width: 100%; padding: 10px 14px; background: #0c0d14 !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s; cursor: pointer;">
+                <select id="form-proyecto" required style="width: 100%; padding: 10px 14px; background: var(--bg-secondary) !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s; cursor: pointer;">
                   <option value="" disabled selected>Seleccioná tu necesidad principal</option>
                   <option value="Portal B2B / Extranet">Portal B2B / Extranet de clientes</option>
                   <option value="CRM / ERP Interno">CRM o ERP a la Medida exacta</option>
@@ -413,7 +436,7 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
 
               <div style="display: flex; flex-direction: column; gap: 6px;">
                 <label for="form-presupuesto" style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Presupuesto estimado de inversión</label>
-                <select id="form-presupuesto" required style="width: 100%; padding: 10px 14px; background: #0c0d14 !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s; cursor: pointer;">
+                <select id="form-presupuesto" required style="width: 100%; padding: 10px 14px; background: var(--bg-secondary) !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s; cursor: pointer;">
                   <option value="" disabled selected>Seleccioná un rango de inversión</option>
                   <option value="Menos de $3,000 USD">Menos de $3,000 USD</option>
                   <option value="$3,000 - $7,000 USD">$3,000 - $7,000 USD</option>
@@ -427,6 +450,7 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
               </button>
             </form>
           </div>
+        </div>
       </div>
     </section>
   </main>

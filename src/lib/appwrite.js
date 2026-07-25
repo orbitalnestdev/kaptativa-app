@@ -1,5 +1,31 @@
 import { Client, Databases, Account, ID, Query } from 'appwrite';
+import formbricks from '@formbricks/js';
+
 const scrapedProspects = [];
+
+let fbInitialized = false;
+const trackFormbricksLead = async (data) => {
+  if (typeof window === 'undefined') return;
+  try {
+    if (!fbInitialized) {
+      await formbricks.setup({
+        environmentId: "cms0i5x2a000aph01jv0mx9sj",
+        appUrl: "https://form.orbitalnest.net",
+      });
+      fbInitialized = true;
+    }
+    if (data.email && data.email !== 'no-email@kaptativa.com') await formbricks.setEmail(data.email);
+    else if (data.whatsapp) await formbricks.setUserId(data.whatsapp);
+    
+    if (data.name) await formbricks.setAttribute('name', data.name);
+    if (data.business) await formbricks.setAttribute('business', data.business);
+    if (data.whatsapp) await formbricks.setAttribute('whatsapp', data.whatsapp);
+    
+    await formbricks.track("lead_submitted");
+  } catch (err) {
+    console.error("Formbricks error:", err);
+  }
+};
 
 // 1. Check if Appwrite variables are configured in environment
 const ENDPOINT = import.meta.env.PUBLIC_APPWRITE_ENDPOINT || '';
@@ -1017,7 +1043,10 @@ export const api = {
   // Databases services
   db: isConfigured ? {
     listLeads: () => databases.listDocuments(DATABASE_ID, 'leads'),
-    createLead: (data) => databases.createDocument(DATABASE_ID, 'leads', ID.unique(), data),
+    createLead: async (data) => {
+      await trackFormbricksLead(data);
+      return databases.createDocument(DATABASE_ID, 'leads', ID.unique(), data);
+    },
     updateLead: (id, data) => databases.updateDocument(DATABASE_ID, 'leads', id, data),
     deleteLead: (id) => databases.deleteDocument(DATABASE_ID, 'leads', id),
 
@@ -1080,7 +1109,10 @@ export const api = {
     updateSettings: (data) => databases.updateDocument(DATABASE_ID, 'whatsapp_settings', 'global_settings', data)
   } : {
     listLeads: async () => new MockDB().listDocuments(DATABASE_ID, 'leads'),
-    createLead: async (data) => new MockDB().createDocument(DATABASE_ID, 'leads', 'unique()', data),
+    createLead: async (data) => {
+      await trackFormbricksLead(data);
+      return new MockDB().createDocument(DATABASE_ID, 'leads', 'unique()', data);
+    },
     updateLead: async (id, data) => new MockDB().updateDocument(DATABASE_ID, 'leads', id, data),
     deleteLead: async (id) => new MockDB().deleteDocument(DATABASE_ID, 'leads', id),
  
