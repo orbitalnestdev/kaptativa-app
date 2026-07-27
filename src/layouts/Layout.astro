@@ -101,7 +101,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://kaptativ
 </head>
 <body>
   <!-- Global Sticky Top Reading Progress Bar -->
-  <div id="reading-progress-bar" style="position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: linear-gradient(90deg, #EA384D 0%, #8A35E5 50%, #B7A6FF 100%); z-index: 999999; transition: width 0.08s ease-out; box-shadow: 0 0 12px rgba(234, 56, 77, 0.9); pointer-events: none;"></div>
+  <div id="reading-progress-bar" style="position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: linear-gradient(90deg, #EA384D 0%, #8A35E5 50%, #B7A6FF 100%); z-index: 999999; transition: width 0.08s ease-out, opacity 0.3s ease; box-shadow: 0 0 12px rgba(234, 56, 77, 0.9); pointer-events: none; opacity: 0;"></div>
 
   <script is:inline>
     (function() {
@@ -115,8 +115,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://kaptativ
           return;
         }
         const scrolled = (winScroll / height) * 100;
-        const finalWidth = Math.max(2, Math.min(100, scrolled));
+        const finalWidth = Math.min(100, scrolled);
         bar.style.width = finalWidth + '%';
+        bar.style.opacity = winScroll > 10 ? '1' : '0';
       }
 
       window.addEventListener('scroll', updateReadingProgress, { passive: true });
