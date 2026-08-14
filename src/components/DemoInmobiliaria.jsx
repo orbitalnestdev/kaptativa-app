@@ -4561,7 +4561,7 @@ function AgentView({
                     if (!p) return null;
                     return (
                       <div key={id} style={S.chatCard} className="chatCard" onClick={() => onDetail(p)}>
-                        <div style={S.chatCardImg}><img src={imgUrl(p.photo)} loading="lazy" decoding="async" style={{width:'100%', height:'100%', objectFit:'cover'}} /></div>
+                        <div style={S.chatCardImg}><img src={imgUrl(p.photo)} alt={`${p.tipo} en ${p.zona}`} loading="lazy" decoding="async" style={{width:'100%', height:'100%', objectFit:'cover'}} /></div>
                         <div style={S.chatCardBody}>
                           <div style={S.chatCardPrice}>{p.precio}</div>
                           <div style={S.chatCardTitle} className="chatCardTitle">{p.tipo} · {p.zona}</div>
