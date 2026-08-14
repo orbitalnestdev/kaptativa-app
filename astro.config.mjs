@@ -25,6 +25,9 @@ export default defineConfig({
     react()
   ],
   vite: {
+    build: {
+      cssCodeSplit: true
+    },
     optimizeDeps: {
       include: [
         'react',
