@@ -327,8 +327,6 @@ import Equipo from '../components/Equipo.astro';
 </Layout>
 
 <script>
-  import { api } from '../lib/appwrite.js';
-
   document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form') as HTMLFormElement;
     const errorBanner = document.getElementById('form-error-banner');
@@ -372,6 +370,7 @@ import Equipo from '../components/Equipo.astro';
       if (submitBtn) submitBtn.disabled = true;
 
       try {
+        const { api } = await import('../lib/appwrite.js');
         await api.db.createLead({
           name,
           email,
