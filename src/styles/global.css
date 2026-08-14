@@ -8917,4 +8917,6 @@ img, svg, video, canvas {
   /* Ensure header row doesn't act as an accordion header on desktop */
   .for-card .card-header-row,
   .rubro-card .card-header-row {
+    pointer-events: none !important;
+  }
 }
