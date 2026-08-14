@@ -1,5 +1,12 @@
 ---
-return Astro.redirect('/admin');
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import AdminSidebar from '../../components/AdminSidebar.astro';
+
+// SSR Authentication Guard
+const sessionCookie = Astro.cookies.get('kaptativa_session');
+if (!sessionCookie) {
+  return Astro.redirect('/admin/login');
+}
 ---
 
 <AdminLayout title="Administración del Blog | Kaptativa">
