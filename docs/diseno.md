@@ -85,14 +85,15 @@ Bordes sobre oscuro: `rgba(255, 255, 255, 0.06)` en reposo, violeta al 25 % acti
 - Un solo botón principal por bloque.
 
 ## 7. Secciones claras
-Agregar la clase `h2-light` a la `<section>`: redefine los tokens de texto, tarjeta y borde, y pasa el texto destacado a v-700. Hoy: Integraciones y Planes en la home.
+Agregar la clase `h2-light` a la `<section>`: redefine los tokens de texto, tarjeta y borde, y pasa el texto destacado a v-700. Hoy: Integraciones en la home.
 
 ## 8. Logo
 Isotipo (flecha) y punto de "kaptativa." en v-500 sólido, sin degradado. Archivos: `Header.astro`, `Footer.astro`, `public/logo.svg`, `public/favicon.svg`, `public/og-image.jpg` (1200×630).
 
 12. **Un bloque bento por página, no más.** En la home, los módulos van en grilla bento con dos tiles en violeta sólido (Sitio web y Asistente IA) como foco; el resto de las secciones mantiene tarjetas sobrias.
 13. **Numerar solo secuencias.** "De la demo a tu negocio funcionando" lleva 1–4 porque es un proceso; ninguna otra grilla se numera.
-14. **Menú Soluciones como mega menú.** Panel de presentación a la izquierda y grilla de rubros con descripción de una línea a la derecha, centrado bajo el header.
+14. **Planes: el recomendado en violeta sólido.** Sección oscura; el plan "Más elegido" es la única tarjeta rellena en violeta, sobresale 20 px por arriba y por abajo, con etiqueta y botón blancos. Los demás planes llevan tarjeta oscura y botón violeta. El precio es un bloque propio ("Precio a medida" + nota chica).
+15. **Menú Soluciones como mega menú.** Panel de presentación a la izquierda y grilla de rubros con descripción de una línea a la derecha, centrado bajo el header.
 
 ## 9. Puntaje por página (2026-10-12, cierre)
 Escala 1–10 sobre estética y "capa genérica". Detalle y método en `2doCerebro/OUTPUTS/auditoria-kaptativa-web-2026-10-12.md`.
