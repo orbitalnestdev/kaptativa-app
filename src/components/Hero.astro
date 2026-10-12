@@ -14,7 +14,7 @@
           <h1 class="hero-tagline">Eliminá las tareas manuales y conectá tu operación con <span class="text-gradient-cyan">sistemas a medida</span></h1>
           <p class="hero-description">Transformamos tu negocio con tecnología que conecta, automatiza y escala.</p>
           
-          <div class="hero-stars" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 30px; font-size: 0.88rem; color: #cbd5e1; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px 18px; border-radius: 50px; width: fit-content; margin-left: auto; margin-right: auto;">
+          <div class="hero-stars" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 30px; font-size: 0.88rem; color: #D4D4D9; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px 18px; border-radius: 999px; width: fit-content; margin-left: auto; margin-right: auto;">
             <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981; display: inline-block;"></span>
             <span>+50 negocios y empresas confían en Kaptativa</span>
           </div>
@@ -101,7 +101,7 @@
     transform: translate(-50%, -50%);
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(234, 56, 77, 0.09) 0%, rgba(138, 53, 229, 0.05) 50%, rgba(138, 53, 229, 0) 70%);
+    background: radial-gradient(circle, rgba(124, 92, 255, 0.09) 0%, rgba(106, 72, 245, 0.05) 50%, rgba(106, 72, 245, 0) 70%);
     z-index: 0;
     filter: blur(60px);
     pointer-events: none;
@@ -114,7 +114,7 @@
     transform: translate(-50%, 0);
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(138, 53, 229, 0.08) 0%, rgba(138, 53, 229, 0) 70%);
+    background: radial-gradient(circle, rgba(106, 72, 245, 0.08) 0%, rgba(106, 72, 245, 0) 70%);
     z-index: 0;
     filter: blur(60px);
     pointer-events: none;
@@ -199,7 +199,7 @@
           
           if (dist < this.connectionDistance) {
             const alpha = (1 - dist / this.connectionDistance) * 0.08;
-            this.ctx.strokeStyle = `rgba(138, 53, 229, ${alpha})`;
+            this.ctx.strokeStyle = `rgba(106, 72, 245, ${alpha})`;
             this.ctx.lineWidth = 0.8;
             this.ctx.beginPath();
             this.ctx.moveTo(p1.x, p1.y);
@@ -212,7 +212,7 @@
       // Particles
       for (let i = 0; i < this.particles.length; i++) {
         const p = this.particles[i];
-        this.ctx.fillStyle = 'rgba(234, 56, 77, 0.25)';
+        this.ctx.fillStyle = 'rgba(124, 92, 255, 0.25)';
         this.ctx.beginPath();
         this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         this.ctx.fill();

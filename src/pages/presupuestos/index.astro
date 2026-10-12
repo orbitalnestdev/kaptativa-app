@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 ---
 
 <Layout title="Propuesta Comercial | Kaptativa" description="Visualiza tu propuesta técnica y comercial a medida.">
-  <Header slot="header" />
+  <Header slot="header" floating />
 
   <!-- Load html2pdf from CDN for direct PDF generation -->
   <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -44,7 +44,7 @@ import Footer from '../../components/Footer.astro';
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
             <span>Imprimir</span>
           </button>
-          <button id="btn-download" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border-radius: 12px; padding: 10px 22px; font-size: 0.85rem; cursor: pointer; font-weight: 600; background: linear-gradient(135deg, #EA384D 0%, #8A35E5 100%); border: none; color: white; box-shadow: 0 4px 15px rgba(234, 56, 77, 0.4);">
+          <button id="btn-download" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border-radius: 12px; padding: 10px 22px; font-size: 0.85rem; cursor: pointer; font-weight: 600; background: var(--brand-gradient); border: none; color: white; box-shadow: 0 4px 15px rgba(124, 92, 255, 0.4);">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span>Descargar PDF</span>
           </button>
@@ -59,11 +59,11 @@ import Footer from '../../components/Footer.astro';
       <!-- ==========================================================================
            1. SCREEN VIEW: INTERACTIVE DARK-THEMED DASHBOARD (VISIBLE ON SCREEN ONLY)
            ========================================================================== -->
-      <div id="screen-dashboard-container" class="glow-container" style="position: relative; border-radius: 20px; padding: 2px; background: linear-gradient(135deg, rgba(217, 70, 239, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%); margin-bottom: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
-        <div id="screen-dashboard" style="background: var(--card-bg); color: var(--text-primary); padding: 45px; border-radius: 18px; font-family: 'Inter', sans-serif; box-sizing: border-box; position: relative; border: 1px solid var(--border-color); backdrop-filter: blur(12px);">
+      <div id="screen-dashboard-container" class="glow-container" style="position: relative; border-radius: 20px; padding: 2px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%); margin-bottom: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+        <div id="screen-dashboard" style="background: var(--card-bg); color: var(--text-primary); padding: 45px; border-radius: 20px; font-family: 'Inter', sans-serif; box-sizing: border-box; position: relative; border: 1px solid var(--border-color); backdrop-filter: blur(12px);">
           
           <!-- BRAND ACCENT GRADIENT BAND -->
-          <div style="position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #D946EF 0%, #8B5CF6 50%, #EA384D 100%); border-top-left-radius: 18px; border-top-right-radius: 18px;"></div>
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #7C5CFF 0%, #6A48F5 50%, #7C5CFF 100%); border-top-left-radius: 18px; border-top-right-radius: 18px;"></div>
 
           <!-- BRAND & HEADER -->
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 10px; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 30px;">
@@ -72,8 +72,8 @@ import Footer from '../../components/Footer.astro';
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="180" height="38">
                   <defs>
                     <linearGradient id="logo-gradient-public-screen" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#EA384D" />
-                      <stop offset="100%" stop-color="#8A35E5" />
+                      <stop offset="0%" stop-color="#7C5CFF" />
+                      <stop offset="100%" stop-color="#6A48F5" />
                     </linearGradient>
                   </defs>
                   <g>
@@ -82,7 +82,7 @@ import Footer from '../../components/Footer.astro';
                     <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-public-screen)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
                   </g>
                   <text x="44" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">
-                    kaptativa<tspan fill="#EA384D">.</tspan>
+                    kaptativa<tspan fill="#7C5CFF">.</tspan>
                   </text>
                 </svg>
               </div>
@@ -101,7 +101,7 @@ import Footer from '../../components/Footer.astro';
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 35px;">
             <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 22px; border-radius: 12px;">
               <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EA384D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Presentado a
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C5CFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Presentado a
               </div>
               <div id="lbl-client-business-screen" style="font-size: 1.25rem; font-weight: 600; color: #ffffff; font-family: 'Lexend', sans-serif;">Negocio Cliente</div>
               <div id="lbl-client-name-screen" style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 4px; font-weight: 500;">Contacto Representante</div>
@@ -109,7 +109,7 @@ import Footer from '../../components/Footer.astro';
             </div>
             <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 22px; border-radius: 12px;">
               <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A35E5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Proveedor de Soluciones
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6A48F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Proveedor de Soluciones
               </div>
               <div style="font-size: 1.25rem; font-weight: 600; color: #ffffff; font-family: 'Lexend', sans-serif;">Agencia Kaptativa</div>
               <div style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 4px; font-weight: 500;">Consultoría Tecnológica & Automatizaciones</div>
@@ -136,7 +136,7 @@ import Footer from '../../components/Footer.astro';
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 35px;">
             
             <!-- Setup payment -->
-            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 14px;">
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 12px;">
               <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 15px;">Costo de Implementación (Pago Único)</div>
               
               <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px; align-items: center;">
@@ -161,14 +161,14 @@ import Footer from '../../components/Footer.astro';
             </div>
 
             <!-- Recurring Abono SLA -->
-            <div id="card-recurring-screen" style="display: none; background: rgba(138, 53, 229, 0.05); border: 1px solid rgba(138, 53, 229, 0.2); padding: 24px; border-radius: 14px; flex-direction: column; justify-content: space-between;">
+            <div id="card-recurring-screen" style="display: none; background: rgba(106, 72, 245, 0.05); border: 1px solid rgba(106, 72, 245, 0.2); padding: 24px; border-radius: 12px; flex-direction: column; justify-content: space-between;">
               <div>
                 <div style="font-size: 0.7rem; color: #a78bfa; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 10px;">Soporte, SLA & Licencias</div>
                 <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 15px 0;">
                   Mantenimiento de infraestructura cloud, backups autónomos semanales y canal de soporte técnico prioritario 24/7.
                 </p>
               </div>
-              <div style="padding-top: 15px; border-top: 1px solid rgba(138, 53, 229, 0.2); display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+              <div style="padding-top: 15px; border-top: 1px solid rgba(106, 72, 245, 0.2); display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
                 <span style="font-weight: 600; font-size: 0.85rem; color: white; letter-spacing: 0.5px;">ABONO MENSUAL:</span>
                 <span id="lbl-total-recurring-screen" style="font-size: 1.5rem; font-weight: 600; color: #a78bfa; font-family: 'Lexend', sans-serif;">US$ 0/mes</span>
               </div>
@@ -180,13 +180,13 @@ import Footer from '../../components/Footer.astro';
             * Tipo de cambio acordado y congelado: 1 USD = $<span id="lbl-exchange-val-screen">1000</span> ARS.
           </div>
 
-          <div id="pdf-custom-note-item-screen" style="display: none; background: rgba(234, 56, 77, 0.05); border-left: 3px solid var(--accent-crimson); padding: 18px 20px; border-radius: 8px; margin-bottom: 35px;">
+          <div id="pdf-custom-note-item-screen" style="display: none; background: rgba(124, 92, 255, 0.05); border-left: 3px solid var(--accent-crimson); padding: 18px 20px; border-radius: 8px; margin-bottom: 35px;">
             <div style="font-size: 0.7rem; color: var(--accent-crimson); text-transform: uppercase; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.5px;">Condiciones Especiales / Observaciones</div>
             <p id="lbl-custom-notes-screen" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin: 0; white-space: pre-line;">Notas adicionales...</p>
           </div>
 
           <!-- CONDICIONES DE PAGO Y PLAZOS -->
-          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 25px; border-radius: 14px; margin-bottom: 35px;">
+          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 25px; border-radius: 12px; margin-bottom: 35px;">
             <h4 style="font-family: 'Lexend', sans-serif; font-size: 1.05rem; font-weight: 600; margin-top: 0; margin-bottom: 16px; color: white;">
               Condiciones Comerciales & Plazos
             </h4>
@@ -226,7 +226,7 @@ import Footer from '../../components/Footer.astro';
               <div style="text-align: center; width: 130px;">
                 <div style="height: 40px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 6px;">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" width="80" height="24" style="opacity: 0.7;">
-                    <path d="M10,20 C30,10 50,25 70,12 C80,8 90,15 95,20" fill="none" stroke="#EA384D" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10,20 C30,10 50,25 70,12 C80,8 90,15 95,20" fill="none" stroke="#7C5CFF" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </div>
                 <div style="border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 4px; font-size: 0.725rem; color: var(--text-secondary); font-weight: 600;">Kaptativa Digital</div>
@@ -249,20 +249,20 @@ import Footer from '../../components/Footer.astro';
       <!-- ==========================================================================
            2. PRINT/PDF VIEW: HIGH-QUALITY WHITE DOCUMENT TEMPLATE (OFF-SCREEN)
            ========================================================================== -->
-      <div id="print-area-pdf" class="print-only-pdf-template" style="position: absolute; left: -9999px; top: -9999px; width: 820px; background: #ffffff; color: #1e293b; padding: 50px; font-family: 'Inter', sans-serif; box-sizing: border-box; overflow: hidden; border: 1px solid #e2e8f0; line-height: 1.5;">
+      <div id="print-area-pdf" class="print-only-pdf-template" style="position: absolute; left: -9999px; top: -9999px; width: 820px; background: #ffffff; color: #1e293b; padding: 50px; font-family: 'Inter', sans-serif; box-sizing: border-box; overflow: hidden; border: 1px solid #ECECEF; line-height: 1.5;">
         
         <!-- BRAND ACCENT GRADIENT BAND -->
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #D946EF 0%, #8B5CF6 50%, #EA384D 100%);"></div>
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #7C5CFF 0%, #6A48F5 50%, #7C5CFF 100%);"></div>
 
         <!-- BRAND & HEADER -->
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px; margin-bottom: 35px; border-bottom: 1.5px solid #e2e8f0; padding-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px; margin-bottom: 35px; border-bottom: 1.5px solid #ECECEF; padding-bottom: 25px;">
           <div>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="160" height="34">
                 <defs>
                   <linearGradient id="logo-gradient-public-pdf" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#EA384D" />
-                    <stop offset="100%" stop-color="#8A35E5" />
+                    <stop offset="0%" stop-color="#7C5CFF" />
+                    <stop offset="100%" stop-color="#6A48F5" />
                   </linearGradient>
                 </defs>
                 <g>
@@ -271,16 +271,16 @@ import Footer from '../../components/Footer.astro';
                   <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-public-pdf)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
                 </g>
                 <text x="44" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#0f172a" letter-spacing="0.3">
-                  kaptativa<tspan fill="#EA384D">.</tspan>
+                  kaptativa<tspan fill="#7C5CFF">.</tspan>
                 </text>
               </svg>
             </div>
-            <p style="font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin: 0; padding-left: 2px;">Diseño Web & Automatización IA</p>
+            <p style="font-size: 0.7rem; color: #8E8E99; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin: 0; padding-left: 2px;">Diseño Web & Automatización IA</p>
           </div>
           
           <div style="text-align: right;">
             <h2 style="font-family: 'Lexend', sans-serif; font-size: 1.45rem; font-weight: 600; text-transform: uppercase; margin: 0; color: #0f172a; letter-spacing: -0.5px;">Propuesta Comercial</h2>
-            <div style="font-size: 0.8rem; color: #475569; margin-top: 6px;">Ref: <span id="lbl-quote-code-pdf" style="font-weight: 600; color: #7c3aed;">KP-0000</span></div>
+            <div style="font-size: 0.8rem; color: #475569; margin-top: 6px;">Ref: <span id="lbl-quote-code-pdf" style="font-weight: 600; color: #5B3FE0;">KP-0000</span></div>
             <div style="font-size: 0.8rem; color: #475569;">Emisión: <span id="lbl-quote-date-pdf">00/00/0000</span></div>
             <div style="font-size: 0.8rem; color: #e11d48; font-weight: 600; margin-top: 2px;">Validez: <span id="lbl-quote-validity-pdf">15</span> días</div>
           </div>
@@ -288,25 +288,25 @@ import Footer from '../../components/Footer.astro';
 
         <!-- CLIENT & PROVIDER INFO GRID -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 30px;">
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 8px;">
-            <div style="font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px;">Presentado a</div>
+          <div style="background: #f8fafc; border: 1px solid #ECECEF; padding: 18px; border-radius: 8px;">
+            <div style="font-size: 0.65rem; color: #8E8E99; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px;">Presentado a</div>
             <div id="lbl-client-business-pdf" style="font-size: 1.05rem; font-weight: 600; color: #0f172a; font-family: 'Lexend', sans-serif;">Negocio Cliente</div>
             <div id="lbl-client-name-pdf" style="font-size: 0.85rem; color: #334155; margin-top: 4px; font-weight: 500;">Contacto Representante</div>
-            <div id="lbl-client-email-pdf" style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">email@cliente.com</div>
+            <div id="lbl-client-email-pdf" style="font-size: 0.8rem; color: #8E8E99; margin-top: 2px;">email@cliente.com</div>
           </div>
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 8px;">
-            <div style="font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px;">Proveedor de Soluciones</div>
+          <div style="background: #f8fafc; border: 1px solid #ECECEF; padding: 18px; border-radius: 8px;">
+            <div style="font-size: 0.65rem; color: #8E8E99; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px;">Proveedor de Soluciones</div>
             <div style="font-size: 1.05rem; font-weight: 600; color: #0f172a; font-family: 'Lexend', sans-serif;">Agencia Kaptativa</div>
             <div style="font-size: 0.85rem; color: #334155; margin-top: 4px; font-weight: 500;">Consultoría Tecnológica & Automatizaciones</div>
-            <div id="lbl-agency-email-pdf" style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">hola@kaptativa.com</div>
+            <div id="lbl-agency-email-pdf" style="font-size: 0.8rem; color: #8E8E99; margin-top: 2px;">hola@kaptativa.com</div>
           </div>
         </div>
 
         <!-- PROPOSAL SCOPE / TABLE -->
-        <div style="width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin-bottom: 30px;">
+        <div style="width: 100%; border: 1px solid #ECECEF; border-radius: 8px; overflow: hidden; margin-bottom: 30px;">
           <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
             <thead>
-              <tr style="background: #f1f5f9; text-align: left; border-bottom: 1.5px solid #cbd5e1;">
+              <tr style="background: #F6F6F7; text-align: left; border-bottom: 1.5px solid #D4D4D9;">
                 <th style="padding: 12px 15px; color: #0f172a; font-family: 'Lexend', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; width: 70%;">Descripción del Módulo / Servicio</th>
                 <th style="padding: 12px 15px; color: #0f172a; font-family: 'Lexend', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; text-align: right; width: 30%;">Inversión</th>
               </tr>
@@ -321,8 +321,8 @@ import Footer from '../../components/Footer.astro';
         <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: nowrap;">
           
           <!-- Setup payment -->
-          <div style="flex: 1.2; background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 8px;">
-            <div style="font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 10px;">Costo de Implementación (Pago Único)</div>
+          <div style="flex: 1.2; background: #f8fafc; border: 1px solid #ECECEF; padding: 18px; border-radius: 8px;">
+            <div style="font-size: 0.65rem; color: #8E8E99; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 10px;">Costo de Implementación (Pago Único)</div>
             
             <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #334155; margin-bottom: 8px; align-items: center;">
               <span>Subtotal Desarrollo:</span>
@@ -339,21 +339,21 @@ import Footer from '../../components/Footer.astro';
               <span id="lbl-discount-val-pdf" style="font-weight: 600; white-space: nowrap;">-$0.00</span>
             </div>
 
-            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;">
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #D4D4D9; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;">
               <span style="font-weight: 600; font-size: 0.75rem; color: #0f172a; letter-spacing: 0.5px;">TOTAL IMPLEMENTACIÓN:</span>
               <span id="lbl-total-setup-pdf" style="font-size: 1.35rem; font-weight: 600; color: #0f172a; font-family: 'Lexend', sans-serif; white-space: nowrap;">US$ 0</span>
             </div>
           </div>
 
           <!-- Recurring Abono SLA -->
-          <div id="card-recurring-pdf" style="display: none; flex: 1; background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 8px; flex-direction: column; justify-content: space-between;">
+          <div id="card-recurring-pdf" style="display: none; flex: 1; background: #f8fafc; border: 1px solid #ECECEF; padding: 18px; border-radius: 8px; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="font-size: 0.65rem; color: #0f172a; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px;">Soporte, SLA & Licencias</div>
               <p style="font-size: 0.75rem; color: #475569; line-height: 1.4; margin: 0 0 10px 0;">
                 Mantenimiento de infraestructura cloud, backups autónomos semanales y canal de soporte técnico prioritario 24/7.
               </p>
             </div>
-            <div style="padding-top: 12px; border-top: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; margin-top: auto; flex-wrap: nowrap;">
+            <div style="padding-top: 12px; border-top: 1px solid #D4D4D9; display: flex; justify-content: space-between; align-items: center; margin-top: auto; flex-wrap: nowrap;">
               <span style="font-weight: 600; font-size: 0.75rem; color: #0f172a; letter-spacing: 0.5px;">ABONO MENSUAL:</span>
               <span id="lbl-total-recurring-pdf" style="font-size: 1.25rem; font-weight: 600; color: #0f172a; font-family: 'Lexend', sans-serif; white-space: nowrap;">US$ 0/mes</span>
             </div>
@@ -361,48 +361,48 @@ import Footer from '../../components/Footer.astro';
         </div>
 
         <!-- EXCHANGE RATE AND DETAILS NOTES -->
-        <div id="row-exchange-note-pdf" style="display: none; font-size: 0.75rem; color: #64748b; font-style: italic; text-align: right; margin-bottom: 25px; margin-top: -15px;">
+        <div id="row-exchange-note-pdf" style="display: none; font-size: 0.75rem; color: #8E8E99; font-style: italic; text-align: right; margin-bottom: 25px; margin-top: -15px;">
           * Tipo de cambio acordado y congelado: 1 USD = $<span id="lbl-exchange-val-pdf">1000</span> ARS.
         </div>
 
-        <div id="pdf-custom-note-item-pdf" style="display: none; background: #faf5ff; border-left: 3px solid #7c3aed; padding: 15px; border-radius: 6px; margin-bottom: 25px; color: #0f172a;">
-          <div style="font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; letter-spacing: 0.5px;">Condiciones Especiales / Observaciones</div>
+        <div id="pdf-custom-note-item-pdf" style="display: none; background: #faf5ff; border-left: 3px solid #5B3FE0; padding: 15px; border-radius: 8px; margin-bottom: 25px; color: #0f172a;">
+          <div style="font-size: 0.65rem; color: #8E8E99; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; letter-spacing: 0.5px;">Condiciones Especiales / Observaciones</div>
           <p id="lbl-custom-notes-pdf" style="font-size: 0.8rem; color: #334155; line-height: 1.4; margin: 0; white-space: pre-line;">Notas adicionales...</p>
         </div>
 
         <!-- CONDICIONES DE PAGO Y PLAZOS -->
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+        <div style="background: #f8fafc; border: 1px solid #ECECEF; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
           <h4 style="font-family: 'Lexend', sans-serif; font-size: 0.95rem; font-weight: 600; margin-top: 0; margin-bottom: 12px; color: #0f172a;">
             Condiciones Comerciales & Plazos
           </h4>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.75rem; color: #334155; line-height: 1.4;">
             <div style="display: flex; gap: 8px; align-items: flex-start;">
-              <span style="color: #7c3aed; font-weight: 600;">01.</span>
+              <span style="color: #5B3FE0; font-weight: 600;">01.</span>
               <div><strong>Inicio:</strong> Tras acreditación del anticipo del 50%.</div>
             </div>
             <div style="display: flex; gap: 8px; align-items: flex-start;">
-              <span style="color: #7c3aed; font-weight: 600;">02.</span>
+              <span style="color: #5B3FE0; font-weight: 600;">02.</span>
               <div><strong>Plazo Entrega:</strong> <span id="lbl-delivery-days-pdf">10 - 20</span> días hábiles desde el inicio.</div>
             </div>
             <div id="li-installments-pdf" style="display: none; gap: 8px; align-items: flex-start;">
-              <span style="color: #7c3aed; font-weight: 600;">03.</span>
+              <span style="color: #5B3FE0; font-weight: 600;">03.</span>
               <div><strong>Financiación:</strong> Hasta 3 cuotas fijas sin interés (Mercado Pago).</div>
             </div>
             <div id="li-transfer-discount-pdf" style="display: none; gap: 8px; align-items: flex-start;">
-              <span style="color: #7c3aed; font-weight: 600;">04.</span>
+              <span style="color: #5B3FE0; font-weight: 600;">04.</span>
               <div><strong>Bonificación:</strong> 15% aplicando a transferencia/efectivo.</div>
             </div>
             <div style="display: flex; gap: 8px; align-items: flex-start; grid-column: 1 / -1;">
-              <span style="color: #7c3aed; font-weight: 600;">05.</span>
+              <span style="color: #5B3FE0; font-weight: 600;">05.</span>
               <div><strong>Garantía:</strong> Etapa de revisiones técnicas conjuntas antes del despliegue final.</div>
             </div>
           </div>
         </div>
 
         <!-- DIGITAL STAMP & SIGNATURE BLOCK -->
-        <div style="border-top: 1.5px solid #e2e8f0; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; margin-top: 10px;">
+        <div style="border-top: 1.5px solid #ECECEF; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; margin-top: 10px;">
           <div>
-            <div style="font-size: 0.6rem; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px;">Estado del Documento</div>
+            <div style="font-size: 0.6rem; color: #8E8E99; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px;">Estado del Documento</div>
             <div id="proposal-digital-seal-pdf">
               <!-- Injected dynamically -->
             </div>
@@ -411,18 +411,18 @@ import Footer from '../../components/Footer.astro';
             <div style="text-align: center; width: 120px;">
               <div style="height: 35px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 4px;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" width="70" height="20" style="opacity: 0.6;">
-                  <path d="M10,20 C30,10 50,25 70,12 C80,8 90,15 95,20" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M10,20 C30,10 50,25 70,12 C80,8 90,15 95,20" fill="none" stroke="#5B3FE0" stroke-width="2" stroke-linecap="round"/>
                 </svg>
               </div>
-              <div style="border-top: 1px solid #cbd5e1; padding-top: 2px; font-size: 0.65rem; color: #475569; font-weight: 600;">Kaptativa Digital</div>
-              <div style="font-size: 0.55rem; color: #94a3b8;">Emisor Autorizado</div>
+              <div style="border-top: 1px solid #D4D4D9; padding-top: 2px; font-size: 0.65rem; color: #475569; font-weight: 600;">Kaptativa Digital</div>
+              <div style="font-size: 0.55rem; color: #B4B4BE;">Emisor Autorizado</div>
             </div>
             <div style="text-align: center; width: 120px;">
               <div style="height: 35px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 4px;" id="lbl-client-signature-space-pdf">
                 <!-- Render line or client signature status -->
               </div>
-              <div style="border-top: 1px solid #cbd5e1; padding-top: 2px; font-size: 0.65rem; color: #475569; font-weight: 600;" id="lbl-client-signature-title-pdf">Firma del Cliente</div>
-              <div style="font-size: 0.55rem; color: #94a3b8;">Representante Legal</div>
+              <div style="border-top: 1px solid #D4D4D9; padding-top: 2px; font-size: 0.65rem; color: #475569; font-weight: 600;" id="lbl-client-signature-title-pdf">Firma del Cliente</div>
+              <div style="font-size: 0.55rem; color: #B4B4BE;">Representante Legal</div>
             </div>
           </div>
         </div>
@@ -431,8 +431,8 @@ import Footer from '../../components/Footer.astro';
 
 
       <!-- ACCEPT AND DEPOSIT ACTIONS BAR -->
-      <div id="proposal-actions-bar" class="glow-container" style="padding: 2px; border-radius: 16px; background: linear-gradient(135deg, #10B981 0%, #EA384D 100%); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-        <div style="background: #0a0a10; padding: 30px 40px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div id="proposal-actions-bar" class="glow-container" style="padding: 2px; border-radius: 20px; background: linear-gradient(135deg, #10B981 0%, #7C5CFF 100%); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <div style="background: #151519; padding: 30px 40px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
           <div>
             <h4 style="margin: 0 0 5px 0; font-family: 'Lexend', sans-serif; font-size: 1.2rem; font-weight: 600; color: white;">¿Listo para comenzar el proyecto?</h4>
             <p style="margin: 0; color: var(--text-secondary); font-size: 0.85rem;">Puedes proceder a la pasarela de pagos online o aceptar la propuesta asíncronamente.</p>
@@ -441,7 +441,7 @@ import Footer from '../../components/Footer.astro';
             <button id="btn-accept-proposal" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: #10B981; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; color: white; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">
               ✅ Aceptar Propuesta
             </button>
-            <a id="lnk-gateway-pay" href="#" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, #EA384D, #7c3aed); border: none; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; color: white; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);">
+            <a id="lnk-gateway-pay" href="#" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, #7C5CFF, #5B3FE0); border: none; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; color: white; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);">
               💳 Proceder al Pago
             </a>
             <button id="btn-reject-proposal" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; border-color: rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; color: #ef4444; background: rgba(239, 68, 68, 0.05);">
@@ -592,13 +592,13 @@ import Footer from '../../components/Footer.astro';
 
           // Render for PDF Printable (Light Theme)
           const trPdf = document.createElement('tr');
-          trPdf.style.borderBottom = '1px solid #e2e8f0';
+          trPdf.style.borderBottom = '1px solid #ECECEF';
           
           let featuresHtmlPdf = '';
           if (isBaseItem) {
             featuresHtmlPdf = `
-              <div class="pdf-features-box" style="margin-top: 10px; padding: 12px; border-radius: 6px; background: #f8fafc; border-left: 3px solid #7c3aed; margin-bottom: 5px;">
-                <div class="pdf-features-title" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; color: #64748b;">Alcance Técnico Incluido:</div>
+              <div class="pdf-features-box" style="margin-top: 10px; padding: 12px; border-radius: 8px; background: #f8fafc; border-left: 3px solid #5B3FE0; margin-bottom: 5px;">
+                <div class="pdf-features-title" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; color: #8E8E99;">Alcance Técnico Incluido:</div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 12px;">
                   ${meta.features.map(f => f.trim() ? `<div class="pdf-feature-item" style="font-size: 0.75rem; color: #334155; display: flex; align-items: center; gap: 4px;"><span style="color: #10b981; font-weight: 600;">✓</span> ${f.trim()}</div>` : '').join('')}
                 </div>
@@ -617,7 +617,7 @@ import Footer from '../../components/Footer.astro';
         });
       } else {
         itemsBodyScreen.innerHTML = '<tr><td colspan="2" style="text-align:center;color:var(--text-muted);padding:24px;">Sin ítems detallados.</td></tr>';
-        itemsBodyPdf.innerHTML = '<tr><td colspan="2" style="text-align:center;color:#94a3b8;padding:24px;">Sin ítems detallados.</td></tr>';
+        itemsBodyPdf.innerHTML = '<tr><td colspan="2" style="text-align:center;color:#B4B4BE;padding:24px;">Sin ítems detallados.</td></tr>';
       }
 
       // 5. Setup Totals Calculations
@@ -800,30 +800,30 @@ import Footer from '../../components/Footer.astro';
         const clientSignatureSpacePdf = document.getElementById('lbl-client-signature-space-pdf')!;
 
         const sealAceptadoHtml = `
-          <div style="border: 2px solid #10b981; color: #10b981; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; display: inline-block; transform: rotate(-3deg); background: rgba(16, 185, 129, 0.05); font-family: 'Lexend', sans-serif; box-shadow: 0 4px 10px rgba(16,185,129,0.05);">
+          <div style="border: 2px solid #10b981; color: #10b981; padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; display: inline-block; transform: rotate(-3deg); background: rgba(16, 185, 129, 0.05); font-family: 'Lexend', sans-serif; box-shadow: 0 4px 10px rgba(16,185,129,0.05);">
             ✓ ACEPTADO DIGITALMENTE
           </div>
         `;
         const signatureAceptadoHtml = `
           <div style="font-family: 'Lexend', sans-serif; font-size: 0.75rem; color: #10b981; font-weight: 600; font-style: italic; line-height: 1.2; text-align: center;">
             Aceptado Online<br>
-            <span style="font-size: 0.55rem; font-weight: 400; color: #64748b; font-style: normal; display: block; margin-top: 2px;">ID: ${id.substring(0, 8).toUpperCase()}</span>
+            <span style="font-size: 0.55rem; font-weight: 400; color: #8E8E99; font-style: normal; display: block; margin-top: 2px;">ID: ${id.substring(0, 8).toUpperCase()}</span>
           </div>
         `;
 
         const sealRechazadoHtml = `
-          <div style="border: 2px solid #ef4444; color: #ef4444; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; display: inline-block; transform: rotate(-3deg); background: rgba(239, 68, 68, 0.05); font-family: 'Lexend', sans-serif;">
+          <div style="border: 2px solid #ef4444; color: #ef4444; padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; display: inline-block; transform: rotate(-3deg); background: rgba(239, 68, 68, 0.05); font-family: 'Lexend', sans-serif;">
             ✕ PROPUESTA DECLINADA
           </div>
         `;
         const signatureRechazadoHtml = `<span style="font-size: 0.75rem; color: #ef4444; font-weight: 600; font-family: 'Lexend', sans-serif;">Rechazado</span>`;
 
         const sealPendienteHtml = `
-          <div style="border: 2px dashed #cbd5e1; color: #94a3b8; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; display: inline-block; font-family: 'Lexend', sans-serif;">
+          <div style="border: 2px dashed #D4D4D9; color: #B4B4BE; padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; display: inline-block; font-family: 'Lexend', sans-serif;">
             Pendiente de Aceptación
           </div>
         `;
-        const signaturePendienteHtml = `<span style="font-size: 0.75rem; color: #94a3b8; font-style: italic; font-family: 'Lexend', sans-serif;">Firma pendiente</span>`;
+        const signaturePendienteHtml = `<span style="font-size: 0.75rem; color: #B4B4BE; font-style: italic; font-family: 'Lexend', sans-serif;">Firma pendiente</span>`;
 
         if (status === 'aceptado') {
           if (digitalSealScreen) digitalSealScreen.innerHTML = sealAceptadoHtml;
@@ -959,7 +959,7 @@ import Footer from '../../components/Footer.astro';
 
     #print-area table { border-collapse: collapse !important; }
     #print-area thead tr { border-bottom: 2px solid #d12237 !important; }
-    #print-area .pdf-table-row { border-bottom: 1px solid #cbd5e1 !important; }
+    #print-area .pdf-table-row { border-bottom: 1px solid #D4D4D9 !important; }
     #print-area th, #print-area td { padding: 9px 12px !important; }
 
     #print-area ul {

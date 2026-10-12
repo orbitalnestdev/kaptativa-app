@@ -5,15 +5,14 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Política de Privacidad | Kaptativa" description="Política de privacidad y protección de datos personales de Kaptativa. Conocé los términos sobre el tratamiento de la información en nuestra web.">
-  <Header slot="header" />
+  <Header slot="header" floating />
 
   <main>
     <section class="legal-section">
       <div class="container legal-container">
         <div class="legal-header reveal">
-          <span class="badge legal-badge">LEGAL</span>
-          <h1>Política de <span class="text-gradient-cyan">Privacidad</span></h1>
-          <p class="last-updated">Última actualización: 18 de Julio, 2026</p>
+          <h1>Política de privacidad</h1>
+          <p class="last-updated">Última actualización: 18 de julio de 2026</p>
         </div>
 
         <div class="legal-content reveal reveal-delay-1">
@@ -99,7 +98,7 @@ import Footer from '../components/Footer.astro';
   .legal-content {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 24px;
+    border-radius: 28px;
     padding: 50px;
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-lg);
@@ -138,7 +137,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .legal-content li::marker {
-    color: var(--accent-crimson, #ea384d);
+    color: var(--accent-crimson, #7C5CFF);
   }
 
   .legal-content a {
@@ -163,7 +162,7 @@ import Footer from '../components/Footer.astro';
 
     .legal-content {
       padding: 30px 24px;
-      border-radius: 16px;
+      border-radius: 20px;
     }
   }
 </style>

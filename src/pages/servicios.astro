@@ -6,7 +6,7 @@ import Servicios from '../components/Servicios.astro';
 ---
 
 <Layout title="Servicios de desarrollo web, automatización e IA | Kaptativa" description="Catálogo completo de servicios de tecnología: desarrollo web, CRM, automatización de procesos, agentes de IA y posicionamiento SEO & GEO.">
-  <Header slot="header" />
+  <Header slot="header" floating />
   
   <main>
     <!-- HERO INMERSIVO -->
@@ -16,9 +16,6 @@ import Servicios from '../components/Servicios.astro';
       
       <div class="container hero-container">
         <div class="hero-content reveal">
-          <span class="badge badge-neon">
-            <span class="badge-dot-pulsing"></span> EL MÉTODO KAPTATIVA
-          </span>
           <h1 class="hero-tagline">Cómo potenciamos tu <span class="text-gradient-crimson">crecimiento</span></h1>
           <p class="hero-description">No creemos en parches aislados que complican tu operación. Diseñamos e implementamos sistemas integrados que eliminan tareas manuales repetitivas, profesionalizan tu marca y multiplican tus ventas de forma sincronizada.</p>
           
@@ -36,24 +33,23 @@ import Servicios from '../components/Servicios.astro';
     <section class="section" id="metodologia">
       <div class="container">
         <div class="section-header reveal" style="text-align: center; margin-bottom: 50px;">
-          <span class="badge badge-accent">LA INTEGRACIÓN</span>
           <h2>Cómo encajan los servicios en tu negocio</h2>
           <p style="max-width: 750px; margin: 0 auto; color: var(--text-secondary);">Cada solución modular de Kaptativa se conecta de forma natural para formar un sistema de crecimiento automatizado.</p>
         </div>
 
         <div class="metodologia-flow reveal">
           <div class="flow-step">
-            <h4>1. Atracción y Captación</h4>
+            <h4>1. Atracción y captación</h4>
             <p>Posicionamos tu marca con SEO/GEO y anuncios en Paid Media, canalizando la atención calificada.</p>
           </div>
-          <div class="flow-step-arrow">&rarr;</div>
+          <div class="flow-step-arrow"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
           <div class="flow-step">
-            <h4>2. Conversión Web</h4>
+            <h4>2. Conversión web</h4>
             <p>Recibimos al usuario en tu sitio corporativo o e-commerce premium diseñado para acelerar la decisión.</p>
           </div>
-          <div class="flow-step-arrow">&rarr;</div>
+          <div class="flow-step-arrow"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
           <div class="flow-step">
-            <h4>3. Operación y Soporte</h4>
+            <h4>3. Operación y soporte</h4>
             <p>Los agentes de IA y las automatizaciones procesan los datos, agendan y administran sin intervención humana.</p>
           </div>
         </div>
@@ -66,8 +62,7 @@ import Servicios from '../components/Servicios.astro';
         <div class="cta-card-neon reveal">
           <div class="cta-glow-overlay"></div>
           <div class="cta-content-wrapper">
-            <span class="badge badge-neon-secondary">DIAGNÓSTICO DIGITAL</span>
-            <h2>¿Listo para digitalizar la <span class="text-gradient-cyan">operación de tu negocio?</span></h2>
+            <h2>¿Listo para digitalizar la operación de tu negocio?</h2>
             <p>Ponete en contacto para analizar los procesos de tu empresa y armar una propuesta a medida.</p>
             
             <div class="cta-buttons">
@@ -111,7 +106,7 @@ import Servicios from '../components/Servicios.astro';
     color: var(--badge-text);
     border: 1px solid var(--badge-border);
     padding: 8px 16px;
-    border-radius: 30px;
+    border-radius: 999px;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -173,7 +168,7 @@ import Servicios from '../components/Servicios.astro';
     transform: translateY(-2px);
   }
   .btn-glow:hover {
-    box-shadow: 0 10px 25px rgba(6, 182, 212, 0.35);
+    box-shadow: 0 10px 25px rgba(124, 92, 255, 0.35);
   }
 
   /* Glows y Grid */
@@ -228,7 +223,7 @@ import Servicios from '../components/Servicios.astro';
     line-height: 1.4;
   }
   .service-hub-card {
-    background: rgba(15, 21, 36, 0.45);
+    background: rgba(27, 27, 32, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--border-radius-lg);
     padding: 35px 35px;
@@ -251,9 +246,9 @@ import Servicios from '../components/Servicios.astro';
     pointer-events: none;
   }
   .service-hub-card:hover {
-    border-color: rgba(6, 182, 212, 0.3);
+    border-color: rgba(124, 92, 255, 0.3);
     transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(6, 182, 212, 0.1), 0 0 20px rgba(6, 182, 212, 0.05);
+    box-shadow: 0 15px 35px rgba(124, 92, 255, 0.1), 0 0 20px rgba(124, 92, 255, 0.05);
   }
   .service-hub-header {
     display: flex;
@@ -282,10 +277,10 @@ import Servicios from '../components/Servicios.astro';
   }
   .icon-orange { background: var(--accent-orange-glow); color: var(--accent-orange); }
   .icon-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
-  .icon-blue { background: rgba(37, 99, 235, 0.15); color: #2563EB; }
+  .icon-blue { background: rgba(37, 99, 235, 0.15); color: #6A48F5; }
   .icon-cyan { background: var(--accent-crimson-glow); color: var(--accent-crimson); }
   .icon-pink { background: var(--accent-pink-glow); color: var(--accent-pink); }
-  .icon-purple { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+  .icon-purple { background: rgba(106, 72, 245, 0.15); color: #6A48F5; }
   .icon-indigo { background: var(--accent-indigo-glow); color: var(--accent-indigo); }
   .icon-cyan-glow { background: var(--accent-crimson-glow); color: var(--accent-crimson); }
   .icon-violet { background: var(--accent-violet-glow); color: var(--accent-violet); }
@@ -350,7 +345,7 @@ import Servicios from '../components/Servicios.astro';
     padding: 80px 0;
   }
   .cta-card-neon {
-    background: rgba(15, 21, 36, 0.45);
+    background: rgba(27, 27, 32, 0.45);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--border-radius-lg);
@@ -364,8 +359,8 @@ import Servicios from '../components/Servicios.astro';
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgba(138, 53, 229, 0.12) 0%, transparent 75%),
-                radial-gradient(circle at 80% 80%, rgba(234, 56, 77, 0.08) 0%, transparent 50%);
+    background: radial-gradient(circle at center, rgba(106, 72, 245, 0.12) 0%, transparent 75%),
+                radial-gradient(circle at 80% 80%, rgba(124, 92, 255, 0.08) 0%, transparent 50%);
     pointer-events: none;
   }
   .cta-content-wrapper {

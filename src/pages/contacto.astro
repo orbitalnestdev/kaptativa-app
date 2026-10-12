@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Contacto: pedí una demo o un presupuesto | Kaptativa" description="Pedí una demo o un presupuesto para tu sitio web, tienda online o sistema de gestión. Te respondemos en menos de 24 hs hábiles.">
-  <Header slot="header" />
+  <Header slot="header" floating />
   
   <main>
     <!-- ==========================================================================
@@ -15,7 +15,6 @@ import Footer from '../components/Footer.astro';
     <section class="section hero-contacto" id="contacto">
       <div class="container">
         <div class="section-header reveal">
-          <span class="badge">¿Hablamos?</span>
           <h1>Contactá con <span class="text-gradient-crimson">kaptativa<sup>®</sup></span></h1>
           <p>Completá el formulario para recibir un diagnóstico y propuestas de automatización en 24 horas, o contactanos directamente.</p>
         </div>
@@ -35,7 +34,7 @@ import Footer from '../components/Footer.astro';
                 <div class="channel-details">
                   <h4>WhatsApp Comercial</h4>
                   <p>Iniciá un chat directo para resolver dudas inmediatas o agendar llamadas rápidamente.</p>
-                  <a href="https://wa.me/5493804890834" target="_blank" class="channel-link">Chatear ahora &rarr;</a>
+                  <a href="https://wa.me/5493804890834" target="_blank" class="channel-link">Chatear ahora</a>
                 </div>
               </div>
               
@@ -48,7 +47,7 @@ import Footer from '../components/Footer.astro';
                 <div class="channel-details">
                   <h4>Email Oficial</h4>
                   <p>Para propuestas de proyectos a medida, alianzas de negocio o consultas formales.</p>
-                  <a href="mailto:hola@kaptativa.com" class="channel-link">hola@kaptativa.com &rarr;</a>
+                  <a href="mailto:hola@kaptativa.com" class="channel-link">hola@kaptativa.com</a>
                 </div>
               </div>
               
@@ -76,33 +75,33 @@ import Footer from '../components/Footer.astro';
             <form id="contact-form" class="direct-contact-form" novalidate>
               <div class="form-group-row">
                 <div class="form-group">
-                  <label for="form-name" class="form-label-uppercase">NOMBRE *</label>
+                  <label for="form-name" class="form-label-uppercase">Nombre *</label>
                   <input type="text" id="form-name" class="form-control" placeholder="Tu nombre" required>
                 </div>
                 <div class="form-group">
-                  <label for="form-email" class="form-label-uppercase">EMAIL *</label>
+                  <label for="form-email" class="form-label-uppercase">Email *</label>
                   <input type="email" id="form-email" class="form-control" placeholder="tu@empresa.com" required>
                 </div>
               </div>
               
               <div class="form-group-row">
                 <div class="form-group">
-                  <label for="form-whatsapp" class="form-label-uppercase">TELÉFONO / WHATSAPP *</label>
+                  <label for="form-whatsapp" class="form-label-uppercase">Teléfono o WhatsApp *</label>
                   <input type="tel" id="form-whatsapp" class="form-control" placeholder="+54 11 ..." required>
                 </div>
                 <div class="form-group">
-                  <label for="form-business" class="form-label-uppercase">EMPRESA *</label>
+                  <label for="form-business" class="form-label-uppercase">Empresa *</label>
                   <input type="text" id="form-business" class="form-control" placeholder="Nombre de tu empresa" required>
                 </div>
               </div>
               
               <div class="form-group-row">
               <div class="form-group">
-                <label for="form-website" class="form-label-uppercase">URL DEL SITIO (OPCIONAL)</label>
+                <label for="form-website" class="form-label-uppercase">Sitio web (opcional)</label>
                 <input type="url" id="form-website" class="form-control" placeholder="https://tusitio.com">
               </div>
               <div class="form-group">
-                <label for="form-role" class="form-label-uppercase">¿QUÉ PUESTO OCUPÁS?</label>
+                <label for="form-role" class="form-label-uppercase">¿Qué puesto ocupás?</label>
                 <select id="form-role" class="form-control form-select-custom">
                   <option value="" disabled selected>Elegí una opción</option>
                   <option value="Fundador / CEO / Socio">Fundador / CEO / Socio</option>
@@ -114,7 +113,7 @@ import Footer from '../components/Footer.astro';
             </div>
 
             <div class="form-group">
-              <label for="form-service-interest" class="form-label-uppercase">¿QUÉ TE INTERESA?</label>
+              <label for="form-service-interest" class="form-label-uppercase">¿Qué te interesa?</label>
               <select id="form-service-interest" class="form-control form-select-custom">
                 <option value="" disabled selected>Elegí el servicio de tu interés</option>
                 <option value="Paid Media / Publicidad Digital">Paid Media / Publicidad Digital</option>
@@ -130,7 +129,7 @@ import Footer from '../components/Footer.astro';
             </div>
 
               <div class="form-group">
-                <label for="form-message" class="form-label-uppercase">¿CUÁL ES TU PRINCIPAL DESAFÍO HOY? *</label>
+                <label for="form-message" class="form-label-uppercase">¿Cuál es tu principal desafío hoy? *</label>
                 <textarea id="form-message" class="form-control" rows="4" placeholder="Contanos en qué estás y qué te gustaría resolver" required></textarea>
               </div>
               
@@ -142,7 +141,7 @@ import Footer from '../components/Footer.astro';
               </div>
               
               <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px var(--accent-indigo-glow);">
-                <span>Enviar →</span>
+                <span>Enviar</span>
               </button>
               
               <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">

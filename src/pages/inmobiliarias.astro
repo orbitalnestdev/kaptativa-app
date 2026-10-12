@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
 
 // Configuración de Enlaces y Contactos (CRO / Campaña)
 const MERCADO_PAGO_PLAN_BASE = import.meta.env.MERCADO_PAGO_PLAN_BASE || "https://link.mercadopago.com.ar/tu-link-de-pago-web";
@@ -38,69 +39,7 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
   <!-- ==========================================================================
        HEADER DE CAMPAÑA PREMIUM (CERO FUGAS DE CONVERSIÓN)
        ========================================================================== -->
-  <div slot="header">
-    <!-- Barra de Anuncios / Urgencia Superior (CRO Toolbar) -->
-    <div class="inmo-top-announcement-bar" id="top-urgency-bar">
-      <div class="container inmo-top-bar-container">
-        <div class="inmo-top-bar-content">
-          <span class="pulse-dot"></span>
-          <span class="scarcity-text">Solo 3 cupos disponibles</span>
-          <span class="scarcity-divider">|</span>
-          <span class="scarcity-timer"><span class="hide-mobile">La oferta termina en: </span><strong id="countdown-timer-top">00:00:00</strong></span>
-        </div>
-      </div>
-    </div>
-
-    <header class="header inmo-campaign-header" id="header">
-      <div class="container inmo-header-container">
-        <a href="/" class="logo" id="logo-brand" aria-label="Volver al inicio de Kaptativa">
-          <svg class="header-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="150" height="34" style="display: block;">
-            <defs>
-              <linearGradient id="logo-gradient-inmo" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#EA384D" />
-                <stop offset="100%" stop-color="#8A35E5" />
-              </linearGradient>
-            </defs>
-            <g>
-              <path d="M 6 13 L 6 47" stroke="url(#logo-gradient-inmo)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-              <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="url(#logo-gradient-inmo)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-              <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-inmo)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-            </g>
-            <text x="44" y="39" font-family="'Lexend', 'Inter', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">
-              kaptativa<tspan fill="#EA384D">.</tspan>
-            </text>
-          </svg>
-        </a>
-        
-        <nav class="nav inmo-nav" id="main-navigation">
-          <a href="#solucion" class="nav-link">Cómo Funciona</a>
-          <a href="/inmo-demo" target="_blank" rel="noopener noreferrer" class="nav-link">Demo</a>
-          <a href="#planes" class="nav-link">Precio</a>
-          <a href="#faq" class="nav-link">FAQ</a>
-        </nav>
-        
-        <div class="header-actions">
-          <!-- Selector de Tema -->
-          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Cambiar tema de color">
-            <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
-            <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
-            </svg>
-          </button>
-          
-          <a href="#planes" class="btn btn-primary btn-sm">Quiero este sistema</a>
-          
-          <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </div>
-    </header>
-  </div>
+  <Header slot="header" floating />
 
   <main class="inmo-main-content">
     <!-- ==========================================================================
@@ -111,7 +50,6 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
       <div class="container">
         <div class="inmo-hero-wrapper">
           <div class="inmo-hero-info reveal">
-            <span class="badge inmo-badge-gray">SISTEMA INMOBILIARIO WEB + CRM</span>
             <h1 class="inmo-hero-title" id="dynamic-headline">
               Tu portal inmobiliario y CRM, integrados en un solo sistema
             </h1>
@@ -123,30 +61,19 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
               <a href="#planes" class="btn btn-secondary btn-lg">Quiero este sistema</a>
             </div>
 
-            <div class="inmo-hero-social-proof">
-              <div class="inmo-avatar-stack">
-                <img loading="lazy" decoding="async" class="inmo-proof-avatar-badge" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=250&q=80" alt="Inmobiliaria Registrada 1" width="40" height="40" style="object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                <img loading="lazy" decoding="async" class="inmo-proof-avatar-badge" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=250&q=80" alt="Inmobiliaria Registrada 2" width="40" height="40" style="object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                <img loading="lazy" decoding="async" class="inmo-proof-avatar-badge" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=250&q=80" alt="Inmobiliaria Registrada 3" width="40" height="40" style="object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                <img loading="lazy" decoding="async" class="inmo-proof-avatar-badge" src="/broker_4.webp" alt="Inmobiliaria Registrada 4" width="40" height="40" style="object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-              </div>
-              <div class="inmo-proof-text">
-                <strong>Más de 30 inmobiliarias</strong> ya gestionan su operación con nuestra tecnología
-              </div>
-            </div>
             
             <div class="inmo-hero-trust-bar">
               <span class="inmo-trust-badge-mini" style="display: inline-flex; align-items: center; gap: 6px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-pink);"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                Pago Único
+                Pago único
               </span>
               <span class="inmo-trust-badge-mini" style="display: inline-flex; align-items: center; gap: 6px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-pink);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Garantía de 30 Días
+                Garantía de 30 días
               </span>
               <span class="inmo-trust-badge-mini" style="display: inline-flex; align-items: center; gap: 6px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-pink);"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                Web + Sistema CRM
+                Web y sistema CRM
               </span>
             </div>
           </div>
@@ -180,17 +107,17 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
                   <div class="inmo-listing-hero">
                     <div class="inmo-listing-img-placeholder" style="position: relative; overflow: hidden; height: 185px; border-radius: 12px;">
                       <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80" alt="Departamento Moderno en Palermo" style="width: 100%; height: 100%; object-fit: cover;" />
-                      <div class="inmo-listing-tag" style="position: absolute; top: 12px; left: 12px; z-index: 2;">VENTA EXCLUSIVA</div>
+                      <div class="inmo-listing-tag" style="position: absolute; top: 12px; left: 12px; z-index: 2;">Venta exclusiva</div>
                     </div>
                     
                     <div class="inmo-listing-details">
                       <span class="inmo-listing-price">USD 245.000</span>
                       <h4 class="inmo-listing-title">Departamento moderno en Palermo</h4>
-                      <p class="inmo-listing-meta">3 ambientes · 85 m² · Cochera</p>
+                      <p class="inmo-listing-meta">3 ambientes, 85 m², Cochera</p>
                       
                       <!-- Search simulator inside the page -->
                       <div class="inmo-listing-search-bar">
-                        <span>🔍 Palermo, 3 ambientes…</span>
+                        <span>Palermo, 3 ambientes…</span>
                         <span class="search-btn">Buscar</span>
                       </div>
                     </div>
@@ -205,7 +132,7 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
                     <div class="inmo-chat-avatar">IA</div>
                     <div>
                       <div class="inmo-chat-name">Sofía IA — Asesora inmobiliaria</div>
-                      <div class="inmo-chat-subtitle">Atención inmediata 🟢</div>
+                      <div class="inmo-chat-subtitle">Atención inmediata </div>
                     </div>
                   </div>
                 </div>
@@ -213,21 +140,21 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
                   <div class="inmo-msg incoming">¿Qué expensas tiene?</div>
                   <div class="inmo-msg outgoing">Son $45.000. ¿Querés coordinar una visita?</div>
                   <div class="inmo-msg incoming">Sí, el martes por la tarde.</div>
-                  <div class="inmo-msg outgoing">¡Listo! Agendé tu visita para el martes a las 16:30. 📅</div>
+                  <div class="inmo-msg outgoing">¡Listo! Agendé tu visita para el martes a las 16:30. </div>
                 </div>
               </div>
               
               <!-- 3. FOREGROUND LAYER 2: CRM CONSOLE CARD (FLOATING OVERLAY) -->
               <div class="inmo-crm-card-overlay inmo-glass-panel">
                 <div class="inmo-crm-header">
-                  <span class="crm-indicator">● CRM COMERCIAL</span>
+                  <span class="crm-indicator">CRM comercial</span>
                   <span class="crm-title">Visita agendada</span>
                 </div>
                 <div class="inmo-crm-lead-info">
                   <div class="lead-avatar">PG</div>
                   <div>
                     <div class="lead-name">Pedro Gómez</div>
-                    <div class="lead-detail">Palermo · Martes 16:30</div>
+                    <div class="lead-detail">Palermo, Martes 16:30</div>
                   </div>
                 </div>
                 <span class="lead-badge-status">Contacto calificado por IA</span>
@@ -247,7 +174,6 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
     <section class="section inmo-dolores-section" id="dolores">
       <div class="container">
         <div class="section-header reveal">
-          <span class="badge inmo-badge-gray">FUGAS OPERATIVAS</span>
           <h2>Lo que pierde tu inmobiliaria cuando depende solo de <span class="text-outline-purple">Instagram y WhatsApp</span></h2>
           <p>Instagram y WhatsApp ayudan a generar consultas, pero no alcanzan para organizar propiedades, realizar seguimientos y escalar la operación comercial.</p>
         </div>
@@ -300,7 +226,6 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
     <section class="section inmo-service-details-section" id="solucion">
       <div class="container">
         <div class="section-header reveal">
-          <span class="badge inmo-badge-gray">EL SISTEMA INTEGRAL</span>
           <h2>Tu ecosistema inmobiliario, <span class="text-outline">conectado en una sola plataforma</span></h2>
           <p>Integramos la web, el CRM, las consultas, la agenda y las automatizaciones para que puedas publicar propiedades, administrar oportunidades y acompañar a cada cliente desde un único sistema.</p>
         </div>
@@ -319,15 +244,15 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
               <h3>1. Portal inmobiliario de alto rendimiento</h3>
               <p>Una web profesional, rápida y adaptada a la identidad de tu inmobiliaria, diseñada para mostrar propiedades y generar consultas con una arquitectura optimizada para alta velocidad.</p>
               <ul class="inmo-spec-features-list">
-                <li><span>✓</span> <span>Diseño personalizado con marca propia</span></li>
-                <li><span>✓</span> <span>Catálogo autogestionable de propiedades</span></li>
-                <li><span>✓</span> <span>Buscador por operación, zona, precio, ambientes y tipología</span></li>
-                <li><span>✓</span> <span>Fichas con fotos, mapas y tours 360°</span></li>
-                <li><span>✓</span> <span>Formularios de consulta y solicitud de tasaciones</span></li>
-                <li><span>✓</span> <span>Contacto directo por WhatsApp</span></li>
-                <li><span>✓</span> <span>Diseño responsive para celular, tablet y computadora</span></li>
-                <li><span>✓</span> <span>Optimización SEO local y estructura orientada a conversión</span></li>
-                <li><span>✓</span> <span>Dominio propio, certificado SSL y protección de datos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Diseño personalizado con marca propia</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Catálogo autogestionable de propiedades</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Buscador por operación, zona, precio, ambientes y tipología</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Fichas con fotos, mapas y tours 360°</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Formularios de consulta y solicitud de tasaciones</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Contacto directo por WhatsApp</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Diseño responsive para celular, tablet y computadora</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Optimización SEO local y estructura orientada a conversión</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Dominio propio, certificado SSL y protección de datos</span></li>
               </ul>
             </div>
           </div>
@@ -344,14 +269,14 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
               <h3>2. Panel de control e integraciones</h3>
               <p>Centralizá la información de tu negocio y mantené actualizado el catálogo mediante integraciones con plataformas externas.</p>
               <ul class="inmo-spec-features-list">
-                <li><span>✓</span> <span>Panel centralizado de administración</span></li>
-                <li><span>✓</span> <span>Estadísticas de visitas, consultas y favoritos</span></li>
-                <li><span>✓</span> <span>Identificación del origen de cada oportunidad</span></li>
-                <li><span>✓</span> <span>Integración con Tokko Broker y otras plataformas</span></li>
-                <li><span>✓</span> <span>Importación y actualización automática de propiedades</span></li>
-                <li><span>✓</span> <span>Sincronización con bases de datos externas mediante API</span></li>
-                <li><span>✓</span> <span>Control del estado de las integraciones</span></li>
-                <li><span>✓</span> <span>Reportes comerciales y de rendimiento</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Panel centralizado de administración</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Estadísticas de visitas, consultas y favoritos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Identificación del origen de cada oportunidad</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Integración con Tokko Broker y otras plataformas</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Importación y actualización automática de propiedades</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Sincronización con bases de datos externas mediante API</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Control del estado de las integraciones</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Reportes comerciales y de rendimiento</span></li>
               </ul>
               <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; font-style: italic; line-height: 1.3;">
                 Las integraciones dependen de la disponibilidad y los permisos de la API de cada plataforma.
@@ -371,16 +296,16 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
               <h3>3. CRM y embudo comercial</h3>
               <p>Organizá todas las consultas y realizá el seguimiento de cada oportunidad desde el primer contacto hasta el cierre.</p>
               <ul class="inmo-spec-features-list">
-                <li><span>✓</span> <span>Registro automático de consultas desde la web y WhatsApp</span></li>
-                <li><span>✓</span> <span>Ficha completa de cada contacto</span></li>
-                <li><span>✓</span> <span>Pipeline comercial visual estilo Kanban</span></li>
-                <li><span>✓</span> <span>Etapas personalizables según tu proceso de venta o alquiler</span></li>
-                <li><span>✓</span> <span>Asignación de oportunidades a asesores</span></li>
-                <li><span>✓</span> <span>Historial de conversaciones, notas y actividades</span></li>
-                <li><span>✓</span> <span>Recordatorios de llamadas, visitas y seguimientos</span></li>
-                <li><span>✓</span> <span>Gestión de señas, contratos y vencimientos</span></li>
-                <li><span>✓</span> <span>Usuarios y permisos para el equipo comercial</span></li>
-                <li><span>✓</span> <span>Panel de rendimiento por asesor</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Registro automático de consultas desde la web y WhatsApp</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Ficha completa de cada contacto</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Pipeline comercial visual estilo Kanban</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Etapas personalizables según tu proceso de venta o alquiler</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Asignación de oportunidades a asesores</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Historial de conversaciones, notas y actividades</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Recordatorios de llamadas, visitas y seguimientos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Gestión de señas, contratos y vencimientos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Usuarios y permisos para el equipo comercial</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Panel de rendimiento por asesor</span></li>
               </ul>
             </div>
           </div>
@@ -397,16 +322,16 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
               <h3>4. Agenda, seguridad e infraestructura</h3>
               <p>Coordiná visitas sin superposiciones y protegé la información y el contenido de tu inmobiliaria.</p>
               <ul class="inmo-spec-features-list">
-                <li><span>✓</span> <span>Agenda centralizada de visitas y reuniones</span></li>
-                <li><span>✓</span> <span>Disponibilidad individual por asesor</span></li>
-                <li><span>✓</span> <span>Confirmaciones y recordatorios automáticos</span></li>
-                <li><span>✓</span> <span>Prevención de turnos superpuestos</span></li>
-                <li><span>✓</span> <span>Copias de seguridad automáticas</span></li>
-                <li><span>✓</span> <span>Monitoreo de disponibilidad y seguridad</span></li>
-                <li><span>✓</span> <span>Optimización de imágenes y recursos</span></li>
-                <li><span>✓</span> <span>Marca de agua automática en fotografías</span></li>
-                <li><span>✓</span> <span>Hosting administrado y soporte técnico</span></li>
-                <li><span>✓</span> <span>Acceso seguro con usuarios y permisos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Agenda centralizada de visitas y reuniones</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Disponibilidad individual por asesor</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Confirmaciones y recordatorios automáticos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Prevención de turnos superpuestos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Copias de seguridad automáticas</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Monitoreo de disponibilidad y seguridad</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Optimización de imágenes y recursos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Marca de agua automática en fotografías</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Hosting administrado y soporte técnico</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Acceso seguro con usuarios y permisos</span></li>
               </ul>
             </div>
           </div>
@@ -420,17 +345,17 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
               <h3>5. Agente inmobiliario virtual con IA — Opcional</h3>
               <p>Incorporará un asistente conectado a tu catálogo para responder consultas, calificar interesados y automatizar tareas repetitivas.</p>
               <ul class="inmo-spec-features-list">
-                <li><span>✓</span> <span>Atención automática por WhatsApp las 24 horas</span></li>
-                <li><span>✓</span> <span>Respuestas basadas en las propiedades disponibles</span></li>
-                <li><span>✓</span> <span>Consultas sobre precios, ubicación, expensas y características</span></li>
-                <li><span>✓</span> <span>Recomendación de propiedades según las necesidades del interesado</span></li>
-                <li><span>✓</span> <span>Calificación automática de prospectos</span></li>
-                <li><span>✓</span> <span>Derivación de oportunidades al asesor correspondiente</span></li>
-                <li><span>✓</span> <span>Coordinación de visitas mediante la agenda integrada</span></li>
-                <li><span>✓</span> <span>Generación de descripciones comerciales para propiedades</span></li>
-                <li><span>✓</span> <span>Optimización de contenidos para SEO local</span></li>
-                <li><span>✓</span> <span>Integración mediante Evolution API</span></li>
-                <li><span>✓</span> <span>Historial de conversaciones dentro del CRM</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Atención automática por WhatsApp las 24 horas</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Respuestas basadas en las propiedades disponibles</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Consultas sobre precios, ubicación, expensas y características</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Recomendación de propiedades según las necesidades del interesado</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Calificación automática de prospectos</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Derivación de oportunidades al asesor correspondiente</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Coordinación de visitas mediante la agenda integrada</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Generación de descripciones comerciales para propiedades</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Optimización de contenidos para SEO local</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Integración mediante Evolution API</span></li>
+                <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> <span>Historial de conversaciones dentro del CRM</span></li>
               </ul>
             </div>
           </div>
@@ -446,80 +371,6 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
     <!-- ==========================================================================
          SECCIÓN TESTIMONIOS Y CONFIANZA INMOBILIARIA
          ========================================================================== -->
-    <section class="section inmo-testimonials-section" id="testimonios">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="badge inmo-badge-gray">REVIEWS</span>
-          <h2>Qué opinan nuestros clientes</h2>
-          <p>Corredores y brokers en Argentina que ya utilizan nuestra plataforma Web + CRM para organizar sus propiedades y consultas.</p>
-        </div>
-
-        <div class="inmo-dolores-grid reveal" style="margin-bottom: 50px;">
-          <div class="inmo-pain-card inmo-glass-panel inmo-testimonial-card">
-            <div>
-              <div class="inmo-testimonial-stars">★★★★★</div>
-              <p class="inmo-testimonial-text">
-                "Al principio tenía mis dudas de si la atención por WhatsApp por IA iba a sonar robótica con clientes en Palermo o Barrio Norte. Pero el resultado fue tremendo: responde sobre expensas y ambientes en segundos y nos arma la agenda de visitas sola para el fin de semana."
-              </p>
-            </div>
-            <div class="inmo-testimonial-author">
-              <img loading="lazy" decoding="async" src="/broker_1.webp" alt="Nicolás Lepore" class="inmo-testimonial-avatar" style="object-fit: cover; border: 2px solid rgba(6, 182, 212, 0.5);">
-              <div>
-                <h4 class="inmo-testimonial-author-name">
-                  Nicolás Lepore
-                  <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: #06b6d4; display: inline-block; vertical-align: middle; margin-left: 4px;" title="Broker Verificado">
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                  </svg>
-                </h4>
-                <p class="inmo-testimonial-author-title">Lepore Propiedades</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="inmo-pain-card inmo-glass-panel inmo-testimonial-card">
-            <div>
-              <div class="inmo-testimonial-stars">★★★★★</div>
-              <p class="inmo-testimonial-text">
-                "Antes perdíamos horas contestando mensajes repetidos en Instagram a las 11 de la noche. Con la web y el CRM integrados de Kaptativa, la consulta entra filtrada con presupuesto real y el corredor la toma directo para cerrar la reserva."
-              </p>
-            </div>
-            <div class="inmo-testimonial-author">
-              <img loading="lazy" decoding="async" src="/broker_2.webp" alt="Valeria Achával" class="inmo-testimonial-avatar" style="object-fit: cover; border: 2px solid rgba(6, 182, 212, 0.5);">
-              <div>
-                <h4 class="inmo-testimonial-author-name">
-                  Valeria Achával
-                  <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: #06b6d4; display: inline-block; vertical-align: middle; margin-left: 4px;" title="Corredora Verificada">
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                  </svg>
-                </h4>
-                <p class="inmo-testimonial-author-title">Achával Inmuebles</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="inmo-pain-card inmo-glass-panel inmo-testimonial-card">
-            <div>
-              <div class="inmo-testimonial-stars">★★★★★</div>
-              <p class="inmo-testimonial-text">
-                "La velocidad del catálogo web público y el organizador visual de propiedades marcaron una diferencia enorme. Los clientes navegan super cómodo y la solicitud de tasación llega calificada directo a nuestro WhatsApp comercial."
-              </p>
-            </div>
-            <div class="inmo-testimonial-author">
-              <img loading="lazy" decoding="async" src="/broker_3.webp" alt="Mariano Tizado" class="inmo-testimonial-avatar" style="object-fit: cover; border: 2px solid rgba(6, 182, 212, 0.5);">
-              <div>
-                <h4 class="inmo-testimonial-author-name">
-                  Mariano Tizado
-                  <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: #06b6d4; display: inline-block; vertical-align: middle; margin-left: 4px;" title="Broker Verificado">
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                  </svg>
-                </h4>
-                <p class="inmo-testimonial-author-title">Tizado Propiedades</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
 
 
@@ -529,7 +380,6 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
     <section class="section inmo-pricing-section" id="planes">
       <div class="container">
         <div class="section-header reveal">
-          <span class="badge inmo-badge-gray">PAGO ÚNICO</span>
           <h2>Precio para escalar tu inmobiliaria</h2>
           <p>Plataforma Web + CRM de Gestión por pago único. Sin comisiones por ventas ni cargos obligatorios por propiedad.</p>
         </div>
@@ -551,7 +401,7 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
 
 
             <div class="inmo-pricing-header">
-              <span class="inmo-plan-badge" style="background: rgba(59, 130, 246, 0.15) !important; color: #ffffff !important; font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.4) !important; text-shadow: 0 0 10px rgba(59,130,246,0.3);">PRECIO DE LANZAMIENTO</span>
+              <span class="inmo-plan-badge" style="background: rgba(124, 92, 255, 0.15) !important; color: #ffffff !important; font-weight: 600; border: 1px solid rgba(124, 92, 255, 0.4) !important; text-shadow: 0 0 10px rgba(124, 92, 255,0.3);">Precio de lanzamiento</span>
               <h3>Web inmobiliaria + CRM integrado</h3>
               <p style="font-size: 0.95rem; font-weight: 300; color: var(--text-secondary); margin-top: 10px; line-height: 1.5;">
                 Publicá propiedades, centralizá consultas y organizá el seguimiento comercial desde una sola plataforma.
@@ -575,63 +425,63 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
             <div class="inmo-pricing-features-wrapper">
               <ul class="inmo-pricing-features-list">
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Web inmobiliaria profesional y autogestionable</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Publicación ilimitada de propiedades</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Buscador por ubicación, operación, tipo y precio</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Fichas completas con fotos, mapas y características</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>CRM inmobiliario integrado</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Registro automático de consultas y contactos</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Seguimiento de oportunidades y estados comerciales</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Formularios y contacto directo por WhatsApp</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Panel de administración simple e intuitivo</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Usuarios y permisos para el equipo comercial</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Diseño responsive para celular, tablet y computadora</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Optimización SEO para propiedades y búsquedas locales</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Integración con Google Maps y redes sociales</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Hosting, seguridad y copias de respaldo incluidos</div>
                 </li>
                 <li>
-                  <span class="feature-check">✓</span>
+                  <span class="feature-check"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <div>Soporte técnico y mantenimiento incluido</div>
                 </li>
               </ul>
@@ -713,7 +563,6 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
     <section class="section inmo-faq-section" id="faq">
       <div class="container">
         <div class="section-header reveal">
-          <span class="badge inmo-badge-gray">FAQ</span>
           <h2>Preguntas Frecuentes</h2>
           <p>Resolvemos las consultas más habituales sobre la entrega llave en mano, sincronización y funcionamiento.</p>
         </div>
@@ -806,8 +655,7 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
          ========================================================================== -->
     <section class="section contact-section" id="contacto" style="position: relative; overflow: hidden; padding: 80px 0 100px;">
       <div class="container" style="position: relative; z-index: 2; max-width: 1000px;">
-        <div class="reveal inmo-glass-panel" style="text-align: center; padding: 60px 40px; border-radius: 24px; border: 1px solid rgba(138, 53, 229, 0.25); background: rgba(15, 21, 36, 0.6); backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(138, 53, 229, 0.1);">
-          <span class="badge inmo-badge-gray" style="margin-bottom: 20px; font-size: 0.75rem; letter-spacing: 0.08em;">DIAGNÓSTICO DIGITAL</span>
+        <div class="inmo-glass-panel" style="text-align: center; padding: 60px 40px; border-radius: 28px; border: 1px solid rgba(106, 72, 245, 0.25); background: rgba(27, 27, 32, 0.6); backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(106, 72, 245, 0.1);">
           <h2 style="font-size: 2.4rem; font-weight: 600; color: var(--text-primary); margin-bottom: 18px; font-family: 'Lexend', sans-serif; line-height: 1.2;">
             ¿Listo para <span class="text-gradient-crimson">impulsar tu negocio?</span>
           </h2>
@@ -957,7 +805,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   font-size: 0.725rem;
   padding: 3px 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-left: 12px;
   transition: all 0.2s ease;
 }
@@ -1028,7 +876,7 @@ h1, h2, h3, h4, h5, h6 {
 .inmo-nav .nav-link {
     font-size: 0.9rem;
     font-weight: 500;
-    color: #94a3b8;
+    color: #B4B4BE;
     padding: 6px 0;
     transition: color var(--transition-fast);
   }
@@ -1047,7 +895,7 @@ h1, h2, h3, h4, h5, h6 {
     gap: 16px;
   }
 .inmo-campaign-header .header-actions .theme-toggle-btn {
-    color: #94a3b8;
+    color: #B4B4BE;
     transition: color var(--transition-fast);
     background: transparent;
     border: none;
@@ -1066,19 +914,19 @@ h1, h2, h3, h4, h5, h6 {
     color: #0f172a;
   }
 .inmo-campaign-header .header-actions .btn-primary {
-    background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%) !important;
+    background: linear-gradient(90deg, #7C5CFF 0%, #6A48F5 100%) !important;
     border: none !important;
     color: #ffffff !important;
     border-radius: 9999px !important;
     padding: 8px 20px !important;
     font-size: 0.875rem !important;
     font-weight: 600 !important;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3) !important;
+    box-shadow: 0 4px 15px rgba(106, 72, 245, 0.3) !important;
     transition: all var(--transition-fast) !important;
   }
 .inmo-campaign-header .header-actions .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4), 0 0 0 2px rgba(236, 72, 153, 0.2) !important;
+    box-shadow: 0 6px 20px rgba(106, 72, 245, 0.4), 0 0 0 2px rgba(124, 92, 255, 0.2) !important;
     background: linear-gradient(90deg, #f43f5e 0%, #a855f7 100%) !important;
   }
 @media (max-width: 768px) {
@@ -1150,7 +998,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateX(-50%);
     width: 100%;
     height: 700px;
-    background: radial-gradient(ellipse at 50% 30%, rgba(217, 70, 239, 0.12) 0%, rgba(16, 185, 129, 0.05) 50%, rgba(16, 185, 129, 0) 100%);
+    background: radial-gradient(ellipse at 50% 30%, rgba(124, 92, 255, 0.12) 0%, rgba(16, 185, 129, 0.05) 50%, rgba(16, 185, 129, 0) 100%);
     pointer-events: none;
     z-index: 0;
     filter: blur(80px);
@@ -1261,7 +1109,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     background: rgba(15, 23, 42, 0.45) !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 14px;
+    border-radius: 12px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
     overflow: hidden;
     font-family: 'Lexend', sans-serif;
@@ -1292,7 +1140,7 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.04);
     padding: 3px 12px;
-    border-radius: 6px;
+    border-radius: 8px;
     flex-grow: 1;
     text-align: center;
     font-family: monospace;
@@ -1318,7 +1166,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     gap: 10px;
     font-size: 0.65rem;
-    color: #64748b;
+    color: #8E8E99;
   }
 
 .inmo-listing-hero {
@@ -1329,7 +1177,7 @@ h1, h2, h3, h4, h5, h6 {
 .inmo-listing-img-placeholder {
     width: 100%;
     height: 140px;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(106, 72, 245, 0.1) 100%);
     border-radius: 8px;
     position: relative;
     display: flex;
@@ -1341,12 +1189,12 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 8px;
     left: 8px;
-    background: #d4ff00;
-    color: #000;
+    background: var(--brand-fill);
+    color: #fff;
     font-size: 0.55rem;
     font-weight: 600;
     padding: 2px 6px;
-    border-radius: 4px;
+    border-radius: 8px;
   }
 /* Drawing a simple geometric house vector */
 .inmo-house-vector {
@@ -1365,7 +1213,7 @@ h1, h2, h3, h4, h5, h6 {
 .inmo-house-vector .house-wall {
     width: 50px;
     height: 30px;
-    background: rgba(139, 92, 246, 0.6);
+    background: rgba(106, 72, 245, 0.6);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -1394,7 +1242,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 .inmo-listing-meta {
     font-size: 0.7rem;
-    color: #64748b;
+    color: #8E8E99;
     margin-bottom: 12px;
   }
 .inmo-listing-search-bar {
@@ -1412,7 +1260,7 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--accent-indigo);
     color: #fff;
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 0.6rem;
     font-weight: 600;
   }
@@ -1447,7 +1295,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background: #EA384D;
+    background: #7C5CFF;
     color: #000;
     font-size: 0.65rem;
     font-weight: 600;
@@ -1478,12 +1326,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 .inmo-phone-chat-overlay .inmo-msg.incoming {
     background: rgba(255, 255, 255, 0.05);
-    color: #cbd5e1;
+    color: #D4D4D9;
     align-self: flex-start;
     border-bottom-left-radius: 1px;
   }
 .inmo-phone-chat-overlay .inmo-msg.outgoing {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(106, 72, 245, 0.2) 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: #ffffff;
     align-self: flex-end;
@@ -1519,7 +1367,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
   }
 .inmo-crm-card-overlay .crm-title {
-    color: #64748b;
+    color: #8E8E99;
   }
 .inmo-crm-card-overlay .inmo-crm-lead-info {
     display: flex;
@@ -1531,14 +1379,14 @@ h1, h2, h3, h4, h5, h6 {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: rgba(139, 92, 246, 0.2);
+    background: rgba(106, 72, 245, 0.2);
     color: #a78bfa;
     font-size: 0.65rem;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(106, 72, 245, 0.3);
   }
 .inmo-crm-card-overlay .lead-name {
     font-size: 0.7rem;
@@ -1547,7 +1395,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 .inmo-crm-card-overlay .lead-detail {
     font-size: 0.55rem;
-    color: #64748b;
+    color: #8E8E99;
   }
 .inmo-crm-card-overlay .lead-badge-status {
     display: inline-block;
@@ -1556,7 +1404,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #10b981;
     background: rgba(16, 185, 129, 0.1);
     padding: 2px 6px;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-top: 8px;
     text-align: center;
     width: fit-content;
@@ -1579,7 +1427,7 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom-color: rgba(0, 0, 0, 0.08);
   }
 [data-theme="light"] .inmo-browser-address {
-    color: #64748b;
+    color: #8E8E99;
     background: rgba(0, 0, 0, 0.02);
     border-color: rgba(0, 0, 0, 0.04);
   }
@@ -1592,7 +1440,7 @@ h1, h2, h3, h4, h5, h6 {
 [data-theme="light"] .inmo-listing-search-bar {
     background: rgba(0, 0, 0, 0.02);
     border-color: rgba(0, 0, 0, 0.04);
-    color: #64748b;
+    color: #8E8E99;
   }
 [data-theme="light"] .inmo-phone-chat-overlay {
     background: rgba(255, 255, 255, 0.95) !important;
@@ -1633,7 +1481,7 @@ h1, h2, h3, h4, h5, h6 {
 .badge {
     display: inline-block;
     padding: 6px 14px;
-    border-radius: 50px;
+    border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
@@ -1662,7 +1510,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 [data-theme="light"] .inmo-badge-gray {
     background: rgba(0, 0, 0, 0.04);
-    color: #64748b;
+    color: #8E8E99;
     border-color: rgba(0, 0, 0, 0.08);
   }
 /* Secciones Estándar */
@@ -1748,7 +1596,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 .inmo-pain-card:nth-child(4) .inmo-pain-icon {
     background: rgba(16, 185, 129, 0.08);
-    color: #EA384D;
+    color: #7C5CFF;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 4px 15px rgba(16, 185, 129, 0.05);
   }
@@ -1804,7 +1652,7 @@ h1, h2, h3, h4, h5, h6 {
 .inmo-spec-card:hover .inmo-card-watermark-bg {
     opacity: 0.14;
     transform: scale(1.1) rotate(-4deg);
-    color: #EA384D;
+    color: #7C5CFF;
   }
 .inmo-spec-card:hover {
     transform: translateY(-5px);
@@ -1822,9 +1670,9 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 15px rgba(124,58,237,0.1);
   }
 .inmo-spec-icon-wrapper.inmo-crimson-icon {
-    background: rgba(234, 56, 77, 0.1);
-    color: #EA384D;
-    box-shadow: 0 4px 15px rgba(234, 56, 77, 0.1);
+    background: rgba(124, 92, 255, 0.1);
+    color: #7C5CFF;
+    box-shadow: 0 4px 15px rgba(124, 92, 255, 0.1);
   }
 .inmo-spec-icon-wrapper.inmo-indigo-icon {
     background: rgba(124, 58, 237, 0.1);
@@ -1898,10 +1746,10 @@ h1, h2, h3, h4, h5, h6 {
 /* Featured Plan Static Border Glow */
 .featured-plan.neon-style {
   position: relative;
-  border: 1px solid rgba(138, 53, 229, 0.35) !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(138, 53, 229, 0.12) !important;
-  background: radial-gradient(circle at top right, rgba(138, 53, 229, 0.08) 0%, rgba(15, 21, 36, 0.85) 60%) !important;
-  border-radius: 24px;
+  border: 1px solid rgba(106, 72, 245, 0.35) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(106, 72, 245, 0.12) !important;
+  background: radial-gradient(circle at top right, rgba(106, 72, 245, 0.08) 0%, rgba(27, 27, 32, 0.85) 60%) !important;
+  border-radius: 28px;
 }
 .featured-plan.neon-style::before,
 .featured-plan.neon-style::after {
@@ -1967,8 +1815,8 @@ h1, h2, h3, h4, h5, h6 {
     transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
   }
 .inmo-pricing-card-upgrade:hover {
-    border-color: rgba(139, 92, 246, 0.3);
-    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.05);
+    border-color: rgba(106, 72, 245, 0.3);
+    box-shadow: 0 10px 30px rgba(106, 72, 245, 0.05);
   }
 .inmo-upgrade-body {
     display: grid;
@@ -2090,16 +1938,16 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
     border-radius: inherit;
     border: 1px solid transparent;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(217, 70, 239, 0.2)) border-box;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(124, 92, 255, 0.2)) border-box;
     -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;
   }
 :global(.inmo-pricing-card.featured-plan.neon-style) {
-    border-color: rgba(138, 53, 229, 0.35) !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(138, 53, 229, 0.12) !important;
-    background: radial-gradient(circle at top right, rgba(138, 53, 229, 0.08) 0%, rgba(15, 21, 36, 0.75) 60%) !important;
+    border-color: rgba(106, 72, 245, 0.35) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(106, 72, 245, 0.12) !important;
+    background: radial-gradient(circle at top right, rgba(106, 72, 245, 0.08) 0%, rgba(27, 27, 32, 0.75) 60%) !important;
   }
 :global(.inmo-pricing-card.featured-plan.neon-style::before) {
     display: none !important;
@@ -2108,11 +1956,11 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--gradient-primary) !important;
     color: #ffffff !important;
     font-weight: 600;
-    box-shadow: 0 4px 20px rgba(234, 56, 77, 0.35);
+    box-shadow: 0 4px 20px rgba(124, 92, 255, 0.35);
   }
 :global(.inmo-pricing-card.featured-plan.neon-style .btn-primary:hover) {
     background: var(--gradient-hover) !important;
-    box-shadow: 0 6px 25px rgba(234, 56, 77, 0.5);
+    box-shadow: 0 6px 25px rgba(124, 92, 255, 0.5);
   }
 :global(.inmo-pricing-card.featured-plan.neon-style .feature-check) {
     color: var(--accent-pink) !important;
@@ -2142,11 +1990,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Installments Badge */
 .inmo-installments-badge {
-  background: rgba(138, 53, 229, 0.08);
-  border: 1px solid rgba(138, 53, 229, 0.25);
+  background: rgba(106, 72, 245, 0.08);
+  border: 1px solid rgba(106, 72, 245, 0.25);
   color: #ffffff;
   padding: 10px 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   display: inline-block;
   width: 100%;
   text-align: left;
@@ -2197,7 +2045,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     background: rgba(255, 255, 255, 0.05);
     color: var(--text-secondary);
     border: 1px solid var(--border-color);
@@ -2228,8 +2075,6 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     font-size: 0.75rem;
     color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     margin-bottom: 4px;
   }
 :global(.feature-check) {
@@ -2247,12 +2092,12 @@ h1, h2, h3, h4, h5, h6 {
 /* Scarcity Banner styling with Pulse Dot */
 .inmo-scarcity-banner {
   background: rgba(10, 10, 12, 0.4);
-  border: 1px solid rgba(234, 56, 77, 0.25);
+  border: 1px solid rgba(124, 92, 255, 0.25);
   color: var(--text-primary);
   font-size: 0.825rem;
   font-weight: 500;
   padding: 12px 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 24px;
   display: flex;
   align-items: center;
@@ -2292,17 +2137,17 @@ h1, h2, h3, h4, h5, h6 {
   0% {
     transform: scale(0.8);
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(234, 56, 77, 0.7);
+    box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.7);
   }
   70% {
     transform: scale(1.2);
     opacity: 0.4;
-    box-shadow: 0 0 0 8px rgba(234, 56, 77, 0);
+    box-shadow: 0 0 0 8px rgba(124, 92, 255, 0);
   }
   100% {
     transform: scale(0.8);
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(234, 56, 77, 0);
+    box-shadow: 0 0 0 0 rgba(124, 92, 255, 0);
   }
 }
 .scarcity-text {
@@ -2329,13 +2174,13 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
   font-weight: 600;
   color: #ea445a;
-  background: rgba(234, 56, 77, 0.1);
+  background: rgba(124, 92, 255, 0.1);
   padding: 3px 8px;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-left: 6px;
-  border: 1px solid rgba(234, 56, 77, 0.2);
+  border: 1px solid rgba(124, 92, 255, 0.2);
   letter-spacing: 0.05em;
-  box-shadow: 0 0 10px rgba(234, 56, 77, 0.08);
+  box-shadow: 0 0 10px rgba(124, 92, 255, 0.08);
   display: inline-block;
 }
 [data-theme="light"] #countdown-timer {
@@ -2660,6 +2505,7 @@ input:checked + .inmo-slider:before {
   height: 100% !important;
 }
 .inmo-testimonial-stars {
+  display: flex; gap: 2px;
   color: #fbbf24;
   font-size: 1.15rem;
   margin-bottom: 8px;
@@ -2746,7 +2592,7 @@ input:checked + .inmo-slider:before {
 .inmo-trust-card-icon {
   width: 44px;
   height: 44px;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2909,8 +2755,8 @@ input:checked + .inmo-slider:before {
           installmentsBadge.style.color = '#10B981';
         } else {
           installmentsBadge.innerHTML = installmentsText;
-          installmentsBadge.style.background = 'rgba(138, 53, 229, 0.08)';
-          installmentsBadge.style.borderColor = 'rgba(138, 53, 229, 0.25)';
+          installmentsBadge.style.background = 'rgba(106, 72, 245, 0.08)';
+          installmentsBadge.style.borderColor = 'rgba(106, 72, 245, 0.25)';
           installmentsBadge.style.color = '#ffffff';
         }
       }
@@ -2919,38 +2765,6 @@ input:checked + .inmo-slider:before {
     
     if (pricingSwitch) pricingSwitch.addEventListener('change', updatePricing);
 
-    /* ==========================================================
-       4. CRONÓMETRO DE URGENCIA (COUNTDOWN TIMER TO MIDNIGHT)
-       ========================================================== */
-    const timerElement = document.getElementById('countdown-timer-top');
-    
-    function updateTimer() {
-      const now = new Date();
-      const midnight = new Date();
-      midnight.setHours(23, 59, 59, 999); // Establecer al final de la jornada de hoy
-      
-      const diff = midnight - now;
-      
-      if (diff <= 0) {
-        if (timerElement) timerElement.textContent = "00:00:00";
-        return;
-      }
-      
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      const formattedTime = [
-        hours.toString().padStart(2, '0'),
-        minutes.toString().padStart(2, '0'),
-        seconds.toString().padStart(2, '0')
-      ].join(':');
-      
-      if (timerElement) timerElement.textContent = formattedTime;
-    }
-    
-    updateTimer();
-    setInterval(updateTimer, 1000);
 
   });
 </script>

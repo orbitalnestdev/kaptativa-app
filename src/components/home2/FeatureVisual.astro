@@ -8,10 +8,10 @@ const { icon } = Astro.props;
 <div class={`fv fv-${icon}`} aria-hidden="true">
   {icon === 'cart' && (
     <div class="fv-list">
-      {[['Remera oversize', '$ 18.900', 'L · Negro'], ['Buzo frisa', '$ 38.900', 'M · Gris']].map(([n, p, v]) => (
+      {[['Remera oversize', '$ 18.900', 'L, negro'], ['Buzo frisa', '$ 38.900', 'M, gris']].map(([n, p, v]) => (
         <div class="fv-item"><i class="fv-thumb"></i><span>{n}<small>{v}</small></span><b>{p}</b></div>
       ))}
-      <div class="fv-status"><span class="dot ok"></span> Pedido #1043 · Pagado <em>En preparación</em></div>
+      <div class="fv-status"><span class="dot ok"></span> Pedido #1043 pagado <em>En preparación</em></div>
     </div>
   )}
   {icon === 'box' && (
@@ -80,23 +80,23 @@ const { icon } = Astro.props;
   )}
   {icon === 'bell' && (
     <div class="fv-notes">
-      <div class="note"><span class="dot pink"></span><span>Recordatorio enviado<small>Mañana 10:30 · WhatsApp</small></span></div>
+      <div class="note"><span class="dot pink"></span><span>Recordatorio enviado<small>Mañana 10:30 por WhatsApp</small></span></div>
       <div class="note"><span class="dot ok"></span><span>Turno confirmado<small>Respondió "Sí, voy"</small></span></div>
-      <div class="note"><span class="dot cyan"></span><span>Comanda a cocina<small>Mesa 7 · 3 ítems</small></span></div>
+      <div class="note"><span class="dot cyan"></span><span>Comanda a cocina<small>Mesa 7, 3 ítems</small></span></div>
     </div>
   )}
   {icon === 'users' && (
     <div class="fv-users">
       <div class="avatars">{['A', 'L', 'S', 'M', '+'].map((l) => <i>{l}</i>)}</div>
       <div class="fv-list">
-        <div class="fv-item"><span>Ana R. · Plan full</span><em class="ok">Al día</em></div>
-        <div class="fv-item"><span>Lucas P. · Crossfit</span><em>Vence hoy</em></div>
+        <div class="fv-item"><span>Ana R., plan full</span><em class="ok">Al día</em></div>
+        <div class="fv-item"><span>Lucas P., crossfit</span><em>Vence hoy</em></div>
       </div>
     </div>
   )}
   {icon === 'search' && (
     <div class="fv-search">
-      <div class="input">Venta · Depto · 3 amb · Palermo</div>
+      <div class="input">Venta, depto, 3 amb, Palermo</div>
       <div class="fv-chips"><span class="on">Venta</span><span>2-3 amb</span><span>Con cochera</span></div>
       <div class="fv-results"><b>24</b> propiedades encontradas</div>
     </div>
@@ -112,7 +112,7 @@ const { icon } = Astro.props;
   {(icon === 'message' || icon === 'bot') && (
     <div class="fv-chat">
       <span class="in">¿Sigue disponible el depto de Palermo?</span>
-      <span class="out">{icon === 'bot' ? '¡Sí! ¿Querés coordinar una visita?' : 'Consulta recibida · asignada a Laura'}</span>
+      <span class="out">{icon === 'bot' ? '¡Sí! ¿Querés coordinar una visita?' : 'Consulta recibida, asignada a Laura'}</span>
       <span class="in">Sí, el sábado a la mañana</span>
     </div>
   )}
@@ -132,7 +132,7 @@ const { icon } = Astro.props;
   )}
   {icon === 'monitor' && (
     <div class="fv-site">
-      <div class="hero"><i></i><i></i><span></span></div>
+      <div class="fv-hero"><i></i><i></i><span></span></div>
       <div class="cols"><i></i><i></i><i></i></div>
     </div>
   )}
@@ -140,32 +140,32 @@ const { icon } = Astro.props;
 </div>
 
 <style>
-  .fv { margin-top: auto; padding: 14px; border-radius: 14px; background: rgba(5, 5, 10, 0.55); border: 1px solid rgba(255, 255, 255, 0.06); font-size: 0.76rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px; min-height: 150px; justify-content: center; }
+  .fv { margin-top: auto; padding: 14px; border-radius: 12px; background: rgba(5, 5, 10, 0.55); border: 1px solid rgba(255, 255, 255, 0.06); font-size: 0.76rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px; min-height: 150px; justify-content: center; }
   .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
   .dot.ok { background: #10B981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); }
-  .dot.pink { background: #D946EF; box-shadow: 0 0 8px rgba(217, 70, 239, 0.6); }
+  .dot.pink { background: #7C5CFF; box-shadow: 0 0 8px rgba(124, 92, 255, 0.6); }
   .dot.cyan { background: #06B6D4; box-shadow: 0 0 8px rgba(6, 182, 212, 0.6); }
   em { font-style: normal; font-size: 0.66rem; padding: 2px 8px; border-radius: 20px; color: #F97316; background: rgba(249, 115, 22, 0.12); white-space: nowrap; }
   em.ok { color: #10B981; background: rgba(16, 185, 129, 0.12); }
 
   .fv-list { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-  .fv-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 9px; background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.05); }
+  .fv-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.05); }
   .fv-item > span { flex: 1; color: #fff; display: flex; flex-direction: column; gap: 1px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .fv-item small { color: var(--text-muted); font-size: 0.66rem; }
   .fv-item b { color: #fff; white-space: nowrap; }
   .fv-item.off > span { color: var(--text-muted); text-decoration: line-through; }
-  .fv-thumb { width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0; background: linear-gradient(135deg, #D946EF, #8B5CF6); }
-  .fv-item:nth-child(2) .fv-thumb { background: linear-gradient(135deg, #06B6D4, #3B82F6); }
-  .fv-item:nth-child(3) .fv-thumb { background: linear-gradient(135deg, #F97316, #EC4899); }
-  .fv-check { width: 16px; height: 16px; border-radius: 5px; flex-shrink: 0; background: linear-gradient(135deg, #D946EF, #8B5CF6); }
+  .fv-thumb { width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0; background: linear-gradient(135deg, #7C5CFF, #6A48F5); }
+  .fv-item:nth-child(2) .fv-thumb { background: linear-gradient(135deg, #5B3FE0, #7C5CFF); }
+  .fv-item:nth-child(3) .fv-thumb { background: linear-gradient(135deg, #A08CFF, #7C5CFF); }
+  .fv-check { width: 16px; height: 16px; border-radius: 8px; flex-shrink: 0; background: linear-gradient(135deg, #7C5CFF, #6A48F5); }
   .fv-status, .fv-slot { display: flex; align-items: center; gap: 8px; color: #fff; padding-top: 2px; }
   .fv-status em { margin-left: auto; }
-  .fv-btn { text-align: center; padding: 8px; border-radius: 9px; color: #fff; font-weight: 600; background: linear-gradient(135deg, #D946EF, #8B5CF6); }
+  .fv-btn { text-align: center; padding: 8px; border-radius: 8px; color: #fff; font-weight: 600; background: linear-gradient(135deg, #7C5CFF, #6A48F5); }
 
   .fv-stock { display: flex; flex-direction: column; gap: 9px; }
   .fv-stock-row { display: grid; grid-template-columns: 90px 1fr 42px; align-items: center; gap: 10px; color: #fff; }
-  .bar { height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.07); overflow: hidden; }
-  .bar i { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, #D946EF, #06B6D4); }
+  .bar { height: 7px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, #7C5CFF, #A08CFF); }
   .bar i.low { background: #F97316; }
   .fv-stock-row b { text-align: right; }
   .fv-stock-row b.low { color: #F97316; }
@@ -173,11 +173,11 @@ const { icon } = Astro.props;
 
   .fv-chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .fv-chips span { padding: 5px 10px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); }
-  .fv-chips span.on { color: #fff; border-color: rgba(217, 70, 239, 0.6); background: rgba(217, 70, 239, 0.15); }
+  .fv-chips span.on { color: #fff; border-color: rgba(124, 92, 255, 0.6); background: rgba(124, 92, 255, 0.15); }
   .fv-total { display: flex; justify-content: space-between; align-items: baseline; color: var(--text-secondary); }
   .fv-total b { color: #fff; font-size: 1.15rem; }
 
-  .fv-invoice { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.035); border: 1px dashed rgba(255, 255, 255, 0.14); }
+  .fv-invoice { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.035); border: 1px dashed rgba(255, 255, 255, 0.14); }
   .fv-invoice .head, .fv-invoice .line { display: flex; justify-content: space-between; gap: 10px; }
   .fv-invoice .head { color: #fff; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
   .fv-invoice .head span { color: var(--text-muted); font-family: 'Lexend', monospace; }
@@ -186,61 +186,61 @@ const { icon } = Astro.props;
 
   .fv-chart { display: flex; flex-direction: column; gap: 10px; }
   .fv-kpis { display: flex; gap: 8px; }
-  .fv-kpis span { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 7px 10px; border-radius: 9px; background: rgba(255, 255, 255, 0.035); font-size: 0.66rem; color: var(--text-muted); }
+  .fv-kpis span { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 7px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.035); font-size: 0.66rem; color: var(--text-muted); }
   .fv-kpis b { color: #fff; font-size: 0.95rem; }
   .bars { display: flex; align-items: flex-end; gap: 6px; height: 64px; }
-  .bars i { flex: 1; border-radius: 3px 3px 0 0; background: linear-gradient(180deg, #D946EF, rgba(139, 92, 246, 0.2)); }
+  .bars i { flex: 1; border-radius: 3px 3px 0 0; background: linear-gradient(180deg, #7C5CFF, rgba(106, 72, 245, 0.2)); }
 
   .fv-qr { flex-direction: row; display: flex; gap: 12px; align-items: center; }
-  .qr { display: grid; grid-template-columns: repeat(5, 11px); gap: 2px; padding: 7px; border-radius: 9px; background: #fff; flex-shrink: 0; }
+  .qr { display: grid; grid-template-columns: repeat(5, 11px); gap: 2px; padding: 7px; border-radius: 8px; background: #fff; flex-shrink: 0; }
   .qr i { width: 11px; height: 11px; border-radius: 1px; }
-  .qr i.on { background: #0e0e18; }
+  .qr i.on { background: #141418; }
 
   .fv-cal { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
   .fv-cal small { text-align: center; color: var(--text-muted); font-size: 0.64rem; }
-  .fv-cal i { height: 20px; border-radius: 5px; background: rgba(255, 255, 255, 0.05); }
-  .fv-cal i.busy { background: rgba(139, 92, 246, 0.35); }
-  .fv-cal i.pick { background: linear-gradient(135deg, #D946EF, #8B5CF6); box-shadow: 0 0 12px rgba(217, 70, 239, 0.5); }
+  .fv-cal i { height: 20px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); }
+  .fv-cal i.busy { background: rgba(106, 72, 245, 0.35); }
+  .fv-cal i.pick { background: linear-gradient(135deg, #7C5CFF, #6A48F5); box-shadow: 0 0 12px rgba(124, 92, 255, 0.5); }
   .fv-cal .fv-slot { grid-column: 1 / -1; padding-top: 4px; }
 
   .fv-notes { display: flex; flex-direction: column; gap: 7px; }
-  .note { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 9px; background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.05); }
+  .note { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.05); }
   .note > span:last-child { display: flex; flex-direction: column; color: #fff; }
   .note small { color: var(--text-muted); font-size: 0.66rem; }
 
   .fv-users { display: flex; flex-direction: column; gap: 10px; }
   .avatars { display: flex; }
-  .avatars i { width: 30px; height: 30px; margin-right: -8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 600; color: #fff; border: 2px solid #0e0e18; background: linear-gradient(135deg, #8B5CF6, #06B6D4); }
-  .avatars i:nth-child(2) { background: linear-gradient(135deg, #D946EF, #F97316); }
+  .avatars i { width: 30px; height: 30px; margin-right: -8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 600; color: #fff; border: 2px solid #141418; background: linear-gradient(135deg, #6A48F5, #06B6D4); }
+  .avatars i:nth-child(2) { background: linear-gradient(135deg, #7C5CFF, #F97316); }
   .avatars i:nth-child(3) { background: linear-gradient(135deg, #10B981, #06B6D4); }
   .avatars i:last-child { background: rgba(255, 255, 255, 0.1); }
 
   .fv-search { display: flex; flex-direction: column; gap: 9px; }
-  .fv-search .input { padding: 9px 12px; border-radius: 10px; color: #fff; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(217, 70, 239, 0.35); }
+  .fv-search .input { padding: 9px 12px; border-radius: 12px; color: #fff; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(124, 92, 255, 0.35); }
   .fv-results { color: var(--text-muted); }
   .fv-results b { color: #fff; font-size: 1rem; }
 
   .fv-sync { display: grid; grid-template-columns: 1fr 50px 1fr; align-items: center; gap: 8px; }
-  .fv-sync .node { text-align: center; padding: 14px 6px; border-radius: 10px; color: #fff; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); }
-  .fv-sync .node.on { border-color: rgba(217, 70, 239, 0.5); background: rgba(217, 70, 239, 0.12); }
+  .fv-sync .node { text-align: center; padding: 14px 6px; border-radius: 12px; color: #fff; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); }
+  .fv-sync .node.on { border-color: rgba(124, 92, 255, 0.5); background: rgba(124, 92, 255, 0.12); }
   .pipe { position: relative; height: 2px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
-  .pipe i { position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, #D946EF, transparent); animation: fv-flow 1.6s linear infinite; }
+  .pipe i { position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, #7C5CFF, transparent); animation: fv-flow 1.6s linear infinite; }
   @keyframes fv-flow { to { left: 100%; } }
   .fv-sync .fv-slot { grid-column: 1 / -1; }
 
   .fv-chat { display: flex; flex-direction: column; gap: 7px; }
   .fv-chat span { max-width: 88%; padding: 7px 11px; border-radius: 12px; line-height: 1.35; }
   .fv-chat .in { align-self: flex-start; background: rgba(255, 255, 255, 0.07); border-bottom-left-radius: 4px; }
-  .fv-chat .out { align-self: flex-end; color: #fff; background: rgba(217, 70, 239, 0.28); border-bottom-right-radius: 4px; }
+  .fv-chat .out { align-self: flex-end; color: #fff; background: rgba(124, 92, 255, 0.28); border-bottom-right-radius: 4px; }
 
   .fv-camp { display: flex; flex-direction: column; gap: 9px; }
   .fv-camp .head { display: flex; justify-content: space-between; align-items: center; color: #fff; }
 
   .fv-site { display: flex; flex-direction: column; gap: 8px; }
-  .fv-site .hero { display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 10px; background: linear-gradient(135deg, rgba(217, 70, 239, 0.35), rgba(6, 182, 212, 0.2)); }
-  .fv-site .hero i { height: 8px; width: 60%; border-radius: 4px; background: rgba(255, 255, 255, 0.75); }
-  .fv-site .hero i + i { width: 40%; opacity: 0.6; }
-  .fv-site .hero span { width: 70px; height: 18px; margin-top: 4px; border-radius: 20px; background: #fff; }
+  .fv-site .fv-hero { display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 12px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.35), rgba(91, 63, 224, 0.25)); }
+  .fv-site .fv-hero i { height: 8px; width: 60%; border-radius: 8px; background: rgba(255, 255, 255, 0.75); }
+  .fv-site .fv-hero i + i { width: 40%; opacity: 0.6; }
+  .fv-site .fv-hero span { width: 70px; height: 18px; margin-top: 4px; border-radius: 20px; background: #fff; }
   .fv-site .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
   .fv-site .cols i { height: 34px; border-radius: 8px; background: rgba(255, 255, 255, 0.06); }
 

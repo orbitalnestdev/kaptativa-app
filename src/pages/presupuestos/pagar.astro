@@ -13,8 +13,8 @@ import Layout from '../../layouts/Layout.astro';
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="160" height="34" aria-label="Kaptativa Logo">
             <defs>
               <linearGradient id="logo-gradient-checkout" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#EA384D" />
-                <stop offset="100%" stop-color="#8A35E5" />
+                <stop offset="0%" stop-color="#7C5CFF" />
+                <stop offset="100%" stop-color="#6A48F5" />
               </linearGradient>
             </defs>
             <g>
@@ -23,7 +23,7 @@ import Layout from '../../layouts/Layout.astro';
               <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-checkout)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
             </g>
             <text x="44" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">
-              kaptativa<tspan fill="#EA384D">.</tspan>
+              kaptativa<tspan fill="#7C5CFF">.</tspan>
             </text>
           </svg>
         </a>
@@ -84,11 +84,11 @@ import Layout from '../../layouts/Layout.astro';
       <div class="grid-2-custom" style="display: grid; grid-template-columns: 1.1fr 1.3fr; gap: 40px; align-items: start;">
         
         <!-- LEFT COLUMN: QUOTE DETAILED SUMMARY (GLASS PANEL) -->
-        <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 35px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); color: var(--text-primary); backdrop-filter: blur(12px);">
-          <span class="badge" style="margin-bottom: 12px; background: linear-gradient(90deg, #D946EF, #EA384D); color: white; padding: 4px 12px; border-radius: 99px; font-size: 0.725rem; font-weight: 600; display: inline-block; text-transform: uppercase; letter-spacing: 0.5px;">Resumen Comercial</span>
+        <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 35px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); color: var(--text-primary); backdrop-filter: blur(12px);">
+          <span class="badge" style="margin-bottom: 12px; background: linear-gradient(90deg, #7C5CFF, #7C5CFF); color: white; padding: 4px 12px; border-radius: 99px; font-size: 0.725rem; font-weight: 600; display: inline-block; text-transform: uppercase; letter-spacing: 0.5px;">Resumen Comercial</span>
           <h2 id="lbl-service-title" style="font-family: 'Lexend', sans-serif; font-size: 1.7rem; color: #ffffff; margin-top: 10px; margin-bottom: 25px; font-weight: 600;">Servicios Digitales</h2>
           
-          <div style="display: flex; flex-direction: column; gap: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+          <div style="display: flex; flex-direction: column; gap: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
             <div style="display: flex; justify-content: space-between; font-size: 0.85rem; align-items: center;">
               <span style="color: var(--text-secondary);">Código de Propuesta:</span>
               <span id="lbl-quote-ref" style="font-weight: 600; color: #ffffff;">KP-0000</span>
@@ -115,21 +115,21 @@ import Layout from '../../layouts/Layout.astro';
         <div style="display: flex; flex-direction: column; gap: 30px;">
           
           <!-- 1. CHOOSE PAYMENT RATIO (50% vs 100%) -->
-          <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 35px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); color: var(--text-primary); backdrop-filter: blur(12px);">
+          <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 35px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); color: var(--text-primary); backdrop-filter: blur(12px);">
             <h3 style="font-family: 'Lexend', sans-serif; font-size: 1.2rem; color: #ffffff; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-              <span style="color: #EA384D;">1.</span> Plan de Pago
+              <span style="color: #7C5CFF;">1.</span> Plan de Pago
             </h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
               
               <!-- Option 50% -->
-              <div id="btn-pay-deposit" style="cursor: pointer; padding: 22px 15px; border-radius: 10px; border: 2px solid #EA384D; background: rgba(6, 182, 212, 0.08); text-align: center; transition: all 0.2s; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.05);">
-                <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: #EA384D; margin-bottom: 6px; letter-spacing: 0.5px;">Anticipo 50%</div>
+              <div id="btn-pay-deposit" style="cursor: pointer; padding: 22px 15px; border-radius: 12px; border: 2px solid #7C5CFF; background: rgba(6, 182, 212, 0.08); text-align: center; transition: all 0.2s; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.05);">
+                <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: #7C5CFF; margin-bottom: 6px; letter-spacing: 0.5px;">Anticipo 50%</div>
                 <div style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 10px;">Para inicio de desarrollo</div>
                 <div id="lbl-deposit-val" style="font-size: 1.35rem; font-weight: 600; color: #ffffff; font-family: 'Lexend', sans-serif;">$0.00</div>
               </div>
 
               <!-- Option 100% -->
-              <div id="btn-pay-full" style="cursor: pointer; padding: 22px 15px; border-radius: 10px; border: 2px solid rgba(255, 255, 255, 0.06); background: rgba(255, 255, 255, 0.02); text-align: center; transition: all 0.2s;">
+              <div id="btn-pay-full" style="cursor: pointer; padding: 22px 15px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.06); background: rgba(255, 255, 255, 0.02); text-align: center; transition: all 0.2s;">
                 <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px;">Pago Completo 100%</div>
                 <div style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 10px;">Abono del total del servicio</div>
                 <div id="lbl-full-val" style="font-size: 1.35rem; font-weight: 600; color: var(--text-secondary); font-family: 'Lexend', sans-serif;">$0.00</div>
@@ -139,13 +139,13 @@ import Layout from '../../layouts/Layout.astro';
           </div>
 
           <!-- 2. CHOOSE PAYMENT GATEWAY METHOD -->
-          <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 35px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); color: var(--text-primary); backdrop-filter: blur(12px);">
+          <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 35px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); color: var(--text-primary); backdrop-filter: blur(12px);">
             <h3 style="font-family: 'Lexend', sans-serif; font-size: 1.2rem; color: #ffffff; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-              <span style="color: #EA384D;">2.</span> Método de Pago
+              <span style="color: #7C5CFF;">2.</span> Método de Pago
             </h3>
             
             <div style="display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 12px;">
-              <button id="tab-transfer" style="flex: 1; border: none; background: transparent; color: #ffffff; font-weight: 600; padding: 8px; cursor: pointer; border-bottom: 2px solid #7c3aed; font-size: 0.9rem; transition: all 0.2s; font-family: 'Lexend', sans-serif;">
+              <button id="tab-transfer" style="flex: 1; border: none; background: transparent; color: #ffffff; font-weight: 600; padding: 8px; cursor: pointer; border-bottom: 2px solid #5B3FE0; font-size: 0.9rem; transition: all 0.2s; font-family: 'Lexend', sans-serif;">
                 🏛️ Transferencia
               </button>
               <button id="tab-mp" style="flex: 1; border: none; background: transparent; color: var(--text-muted); font-weight: 600; padding: 8px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 0.9rem; transition: all 0.2s; font-family: 'Lexend', sans-serif;">
@@ -181,14 +181,14 @@ import Layout from '../../layouts/Layout.astro';
                     <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Alias CBU</div>
                     <div id="lbl-bank-alias" style="font-size: 0.95rem; font-weight: 600; color: #ffffff; margin-top: 2px;">Cargando...</div>
                   </div>
-                  <button id="btn-copy-alias" class="btn btn-secondary btn-sm" style="padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: #ffffff;">📋 Copiar</button>
+                  <button id="btn-copy-alias" class="btn btn-secondary btn-sm" style="padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: #ffffff;">📋 Copiar</button>
                 </div>
                 <div class="bank-field" style="display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 12px 15px; border-radius: 8px;">
                   <div>
                     <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">CBU / CVU</div>
                     <div id="lbl-bank-cbu" style="font-size: 0.95rem; font-weight: 600; color: #ffffff; margin-top: 2px;">Cargando...</div>
                   </div>
-                  <button id="btn-copy-cbu" class="btn btn-secondary btn-sm" style="padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: #ffffff;">📋 Copiar</button>
+                  <button id="btn-copy-cbu" class="btn btn-secondary btn-sm" style="padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: #ffffff;">📋 Copiar</button>
                 </div>
               </div>
 
@@ -390,7 +390,7 @@ import Layout from '../../layouts/Layout.astro';
 
       tabTransfer.addEventListener('click', () => {
         selectedTab = 'transfer';
-        tabTransfer.style.borderBottom = '2px solid #7c3aed';
+        tabTransfer.style.borderBottom = '2px solid #5B3FE0';
         tabTransfer.style.color = '#ffffff';
         tabMp.style.borderBottom = '2px solid transparent';
         tabMp.style.color = 'var(--text-muted)';
@@ -403,7 +403,7 @@ import Layout from '../../layouts/Layout.astro';
 
       tabMp.addEventListener('click', () => {
         selectedTab = 'mp';
-        tabMp.style.borderBottom = '2px solid #7c3aed';
+        tabMp.style.borderBottom = '2px solid #5B3FE0';
         tabMp.style.color = '#ffffff';
         tabTransfer.style.borderBottom = '2px solid transparent';
         tabTransfer.style.color = 'var(--text-muted)';
@@ -421,9 +421,9 @@ import Layout from '../../layouts/Layout.astro';
       btnDeposit.addEventListener('click', () => {
         selectedOption = 'deposit';
         
-        btnDeposit.style.borderColor = '#EA384D';
+        btnDeposit.style.borderColor = '#7C5CFF';
         btnDeposit.style.backgroundColor = 'rgba(6, 182, 212, 0.08)';
-        btnDeposit.querySelector('div')!.style.color = '#EA384D';
+        btnDeposit.querySelector('div')!.style.color = '#7C5CFF';
         document.getElementById('lbl-deposit-val')!.style.color = '#ffffff';
         
         btnFull.style.borderColor = 'rgba(255, 255, 255, 0.06)';
@@ -437,9 +437,9 @@ import Layout from '../../layouts/Layout.astro';
       btnFull.addEventListener('click', () => {
         selectedOption = 'full';
         
-        btnFull.style.borderColor = '#EA384D';
+        btnFull.style.borderColor = '#7C5CFF';
         btnFull.style.backgroundColor = 'rgba(6, 182, 212, 0.08)';
-        btnFull.querySelector('div')!.style.color = '#EA384D';
+        btnFull.querySelector('div')!.style.color = '#7C5CFF';
         document.getElementById('lbl-full-val')!.style.color = '#ffffff';
         
         btnDeposit.style.borderColor = 'rgba(255, 255, 255, 0.06)';

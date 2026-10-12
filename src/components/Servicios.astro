@@ -8,84 +8,59 @@ const { isPage = false } = Astro.props;
 <section class="section" id="servicios">
   <div class="container">
     <div class="section-header reveal" style="text-align: center; margin-bottom: 50px;">
-      <span class="badge services-badge">
-        <span class="badge-dot"></span> QUÉ HACEMOS
-      </span>
-      <h2>Sistemas a medida <br class="desktop-only-br" /><span class="text-gradient-cyan">para operar sin fricción</span></h2>
+      <h2>Sistemas a medida<br class="desktop-only-br" /> para operar sin fricción</h2>
       <p style="max-width: 750px; margin: 0 auto; color: var(--text-secondary);">Ocho soluciones modulares que resuelven cuellos de botella específicos, adaptadas a las necesidades de tu negocio.</p>
     </div>
     <div class="services-grid-container reveal reveal-delay-1">
 
 
       <!-- Card 01 -->
-      <div class="service-card-v2" style="--card-accent: var(--accent-pink); --card-accent-glow: var(--accent-pink-glow);">
-        <span class="card-number">01</span>
+      <div class="service-card-v2">
         <div class="icon-box-v2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 3v18h18"></path>
             <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
           </svg>
         </div>
-        <h3>Publicidad Digital</h3>
+        <h3>Publicidad digital</h3>
         <p>{isPage ? "Campañas orientadas a rentabilidad con tracking avanzado." : "Paid media en Meta y Google con ROI medible."}</p>
         <a href="/servicios/publicidad-digital" class="conocer-mas-link">
           <span>Conocer más</span>
-          <div class="arrow-circle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
         </a>
       </div>
 
       <!-- Card 02 -->
       <div class="service-card-v2" style="--card-accent: var(--accent-emerald); --card-accent-glow: rgba(16, 185, 129, 0.15);">
-        <span class="card-number">02</span>
         <div class="icon-box-v2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </div>
-        <h3>Posicionamiento SEO & GEO</h3>
+        <h3>Posicionamiento SEO y GEO</h3>
         <p>{isPage ? "Presencia orgánica integral en buscadores y motores LLM." : "Que te encuentren en Google y en la IA."}</p>
         <a href="/servicios/seo-geo" class="conocer-mas-link">
           <span>Conocer más</span>
-          <div class="arrow-circle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
         </a>
       </div>
 
       <!-- Card 03 -->
-      <div class="service-card-v2" style="--card-accent: var(--accent-indigo); --card-accent-glow: var(--accent-indigo-glow);">
-        <span class="card-number">03</span>
+      <div class="service-card-v2">
         <div class="icon-box-v2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="16 18 22 12 16 6"></polyline>
             <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </div>
-        <h3>Desarrollo de Software</h3>
+        <h3>Desarrollo de software</h3>
         <p>{isPage ? "Soluciones tecnológicas personalizadas para tus operaciones." : "Sistemas a medida que el mercado no te da."}</p>
         <a href="/servicios/desarrollo-software" class="conocer-mas-link">
           <span>Conocer más</span>
-          <div class="arrow-circle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
         </a>
       </div>
 
       <!-- Card 04 -->
-      <div class="service-card-v2" style="--card-accent: var(--accent-pink); --card-accent-glow: var(--accent-pink-glow);">
-        <span class="card-number">04</span>
+      <div class="service-card-v2">
         <div class="icon-box-v2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -93,44 +68,30 @@ const { isPage = false } = Astro.props;
             <line x1="12" y1="17" x2="12" y2="21"></line>
           </svg>
         </div>
-        <h3>Desarrollo Web & E-commerce</h3>
+        <h3>Desarrollo web y e-commerce</h3>
         <p>{isPage ? "Plataformas web corporativas y tiendas online escalables." : "Herramientas de conversión, no páginas."}</p>
         <a href="/servicios/diseno-web" class="conocer-mas-link">
           <span>Conocer más</span>
-          <div class="arrow-circle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
         </a>
       </div>
 
       <!-- Card 05 -->
-      <div class="service-card-v2" style="--card-accent: var(--accent-indigo); --card-accent-glow: var(--accent-indigo-glow);">
-        <span class="card-number">05</span>
+      <div class="service-card-v2">
         <div class="icon-box-v2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
         </div>
-        <h3>Automatización & Integraciones</h3>
+        <h3>Automatización e integraciones</h3>
         <p>{isPage ? "Integración de herramientas para operar sin fricción." : "Eliminá el trabajo repetitivo."}</p>
         <a href="/servicios/automatizacion" class="conocer-mas-link">
           <span>Conocer más</span>
-          <div class="arrow-circle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
         </a>
       </div>
 
       <!-- Card 06 -->
-      <div class="service-card-v2" style="--card-accent: var(--accent-indigo); --card-accent-glow: var(--accent-indigo-glow);">
-        <span class="card-number">06</span>
+      <div class="service-card-v2">
         <div class="icon-box-v2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
@@ -149,18 +110,11 @@ const { isPage = false } = Astro.props;
         <p>{isPage ? "Modelos de inteligencia artificial para agilizar tu soporte." : "Atienden, califican y resuelven 24/7."}</p>
         <a href="/servicios/agentes-ia" class="conocer-mas-link">
           <span>Conocer más</span>
-          <div class="arrow-circle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
         </a>
       </div>
 
       <!-- Card 07 -->
-      <div class="service-card-v2 card-half" style="--card-accent: var(--accent-orange); --card-accent-glow: var(--accent-orange-glow);">
-        <span class="card-number">07</span>
+      <div class="service-card-v2 card-half">
         <div class="icon-box-v2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="18" cy="5" r="3"></circle>
@@ -170,38 +124,25 @@ const { isPage = false } = Astro.props;
             <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
           </svg>
         </div>
-        <h3>Social Media Manager</h3>
+        <h3>Social media</h3>
         <p>{isPage ? "Branding corporativo y gestión visual de alta calidad." : "Estrategias de contenido y redes sociales."}</p>
         <a href="/servicios/social-media" class="conocer-mas-link">
           <span>Conocer más</span>
-          <div class="arrow-circle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
         </a>
       </div>
 
       <!-- Card 08 -->
-      <div class="service-card-v2 card-half" style="--card-accent: #2563EB; --card-accent-glow: rgba(37, 99, 235, 0.15);">
-        <span class="card-number">08</span>
+      <div class="service-card-v2 card-half" style="--card-accent: #6A48F5; --card-accent-glow: rgba(37, 99, 235, 0.15);">
         <div class="icon-box-v2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
         </div>
-        <h3>Email Marketing</h3>
+        <h3>Email marketing</h3>
         <p>{isPage ? "Infraestructura técnica para envíos estratégicos." : "Campañas de conversión e integración con Perfit."}</p>
         <a href="/servicios/email-marketing" class="conocer-mas-link">
           <span>Conocer más</span>
-          <div class="arrow-circle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
         </a>
       </div>
     </div>
@@ -318,7 +259,7 @@ const { isPage = false } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--card-accent, #8b5cf6);
+    color: var(--card-accent, #6A48F5);
     margin-bottom: 30px;
     transition: all 0.3s ease;
   }
@@ -495,6 +436,19 @@ const { isPage = false } = Astro.props;
       transform: scale(1.1) !important;
     }
   }
+
+  /* Catálogo: grilla de celdas con líneas finas (mismo dispositivo que los módulos de la home) */
+  .services-grid-container { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 1px !important; background: var(--border-color) !important; border: 1px solid var(--border-color) !important; border-radius: var(--radius-lg) !important; overflow: hidden !important; }
+  .service-card-v2 { background: var(--bg-primary) !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; padding: 30px 26px 30px !important; display: flex !important; flex-direction: column !important; gap: 12px !important; transform: none !important; }
+  .service-card-v2:hover { background: var(--bg-secondary) !important; transform: none !important; box-shadow: none !important; }
+  .service-card-v2::before, .service-card-v2::after { display: none !important; }
+  .icon-box-v2 { width: 40px !important; height: 40px !important; border: 0 !important; background: transparent !important; color: var(--brand-primary) !important; padding: 0 !important; margin: 0 0 4px !important; box-shadow: none !important; justify-content: flex-start !important; }
+  .service-card-v2 h3 { font-size: 1.05rem !important; margin: 0 !important; }
+  .service-card-v2 p { font-size: 0.9rem !important; line-height: 1.6 !important; margin: 0 !important; flex: 1 !important; max-width: 28ch; }
+  .conocer-mas-link { margin-top: 10px !important; font-size: 0.88rem !important; font-weight: 600 !important; color: var(--brand-primary-light) !important; text-decoration: underline !important; text-decoration-color: transparent !important; text-underline-offset: 4px !important; transition: text-decoration-color var(--transition-fast) !important; }
+  .service-card-v2:hover .conocer-mas-link { text-decoration-color: currentColor !important; }
+  @media (max-width: 1024px) { .services-grid-container { grid-template-columns: repeat(2, 1fr) !important; } }
+  @media (max-width: 640px) { .services-grid-container { grid-template-columns: 1fr !important; } }
 </style>
 
 <script>
