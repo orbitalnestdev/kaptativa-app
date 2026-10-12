@@ -7,6 +7,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Faq from '../components/Faq.astro';
 import ControlShowcase from '../components/home2/ControlShowcase.astro';
+import FeatureVisual from '../components/home2/FeatureVisual.astro';
 import { svg, soluciones, modulos } from '../data/plataforma.js';
 import { readFileSync } from 'node:fs';
 
@@ -69,10 +70,21 @@ const integracionesFilas = [
   ],
 ];
 
+const pasos = [
+  { title: 'Demo y diagnóstico', text: 'Una videollamada de 30 minutos: vemos cómo trabajás hoy y te mostramos la plataforma con casos de tu rubro.' },
+  { title: 'Propuesta en 24 hs hábiles', text: 'Qué módulos activar, en qué orden y cuánto cuesta. Sin letra chica.' },
+  { title: 'Implementación por etapas', text: 'Arrancamos por lo que vende (web, tienda o WhatsApp) y sumamos la gestión después. Ves avances cada semana.' },
+  { title: 'Capacitación y soporte', text: 'Te entrenamos a vos y a tu equipo, y seguimos del otro lado del WhatsApp cuando lo necesitás.' },
+];
+const heroIntegraciones = [
+  { name: 'Mercado Pago', icon: 'mercadopago' }, { name: 'WhatsApp', icon: 'whatsapp' }, { name: 'Mercado Libre', logo: 'mercadolibre' },
+  { name: 'Google Analytics', icon: 'googleanalytics' }, { name: 'Meta', icon: 'meta' }, { name: 'OpenAI', icon: 'openai' },
+];
+
 const planes = [
-  { name: 'Presencia', desc: 'Para emprendedores y profesionales que necesitan una web seria.', features: ['Sitio institucional autoadministrable', 'Hasta 5 secciones', 'Formulario y botón de WhatsApp', 'SEO inicial y Google Analytics', 'Hosting y dominio gestionados'] },
-  { name: 'Tienda', desc: 'Todo para vender online y administrar cada pedido.', popular: true, features: ['Todo lo del plan Presencia', 'Catálogo ilimitado con variantes', 'Cobros con MercadoPago', 'Cálculo de envíos', 'Panel de pedidos, stock y cupones'] },
-  { name: 'A medida', desc: 'Para empresas con procesos propios que hay que digitalizar.', features: ['Todo lo del plan Tienda', 'Módulos y flujos a medida', 'Integraciones vía API', 'Automatizaciones e IA', 'Soporte prioritario e infraestructura dedicada'] },
+  { name: 'Presencia', cta: 'Cotizar mi sitio', desc: 'Para emprendedores y profesionales que necesitan una web seria.', features: ['Sitio institucional autoadministrable', 'Hasta 5 secciones', 'Formulario y botón de WhatsApp', 'SEO inicial y Google Analytics', 'Hosting y dominio gestionados'] },
+  { name: 'Tienda', cta: 'Cotizar mi tienda', desc: 'Todo para vender online y administrar cada pedido.', popular: true, features: ['Todo lo del plan Presencia', 'Catálogo ilimitado con variantes', 'Cobros con MercadoPago', 'Cálculo de envíos', 'Panel de pedidos, stock y cupones'] },
+  { name: 'A medida', cta: 'Contar mi proyecto', desc: 'Para empresas con procesos propios que hay que digitalizar.', features: ['Todo lo del plan Tienda', 'Módulos y flujos a medida', 'Integraciones vía API', 'Automatizaciones e IA', 'Soporte prioritario e infraestructura dedicada'] },
 ];
 
 ---
@@ -101,6 +113,18 @@ const planes = [
           <div class="h2-ctas">
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow"><span>Solicitar demo</span></a>
             <a href="#rubros" class="btn btn-secondary"><span>Soluciones por rubro</span></a>
+          </div>
+          <div class="h2-trust">
+            <span>Se integra con</span>
+            <ul aria-label="Integraciones">
+              {heroIntegraciones.map((m) => (
+                <li>
+                  {m.logo
+                    ? <img class="wide" src={`/integraciones/${m.logo}.svg`} alt={m.name} width={logoWidth(m.logo, 22)} height="22" decoding="async" />
+                    : <><img src={`/integraciones/${m.icon}.svg`} alt="" width="20" height="20" decoding="async" /><span>{m.name}</span></>}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
@@ -163,14 +187,21 @@ const planes = [
           <h2>Activá solo lo que<br />tu negocio necesita</h2>
           <p>Un ecosistema de herramientas conectadas. Empezás con tu web y sumás módulos a medida que crecés.</p>
         </div>
-        <div class="h2-modulos" role="list">
-          {modulos.map((m) => (
-            <article class="h2-modulo">
-              <span class="h2-icon"><Fragment set:html={svg(m.icon)} /></span>
-              <h3>{m.title}</h3>
-              <p>{m.text}</p>
-            </article>
-          ))}
+        <div class="h2-bento" role="list">
+          {modulos.map((m) => {
+            const big = ['sitio', 'tienda', 'turnos', 'ia'].includes(m.key);
+            const solid = ['sitio', 'ia'].includes(m.key);
+            return (
+              <article class:list={['h2-tile', { 'h2-tile--big': big, 'h2-tile--solid': solid }]} role="listitem">
+                <div class="h2-tile-head">
+                  <span class="h2-icon"><Fragment set:html={svg(m.icon)} /></span>
+                  <h3>{m.title}</h3>
+                  <p>{m.text}</p>
+                </div>
+                {big && <FeatureVisual icon={m.icon} />}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -216,6 +247,25 @@ const planes = [
       </div>
     </section>
 
+    <!-- ================= CÓMO TRABAJAMOS ================= -->
+    <section class="section" id="proceso">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>De la demo a tu negocio<br />funcionando</h2>
+          <p>Un proceso corto y por etapas: primero lo que vende, después lo que ordena.</p>
+        </div>
+        <ol class="h2-steps">
+          {pasos.map((paso, i) => (
+            <li class="h2-step">
+              <span class="h2-step-num">{i + 1}</span>
+              <h3>{paso.title}</h3>
+              <p>{paso.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <!-- ================= PLANES ================= -->
     <section class="section h2-light" id="planes">
       <div class="container">
@@ -233,10 +283,12 @@ const planes = [
               <ul>
                 {p.features.map((f) => <li><Fragment set:html={svg('check')} />{f}</li>)}
               </ul>
-              <a href={`/contacto?plan=${encodeURIComponent(p.name)}`} class={`btn ${p.popular ? 'btn-primary' : 'btn-secondary'}`}><span>Solicitar presupuesto</span></a>
+              <a href={`/contacto?plan=${encodeURIComponent(p.name)}`} class={`btn ${p.popular ? 'btn-primary' : 'btn-secondary'}`}><span>{p.cta}</span></a>
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="h2-plan-alt">Ver una demo de {p.name} por WhatsApp</a>
             </div>
           ))}
         </div>
+        <p class="h2-planes-help">¿No sabés cuál te conviene? <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">Contanos tu caso por WhatsApp</a> y te recomendamos el punto de partida.</p>
       </div>
     </section>
 
@@ -333,7 +385,7 @@ const planes = [
     position: absolute; inset: 0; pointer-events: none;
     /* Elipses con tamaño explícito: se desvanecen antes de tocar los bordes de la caja */
     background: radial-gradient(ellipse 65% 45% at 25% 18%, rgba(124, 92, 255, 0.18), transparent 70%),
-                radial-gradient(ellipse 50% 40% at 85% 22%, rgba(6, 182, 212, 0.12), transparent 70%);
+                radial-gradient(ellipse 50% 40% at 85% 22%, rgba(91, 63, 224, 0.16), transparent 70%);
     -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
     mask-image: linear-gradient(to bottom, #000 55%, transparent);
   }
@@ -396,12 +448,32 @@ const planes = [
   .h2-rubro:hover .h2-link { text-decoration-color: currentColor; }
 
   /* ---------- MÓDULOS: catálogo en grilla de celdas (distinto de las tarjetas de rubros) ---------- */
-  .h2-modulos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
-  .h2-modulo { background: var(--bg-primary); padding: 30px 26px 32px; display: flex; flex-direction: column; gap: 14px; transition: background var(--transition-normal); }
-  .h2-modulo:hover { background: var(--bg-secondary); }
-  .h2-modulo .h2-icon { width: 40px; height: 40px; border: 0; background: transparent; color: var(--brand-primary); padding: 0; justify-content: flex-start; }
-  .h2-modulo h3 { font-family: 'Lexend', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: 0; }
-  .h2-modulo p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; max-width: 28ch; }
+  /* Módulos: grilla bento, dos tiles en violeta sólido como foco */
+  .h2-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .h2-tile { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 26px 24px 24px; border-radius: var(--radius-lg); background: var(--card-bg); border: 1px solid var(--border-color); min-height: 210px; }
+  .h2-tile--big { grid-column: span 2; }
+  .h2-tile--big .h2-tile-head { max-width: 36ch; }
+  .h2-tile--solid { background: var(--brand-fill); border-color: var(--brand-fill); }
+  .h2-tile .h2-icon { width: 40px; height: 40px; border: 0; background: transparent; color: var(--brand-primary); padding: 0; justify-content: flex-start; }
+  .h2-tile h3 { font-family: 'Lexend', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 10px 0 6px; }
+  .h2-tile p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+  .h2-tile--solid .h2-icon, .h2-tile--solid h3 { color: #fff; }
+  .h2-tile--solid p { color: rgba(255, 255, 255, 0.82); }
+  .h2-tile :global(.fv) { margin-top: auto; }
+  .h2-tile--solid :global(.fv) { background: rgba(14, 8, 40, 0.45); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.85); }
+  /* Cómo trabajamos: cuatro pasos unidos por una línea */
+  .h2-steps { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; position: relative; }
+  .h2-steps::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; height: 1px; background: var(--border-hover); }
+  .h2-step-num { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 0.95rem; background: var(--bg-primary); border: 1px solid var(--border-hover); color: var(--brand-primary-light); }
+  .h2-step h3 { font-family: 'Lexend', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: 18px 0 8px; }
+  .h2-step p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; max-width: 30ch; }
+  /* Hero: fila de integraciones */
+  .h2-trust { margin-top: 34px; display: flex; align-items: center; gap: 14px 26px; flex-wrap: wrap; color: var(--text-muted); font-size: 0.85rem; }
+  .h2-trust ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .h2-trust li { display: flex; align-items: center; gap: 6px; color: var(--n-300); font-weight: 600; font-size: 0.84rem; opacity: 0.7; transition: opacity var(--transition-fast); }
+  .h2-trust li:hover { opacity: 1; }
+  .h2-trust img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
+  .h2-trust img.wide { width: auto; height: 22px; }
 
   /* ---------- INTEGRACIONES ---------- */
   .h2-marquees { display: flex; flex-direction: column; gap: 36px; padding: 6px 0; }
@@ -449,11 +521,16 @@ const planes = [
   .h2-plan li { display: flex; gap: 10px; align-items: flex-start; color: var(--text-secondary); font-size: 0.92rem; }
   .h2-plan li :global(.ki) { width: 18px; height: 18px; color: var(--accent-emerald); margin-top: 1px; }
   .h2-plan .btn { justify-content: center; }
+  .h2-plan-alt { display: block; text-align: center; margin-top: 12px; font-size: 0.85rem; color: var(--text-secondary); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: color var(--transition-fast), text-decoration-color var(--transition-fast); }
+  .h2-plan-alt:hover { color: var(--brand-primary-light); text-decoration-color: currentColor; }
+  .h2-planes-help { text-align: center; margin: 28px auto 0; max-width: 60ch; color: var(--text-secondary); font-size: 0.95rem; }
+  .h2-planes-help a { color: var(--brand-primary-light); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
   .h2-plan.popular { border-color: var(--border-hover); box-shadow: var(--shadow-glow); background: linear-gradient(180deg, var(--accent-indigo-glow), var(--card-bg) 40%); }
   .h2-plan-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: #fff; background: var(--gradient-primary); padding: 5px 14px; border-radius: 20px; white-space: nowrap; }
 
   /* ---------- CTA ---------- */
-  .h2-cta { text-align: center; padding: 64px 32px; border-radius: var(--border-radius-lg); border: 1px solid var(--border-hover); background: radial-gradient(circle at 50% 0%, rgba(124, 92, 255, 0.2), transparent 70%), var(--card-bg); }
+  .h2-cta { position: relative; text-align: center; padding: 64px 32px; border-radius: var(--border-radius-lg); border: 1px solid transparent; background: radial-gradient(circle at 50% 0%, rgba(124, 92, 255, 0.2), transparent 70%), var(--card-bg); box-shadow: 0 30px 80px rgba(124, 92, 255, 0.12); }
+  .h2-cta::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.7), rgba(124, 92, 255, 0.08) 55%, rgba(124, 92, 255, 0.5)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
   .h2-cta h2 { font-family: 'Lexend', sans-serif; font-size: clamp(1.9rem, 4vw, 2.6rem); margin: 0 0 14px; color: var(--text-primary); }
   .h2-cta p { color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
 
@@ -481,6 +558,7 @@ const planes = [
   .home2 .h2-light .h2-brand-icon { filter: brightness(0); }
   .home2 .h2-light h3, .home2 .h2-light .h2-card h3 { color: #0F0F12 !important; }
   .home2 .h2-light .h2-plan.popular { background: #FFFFFF; border-color: #7C5CFF; box-shadow: 0 16px 40px rgba(124, 92, 255, 0.18); }
+  @media (min-width: 993px) { .h2-plan.popular { transform: translateY(-14px); } }
   .home2 .h2-light .btn-secondary { color: #0F0F12 !important; background: #FFFFFF !important; border: 1px solid #D4D4D9 !important; }
   .home2 .h2-light .btn-secondary:hover { border-color: #7C5CFF !important; }
 
@@ -489,7 +567,9 @@ const planes = [
     .h2-marquee-track { animation: none; }
   }
   @media (max-width: 1024px) {
-    .h2-rubros, .h2-modulos { grid-template-columns: repeat(2, 1fr); }
+    .h2-rubros, .h2-bento { grid-template-columns: repeat(2, 1fr); }
+    .h2-steps { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
+    .h2-steps::before { display: none; }
     .h2-hero-grid { grid-template-columns: 1fr; gap: 48px; }
     .h2-float-1 { left: 12px; top: -18px; }
   }
@@ -503,7 +583,8 @@ const planes = [
     .h2-integra-banner { flex-direction: column; text-align: center; padding: 26px 20px; }
     .h2-integra-banner .btn { width: 100%; justify-content: center; }
     .h2-hero { padding: 120px 0 60px; }
-    .h2-rubros, .h2-modulos, .h2-planes { grid-template-columns: 1fr; }
+    .h2-rubros, .h2-bento, .h2-planes, .h2-steps { grid-template-columns: 1fr; }
+    .h2-tile--big { grid-column: auto; }
     .h2-planes { gap: 30px; }
     .h2-side { display: none; }
     .h2-kpis { grid-template-columns: repeat(2, 1fr); }

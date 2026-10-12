@@ -27,7 +27,7 @@ const toast = toasts[tipo];
         <Fragment>
           <div class="sm-bar"><b>Nueva temporada</b><span class="sm-chip">Envío gratis +$50k</span></div>
           <div class="sm-grid3">
-            {[['#7C5CFF', '#6A48F5', 'Remera oversize', '$ 18.900'], ['#06B6D4', '#7C5CFF', 'Buzo frisa', '$ 38.900'], ['#F97316', '#7C5CFF', 'Gorra bordada', '$ 12.500']].map(([a, b, n, p], i) => (
+            {[['#7C5CFF', '#6A48F5', 'Remera oversize', '$ 18.900'], ['#A08CFF', '#7C5CFF', 'Buzo frisa', '$ 38.900'], ['#5B3FE0', '#7C5CFF', 'Gorra bordada', '$ 12.500']].map(([a, b, n, p], i) => (
               <div class="sm-prod" style={`--d:${0.15 + i * 0.12}s`}>
                 <i style={`background:linear-gradient(135deg, ${a}, ${b})`}></i>
                 <span>{n}</span><b>{p}</b>
@@ -84,7 +84,7 @@ const toast = toasts[tipo];
         <Fragment>
           <div class="sm-search"><Fragment set:html={svg('search')} /><span>Venta, departamento, 3 ambientes, Palermo</span></div>
           <div class="sm-grid2">
-            {[['#6A48F5', '#06B6D4', 'USD 168.000', '3 amb, 78 m²'], ['#7C5CFF', '#F97316', 'USD 245.000', '4 amb, 110 m²']].map(([a, b, p, m], i) => (
+            {[['#6A48F5', '#A08CFF', 'USD 168.000', '3 amb, 78 m²'], ['#7C5CFF', '#5B3FE0', 'USD 245.000', '4 amb, 110 m²']].map(([a, b, p, m], i) => (
               <div class="sm-prop" style={`--d:${0.15 + i * 0.15}s`}>
                 <i style={`background:linear-gradient(135deg, ${a}, ${b})`}><span>{i === 0 ? 'Destacada' : 'Nueva'}</span></i>
                 <b>{p}</b><small>{m}</small>
@@ -143,7 +143,7 @@ const toast = toasts[tipo];
   .sm-prod span { font-size: 0.72rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sm-prod b { color: #fff; font-size: 0.82rem; }
   .sm-pay { color: #fff; }
-  .sm-pay :global(.ki) { color: #06B6D4; }
+  .sm-pay :global(.ki) { color: var(--brand-primary-light); }
 
   /* b2b */
   .sm-table { display: flex; flex-direction: column; gap: 6px; }

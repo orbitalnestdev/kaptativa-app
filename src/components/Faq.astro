@@ -3,12 +3,12 @@ import { faqsData } from '../data/content.js';
 ---
 
 <section class="section" id="faq">
-  <div class="container">
+  <div class="container faq-layout">
     <div class="section-header reveal">
       <h2>Preguntas frecuentes</h2>
-      <p>Despejá las dudas operativas más comunes sobre cómo diseñamos e implementamos nuestros sistemas digitales.</p>
+      <p>Lo que más nos consultan antes de empezar. Si tu duda no está acá, escribinos por WhatsApp.</p>
     </div>
-    
+
     <div class="faq-wrapper reveal reveal-delay-1">
       {faqsData.map((faq, index) => (
         <div class="faq-item">
@@ -26,6 +26,18 @@ import { faqsData } from '../data/content.js';
     </div>
   </div>
 </section>
+
+<style>
+  /* Dos columnas: título a la izquierda (fijo al hacer scroll), preguntas a la derecha */
+  .faq-layout { display: grid !important; grid-template-columns: 1fr 1.7fr !important; gap: 48px !important; align-items: start; }
+  .faq-layout .section-header { text-align: left !important; margin: 0 !important; max-width: none !important; position: sticky; top: 110px; }
+  .faq-layout .section-header p { margin-left: 0 !important; }
+  .faq-layout .faq-wrapper { margin: 0 !important; max-width: none !important; }
+  @media (max-width: 992px) {
+    .faq-layout { grid-template-columns: 1fr !important; gap: 24px !important; }
+    .faq-layout .section-header { position: static; }
+  }
+</style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
