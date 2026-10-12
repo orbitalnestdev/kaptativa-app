@@ -4,6 +4,43 @@
  * FAQ accordions, contact form logic with WhatsApp redirect, and scroll animation triggers.
  */
 
+// Scroll to an in-page section. Sections use `content-visibility: auto`, so their height is only
+// an estimate until rendered: after each scroll we re-measure and correct (up to 4 passes).
+const HEADER_OFFSET = 90;
+function scrollToSection(targetEl, smooth = true, pass = 0) {
+  const top = targetEl.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+  window.scrollTo({ top, behavior: smooth ? 'smooth' : 'instant' });
+  if (pass >= 3) return;
+  const settle = () => {
+    const drift = targetEl.getBoundingClientRect().top - HEADER_OFFSET;
+    if (Math.abs(drift) > 4) scrollToSection(targetEl, smooth, pass + 1);
+  };
+  if ('onscrollend' in window && smooth) {
+    window.addEventListener('scrollend', settle, { once: true });
+  } else {
+    setTimeout(settle, smooth ? 900 : 250);
+  }
+}
+
+// In-page buttons/links outside the main nav (e.g. "Ver módulos" -> #modulos) get the same correction
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="#"], a[href^="/#"]');
+  if (!link || link.closest('#main-navigation')) return;
+  const href = link.getAttribute('href');
+  if (href.startsWith('/#') && window.location.pathname !== '/') return;
+  const el = document.getElementById(decodeURIComponent(href.split('#')[1] || ''));
+  if (!el) return;
+  e.preventDefault();
+  scrollToSection(el);
+});
+
+// Landing on /#seccion from another page: the browser's native jump has the same estimate problem
+window.addEventListener('load', () => {
+  if (!location.hash) return;
+  const el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (el) setTimeout(() => scrollToSection(el, false), 150);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================================================
@@ -47,15 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetEl = document.getElementById(targetId);
             if (targetEl) {
               e.preventDefault();
-              setTimeout(() => {
-                const headerOffset = 90;
-                const elementPosition = targetEl.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({
-                  top: offsetPosition,
-                  behavior: 'smooth'
-                });
-              }, 80);
+              setTimeout(() => scrollToSection(targetEl), 80);
             }
           }
         }
@@ -73,11 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Dropdown toggle logic for mobile click
-    const dropdownTrigger = document.querySelector('.dropdown-trigger');
-    const dropdownContainer = document.querySelector('.nav-item-dropdown');
+    // Dropdown toggle logic for mobile click (one handler per dropdown: Soluciones, Servicios...)
+    document.querySelectorAll('.nav-item-dropdown').forEach((dropdownContainer) => {
+      const dropdownTrigger = dropdownContainer.querySelector('.dropdown-trigger');
+      if (!dropdownTrigger) return;
 
-    if (dropdownTrigger && dropdownContainer) {
       dropdownTrigger.addEventListener('click', (e) => {
         if (window.innerWidth <= 992) {
           e.preventDefault();
@@ -87,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dropdownTrigger.setAttribute('aria-expanded', isActive);
         }
       });
-    }
+    });
 
     // Close mobile nav drawer when clicking on any dropdown item
     const dropdownItems = document.querySelectorAll('.dropdown-item');

@@ -11,6 +11,22 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone'
   }),
+  redirects: {
+    '/home2': '/',
+    '/proyectos': '/',
+    '/blog': '/',
+    '/como-digitalizar-inmobiliaria-catalogo-crm-whatsapp-ia': '/inmobiliarias',
+    '/porque-depender-solo-de-instagram-y-whatsapp-arruina-ventas-inmobiliarias': '/inmobiliarias',
+    '/agentes-ia-whatsapp-inmobiliarias-atiende-consultas-24-7': '/inmobiliarias',
+    '/crm-inmobiliario-tablero-kanban-embudo-de-ventas': '/inmobiliarias',
+    '/seo-inmobiliario-posicionar-catalogo-propiedades-google-ia': '/inmobiliarias',
+    '/como-captar-propiedades-exclusivas-portal-web-vanguardia': '/inmobiliarias',
+    '/cuanto-cuesta-pagina-web-inmobiliaria-argentina': '/inmobiliarias',
+    '/software-inmobiliario-pago-unico-sin-mensualidades': '/inmobiliarias',
+    '/sistema-tasaciones-online-para-inmobiliarias': '/inmobiliarias',
+    '/crm-para-desarrolladoras-inmobiliarias-pozo': '/inmobiliarias',
+    '/diferencias-portales-inmobiliarios-web-propia': '/inmobiliarias',
+  },
   build: {
     inlineStylesheets: 'always'
   },
@@ -20,6 +36,7 @@ export default defineConfig({
         !page.includes('/admin') &&
         !page.includes('/checkout') &&
         !page.includes('/logo-proposals') &&
+        !page.includes('/home-anterior') &&
         !page.includes('/presupuestos/') &&
         !page.includes('/demo-sistema') &&
         !page.includes('/inmo-demo') &&

@@ -16,6 +16,7 @@ RUN npm install --omit=dev
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/server.mjs ./server.mjs
 
 EXPOSE 4321
-CMD ["node", "./dist/server/entry.mjs"]
+CMD ["node", "./server.mjs"]

@@ -5,7 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Contacto | Kaptativa" description="Agendá una sesión de diagnóstico tecnológico para tu empresa. Ponete en contacto con el equipo comercial y técnico de Kaptativa.">
+<Layout title="Contacto: pedí una demo o un presupuesto | Kaptativa" description="Pedí una demo o un presupuesto para tu sitio web, tienda online o sistema de gestión. Te respondemos en menos de 24 hs hábiles.">
   <Header slot="header" />
   
   <main>
@@ -201,6 +201,15 @@ import Footer from '../components/Footer.astro';
   import { api } from '../lib/appwrite.js';
 
   document.addEventListener('DOMContentLoaded', () => {
+    // Llegada desde una solución (/contacto/?demo=Tiendas online): precarga el pedido de demo
+    const demo = new URLSearchParams(window.location.search).get('demo');
+    if (demo) {
+      const messageField = document.getElementById('form-message') as HTMLTextAreaElement | null;
+      const interestField = document.getElementById('form-service-interest') as HTMLSelectElement | null;
+      if (messageField && !messageField.value) messageField.value = `Quiero solicitar una demo de la solución para ${demo}.`;
+      if (interestField) interestField.value = 'Web & E-commerce';
+    }
+
     const contactForm = document.getElementById('contact-form') as HTMLFormElement;
     const errorBanner = document.getElementById('form-error-banner');
     const feedbackStatus = document.getElementById('form-feedback-status');
@@ -261,6 +270,7 @@ import Footer from '../components/Footer.astro';
 
         if (sendWhatsApp) {
           showFeedback('¡Consulta enviada con éxito! Redirigiendo a WhatsApp...', 'success');
+          (window as any).gtag?.('event', 'generate_lead', { form: 'contacto', demo: demo || '' });
           setTimeout(() => {
             window.open(`https://wa.me/${agencyPhoneNumber}?text=${fullText}`, '_blank');
             contactForm.reset();

@@ -33,7 +33,7 @@ const { hideHeader = false } = Astro.props;
         <div class="case-card" data-category={caseItem.category}>
           <!-- Card Header Image & Status -->
           <div class="case-image-wrapper">
-            <img src={caseItem.image} alt={caseItem.alt} width="400" height="220" loading="lazy" / decoding="async">
+            <img src={caseItem.image} alt={caseItem.alt} width="400" height="220" loading="lazy" decoding="async" />
             <div class="case-image-gradient"></div>
             
             <div class="case-badge-top-left">
@@ -107,7 +107,7 @@ const { hideHeader = false } = Astro.props;
           grid.innerHTML = projects.map((p: any) => `
             <div class="case-card" data-category="${p.category || 'web'}">
               <div class="case-image-wrapper">
-                <img src="${p.image || '/project_b2b.png'}" alt="${p.titulo}" width="400" height="220" loading="lazy" / decoding="async">
+                <img src="${p.image || '/project_b2b.webp'}" alt="${p.titulo}" width="400" height="220" loading="lazy" decoding="async" />
                 <div class="case-image-gradient"></div>
                 <div class="case-badge-top-left">
                   <span class="case-industry-pill">${p.cliente || 'Caso Real'}</span>

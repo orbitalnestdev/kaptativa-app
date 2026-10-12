@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import Equipo from '../components/Equipo.astro';
 ---
 
-<Layout title="Quiénes Somos | Kaptativa" description="Conocé el equipo y la metodología detrás de Kaptativa. Desarrollamos soluciones tecnológicas a medida, CRM y automatizaciones con IA.">
+<Layout title="Quiénes somos: el equipo detrás de Kaptativa" description="Conocé el equipo y la metodología detrás de Kaptativa. Desarrollamos soluciones tecnológicas a medida, CRM y automatizaciones con IA.">
   <Header slot="header" />
   
   <main>
@@ -253,7 +253,7 @@ import Equipo from '../components/Equipo.astro';
         <div class="section-header reveal text-center" style="margin-bottom: 30px;">
           <span class="badge badge-neon">CONECTEMOS</span>
           <h2>¿Listo para impulsar <span class="text-gradient-crimson">tu transformación?</span></h2>
-          <p style="color: var(--text-secondary); max-width: 600px; margin: 10px auto 0;">Completá tus datos y contanos tu desafío. Te responderemos en menos de 24hs hábiles.</p>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 10px auto 0;">Contanos tu desafío. Te responderemos en menos de 24hs hábiles.</p>
         </div>
 
         <div class="home-contact-buttons reveal reveal-delay-1" style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 25px; margin-bottom: 40px; flex-wrap: wrap;">
@@ -266,91 +266,7 @@ import Equipo from '../components/Equipo.astro';
           </a>
         </div>
 
-        <div class="contact-form-card reveal" style="background: rgba(15, 21, 36, 0.85); border: 1px solid rgba(138, 53, 229, 0.25); border-radius: 24px; padding: 40px 35px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-width: 720px; margin: 0 auto; text-align: left;">
-          <h3 class="form-card-title">Completá tus datos</h3>
-          <p class="form-card-subtitle">Contanos tu desafío y te responderemos a la brevedad con soluciones específicas.</p>
-          
-          <div class="wizard-validation-error" id="form-error-banner" style="display: none; margin-bottom: 20px;"></div>
-
-          <form id="contact-form" class="direct-contact-form" novalidate>
-            <div class="form-group-row">
-              <div class="form-group">
-                <label for="form-name" class="form-label-uppercase">NOMBRE *</label>
-                <input type="text" id="form-name" class="form-control" placeholder="Tu nombre" required>
-              </div>
-              <div class="form-group">
-                <label for="form-email" class="form-label-uppercase">EMAIL *</label>
-                <input type="email" id="form-email" class="form-control" placeholder="tu@empresa.com" required>
-              </div>
-            </div>
-            
-            <div class="form-group-row">
-              <div class="form-group">
-                <label for="form-whatsapp" class="form-label-uppercase">TELÉFONO / WHATSAPP *</label>
-                <input type="tel" id="form-whatsapp" class="form-control" placeholder="+54 11 ..." required>
-              </div>
-              <div class="form-group">
-                <label for="form-business" class="form-label-uppercase">EMPRESA *</label>
-                <input type="text" id="form-business" class="form-control" placeholder="Nombre de tu empresa" required>
-              </div>
-            </div>
-            
-            <div class="form-group-row">
-              <div class="form-group">
-                <label for="form-website" class="form-label-uppercase">URL DEL SITIO (OPCIONAL)</label>
-                <input type="url" id="form-website" class="form-control" placeholder="https://tusitio.com">
-              </div>
-              <div class="form-group">
-                <label for="form-role" class="form-label-uppercase">¿QUÉ PUESTO OCUPÁS?</label>
-                <select id="form-role" class="form-control form-select-custom">
-                  <option value="" disabled selected>Elegí una opción</option>
-                  <option value="Fundador / CEO / Socio">Fundador / CEO / Socio</option>
-                  <option value="Director Comercial / Ventas">Director Comercial / Ventas</option>
-                  <option value="Gerente de Marketing">Gerente de Marketing</option>
-                  <option value="Operaciones / Administración">Operaciones / Administración</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="form-service-interest" class="form-label-uppercase">¿QUÉ TE INTERESA?</label>
-              <select id="form-service-interest" class="form-control form-select-custom">
-                <option value="" disabled selected>Elegí el servicio de tu interés</option>
-                <option value="Paid Media / Publicidad Digital">Paid Media / Publicidad Digital</option>
-                <option value="SEO & GEO Search">SEO & GEO Search</option>
-                <option value="Social Media Manager">Social Media Manager</option>
-                <option value="Web & E-commerce">Web & E-commerce</option>
-                <option value="Email Marketing & CRM">Email Marketing & CRM</option>
-                <option value="Software a Medida">Software a Medida</option>
-                <option value="Automatización & Integraciones">Automatización & Integraciones</option>
-                <option value="Agentes de Inteligencia Artificial">Agentes de Inteligencia Artificial</option>
-                <option value="Consultoría Enterprise">Consultoría Enterprise</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="form-message" class="form-label-uppercase">¿CUÁL ES TU PRINCIPAL DESAFÍO HOY? *</label>
-              <textarea id="form-message" class="form-control" rows="4" placeholder="Contanos en qué estás y qué te gustaría resolver" required></textarea>
-            </div>
-            
-            <div class="form-group" style="margin-top: 10px; margin-bottom: 20px;">
-              <label class="form-checkbox" id="label-checkbox-whatsapp">
-                <input type="checkbox" id="form-send-whatsapp" checked>
-                <span>Abrir chat de WhatsApp para agilizar mi consulta</span>
-              </label>
-            </div>
-            
-            <button type="submit" class="btn btn-primary submit-btn" id="btn-submit-form" style="width: 100%; justify-content: center; font-weight: 600; box-shadow: 0 0 20px var(--accent-indigo-glow);">
-              <span>Enviar →</span>
-            </button>
-            
-            <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">
-              Te respondemos en 24hs. Tus datos se tratan según nuestra <a href="/privacidad" style="color: var(--accent-pink); text-decoration: underline;">política de privacidad</a>.
-            </p>
-
-            <div class="form-feedback" id="form-feedback-status" style="display: none; margin-top: 20px;"></div>
-          </form>
-        </div>
+        
       </div>
     </section>
   </main>
@@ -358,92 +274,6 @@ import Equipo from '../components/Equipo.astro';
   <Footer slot="footer" />
 </Layout>
 
-<script>
-  import { api } from '../lib/appwrite.js';
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
-    const errorBanner = document.getElementById('form-error-banner');
-    const feedbackStatus = document.getElementById('form-feedback-status');
-    const submitBtn = document.getElementById('btn-submit-form') as HTMLButtonElement;
-
-    if (!contactForm) return;
-
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const name = (document.getElementById('form-name') as HTMLInputElement).value.trim();
-      const email = (document.getElementById('form-email') as HTMLInputElement).value.trim();
-      const whatsapp = (document.getElementById('form-whatsapp') as HTMLInputElement).value.trim();
-      const business = (document.getElementById('form-business') as HTMLInputElement).value.trim();
-      const website = (document.getElementById('form-website') as HTMLInputElement)?.value.trim() || '';
-      const role = (document.getElementById('form-role') as HTMLSelectElement)?.value || 'No especificado';
-      const serviceInterest = (document.getElementById('form-service-interest') as HTMLSelectElement)?.value || 'No especificado';
-      const message = (document.getElementById('form-message') as HTMLTextAreaElement).value.trim();
-      const sendWhatsapp = (document.getElementById('form-send-whatsapp') as HTMLInputElement)?.checked ?? true;
-
-      if (errorBanner) errorBanner.style.display = 'none';
-      if (feedbackStatus) {
-        feedbackStatus.style.display = 'none';
-        feedbackStatus.className = 'form-feedback';
-      }
-
-      if (!name || !email || !whatsapp || !business || !message) {
-        if (errorBanner) {
-          errorBanner.innerText = 'Por favor, completá todos los campos obligatorios (*).';
-          errorBanner.style.display = 'block';
-        }
-        return;
-      }
-
-      if (feedbackStatus) {
-        feedbackStatus.style.display = 'block';
-        feedbackStatus.className = 'form-feedback feedback-info';
-        feedbackStatus.innerText = 'Enviando tu consulta...';
-      }
-      if (submitBtn) submitBtn.disabled = true;
-
-      try {
-        await api.db.createLead({
-          name,
-          email,
-          business,
-          whatsapp,
-          message: `Puesto: ${role}\nSitio Web: ${website}\nServicio de interés: ${serviceInterest}\n\nDesafío: ${message}`,
-          status: 'nuevo',
-          tags: 'Contacto Nosotros',
-          score: 0,
-          recommendations: `Lead generado desde la página Nosotros. Servicio: ${serviceInterest}`
-        });
-
-        if (feedbackStatus) {
-          feedbackStatus.className = 'form-feedback feedback-success';
-          feedbackStatus.innerText = `¡Gracias, ${name}! Tu consulta ha sido enviada con éxito.`;
-        }
-
-        if (sendWhatsapp) {
-          const agencyPhone = '5493804890834';
-          const text = encodeURIComponent(`¡Hola Kaptativa! Acabo de enviar una consulta desde la web.\n\n*Datos:*\n- *Nombre:* ${name}\n- *Empresa:* ${business}\n- *Email:* ${email}\n- *WhatsApp:* ${whatsapp}\n- *Puesto:* ${role}\n- *Interés:* ${serviceInterest}\n- *Desafío:* ${message}`);
-          setTimeout(() => {
-            window.open(`https://wa.me/${agencyPhone}?text=${text}`, '_blank');
-            contactForm.reset();
-            if (feedbackStatus) feedbackStatus.style.display = 'none';
-          }, 1200);
-        } else {
-          contactForm.reset();
-        }
-      } catch (err: any) {
-        console.error('Error enviando formulario:', err);
-        if (feedbackStatus) {
-          feedbackStatus.className = 'form-feedback feedback-error';
-          feedbackStatus.innerText = 'Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente o contactanos por WhatsApp.';
-        }
-      } finally {
-        if (submitBtn) submitBtn.disabled = false;
-      }
-    });
-  });
-</script>
 
 <style is:global>
   .story-card-wrapper {

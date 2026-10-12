@@ -871,7 +871,7 @@ ul { list-style: none; }
   inset: 0;
   background:
     linear-gradient(rgba(14, 14, 14, 0.92), rgba(14, 14, 14, 0.88)),
-    url("fotos/02-living-luz-natural.png") center / cover no-repeat fixed;
+    url("fotos/02-living-luz-natural.webp") center / cover no-repeat fixed;
   z-index: -1;
 }
 

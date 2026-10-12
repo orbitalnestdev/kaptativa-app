@@ -36,7 +36,7 @@ export const faqsData = [
 export const casesData = [
   {
     category: "web",
-    image: "/project_b2b.png",
+    image: "/project_b2b.webp",
     alt: "Plataforma Corporativa B2B de Servicios",
     tag: "Web & SEO",
     industry: "Servicios B2B",
@@ -52,7 +52,7 @@ export const casesData = [
   },
   {
     category: "web",
-    image: "/project_b2b.png",
+    image: "/project_b2b.webp",
     alt: "Portal Inmobiliario Web + CRM Integrado",
     tag: "Web & SEO",
     industry: "Inmobiliaria",
@@ -68,7 +68,7 @@ export const casesData = [
   },
   {
     category: "auto",
-    image: "/project_ecommerce.png",
+    image: "/project_ecommerce.webp",
     alt: "E-commerce Minorista Automatizado",
     tag: "Automatizaciones",
     industry: "E-commerce",
@@ -84,7 +84,7 @@ export const casesData = [
   },
   {
     category: "ia",
-    image: "/project_chatbot.png",
+    image: "/project_chatbot.webp",
     alt: "Asistente Conversacional Inteligente",
     tag: "Agentes IA",
     industry: "Salud & Clínicas",
@@ -100,7 +100,7 @@ export const casesData = [
   },
   {
     category: "auto",
-    image: "/project_ecommerce.png",
+    image: "/project_ecommerce.webp",
     alt: "Sistema de Lead Scoring & Notificaciones",
     tag: "Automatizaciones",
     industry: "Software B2B",
@@ -116,7 +116,7 @@ export const casesData = [
   },
   {
     category: "ia",
-    image: "/project_chatbot.png",
+    image: "/project_chatbot.webp",
     alt: "Agente IA Inmobiliario",
     tag: "Agentes IA",
     industry: "Desarrollos Inmobiliarios",

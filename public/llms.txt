@@ -1,0 +1,30 @@
+# Kaptativa
+
+> Estudio de desarrollo web de La Rioja, Argentina. Diseñamos y desarrollamos sitios web, tiendas online y sistemas de gestión autoadministrables, con integraciones (pagos, logística, WhatsApp) y asistentes de inteligencia artificial.
+
+Atendemos negocios de toda Argentina. Cada proyecto se arma sobre una plataforma modular: el cliente activa los módulos que necesita (sitio web, tienda, marketing, gestión, facturación, estadísticas, turnos y asistente IA) y administra el contenido por su cuenta.
+
+## Soluciones por rubro
+- [Tiendas online](https://kaptativa.com/soluciones/tiendas-online/): catálogo, stock, cobros con MercadoPago, envíos y facturación en un mismo panel.
+- [Mayoristas y distribuidores](https://kaptativa.com/soluciones/mayoristas/): listas de precios por cliente, autopedido B2B y stock por depósito.
+- [Gastronomía](https://kaptativa.com/soluciones/gastronomia/): carta digital con QR, pedidos online, reservas y comandas.
+- [Gimnasios y clubes](https://kaptativa.com/soluciones/gimnasios-y-clubes/): padrón de socios, cuotas online y clases con cupo.
+- [Turnos y cursos](https://kaptativa.com/soluciones/turnos-y-cursos/): agenda online, recordatorios, inscripciones y cobro anticipado.
+- [Inmobiliarias](https://kaptativa.com/soluciones/inmobiliarias/): cartera de propiedades en sitio propio, consultas calificadas y asistente IA.
+- [Asociaciones y mutuales](https://kaptativa.com/soluciones/asociaciones-y-mutuales/): padrón de asociados, beneficios y comunicación.
+- [Servicios profesionales](https://kaptativa.com/soluciones/servicios-profesionales/): sitio institucional, consultas centralizadas y agenda de reuniones.
+
+## Servicios
+- [Diseño web y e-commerce](https://kaptativa.com/servicios/diseno-web/)
+- [Desarrollo de software a medida](https://kaptativa.com/servicios/desarrollo-software/)
+- [Automatización e integraciones](https://kaptativa.com/servicios/automatizacion/)
+- [Agentes de IA para WhatsApp](https://kaptativa.com/servicios/agentes-ia/)
+- [Posicionamiento SEO y GEO](https://kaptativa.com/servicios/seo-geo/)
+- [Publicidad digital](https://kaptativa.com/servicios/publicidad-digital/)
+- [Email marketing](https://kaptativa.com/servicios/email-marketing/)
+- [Social media](https://kaptativa.com/servicios/social-media/)
+
+## Contacto
+- Formulario: https://kaptativa.com/contacto/
+- Email: hola@kaptativa.com
+- WhatsApp: +54 9 380 489-0834

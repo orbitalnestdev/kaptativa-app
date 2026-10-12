@@ -2,17 +2,33 @@
 interface Props {
   title: string;
   description?: string;
+  /** Datos estructurados (JSON-LD) propios de la página: un objeto o una lista */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const { 
   title, 
-  description = "Transformamos tu negocio con tecnología que conecta, automatiza y escala."
+  description = "Transformamos tu negocio con tecnología que conecta, automatiza y escala.",
+  schema
 } = Astro.props;
+const pageSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 
 import Chatbot from '../components/Chatbot.astro';
+// Fuentes autoalojadas: solo los pesos que usa el sitio público
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/lexend/400.css';
+import '@fontsource/lexend/500.css';
+import '@fontsource/lexend/600.css';
 import '../styles/global.css';
+// Precarga de las fuentes de la primera pantalla (título y texto): evita el salto de diseño al cargar
+import lexend600 from '@fontsource/lexend/files/lexend-latin-600-normal.woff2?url';
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://kaptativa.com');
+// Google Analytics 4: solo se carga si está definida PUBLIC_GA4_ID (ej. G-XXXXXXX)
+const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
 ---
 
 <!DOCTYPE html>
@@ -35,29 +51,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://kaptativ
   <meta property="og:url" content={canonicalURL.href}>
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
-  <meta property="og:image" content="https://kaptativa.com/og-image.png">
+  <meta property="og:image" content="https://kaptativa.com/og-image.jpg">
   
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content={canonicalURL.href}>
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
-  <meta name="twitter:image" content="https://kaptativa.com/og-image.png">
+  <meta name="twitter:image" content="https://kaptativa.com/og-image.jpg">
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
   
-  <!-- CDN Preconnects & DNS Prefetch -->
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link rel="dns-prefetch" href="https://images.unsplash.com">
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
-  <!-- Google Fonts DNS Preconnect & Font Loading Optimization -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <!-- Fuentes autoalojadas (@fontsource): sin conexiones a Google Fonts -->
+  <link rel="preload" href={lexend600} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
   
   <!-- JSON-LD Structured Data (Organization Schema) -->
   <script type="application/ld+json">
@@ -72,11 +81,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://kaptativ
       "@type": "ContactPoint",
       "telephone": "+54-9-380-489-0834",
       "contactType": "customer service",
-      "email": "contacto@kaptativa.com",
+      "email": "hola@kaptativa.com",
       "availableLanguage": "Spanish"
     }
   }
   </script>
+  {pageSchemas.map((sch) => <script type="application/ld+json" set:html={JSON.stringify(sch)} />)}
   <script is:inline>
     const theme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', theme);
@@ -103,6 +113,31 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://kaptativ
       }
     }
   </style>
+  {GA4_ID && (
+    <Fragment>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>
+      <script is:inline define:vars={{ GA4_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA4_ID);
+      </script>
+    </Fragment>
+  )}
+  <script is:inline>
+    // Eventos de conversión (no hace nada si GA4 no está cargado)
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a');
+      if (!a || typeof window.gtag !== 'function') return;
+      var href = a.getAttribute('href') || '';
+      var text = (a.textContent || '').trim();
+      var params = { link_text: text.slice(0, 60), page_path: location.pathname };
+      if (/solicitar demo/i.test(text)) window.gtag('event', 'solicitar_demo', params);
+      if (href.indexOf('wa.me') !== -1) window.gtag('event', 'whatsapp_click', params);
+      else if (href.indexOf('/contacto') === 0) window.gtag('event', 'contacto_click', params);
+    });
+  </script>
 </head>
 <body>
   <!-- Global Sticky Top Reading Progress Bar -->

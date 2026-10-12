@@ -113,7 +113,7 @@ import Footer from '../../components/Footer.astro';
               </div>
               <div style="font-size: 1.25rem; font-weight: 600; color: #ffffff; font-family: 'Lexend', sans-serif;">Agencia Kaptativa</div>
               <div style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 4px; font-weight: 500;">Consultoría Tecnológica & Automatizaciones</div>
-              <div id="lbl-agency-email-screen" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">contacto@kaptativa.com</div>
+              <div id="lbl-agency-email-screen" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">hola@kaptativa.com</div>
             </div>
           </div>
 
@@ -298,7 +298,7 @@ import Footer from '../../components/Footer.astro';
             <div style="font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px;">Proveedor de Soluciones</div>
             <div style="font-size: 1.05rem; font-weight: 600; color: #0f172a; font-family: 'Lexend', sans-serif;">Agencia Kaptativa</div>
             <div style="font-size: 0.85rem; color: #334155; margin-top: 4px; font-weight: 500;">Consultoría Tecnológica & Automatizaciones</div>
-            <div id="lbl-agency-email-pdf" style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">contacto@kaptativa.com</div>
+            <div id="lbl-agency-email-pdf" style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">hola@kaptativa.com</div>
           </div>
         </div>
 
@@ -867,7 +867,7 @@ import Footer from '../../components/Footer.astro';
               <span style="font-size: 1.5rem;">❌</span>
               <div>
                 <h3 style="margin: 0 0 5px 0; font-family: 'Lexend', sans-serif; font-weight: 600; color: white;">Propuesta Rechazada</h3>
-                <p style="margin: 0; color: var(--text-secondary);">Entendemos tu postura. Si cambias de opinión o quieres realizar ajustes en el alcance del desarrollo, no dudes en contactarnos a <strong>contacto@kaptativa.com</strong>.</p>
+                <p style="margin: 0; color: var(--text-secondary);">Entendemos tu postura. Si cambiás de opinión o querés realizar ajustes en el alcance del desarrollo, no dudés en contactarnos a <strong>hola@kaptativa.com</strong>.</p>
               </div>
             </div>
           `;
@@ -891,9 +891,9 @@ import Footer from '../../components/Footer.astro';
     function getAgencyEmail() {
       const saved = localStorage.getItem('crm_settings');
       if (saved) {
-        return JSON.parse(saved).support_email || 'contacto@kaptativa.com';
+        return JSON.parse(saved).support_email || 'hola@kaptativa.com';
       }
-      return 'contacto@kaptativa.com';
+      return 'hola@kaptativa.com';
     }
   });
 </script>

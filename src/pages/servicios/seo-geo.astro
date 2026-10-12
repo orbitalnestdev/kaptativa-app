@@ -2,13 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import TrustedLogos from '../../components/TrustedLogos.astro';
+import '../../styles/servicios.css';
 ---
 
-<Layout title="Posicionamiento SEO & GEO de Alta Autoridad | Kaptativa" description="Posiciona tu negocio en Google y en los nuevos buscadores impulsados por Inteligencia Artificial (ChatGPT, Gemini, Perplexity). Estrategias avanzadas de SEO técnico, semántico y GEO (Generative Engine Optimization).">
+<Layout title="Posicionamiento SEO y GEO | Kaptativa" description="Posicioná tu negocio en Google y en los buscadores con IA (ChatGPT, Gemini, Perplexity) con SEO técnico, de contenido y GEO.">
   <Header slot="header" />
   
-  <main>
+  <main class="servicio-page">
     <!-- HERO INMERSIVO -->
     <section class="hero hero-section" id="inicio">
       <div class="hero-glow-1"></div>
@@ -37,27 +37,25 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
       <div class="container">
         <div class="metrics-grid-premium">
           <div class="metric-card-glass">
-            <div class="metric-value">+120%</div>
-            <div class="metric-label">Tráfico orgánico calificado promedio</div>
+            <div class="metric-value long">Técnico</div>
+            <div class="metric-label">Auditoría y corrección completa del sitio</div>
           </div>
           <div class="metric-card-glass">
             <div class="metric-value">100%</div>
             <div class="metric-label">Optimización para respuestas de IA</div>
           </div>
           <div class="metric-card-glass">
-            <div class="metric-value">&lt;1s</div>
-            <div class="metric-label">Tiempos de carga técnica (Core Vitals)</div>
+            <div class="metric-value long">Core Web Vitals</div>
+            <div class="metric-label">Velocidad como factor de posicionamiento</div>
           </div>
           <div class="metric-card-glass">
-            <div class="metric-value">Top 3</div>
-            <div class="metric-label">Posicionamiento en mapas locales</div>
+            <div class="metric-value">Local</div>
+            <div class="metric-label">Perfil de Google Business optimizado</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Trusted Logos Bar (Social Proof) -->
-    <TrustedLogos />
 
     <!-- LO QUE IMPORTA (EL DOLOR VS LA SOLUCIÓN) -->
     <section class="section" id="lo-que-importa">
@@ -411,44 +409,6 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
               Chateá por WhatsApp
             </a>
           </div>
-
-          <!-- Columna Derecha: Formulario de Captura -->
-          <div class="cta-form-side">
-            <form id="seo-contact-form" novalidate style="display: flex; flex-direction: column; gap: 15px; text-align: left; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04);">
-              <div id="seo-form-feedback" style="display: none; padding: 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-align: center; margin-bottom: 5px;"></div>
-              
-              <div style="display: flex; flex-direction: column; gap: 6px;">
-                <label for="form-nombre" style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Nombre completo</label>
-                <input type="text" id="form-nombre" class="form-input" required style="width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.02) !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s;" />
-              </div>
-              
-              <div style="display: flex; flex-direction: column; gap: 6px;">
-                <label for="form-telefono" style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">WhatsApp Comercial</label>
-                <input type="tel" id="form-telefono" class="form-input" required style="width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.02) !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s;" />
-              </div>
-
-              <div style="display: flex; flex-direction: column; gap: 6px;">
-                <label for="form-sitio" style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Sitio Web (o nombre de tu proyecto)</label>
-                <input type="text" id="form-sitio" class="form-input" style="width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.02) !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s;" />
-              </div>
-
-              <div style="display: flex; flex-direction: column; gap: 6px;">
-                <label for="form-desafio" style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Principal desafío SEO</label>
-                <select id="form-desafio" required style="width: 100%; padding: 10px 14px; background: #0c0d14 !important; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s; cursor: pointer;">
-                  <option value="" disabled selected>Seleccioná tu problema principal</option>
-                  <option value="No aparezco en Google Maps">No aparezco en Google Maps (SEO Local)</option>
-                  <option value="No figuro al buscar mis servicios">No figuro al buscar mis servicios en Google</option>
-                  <option value="Quiero figurar en buscadores IA">Quiero figurar en ChatGPT Search / Perplexity / Gemini</option>
-                  <option value="Tengo una web muy lenta">Tengo una web muy lenta (Core Web Vitals)</option>
-                  <option value="Otro desafio SEO">Otro desafío de visibilidad</option>
-                </select>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; justify-content: center; margin-top: 10px; padding: 12px;">
-                Auditar mi sitio &rarr;
-              </button>
-            </form>
-          </div>
         </div>
       </div>
     </section>
@@ -456,76 +416,6 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
 
   <Footer slot="footer" />
 
-  <script>
-    import { api } from '../../lib/appwrite.js';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const seoForm = document.getElementById('seo-contact-form') as HTMLFormElement;
-      const feedback = document.getElementById('seo-form-feedback');
-
-      if (!seoForm) return;
-
-      seoForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const name = (document.getElementById('form-nombre') as HTMLInputElement).value.trim();
-        const whatsapp = (document.getElementById('form-telefono') as HTMLInputElement).value.trim();
-        const site = (document.getElementById('form-sitio') as HTMLInputElement).value.trim() || 'Proyecto Nuevo / Sin web';
-        const challenge = (document.getElementById('form-desafio') as HTMLSelectElement).value;
-
-        if (!feedback) return;
-
-        if (!name || !whatsapp || !challenge) {
-          feedback.style.display = 'block';
-          feedback.style.background = 'rgba(239, 68, 68, 0.1)';
-          feedback.style.border = '1px solid rgba(239, 68, 68, 0.2)';
-          feedback.style.color = '#ef4444';
-          feedback.innerText = 'Por favor, completa todos los campos obligatorios del formulario.';
-          return;
-        }
-
-        feedback.style.display = 'block';
-        feedback.style.background = 'rgba(6, 182, 212, 0.1)';
-        feedback.style.border = '1px solid rgba(6, 182, 212, 0.2)';
-        feedback.style.color = '#EA384D';
-        feedback.innerText = 'Registrando solicitud de auditoría SEO...';
-
-        try {
-          await api.db.createLead({
-            name,
-            business: site,
-            whatsapp,
-            email: 'no-email@kaptativa.com',
-            message: `Desafío SEO/GEO: ${challenge}`,
-            status: 'nuevo',
-            tags: 'SEO & GEO',
-            score: 0,
-            recommendations: 'Consulta desde el formulario de SEO & GEO.'
-          });
-
-          feedback.style.background = 'rgba(16, 185, 129, 0.1)';
-          feedback.style.border = '1px solid rgba(16, 185, 129, 0.2)';
-          feedback.style.color = '#10b981';
-          feedback.innerText = '¡Registrado con éxito! Redirigiendo a WhatsApp...';
-
-          setTimeout(() => {
-            const textMsg = `Hola! Acabo de solicitar un diagnóstico de SEO & GEO en la web. Mi nombre es ${name}, de la web ${site}. Nuestro principal problema es: ${challenge}.`;
-            const encodedMsg = encodeURIComponent(textMsg);
-            window.open(`https://wa.me/5493804890834?text=${encodedMsg}`, '_blank');
-            seoForm.reset();
-            feedback.style.display = 'none';
-          }, 1200);
-
-        } catch (error) {
-          console.error('Error registrando lead:', error);
-          feedback.style.background = 'rgba(239, 68, 68, 0.1)';
-          feedback.style.border = '1px solid rgba(239, 68, 68, 0.2)';
-          feedback.style.color = '#ef4444';
-          feedback.innerText = 'Ocurrió un error al registrar tus datos. Por favor, intenta de nuevo o contáctanos por WhatsApp.';
-        }
-      });
-    });
-  </script>
   <script type="application/ld+json" is:inline>
     {
       "@context": "https://schema.org",
@@ -556,35 +446,6 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
 
 <!-- ESTILOS LOCALES PREMIUM ENCAPSULADOS -->
 <style>
-  /* ==========================================================================
-     GRID DE RUBROS (ESTRUCTURA BASE REUBICADA PARA RESPONSIVIDAD CORRECTA)
-     ========================================================================== */
-  .rubros-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-  }
-  
-
-  .hero-section {
-    position: relative;
-    overflow: hidden;
-    padding-top: 180px;
-    padding-bottom: 120px;
-  }
-  .hero-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .hero-content {
-    max-width: 850px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-  }
   .badge-neon {
     background: rgba(16, 185, 129, 0.05);
     color: var(--accent-emerald);
@@ -600,6 +461,7 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     gap: 8px;
     margin-bottom: 24px;
   }
+
   .badge-dot-pulsing {
     width: 6px;
     height: 6px;
@@ -608,180 +470,40 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
     animation: pulseGlow 1.5s infinite;
   }
+
   @keyframes pulseGlow {
     0% { transform: scale(0.9); opacity: 0.6; }
     50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
     100% { transform: scale(0.9); opacity: 0.6; }
   }
-  .hero-tagline {
-    font-size: 4.2rem;
-    line-height: 1.05;
-    font-weight: 600;
-    font-family: 'Outfit', sans-serif;
-    margin-bottom: 24px;
-    letter-spacing: -0.02em;
-  }
-  .hero-description {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    margin-bottom: 40px;
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-  }
-  .hero-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .btn-whatsapp {
-    background: rgba(16, 185, 129, 0.05);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    color: #10b981;
-    display: inline-flex;
-    align-items: center;
-    transition: all 0.3s ease;
-  }
-  .btn-whatsapp:hover {
-    background: #10b981;
-    border-color: #10b981;
-    color: #ffffff;
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
-    transform: translateY(-2px);
-  }
+
   .btn-glow:hover {
     box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
   }
 
-  /* Glows y Grid */
-  .hero-glow-1, .hero-glow-2 {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    filter: blur(140px);
-    opacity: 0.15;
-    pointer-events: none;
-    z-index: 0;
-  }
   .hero-glow-1 {
     top: -250px;
     left: 15%;
     background: radial-gradient(circle, var(--accent-emerald) 0%, transparent 70%);
   }
+
   .hero-glow-2 {
     top: -150px;
     right: 15%;
     background: radial-gradient(circle, var(--accent-emerald) 0%, transparent 70%);
   }
 
-  /* Métricas */
-  .section-metrics {
-    margin-top: -30px;
-    margin-bottom: 60px;
-    position: relative;
-    z-index: 10;
-  }
-  .metrics-grid-premium {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
-  .metric-card-glass {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    padding: 30px 20px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-  }
   .metric-card-glass:hover {
     border-color: rgba(16, 185, 129, 0.2);
     transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   }
-  .metric-value {
-    font-size: 2.8rem;
-    font-weight: 600;
-    background: linear-gradient(135deg, #ffffff 0%, #9ca3af 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-    font-family: 'Lexend', sans-serif;
-    margin-bottom: 8px;
-    line-height: 1.1;
-  }
-  .metric-label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-  }
 
-  /* Comparativa */
   .comparison-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin-top: 40px;
-  }
-  .comp-card-bad {
-    background: rgba(239, 68, 68, 0.01);
-    border: 1px solid rgba(239, 68, 68, 0.12);
-    border-radius: var(--border-radius-md);
-    padding: 40px;
-    transition: all 0.3s ease;
-  }
-  .comp-card-bad:hover {
-    background: rgba(239, 68, 68, 0.02);
-  }
-  .comp-card-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 24px;
-    gap: 16px;
-  }
-  .comp-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-  }
-  .bad-box {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
-  }
-  .comp-card-bad h3 {
-    font-size: 1.4rem;
-    color: var(--accent-crimson);
-    font-family: 'Lexend', sans-serif;
-    font-weight: 600;
-  }
-  .comp-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .comp-card-bad .comp-list li {
-    font-size: 1rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    display: flex;
-    align-items: flex-start;
-  }
-  .comp-card-bad .comp-list li span {
-    color: #ef4444;
-    margin-right: 12px;
-    font-weight: 600;
   }
 
   .comp-card-good {
@@ -793,92 +515,29 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     box-shadow: 0 10px 30px rgba(16, 185, 129, 0.05);
     transition: all 0.3s ease;
   }
+
   .comp-card-good:hover {
     border-color: var(--accent-emerald);
     box-shadow: 0 15px 35px rgba(16, 185, 129, 0.1);
   }
+
   .good-box {
     background: rgba(16, 185, 129, 0.1);
     color: var(--accent-emerald);
   }
-  .comp-card-good h3 {
-    font-size: 1.4rem;
-    color: var(--text-primary);
-    font-family: 'Lexend', sans-serif;
-    font-weight: 600;
-  }
-  .comp-card-good .comp-list li {
-    font-size: 1rem;
-    color: var(--text-primary);
-    line-height: 1.6;
-    display: flex;
-    align-items: flex-start;
-  }
+
   .comp-card-good .comp-list li span {
     color: var(--accent-emerald);
     margin-right: 12px;
     font-weight: 600;
   }
-  .badge-solution {
-    position: absolute;
-    top: -15px;
-    right: 30px;
-    background: var(--gradient-primary);
-    color: #ffffff;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(234, 56, 77, 0.4);
-  }
 
-  /* Pilares */
-  .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-  }
-  .glass-card-premium {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    padding: 40px 30px;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(12px);
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    display: flex;
-    flex-direction: column;
-  }
-  .glass-card-premium::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 0;
-    background: var(--gradient-primary);
-    transition: height 0.4s ease;
-  }
-  .glass-card-premium:hover::before {
-    height: 100%;
-  }
   .glass-card-premium:hover {
     border-color: rgba(16, 185, 129, 0.25);
     transform: translateY(-6px);
     box-shadow: 0 15px 30px rgba(16, 185, 129, 0.1);
   }
-  .card-bg-number {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    font-size: 2.2rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    opacity: 0.05;
-    font-family: 'Lexend', sans-serif;
-  }
+
   .pillar-icon {
     width: 46px;
     height: 46px;
@@ -892,36 +551,13 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     margin-bottom: 24px;
     transition: all 0.3s ease;
   }
+
   .glass-card-premium:hover .pillar-icon {
     background: rgba(16, 185, 129, 0.18);
     box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
     transform: scale(1.05);
   }
-  .glass-card-premium h3 {
-    font-size: 1.25rem;
-    font-family: 'Lexend', sans-serif;
-    color: var(--text-primary);
-    margin-bottom: 12px;
-    font-weight: 600;
-  }
-  .glass-card-premium p {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
-  }
 
-  /* Caso de Éxito */
-  .section-case {
-    background: radial-gradient(circle at center, rgba(234, 56, 77, 0.03) 0%, transparent 60%);
-    padding: 90px 0;
-  }
-  .case-container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-  }
   .case-badge {
     background: rgba(16, 185, 129, 0.05);
     color: #10b981;
@@ -935,21 +571,7 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     display: inline-block;
     margin-bottom: 25px;
   }
-  .case-quote {
-    font-size: 1.55rem;
-    font-style: italic;
-    color: var(--text-primary);
-    line-height: 1.6;
-    margin-bottom: 30px;
-    font-weight: 400;
-  }
-  .case-author h4 {
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 4px;
-  }
+
   .case-author span {
     font-size: 0.85rem;
     color: var(--text-muted);
@@ -958,76 +580,20 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     text-transform: uppercase;
   }
 
-  /* FAQ */
-  .faq-accordion {
-    max-width: 850px;
-    margin: 40px auto 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .faq-item-premium {
-    border-radius: 14px;
-    border: 1px solid var(--border-color);
-    background: var(--card-bg);
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
   .faq-item-premium[open] {
     border-color: rgba(16, 185, 129, 0.2);
     box-shadow: 0 0 15px rgba(16, 185, 129, 0.05);
   }
-  .faq-trigger {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 25px;
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    cursor: pointer;
-    user-select: none;
-    list-style: none;
-    transition: color 0.2s ease;
-    outline: none;
-  }
-  .faq-trigger::-webkit-details-marker {
-    display: none;
-  }
+
   .faq-trigger:hover, .faq-trigger:focus-visible {
     color: var(--accent-emerald);
   }
-  .faq-icon-arrow {
-    transition: transform 0.3s ease;
-    color: var(--text-muted);
-  }
+
   .faq-item-premium[open] .faq-icon-arrow {
     transform: rotate(180deg);
     color: var(--accent-emerald);
   }
-  .faq-content-premium {
-    padding: 0 25px;
-  }
-  .faq-item-premium[open] .faq-content-premium {
-    animation: slideDown 0.3s ease-out;
-  }
-  .faq-content-premium p {
-    padding-bottom: 20px;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
 
-  /* CTA de Cierre */
-  .section-cta {
-    padding: 80px 0;
-  }
   .cta-card-neon {
     background: var(--card-bg);
     backdrop-filter: blur(10px);
@@ -1041,6 +607,7 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     position: relative;
     overflow: hidden;
   }
+
   .cta-glow-overlay {
     position: absolute;
     top: 0;
@@ -1051,44 +618,7 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
                 radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
     pointer-events: none;
   }
-  .cta-info-side {
-    position: relative;
-    z-index: 5;
-    text-align: left;
-  }
-  .badge-neon-secondary {
-    background: var(--bg-tertiary);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 20px;
-  }
-  .cta-card-neon h2 {
-    font-size: 2.5rem;
-    font-family: 'Lexend', sans-serif;
-    font-weight: 600;
-    margin-bottom: 20px;
-    line-height: 1.2;
-  }
-  .cta-card-neon p {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
-  }
-  .cta-form-side {
-    position: relative;
-    z-index: 5;
-    width: 100%;
-  }
 
-  /* Responsive styling */
   @media (max-width: 992px) {
     .rubros-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -1110,26 +640,6 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     }
     .cta-info-side {
       text-align: center;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-section {
-      padding-top: 140px;
-      padding-bottom: 80px;
-    }
-    .hero-tagline {
-      font-size: 2.6rem;
-    }
-    .hero-description {
-      font-size: 1.1rem;
-    }
-    .comparison-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-    .case-quote {
-      font-size: 1.3rem;
     }
   }
 
@@ -1159,38 +669,9 @@ import TrustedLogos from '../../components/TrustedLogos.astro';
     }
   }
 
-  /* ==========================================================================
-     SECCIÓN RUBROS / SECTORES (ESTILOS BASE EXTRAÍDOS DE MEDIA QUERY)
-     ========================================================================== */
-  .rubro-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    padding: 30px;
-    transition: all 0.3s ease;
-    text-align: left;
-    backdrop-filter: blur(10px);
-  }
   .rubro-card:hover {
     border-color: rgba(16, 185, 129, 0.25);
     transform: translateY(-4px);
     box-shadow: 0 10px 25px rgba(16, 185, 129, 0.1);
-  }
-  .rubro-icon {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-  }
-  .rubro-card h3 {
-    font-size: 1.2rem;
-    font-family: 'Lexend', sans-serif;
-    color: var(--text-primary);
-    margin-bottom: 12px;
-    font-weight: 600;
-  }
-  .rubro-card p {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
   }
 </style>
