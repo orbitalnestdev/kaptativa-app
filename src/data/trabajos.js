@@ -91,6 +91,14 @@ export const trabajos = [
     imagen: '/trabajos/cata-argentina.webp',
     resultado: 'Sitio corporativo de la marca de electrodomésticos con catálogo online y en PDF, productos y servicio técnico.',
   },
+  {
+    nombre: 'Caos Eyewear',
+    categoria: 'tiendas',
+    rubro: 'Lentes de sol',
+    url: 'https://caoseyewear.com.ar/',
+    imagen: '/trabajos/caos-eyewear.webp',
+    resultado: 'Tienda online de lentes de sol con catálogo por modelo, pago online y envíos a todo el país.',
+  },
 ];
 
 // Filtros de la sección (orden de aparición)
