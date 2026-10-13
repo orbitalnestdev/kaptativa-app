@@ -5,8 +5,9 @@ import Footer from '../components/Footer.astro';
 import Planes from '../components/home2/Planes.astro';
 import Faq from '../components/Faq.astro';
 import { svg } from '../data/plataforma.js';
+import FeatureVisual from '../components/home2/FeatureVisual.astro';
 import { planes, comparativa, faqsPrecios, extras } from '../data/planes.js';
-const waExtra = (t) => 'https://wa.me/5493804890834?text=' + encodeURIComponent(`¡Hola Kaptativa! Quiero consultar por el extra ${t}.`);
+const WA_EXTRAS = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero consultar por los extras de la plataforma.');
 
 const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo y conocer los planes.');
 const schema = {
@@ -79,21 +80,21 @@ const schema = {
           <h2>Extras que se suman<br />a cualquier plan</h2>
           <p>Servicios por suscripción: los activás cuando los necesitás y pagás según cuánto los usás.</p>
         </div>
-        <div class="ex-grid">
+        <div class="ex-grid" role="list">
           {extras.map((x) => (
-            <article class="ex-card">
-              <span class="ex-icon"><Fragment set:html={svg(x.icon)} /></span>
-              <h3>{x.title}</h3>
-              {x.niveles && <div class="ex-niveles">{x.niveles.map((n) => <span>{n}</span>)}</div>}
-              <p>{x.desc}</p>
-              <ul>{x.features.map((f) => <li><Fragment set:html={svg('check')} />{f}</li>)}</ul>
-              <div class="ex-foot">
-                <span>Suscripción mensual</span>
-                <a href={waExtra(x.title)} target="_blank" rel="noopener noreferrer">Consultar</a>
+            <article class:list={['ex-tile', { 'ex-tile--big': x.big, 'ex-tile--solid': x.solid }]} role="listitem">
+              <div class="ex-head">
+                <span class="ex-icon"><Fragment set:html={svg(x.icon)} /></span>
+                <h3>{x.title}</h3>
+                <p>{x.desc}</p>
+                {x.niveles && <div class="ex-niveles">{x.niveles.map((n) => <span>{n}</span>)}</div>}
+                {x.detalle && <small>{x.detalle}</small>}
               </div>
+              {x.big && <FeatureVisual icon={x.icon} />}
             </article>
           ))}
         </div>
+        <p class="ex-help">Se cotizan según el uso y se suman sobre el plan que tengas. <a href={WA_EXTRAS} target="_blank" rel="noopener noreferrer">Consultanos por WhatsApp</a> cuál te conviene.</p>
       </div>
     </section>
 
@@ -155,23 +156,28 @@ const schema = {
     .precios-cta-botones .btn { width: 100%; justify-content: center; }
   }
 
-  /* Extras: tarjetas oscuras con contorno con brillo, como las de la home */
-  .ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .ex-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 26px 24px 22px; border-radius: var(--radius-lg); border: 1px solid transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; }
-  .ex-card::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
-  .ex-card:hover { background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
-  .ex-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: var(--brand-primary); background: rgba(124, 92, 255, 0.12); border: 1px solid rgba(124, 92, 255, 0.3); }
-  .ex-icon :global(.ki) { width: 22px; height: 22px; }
-  .ex-card h3 { font-family: 'Lexend', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 4px 0 0; }
-  .ex-niveles { display: flex; gap: 6px; flex-wrap: wrap; }
-  .ex-niveles span { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; color: var(--brand-primary-light); background: rgba(124, 92, 255, 0.12); border: 1px solid rgba(124, 92, 255, 0.3); }
-  .ex-card p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; }
-  .ex-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-  .ex-card li { display: flex; gap: 8px; align-items: flex-start; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }
-  .ex-card li :global(.ki) { flex: none; width: 16px; height: 16px; margin-top: 3px; color: var(--brand-primary); }
-  .ex-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); }
-  .ex-foot a { font-weight: 600; color: var(--brand-primary-light); text-decoration: none; }
-  .ex-foot a:hover { text-decoration: underline; }
-  @media (max-width: 992px) { .ex-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 640px) { .ex-grid { grid-template-columns: 1fr; } }
+  /* Extras: misma grilla de tiles que los módulos de la home; dos tiles dobles con mini-interfaz */
+  .ex-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .ex-tile { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 26px 24px 24px; border-radius: var(--radius-lg); background: var(--card-bg); border: 1px solid var(--border-color); min-height: 220px; transition: border-color var(--transition-normal); }
+  .ex-tile:hover { border-color: var(--border-hover); }
+  .ex-tile--big { grid-column: span 2; flex-direction: row; align-items: center; gap: 26px; }
+  .ex-tile--big .ex-head { flex: 1; }
+  .ex-tile--big :global(.fv) { flex: 0 0 46%; margin: 0; }
+  .ex-tile--solid { background: var(--brand-fill); border-color: var(--brand-fill); }
+  .ex-icon { display: inline-flex; width: 40px; height: 40px; color: var(--brand-primary); }
+  .ex-icon :global(.ki) { width: 100%; height: 100%; }
+  .ex-tile h3 { font-family: 'Lexend', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 10px 0 6px; }
+  .ex-tile p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+  .ex-tile small { display: block; margin-top: 10px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+  .ex-niveles { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .ex-niveles span { font-size: 0.74rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; color: var(--brand-primary-light); background: rgba(124, 92, 255, 0.12); border: 1px solid rgba(124, 92, 255, 0.3); }
+  .ex-tile--solid .ex-icon, .ex-tile--solid h3 { color: #fff; }
+  .ex-tile--solid p { color: rgba(255, 255, 255, 0.85); }
+  .ex-tile--solid small { color: rgba(255, 255, 255, 0.7); }
+  .ex-tile--solid .ex-niveles span { color: #fff; background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.3); }
+  .ex-tile--solid :global(.fv) { background: rgba(14, 8, 40, 0.45); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.85); }
+  .ex-help { text-align: center; margin: 36px auto 0; max-width: 60ch; color: var(--text-secondary); font-size: 0.95rem; }
+  .ex-help a { color: var(--brand-primary-light); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 1024px) { .ex-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 768px) { .ex-grid { grid-template-columns: 1fr; } .ex-tile--big { grid-column: auto; flex-direction: column; align-items: stretch; } .ex-tile--big :global(.fv) { flex: none; } }
 </style>

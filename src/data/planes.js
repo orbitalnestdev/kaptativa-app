@@ -32,11 +32,12 @@ export const faqsPrecios = [
 ];
 
 // Extras: servicios por suscripción que se activan sobre cualquier plan y se cobran según el uso.
+// big = tile doble con mini-interfaz (FeatureVisual por ícono); solid = tile en violeta.
 export const extras = [
-  { key: 'asistente', icon: 'bot', title: 'Asistente con IA', niveles: ['Responde', 'Vende', 'Opera'], desc: 'Atiende tu sitio y tu WhatsApp las 24 horas, entrenado con la información real de tu negocio.', features: ['Responde con tus productos, precios y horarios', 'Guarda los datos de quien consulta en tu panel', 'Deriva a tu equipo con un resumen de la charla', 'En el nivel Opera consulta pedidos y turnos reales'] },
-  { key: 'contenido', icon: 'edit', title: 'Contenido con IA', desc: 'Textos e imágenes generados desde el mismo panel, con el tono de tu marca.', features: ['Descripciones de producto y novedades en un clic', 'Mejora y variantes de fotos de producto', 'Banners y piezas para redes sin salir del panel'] },
-  { key: 'correo', icon: 'message', title: 'Correo con tu dominio', desc: 'Casillas profesionales del tipo vos@tunegocio.com.ar, administradas por nosotros.', features: ['Casillas con tu dominio propio', 'Alta, migración y soporte incluidos', 'Packs según el tamaño del equipo'] },
-  { key: 'campanas', icon: 'megaphone', title: 'Campañas de email y WhatsApp', desc: 'Novedades, promociones y avisos a tu base de clientes desde el mismo sistema.', features: ['Newsletters y campañas segmentadas', 'Métricas de apertura y clics', 'Se cobra por tramos según cuánto envíes'] },
-  { key: 'facturacion', icon: 'receipt', title: 'Facturación electrónica', desc: 'Comprobantes válidos ante ARCA emitidos desde cada venta, sin salir del panel.', features: ['Factura A, B y C y notas de crédito', 'Punto de venta y numeración automática', 'Comprobante enviado al cliente por email o WhatsApp'] },
-  { key: 'mantenimiento', icon: 'shield', title: 'Mantenimiento y evolución', desc: 'Tu plataforma al día y con horas para seguir mejorándola.', features: ['Monitoreo, copias de seguridad y actualizaciones', 'Soporte con tiempos de respuesta acordados', 'Packs de horas para funciones nuevas'] },
+  { key: 'asistente', icon: 'bot', title: 'Asistente con IA', big: true, solid: true, niveles: ['Responde', 'Vende', 'Opera'], desc: 'Atiende tu sitio y tu WhatsApp las 24 horas con la información real de tu negocio: responde, toma los datos de quien consulta y deriva a tu equipo con un resumen.', detalle: 'En el nivel Opera también consulta pedidos y turnos reales.' },
+  { key: 'contenido', icon: 'edit', title: 'Contenido con IA', desc: 'Textos e imágenes desde el mismo panel, con el tono de tu marca.', detalle: 'Descripciones de producto, novedades, banners y mejora de fotos.' },
+  { key: 'correo', icon: 'message', title: 'Correo con tu dominio', desc: 'Casillas profesionales del tipo vos@tunegocio.com.ar, administradas por nosotros.', detalle: 'Alta, migración y soporte incluidos. Packs según el equipo.' },
+  { key: 'facturacion', icon: 'receipt', title: 'Facturación electrónica', desc: 'Comprobantes válidos ante ARCA desde cada venta, sin salir del panel.', detalle: 'Factura A, B y C, notas de crédito y envío al cliente.' },
+  { key: 'mantenimiento', icon: 'shield', title: 'Mantenimiento y evolución', desc: 'Tu plataforma al día y con horas para seguir mejorándola.', detalle: 'Monitoreo, copias de seguridad, actualizaciones y packs de horas.' },
+  { key: 'campanas', icon: 'megaphone', title: 'Campañas de email y WhatsApp', big: true, desc: 'Novedades, promociones y avisos a tu base de clientes desde el mismo sistema, con métricas de apertura y clics.', detalle: 'Se cobra por tramos según cuánto envíes.' },
 ];

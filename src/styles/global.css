@@ -7111,3 +7111,6 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .footer-bottom-row .footer-made::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--brand-primary); box-shadow: 0 0 10px rgba(124, 92, 255, 0.7); }
 .footer-bottom-row .footer-made:hover { color: #fff; border-color: rgba(124, 92, 255, 0.7); }
 @media (max-width: 768px) { .footer-bottom-row .footer-made { order: -1; } }
+
+/* Íconos del sistema (svg.ki de plataforma.js): trazo base global; cada uso define el tamaño */
+.ki { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
