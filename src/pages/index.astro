@@ -300,7 +300,9 @@ const heroIntegraciones = [
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     try {
       const extra: string[] = JSON.parse(rot.dataset.words || '[]');
-      extra.forEach((w) => { const el = document.createElement('span'); el.className = 'text-gradient-crimson'; el.setAttribute('aria-hidden', 'true'); el.textContent = w; rot.appendChild(el); });
+      // Se clona el primero para heredar el atributo de alcance de Astro (si no, no los alcanza el CSS y se ven todos a la vez)
+      const first = rot.firstElementChild as HTMLElement;
+      extra.forEach((w) => { const el = first.cloneNode(false) as HTMLElement; el.classList.remove('on', 'out'); el.setAttribute('aria-hidden', 'true'); el.textContent = w; rot.appendChild(el); });
     } catch { return; }
     const words = [...rot.children] as HTMLElement[];
     if (words.length < 2) return;
