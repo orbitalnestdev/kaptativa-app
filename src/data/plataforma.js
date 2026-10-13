@@ -208,7 +208,7 @@ export const soluciones = [
     ],
     modulos: ['sitio', 'gestion', 'marketing', 'estadisticas', 'ia'],
     industrias: ['Inmobiliaria', 'Desarrollos Inmobiliarios'],
-    demo: '/inmo-demo',
+    demo: '/inmobiliarias',
     faqs: [
       { q: '¿Tengo que cargar las propiedades dos veces?', a: 'No. Si usás Tokko Broker, el sitio toma las propiedades de ahí automáticamente.' },
       { q: '¿Puedo mostrar emprendimientos?', a: 'Sí. Los emprendimientos tienen su propia ficha con unidades, avance de obra y material descargable.' },
