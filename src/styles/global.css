@@ -7172,3 +7172,7 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .cta-card-neon .iso3d { top: 18px; right: 22px; width: 118px; height: 118px; }
 .precios-cta { position: relative; overflow: visible; }
 @media (max-width: 768px) { .cta-card-neon .iso3d { width: 80px; height: 80px; top: 12px; right: 12px; } }
+
+/* Texto sobre violeta sólido: la regla global `p { color: gris !important }` lo dejaba en 2,6:1; acá va en blanco (≥ 4,5:1) */
+.h2-tile--solid p, .h2-plan.popular > p, .h2-plan.popular li, .h2-plan.popular .h2-plan-alt, .ex-tile--solid p, .ex-tile--solid small { color: rgba(255, 255, 255, 0.94) !important; }
+.h2-plan.popular .h2-plan-price small { color: rgba(255, 255, 255, 0.9) !important; }
