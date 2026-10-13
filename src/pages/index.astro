@@ -155,7 +155,7 @@ const heroIntegraciones = [
     </section>
 
     <!-- ================= RUBROS ================= -->
-    <section class="section" id="rubros">
+    <section class="section section-light" id="rubros">
       <div class="container">
         <div class="section-header reveal">
           <h2>Una plataforma,<br />configurada para tu rubro</h2>
@@ -267,7 +267,7 @@ const heroIntegraciones = [
     </section>
 
     <!-- ================= PLANES ================= -->
-    <Planes />
+    <Planes light />
 
 
     <!-- ================= CTA FINAL ================= -->
@@ -559,4 +559,13 @@ const heroIntegraciones = [
     .h2-ctas .btn { flex: 1; justify-content: center; }
     .h2-cta { padding: 44px 20px; }
   }
+
+  /* Ritmo claro/oscuro definitivo: rubros, integraciones, planes y FAQ en claro; producto y proceso en oscuro */
+  .home2 .section { padding: 120px 0; }
+  .home2 .section-light .h2-plan.popular h3, .home2 .section-light .h2-plan.popular p, .home2 .section-light .h2-plan.popular li, .home2 .section-light .h2-plan.popular .h2-plan-price { color: #fff !important; }
+  .home2 .section-light .h2-plan.popular .h2-plan-price small, .home2 .section-light .h2-plan.popular .h2-plan-alt { color: rgba(255, 255, 255, 0.8) !important; }
+  .home2 .section-light .h2-link, .home2 .section-light .h2-planes-help a, .home2 .section-light .h2-plan-alt { color: #5B3FE0 !important; }
+  .home2 .section-light .h2-rubro-bg { color: #7C5CFF; opacity: 0.14; }
+  .home2 .section-light .h2-plan { box-shadow: 0 18px 40px rgba(124, 92, 255, 0.1); }
+  @media (max-width: 768px) { .home2 .section { padding: 72px 0; } }
 </style>

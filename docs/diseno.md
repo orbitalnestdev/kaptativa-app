@@ -6,7 +6,7 @@
 
 1. **Un solo acento.** El violeta eléctrico es el único color de marca. Todo lo demás es negro, blanco y grises neutros.
 2. **Botones sólidos.** Sin degradados en controles. El degradado queda solo como recurso puntual (barras de datos en maquetas).
-3. **Ritmo claro/oscuro.** Las páginas largas alternan una o dos secciones claras (`.h2-light`) para cortar el negro.
+3. **Ritmo claro/oscuro con criterio.** Oscuro donde se muestra el producto (hero, Control total, módulos, proceso, CTA); claro donde el cliente lee y decide (rubros, integraciones, planes, preguntas). Las secciones claras son paneles blancos con esquinas redondeadas; nunca dos claras seguidas salvo que sean la misma unidad.
 4. **Brillos con medida.** El resplandor violeta aparece solo en el hero y al pasar el mouse por el botón principal. Las tarjetas usan sombra neutra.
 5. **Los colores con significado no se usan para decorar.** Verde = pagado/éxito, naranja = aviso, rojo = error/problema, cian = datos.
 6. **Sin capa de plantilla.** No hay etiquetas en mayúsculas sobre los títulos, ni una frase en violeta en cada título, ni flechas "→" pegadas a botones y enlaces, ni puntos medios "·" en los textos. El violeta en texto queda reservado para el hero (la palabra que rota).
