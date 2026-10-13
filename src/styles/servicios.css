@@ -527,12 +527,20 @@
 .servicio-page .rubro-card::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
 .servicio-page .rubro-card:hover { background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box !important; border-color: transparent !important; }
 /* Ícono de fondo: esquina inferior derecha en todas las tarjetas (los títulos largos quedan a ancho completo) */
-/* Ícono de marca de agua: anclado a la tarjeta (no a la fila del título), siempre en la esquina superior derecha */
+/* Tarjeta de rubro: ícono en caja lila arriba a la izquierda, línea violeta bajo el título, brillo en la esquina */
+.servicio-page .rubro-card { padding: 24px 24px 22px !important; }
 .servicio-page .rubro-card .card-header-row, .servicio-page .rubro-card .card-header-left { position: static !important; transform: none !important; }
-.servicio-page .rubro-card .rubro-icon-wrapper { top: -10px !important; bottom: auto !important; right: -10px !important; width: 118px !important; height: 118px !important; opacity: 0.12; }
-.servicio-page .rubro-card:hover .rubro-icon-wrapper { opacity: 0.22; }
-.servicio-page .rubro-card h3 { padding: 0 96px 0 0 !important; min-height: 2.6em !important; margin: 0 0 10px !important; }
-.servicio-page .rubro-card p { padding-right: 0 !important; }
+.servicio-page .rubro-card .card-header-row { display: block !important; }
+.servicio-page .rubro-card .card-chevron { display: none !important; }
+.servicio-page .rubro-card .card-header-left { display: flex !important; flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
+.servicio-page .rubro-card .rubro-icon-wrapper { position: static !important; top: auto !important; right: auto !important; width: 44px !important; height: 44px !important; border-radius: 12px !important; display: grid !important; place-items: center !important; background: #F3F0FF !important; border: 1px solid rgba(124, 92, 255, 0.3) !important; color: #5B3FE0 !important; opacity: 1 !important; z-index: 1 !important; pointer-events: none; transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease; }
+.servicio-page .rubro-card .rubro-icon-wrapper svg { width: 22px !important; height: 22px !important; stroke-width: 2 !important; }
+.servicio-page .rubro-card:hover .rubro-icon-wrapper { background: #6A48F5 !important; color: #FFFFFF !important; opacity: 1 !important; transform: translateY(-2px); }
+.servicio-page .rubro-card h3 { padding: 0 !important; min-height: 0 !important; margin: 0 0 6px !important; }
+.servicio-page .rubro-card h3::after { content: ''; display: block; width: 36px; height: 3px; border-radius: 3px; margin-top: 10px; background: linear-gradient(90deg, #7C5CFF, #A08CFF); transition: width 0.3s ease; }
+.servicio-page .rubro-card:hover h3::after { width: 60px; }
+.servicio-page .rubro-card::after { content: ''; position: absolute; top: -50px; right: -50px; width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle, rgba(124, 92, 255, 0.16), transparent 65%); pointer-events: none; z-index: 0; }
+.servicio-page .rubro-card p { padding-right: 0 !important; position: relative; z-index: 1; }
 @media (max-width: 768px) {
   .servicio-page .rubro-card .rubro-icon-wrapper { width: 104px !important; height: 104px !important; bottom: -12px !important; right: -10px !important; }
   .servicio-page .rubro-card h3 { padding: 0 !important; }
