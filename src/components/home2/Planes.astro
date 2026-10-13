@@ -3,12 +3,12 @@
 import { svg } from '../../data/plataforma.js';
 import { planes } from '../../data/planes.js';
 
-interface Props { header?: boolean; id?: string }
-const { header = true, id = 'planes' } = Astro.props;
+interface Props { header?: boolean; id?: string; light?: boolean }
+const { header = true, id = 'planes', light = false } = Astro.props;
 const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo de la plataforma web.');
 ---
 
-<section class="section planes-section" id={id}>
+<section class:list={['section', 'planes-section', { 'section-light': light }]} id={id}>
   <div class="container">
     {header && (
       <div class="section-header reveal">

@@ -555,3 +555,9 @@
 @media (max-width: 992px) { .servicio-page .metrics-grid-premium { grid-template-columns: repeat(2, 1fr) !important; gap: 34px 16px !important; } }
 @media (max-width: 480px) { .servicio-page .metrics-grid-premium { grid-template-columns: 1fr !important; gap: 34px !important; } }
 
+/* Más aire: secciones más espaciadas y textos de cabecera con ancho de lectura */
+.servicio-page .section { padding: 112px 0 !important; }
+.servicio-page .section-header p { max-width: 62ch; margin-left: auto; margin-right: auto; }
+.servicio-page .section-header { margin-bottom: 56px !important; }
+@media (max-width: 768px) { .servicio-page .section { padding: 72px 0 !important; } .servicio-page .section-header { margin-bottom: 36px !important; } }
+

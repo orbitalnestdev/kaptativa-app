@@ -1,0 +1,574 @@
+---
+// Home: enfocada en desarrollo web (sitio + tienda + gestión).
+// Estructura inspirada en referencias del rubro, con identidad y textos propios de Kaptativa.
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Faq from '../components/Faq.astro';
+import ControlShowcase from '../components/home2/ControlShowcase.astro';
+import FeatureVisual from '../components/home2/FeatureVisual.astro';
+import Planes from '../components/home2/Planes.astro';
+import Trabajos from '../components/home2/Trabajos.astro';
+import { svg, soluciones, modulos } from '../data/plataforma.js';
+import { readFileSync } from 'node:fs';
+
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo de la plataforma web.');
+
+const rubros = soluciones;
+
+const homeSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'Kaptativa',
+    url: 'https://kaptativa.com/',
+    logo: 'https://kaptativa.com/logo.svg',
+    image: 'https://kaptativa.com/og-image.jpg',
+    description: 'Sitios web, tiendas online y sistemas de gestión autoadministrables, con integraciones y asistentes de IA.',
+    email: 'hola@kaptativa.com',
+    telephone: '+54-9-380-489-0834',
+    address: { '@type': 'PostalAddress', addressLocality: 'La Rioja', addressCountry: 'AR' },
+    areaServed: { '@type': 'Country', name: 'Argentina' },
+    sameAs: ['https://instagram.com/kaptativa', 'https://linkedin.com/company/kaptativa'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Soluciones por rubro',
+      itemListElement: soluciones.map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s.headline, url: `https://kaptativa.com/soluciones/${s.slug}/` },
+      })),
+    },
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Kaptativa', url: 'https://kaptativa.com/', inLanguage: 'es-AR' },
+];
+
+// Rubros que rotan en el título del hero, en el orden del menú Soluciones
+const heroRubros = ['tu tienda online.', 'tu distribuidora.', 'tu restaurante.', 'tu gimnasio.', 'tu estudio.', 'tu inmobiliaria.', 'tu mutual.', 'tu consultora.'];
+
+
+
+// Integraciones en dos filas (pagos/logística y herramientas/IA).
+// `logo` = logotipo completo (va solo). `icon` = símbolo de la marca (va con el nombre al lado).
+// Sin archivo: logotipo tipográfico (`w` = peso, `t` = tratamiento).
+// Fuentes: Simple Icons 16.32.0 (CC0) y Wikimedia Commons (dominio público). Archivos en /public/integraciones.
+// Ancho de cada logotipo (alto 36px) según su viewBox, para que el navegador reserve el espacio
+const logoWidth = (file, size = 36) => {
+  const vb = readFileSync(`public/integraciones/${file}.svg`, 'utf8').match(/viewBox="([^"]+)"/);
+  const [, , w, h] = vb ? vb[1].trim().split(/[\s,]+/).map(Number) : [0, 0, 1, 1];
+  return Math.round((size * w) / h);
+};
+
+const integracionesFilas = [
+  [
+    { name: 'Mercado Pago', icon: 'mercadopago' }, { name: 'Mercado Libre', logo: 'mercadolibre', h: 46 }, { name: 'MODO', w: 800, t: 'upper' },
+    { name: 'Ualá', logo: 'uala' }, { name: 'Correo Argentino', logo: 'correoargentino', h: 42 }, { name: 'ANDREANI', w: 800, t: 'upper' },
+    { name: 'OCA', logo: 'oca', h: 26 }, { name: 'ARCA', w: 800, t: 'upper' },
+  ],
+  [
+    { name: 'WhatsApp', icon: 'whatsapp' }, { name: 'Google Analytics', icon: 'googleanalytics' }, { name: 'Meta', icon: 'meta' },
+    { name: 'Google Calendar', icon: 'googlecalendar' }, { name: 'Tokko Broker', w: 700 }, { name: 'OpenAI', icon: 'openai' },
+    { name: 'Claude', icon: 'claude' }, { name: 'Gemini', icon: 'googlegemini' }, { name: 'n8n', icon: 'n8n' }, { name: 'Make', icon: 'make' },
+  ],
+];
+
+const pasos = [
+  { title: 'Demo y diagnóstico', text: 'Una videollamada de 30 minutos: vemos cómo trabajás hoy y te mostramos la plataforma con casos de tu rubro.' },
+  { title: 'Propuesta en 24 hs hábiles', text: 'Qué módulos activar, en qué orden y cuánto cuesta. Sin letra chica.' },
+  { title: 'Implementación por etapas', text: 'Arrancamos por lo que vende (web, tienda o WhatsApp) y sumamos la gestión después. Ves avances cada semana.' },
+  { title: 'Capacitación y soporte', text: 'Te entrenamos a vos y a tu equipo, y seguimos del otro lado del WhatsApp cuando lo necesitás.' },
+];
+const heroIntegraciones = [
+  { name: 'Mercado Pago', icon: 'mercadopago' }, { name: 'WhatsApp', icon: 'whatsapp' }, { name: 'Mercado Libre', logo: 'mercadolibre' },
+  { name: 'Google Analytics', icon: 'googleanalytics' }, { name: 'Meta', icon: 'meta' }, { name: 'OpenAI', icon: 'openai' },
+];
+
+
+---
+
+<Layout
+  noindex
+  schema={homeSchema}
+  title="Prueba: home clara | Kaptativa"
+  description="Tu sitio web, tu tienda online y la gestión de tu negocio en una sola plataforma autoadministrable. Diseño, desarrollo e integraciones a medida."
+>
+  <Header slot="header" floating />
+
+  <main class="home2">
+    <!-- ================= HERO ================= -->
+    <section class="h2-hero">
+      <div class="h2-hero-glow" aria-hidden="true"></div>
+      <div class="container h2-hero-grid">
+        <div class="h2-hero-copy reveal">
+          <h1>
+            Sitio web y sistema de gestión<br class="br-desk" /> para{" "}
+            <span class="h2-rotator" data-rotator aria-hidden="true">
+              {heroRubros.map((r, i) => <span class:list={['text-gradient-crimson', { on: i === 0 }]}>{r}</span>)}
+            </span>
+            <span class="sr-only">tu negocio.</span>
+          </h1>
+          <p>Diseñamos y desarrollamos una plataforma modular que une sitio web, tienda online, pedidos, facturación y un asistente con IA. Activás solo lo que tu negocio necesita y lo administrás vos.</p>
+          <div class="h2-ctas">
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow"><span>Solicitar demo</span></a>
+            <a href="#rubros" class="btn btn-secondary"><span>Soluciones por rubro</span></a>
+          </div>
+          <div class="h2-trust">
+            <span>Se integra con</span>
+            <ul aria-label="Integraciones">
+              {heroIntegraciones.map((m, i) => (
+                <li style={`--i:${i}`}>
+                  {m.logo
+                    ? <img class="wide" src={`/integraciones/${m.logo}.svg`} alt={m.name} width={logoWidth(m.logo, 22)} height="22" decoding="async" />
+                    : <><img src={`/integraciones/${m.icon}.svg`} alt="" width="20" height="20" decoding="async" /><span>{m.name}</span></>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Mockup del panel -->
+        <div class="h2-browser reveal reveal-delay-1" aria-hidden="true">
+          <div class="h2-browser-bar"><span></span><span></span><span></span><div class="h2-url">tunegocio.com.ar/admin</div></div>
+          <div class="h2-browser-body">
+            <aside class="h2-side">
+              <i class="on"></i><i></i><i></i><i></i><i></i>
+            </aside>
+            <div class="h2-dash">
+              <div class="h2-kpis">
+                <div><small>Ventas del mes</small><b>$ 4.82M</b><em>+18%</em></div>
+                <div><small>Pedidos</small><b>312</b><em>+9%</em></div>
+                <div><small>Visitas</small><b>21.4k</b><em>+32%</em></div>
+              </div>
+              <div class="h2-bars">
+                {[40, 62, 48, 75, 58, 86, 70, 94, 66, 82, 90, 100].map((h) => <span style={`height:${h}%`}></span>)}
+              </div>
+              <div class="h2-rows">
+                <div><i></i><span></span><b class="ok">Pagado</b></div>
+                <div><i></i><span></span><b class="wait">En camino</b></div>
+                <div><i></i><span></span><b class="ok">Pagado</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="h2-float h2-float-1"><Fragment set:html={svg('cart')} /> Nueva venta: $ 38.900</div>
+          <div class="h2-float h2-float-2"><Fragment set:html={svg('bot')} /> IA respondió 14 consultas</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RUBROS ================= -->
+    <section class="section section-light" id="rubros">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>Una plataforma,<br />configurada para tu rubro</h2>
+          <p>La misma base tecnológica, adaptada a cómo trabaja tu negocio. Elegí el tuyo y mirá qué resuelve.</p>
+        </div>
+        <div class="h2-rubros">
+          {rubros.map((r, i) => (
+            <a class="h2-card h2-rubro" href={`/soluciones/${r.slug}`}>
+              <span class="h2-rubro-bg" aria-hidden="true"><Fragment set:html={svg(r.icon)} /></span>
+              <h3>{r.title}</h3>
+              <p>{r.text}</p>
+              <span class="h2-link">Ver solución</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTROL TOTAL ================= -->
+    <ControlShowcase />
+
+    <!-- ================= TRABAJOS (se muestra cuando hay datos) ================= -->
+    <Trabajos />
+
+    <!-- ================= MÓDULOS ================= -->
+    <section class="section section-light" id="modulos">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>Activá solo lo que<br />tu negocio necesita</h2>
+          <p>Un ecosistema de herramientas conectadas. Empezás con tu web y sumás módulos a medida que crecés.</p>
+        </div>
+        <div class="h2-bento" role="list">
+          {modulos.map((m) => {
+            const big = ['sitio', 'tienda', 'turnos', 'ia'].includes(m.key);
+            const solid = ['sitio', 'ia'].includes(m.key);
+            return (
+              <article class:list={['h2-tile', { 'h2-tile--big': big, 'h2-tile--solid': solid }]} role="listitem">
+                <div class="h2-tile-head">
+                  <span class="h2-icon"><Fragment set:html={svg(m.icon)} /></span>
+                  <h3>{m.title}</h3>
+                  <p>{m.text}</p>
+                </div>
+                {big && <FeatureVisual icon={m.icon} />}
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INTEGRACIONES ================= -->
+    <section class="section h2-integra h2-light section-light">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>Soluciones integradas</h2>
+          <p>Plataformas de pagos, logística, comunicación e inteligencia artificial con las que podemos integrar tu sistema.</p>
+        </div>
+      </div>
+
+      <div class="h2-marquees reveal" aria-label="Plataformas con las que nos integramos">
+        {integracionesFilas.map((fila, f) => (
+          <div class="h2-marquee">
+            <div class:list={['h2-marquee-track', { reverse: f === 1 }]}>
+              {[0, 1].map((copia) => (
+                <ul class="h2-marquee-group" aria-hidden={copia === 1 ? 'true' : undefined}>
+                  {fila.map((m) => (
+                    m.logo
+                      ? <li class="h2-brand"><img class="h2-brand-logo" src={`/integraciones/${m.logo}.svg`} alt={m.name} width={logoWidth(m.logo, m.h ?? 36)} height={m.h ?? 36} style={m.h ? `--lh:${m.h - 2}px` : undefined} decoding="async" /></li>
+                      : m.icon
+                        ? <li class="h2-brand"><img class="h2-brand-icon" src={`/integraciones/${m.icon}.svg`} alt="" width="30" height="30" decoding="async" /><span>{m.name}</span></li>
+                        : <li class={`h2-brand h2-wordmark ${m.t ?? ''}`} style={`font-weight:${m.w}`}>{m.name}</li>
+                  ))}
+                </ul>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="container">
+        <div class="h2-integra-banner reveal">
+          <span class="h2-icon"><Fragment set:html={svg('layers')} /></span>
+          <div class="h2-integra-banner-text">
+            <h3>Integraciones a medida para tu negocio</h3>
+            <p>¿Usás otra herramienta? Conectamos tu sistema con el software que ya tenés vía API.</p>
+          </div>
+          <a href="/contacto" class="btn btn-primary"><span>Consultar ahora</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CÓMO TRABAJAMOS ================= -->
+    <section class="section" id="proceso">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>De la demo a tu negocio<br />funcionando</h2>
+          <p>Un proceso corto y por etapas: primero lo que vende, después lo que ordena.</p>
+        </div>
+        <ol class="h2-steps">
+          {pasos.map((paso, i) => (
+            <li class="h2-step" style={`--i:${i}`}>
+              <span class="h2-step-num">{i + 1}</span>
+              <h3>{paso.title}</h3>
+              <p>{paso.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= PLANES ================= -->
+    <Planes light />
+
+
+    <!-- ================= CTA FINAL ================= -->
+    <section class="section">
+      <div class="container">
+        <div class="h2-cta reveal">
+          <h2>¿Hablamos de tu proyecto?</h2>
+          <p>Contanos qué necesita tu negocio y te mostramos la plataforma funcionando en una demo, sin compromiso.</p>
+          <div class="h2-ctas" style="justify-content:center;">
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow"><span>Solicitar demo</span></a>
+            <a href="/contacto/" class="btn btn-secondary"><span>Escribinos</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Faq />
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
+
+<script>
+  // Título del hero: rota el rubro cada 2,2 s (quieto si el usuario prefiere menos movimiento)
+  document.querySelectorAll<HTMLElement>('[data-rotator]').forEach((rot) => {
+    const words = [...rot.children] as HTMLElement[];
+    if (words.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let i = 0;
+    setInterval(() => {
+      if (document.hidden) return;
+      const prev = words[i];
+      i = (i + 1) % words.length;
+      prev.classList.remove('on');
+      prev.classList.add('out');
+      words[i].classList.remove('out');
+      words[i].classList.add('on');
+      setTimeout(() => prev.classList.remove('out'), 500);
+    }, 2200);
+  });
+
+</script>
+
+<style>
+  /* La home es siempre oscura: fijamos la paleta oscura aunque el sitio quede en tema claro */
+  .home2 {
+    --bg-primary: #0F0F12;
+    --bg-secondary: #151519;
+    --bg-tertiary: #1B1B20;
+    --text-primary: #ffffff;
+    --text-secondary: #B4B4BE;
+    --text-muted: #8E8E99;
+    --accent-indigo: #7C5CFF;
+    --accent-indigo-glow: rgba(124, 92, 255, 0.15);
+    --gradient-primary: var(--brand-gradient);
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(124, 92, 255, 0.25);
+    --card-bg: rgba(27, 27, 32, 0.6);
+    --glass-bg: rgba(15, 15, 18, 0.85);
+    --shadow-glow: 0 0 25px rgba(124, 92, 255, 0.2);
+  }
+
+  .home2 :global(.ki) { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+  .h2-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 26px;
+    transition: opacity var(--transition-slow), border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+  .h2-card:hover { border-color: var(--border-hover); }
+  .h2-card h3 { font-family: 'Lexend', sans-serif; font-size: 1.12rem; font-weight: 600; color: var(--text-primary); margin: 0; }
+  .h2-card p { color: var(--text-secondary); font-size: 0.93rem; line-height: 1.6; margin: 10px 0 0; }
+
+  .h2-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 12px;
+    color: var(--accent-indigo);
+    background: var(--accent-indigo-glow);
+    border: 1px solid var(--border-hover);
+  }
+
+  /* Sin animación de entrada por sección: el único movimiento de la página es el hero y el recorrido "Control total" */
+  .home2 .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .h2-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+  .h2-title { font-family: 'Lexend', sans-serif; font-size: clamp(2rem, 4vw, 2.7rem); line-height: 1.15; margin: 16px 0 12px; color: var(--text-primary); }
+  .h2-lead { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; }
+
+  /* ---------- HERO ---------- */
+  .h2-hero { position: relative; padding: 150px 0 90px; overflow: hidden; }
+  .h2-hero-glow {
+    position: absolute; inset: 0; pointer-events: none;
+    /* Elipses con tamaño explícito: se desvanecen antes de tocar los bordes de la caja */
+    background: radial-gradient(ellipse 65% 45% at 25% 18%, rgba(124, 92, 255, 0.18), transparent 70%),
+                radial-gradient(ellipse 50% 40% at 85% 22%, rgba(91, 63, 224, 0.16), transparent 70%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
+  .h2-hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+  .h2-hero h1 { font-family: 'Lexend', sans-serif; font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.08; letter-spacing: -0.02em; margin: 18px 0 20px; color: var(--text-primary); }
+  .h2-rotator { display: inline-grid; vertical-align: bottom; }
+  .h2-rotator > span { grid-area: 1 / 1; white-space: nowrap; opacity: 0; transform: translateY(0.45em); transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+  .h2-rotator > span.on { opacity: 1; transform: none; }
+  .h2-rotator > span.out { opacity: 0; transform: translateY(-0.45em); }
+  @media (max-width: 768px) { .br-desk { display: none; } .h2-hero h1 .h2-rotator { display: grid; } }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  .h2-hero-copy > p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.65; max-width: 560px; }
+
+  .h2-browser {
+    position: relative; border-radius: 20px; background: var(--bg-tertiary);
+    border: 1px solid var(--border-color); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), var(--shadow-glow);
+  }
+  .h2-browser-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--border-color); }
+  .h2-browser-bar > span { width: 10px; height: 10px; border-radius: 50%; background: var(--text-muted); opacity: 0.5; }
+  .h2-url { margin-left: 12px; flex: 1; font-size: 0.75rem; color: var(--text-muted); background: var(--bg-secondary); border-radius: 8px; padding: 5px 12px; }
+  .h2-browser-body { display: flex; min-height: 300px; }
+  .h2-side { display: flex; flex-direction: column; gap: 12px; padding: 18px 14px; border-right: 1px solid var(--border-color); }
+  .h2-side i { width: 22px; height: 22px; border-radius: 8px; background: var(--border-color); }
+  .h2-side i.on { background: var(--gradient-primary); }
+  .h2-dash { flex: 1; padding: 18px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .h2-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .h2-kpis div { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+  .h2-kpis small { font-size: 0.66rem; color: var(--text-muted); }
+  .h2-kpis b { font-size: 1rem; color: var(--text-primary); }
+  .h2-kpis em { font-style: normal; font-size: 0.68rem; color: var(--accent-emerald); }
+  .h2-bars { display: flex; align-items: flex-end; gap: 6px; height: 90px; }
+  .h2-bars span { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--accent-indigo), rgba(106, 72, 245, 0.25)); }
+  .h2-rows { display: flex; flex-direction: column; gap: 8px; }
+  .h2-rows div { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: var(--bg-secondary); }
+  .h2-rows i { width: 22px; height: 22px; border-radius: 8px; background: var(--border-color); }
+  .h2-rows span { flex: 1; height: 7px; border-radius: 8px; background: var(--border-color); }
+  .h2-rows b { font-size: 0.66rem; padding: 3px 8px; border-radius: 20px; font-weight: 500; }
+  .h2-rows b.ok { color: var(--accent-emerald); background: rgba(16, 185, 129, 0.12); }
+  .h2-rows b.wait { color: var(--accent-orange); background: var(--accent-orange-glow); }
+  .h2-float {
+    position: absolute; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 500; color: var(--text-primary);
+    background: var(--glass-bg); border: 1px solid var(--border-hover); border-radius: 12px; padding: 10px 14px;
+    backdrop-filter: blur(12px); box-shadow: var(--shadow-lg); animation: h2-float 5s ease-in-out infinite;
+  }
+  .h2-float :global(.ki) { width: 16px; height: 16px; color: var(--accent-indigo); }
+  .h2-float-1 { top: 70px; left: -34px; }
+  .h2-float-2 { bottom: -18px; right: 24px; animation-delay: -2.5s; }
+  @keyframes h2-float { 50% { transform: translateY(-8px); } }
+
+  /* ---------- RUBROS: el ícono grande de fondo es la identidad de cada tarjeta ---------- */
+  .h2-rubros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .h2-rubro { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 250px; padding: 28px 26px 24px; text-decoration: none; isolation: isolate; border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; }
+  .h2-rubro::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
+  .h2-rubro:hover { border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
+  /* Ícono emblema: entero, arriba a la derecha; el título le deja lugar */
+  .h2-rubro-bg { position: absolute; top: -6px; right: -6px; width: 118px; height: 118px; color: var(--brand-primary); opacity: 0.12; pointer-events: none; z-index: -1; transition: opacity var(--transition-slow), transform var(--transition-slow); }
+  .h2-rubro-bg :global(.ki) { width: 100%; height: 100%; stroke-width: 1.3; }
+  .h2-rubro:hover .h2-rubro-bg { opacity: 0.22; transform: scale(1.04); }
+  .h2-rubro h3 { font-size: 1.15rem; padding-right: 104px; min-height: 2.6em; }
+  .h2-rubro p { flex: 1; margin-top: 10px; max-width: 30ch; }
+  .h2-link { display: inline-block; margin-top: 22px; font-size: 0.88rem; font-weight: 600; color: var(--brand-primary-light); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color var(--transition-fast); }
+  .h2-rubro:hover .h2-link { text-decoration-color: currentColor; }
+
+  /* ---------- MÓDULOS: catálogo en grilla de celdas (distinto de las tarjetas de rubros) ---------- */
+  /* Módulos: grilla bento, dos tiles en violeta sólido como foco */
+  .h2-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .h2-tile { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 26px 24px 24px; border-radius: var(--radius-lg); background: var(--card-bg); border: 1px solid var(--border-color); min-height: 210px; }
+  .h2-tile--big { grid-column: span 2; }
+  .h2-tile--big .h2-tile-head { max-width: 36ch; }
+  .h2-tile--solid { background: var(--brand-fill); border-color: var(--brand-fill); }
+  .h2-tile .h2-icon { width: 40px; height: 40px; border: 0; background: transparent; color: var(--brand-primary); padding: 0; justify-content: flex-start; }
+  .h2-tile h3 { font-family: 'Lexend', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 10px 0 6px; }
+  .h2-tile p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+  .h2-tile--solid .h2-icon, .h2-tile--solid h3 { color: #fff; }
+  .h2-tile--solid p { color: rgba(255, 255, 255, 0.82); }
+  .h2-tile :global(.fv) { margin-top: auto; }
+  .h2-tile--solid :global(.fv) { background: rgba(14, 8, 40, 0.45); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.85); }
+  /* Cómo trabajamos: cuatro pasos unidos por una línea */
+  .h2-steps { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; position: relative; }
+  .h2-steps::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; height: 1px; background: linear-gradient(90deg, var(--brand-primary), rgba(124, 92, 255, 0.35)); transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .h2-steps.drawn::before { transform: scaleX(1); }
+  .h2-step-num { transition: border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease; transition-delay: calc(var(--i, 0) * 0.35s); }
+  .h2-steps.drawn .h2-step-num { border-color: var(--brand-primary); box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.14), 0 0 18px rgba(124, 92, 255, 0.35); }
+  @media (prefers-reduced-motion: reduce) { .h2-steps::before { transform: none; transition: none; } .h2-step-num { transition: none; } }
+  .h2-step-num { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 0.95rem; background: var(--bg-primary); border: 1px solid var(--border-hover); color: var(--brand-primary-light); }
+  .h2-step h3 { font-family: 'Lexend', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: 18px 0 8px; }
+  .h2-step p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; max-width: 30ch; }
+  /* Hero: fila de integraciones */
+  .h2-trust { margin-top: 34px; display: flex; align-items: center; gap: 14px 26px; flex-wrap: wrap; color: var(--text-muted); font-size: 0.85rem; }
+  .h2-trust ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .h2-trust li { display: flex; align-items: center; gap: 6px; color: var(--n-300); font-weight: 600; font-size: 0.84rem; opacity: 0.7; transition: opacity var(--transition-fast); }
+  @media (prefers-reduced-motion: no-preference) { .h2-trust li { animation: h2-trust-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(0.5s + var(--i, 0) * 70ms); } @keyframes h2-trust-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 0.7; transform: none; } } }
+  .h2-trust li:hover { opacity: 1; }
+  .h2-trust img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
+  .h2-trust img.wide { width: auto; height: 22px; }
+
+  /* ---------- INTEGRACIONES ---------- */
+  .h2-marquees { display: flex; flex-direction: column; gap: 36px; padding: 6px 0; }
+  .h2-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .h2-marquee-track { display: flex; width: max-content; animation: h2-marquee 50s linear infinite; }
+  .h2-marquee-track.reverse { animation-direction: reverse; }
+  .h2-marquee:hover .h2-marquee-track { animation-play-state: paused; }
+  .h2-marquee-group { display: flex; align-items: center; gap: 72px; padding: 0 72px 0 0; margin: 0; list-style: none; flex-shrink: 0; }
+  @keyframes h2-marquee { to { transform: translateX(-50%); } }
+  /* Todas las marcas en blanco monocromo, como en la referencia */
+  .h2-brand {
+    display: flex; align-items: center; gap: 10px; height: 40px; white-space: nowrap; cursor: default;
+    font-family: 'Lexend', sans-serif; font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em;
+    color: #fff; opacity: 0.5; transition: opacity var(--transition-fast);
+  }
+  .h2-brand:hover { opacity: 1; }
+  .h2-brand-logo { height: var(--lh, 34px); width: auto; max-width: 170px; filter: brightness(0) invert(1); }
+  .h2-brand-icon { width: 30px; height: 30px; filter: brightness(0) invert(1); }
+  .h2-wordmark { font-size: 1.25rem; font-weight: 700 !important; }
+  .h2-wordmark.lower { text-transform: lowercase; }
+  .h2-wordmark.upper { letter-spacing: 0.1em; }
+  .h2-wordmark.tight { letter-spacing: -0.04em; }
+
+  .h2-integra-banner {
+    display: flex; align-items: center; gap: 20px; margin-top: 56px; padding: 22px 26px;
+    border-radius: var(--border-radius-md); background: var(--card-bg); border: 1px solid var(--border-hover);
+    box-shadow: 0 0 40px rgba(124, 92, 255, 0.08);
+  }
+  .h2-integra-banner-text { flex: 1; }
+  .h2-integra-banner h3 { font-family: 'Lexend', sans-serif; font-size: 1.1rem; color: var(--text-primary); margin: 0 0 4px; }
+  .h2-integra-banner p { margin: 0; color: var(--text-secondary); font-size: 0.92rem; }
+  .h2-integra-banner .btn { gap: 8px; white-space: nowrap; }
+  .h2-integra-banner .btn :global(.ki) { width: 16px; height: 16px; }
+
+  /* ---------- PLANES ---------- */
+
+  /* ---------- CTA ---------- */
+  .h2-cta { position: relative; text-align: center; padding: 64px 32px; border-radius: var(--border-radius-lg); border: 1px solid transparent; background: radial-gradient(circle at 50% 0%, rgba(124, 92, 255, 0.2), transparent 70%), var(--card-bg); box-shadow: 0 30px 80px rgba(124, 92, 255, 0.12); }
+  .h2-cta::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.7), rgba(124, 92, 255, 0.08) 55%, rgba(124, 92, 255, 0.5)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+  .h2-cta h2 { font-family: 'Lexend', sans-serif; font-size: clamp(1.9rem, 4vw, 2.6rem); margin: 0 0 14px; color: var(--text-primary); }
+  .h2-cta p { color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
+
+
+  /* ---------- SECCIONES CLARAS (cortan el fondo negro) ---------- */
+  .home2 .h2-light {
+    --text-primary: #0F0F12;
+    --text-secondary: #52525B;
+    --text-muted: #6E6E7A;
+    --card-bg: #FFFFFF;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #ECECEF;
+    --border-color: #ECECEF;
+    --border-hover: rgba(124, 92, 255, 0.45);
+    --shadow-glow: 0 10px 30px rgba(15, 15, 18, 0.08);
+    background: #FFFFFF !important;
+    color: var(--text-primary);
+  }
+  .home2 .h2-light .section-header h2 { color: #0F0F12 !important; }
+  .home2 .h2-light .section-header p { color: #52525B !important; }
+  .home2 .h2-light .badge { color: #5B3FE0 !important; background: rgba(124, 92, 255, 0.1) !important; border-color: rgba(124, 92, 255, 0.25) !important; }
+  .home2 .h2-light .h2-brand { color: #0F0F12; opacity: 0.55; }
+  .home2 .h2-light .h2-brand:hover { opacity: 1; }
+  .home2 .h2-light .h2-brand-logo,
+  .home2 .h2-light .h2-brand-icon { filter: brightness(0); }
+  .home2 .h2-light h3, .home2 .h2-light .h2-card h3 { color: #0F0F12 !important; }
+  .home2 .h2-light .btn-secondary { color: #0F0F12 !important; background: #FFFFFF !important; border: 1px solid #D4D4D9 !important; }
+  .home2 .h2-light .btn-secondary:hover { border-color: #7C5CFF !important; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .h2-marquee-track { animation: none; }
+  }
+  @media (max-width: 1024px) {
+    .h2-rubros, .h2-bento { grid-template-columns: repeat(2, 1fr); }
+    .h2-steps { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
+    .h2-steps::before { display: none; }
+    .h2-hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .h2-float-1 { left: 12px; top: -18px; }
+  }
+  @media (max-width: 768px) {
+    .h2-marquees { gap: 26px; }
+    .h2-marquee-group { gap: 44px; padding-right: 44px; }
+    .h2-brand { font-size: 1.05rem; height: 32px; }
+    .h2-wordmark { font-size: 1.15rem; }
+    .h2-brand-logo { height: calc(var(--lh, 34px) * 0.76); }
+    .h2-brand-icon { width: 24px; height: 24px; }
+    .h2-integra-banner { flex-direction: column; text-align: center; padding: 26px 20px; }
+    .h2-integra-banner .btn { width: 100%; justify-content: center; }
+    .h2-hero { padding: 120px 0 60px; }
+    .h2-rubros, .h2-bento, .h2-steps { grid-template-columns: 1fr; }
+    .h2-tile--big { grid-column: auto; }
+    .h2-side { display: none; }
+    .h2-kpis { grid-template-columns: repeat(2, 1fr); }
+    .h2-kpis div:nth-child(3) { display: none; }
+    .h2-ctas .btn { flex: 1; justify-content: center; }
+    .h2-cta { padding: 44px 20px; }
+  }
+
+  /* Home clara (prueba): más aire y ajustes de contraste en secciones claras */
+  .home2 .section { padding: 120px 0; }
+  .home2 .section-light .h2-tile--solid h3, .home2 .section-light .h2-tile--solid p, .home2 .section-light .h2-plan.popular h3, .home2 .section-light .h2-plan.popular p, .home2 .section-light .h2-plan.popular li, .home2 .section-light .h2-plan.popular .h2-plan-price { color: #fff !important; }
+  .home2 .section-light .h2-plan.popular .h2-plan-price small, .home2 .section-light .h2-plan.popular .h2-plan-alt { color: rgba(255, 255, 255, 0.8) !important; }
+  .home2 .section-light .h2-link, .home2 .section-light .h2-planes-help a, .home2 .section-light .h2-plan-alt { color: #5B3FE0 !important; }
+  .home2 .section-light .h2-tile .h2-icon, .home2 .section-light .h2-rubro-bg { color: #7C5CFF; }
+  .home2 .section-light .h2-rubro-bg { opacity: 0.14; }
+  .home2 .section-light .h2-tile :global(.fv) { background: #15151A; border-color: rgba(255, 255, 255, 0.08); color: #B4B4BE; box-shadow: 0 12px 30px rgba(15, 15, 18, 0.12); }
+  .home2 .section-light .h2-tile--solid :global(.fv) { background: rgba(14, 8, 40, 0.45); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.85); }
+  .home2 .section-light .h2-plan { box-shadow: 0 18px 40px rgba(124, 92, 255, 0.1); }
+</style>

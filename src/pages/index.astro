@@ -9,6 +9,7 @@ import Faq from '../components/Faq.astro';
 import ControlShowcase from '../components/home2/ControlShowcase.astro';
 import FeatureVisual from '../components/home2/FeatureVisual.astro';
 import Planes from '../components/home2/Planes.astro';
+import Trabajos from '../components/home2/Trabajos.astro';
 import { svg, soluciones, modulos } from '../data/plataforma.js';
 import { readFileSync } from 'node:fs';
 
@@ -175,6 +176,9 @@ const heroIntegraciones = [
 
     <!-- ================= CONTROL TOTAL ================= -->
     <ControlShowcase />
+
+    <!-- ================= TRABAJOS (se muestra cuando hay datos) ================= -->
+    <Trabajos />
 
     <!-- ================= MÓDULOS ================= -->
     <section class="section" id="modulos">

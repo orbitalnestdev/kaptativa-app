@@ -4,12 +4,15 @@ interface Props {
   description?: string;
   /** Datos estructurados (JSON-LD) propios de la página: un objeto o una lista */
   schema?: Record<string, unknown> | Record<string, unknown>[];
+  /** Página de prueba o interna: no indexar */
+  noindex?: boolean;
 }
 
 const { 
   title, 
   description = "Transformamos tu negocio con tecnología que conecta, automatiza y escala.",
-  schema
+  schema,
+  noindex = false
 } = Astro.props;
 const pageSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 
@@ -42,7 +45,7 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
   <meta name="description" content={description}>
   <meta name="keywords" content="Kaptativa, diseño web, automatizacion de procesos, inteligencia artificial aplicada, digitalizacion de negocios, landing page, ecommerce, chatbots whatsapp">
   <meta name="author" content="Kaptativa">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"}>
   <meta name="google-site-verification" content="FDcUTvvGHpdsHNvfAK1BRzsSiaSEx27YcRAzKEQnPEM" />
   <link rel="canonical" href={canonicalURL.href}>
   
