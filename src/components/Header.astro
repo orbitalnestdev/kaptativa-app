@@ -210,6 +210,8 @@ const navIcon = (name) => `<svg width="18" height="18" viewBox="0 0 24 24" fill=
   .header .nav-item-dropdown--mega { position: static !important; }
   .header .dropdown-menu--mega { left: 50% !important; transform: translateX(-50%) translateY(10px) !important; width: min(940px, calc(100vw - 32px)) !important; max-width: none !important; padding: 10px !important; margin-top: 0 !important; background: rgba(21, 21, 25, 0.97) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 22px !important; }
   .header .dropdown-menu--mega::before { content: ''; position: absolute; left: 0; right: 0; top: -18px; height: 18px; }
+  /* Estado abierto: las reglas globales de .dropdown-menu lo corren a -30 %/-35 %; el mega menú queda centrado bajo el header */
+  .header .nav-item-dropdown--mega:hover .dropdown-menu--mega, .header .nav-item-dropdown--mega.active .dropdown-menu--mega, .header .dropdown-menu--mega:hover { transform: translateX(-50%) translateY(0) !important; }
   .header .mega { display: grid; grid-template-columns: 250px 1fr; gap: 10px; }
   .header .mega-intro { display: flex; flex-direction: column; padding: 22px 20px; border-radius: 16px; background: linear-gradient(160deg, rgba(124, 92, 255, 0.2), rgba(124, 92, 255, 0.04)); border: 1px solid rgba(124, 92, 255, 0.25); }
   .header .mega-title { margin: 0 0 8px; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 1.05rem; color: #fff; }
