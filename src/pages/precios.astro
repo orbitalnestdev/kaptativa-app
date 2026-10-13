@@ -41,7 +41,7 @@ const schema = {
 
     <Planes header={false} id="planes" />
 
-    <section class="section" id="comparativa">
+    <section class="section section-light" id="comparativa">
       <div class="container">
         <div class="section-header">
           <h2>Qué incluye cada plan</h2>
@@ -180,4 +180,16 @@ const schema = {
   .ex-help a { color: var(--brand-primary-light); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 1024px) { .ex-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 768px) { .ex-grid { grid-template-columns: 1fr; } .ex-tile--big { grid-column: auto; flex-direction: column; align-items: stretch; } .ex-tile--big :global(.fv) { flex: none; } }
+  /* Tabla comparativa sobre panel claro */
+  .section-light .cmp-wrap { background: #FFFFFF; border-color: #ECECEF; box-shadow: 0 12px 30px rgba(15, 15, 18, 0.06); }
+  .section-light .cmp th, .section-light .cmp td { border-bottom-color: #ECECEF; }
+  .section-light .cmp thead th { color: #0F0F12; }
+  .section-light .cmp thead th small { color: #5B3FE0; }
+  .section-light .cmp th[scope='row'] { color: #52525B; }
+  .section-light .cmp thead th:first-child { color: #6E6E7A; }
+  .section-light .cmp .popular { background: #F3F0FF; }
+  .section-light .cmp thead th.popular { color: #0F0F12; }
+  .section-light .cmp-si { background: #EDE9FF; color: #5B3FE0; }
+  .section-light .cmp-no { color: #B4B4BE; }
+  .section-light .cmp-txt { color: #0F0F12; }
 </style>

@@ -85,7 +85,7 @@ Bordes sobre oscuro: `rgba(255, 255, 255, 0.06)` en reposo, violeta al 25 % acti
 - Un solo botón principal por bloque.
 
 ## 7. Secciones claras
-Dos clases equivalentes: `h2-light` (home) y `section-light` (global, en `global.css`): redefinen los tokens de texto, tarjeta y borde y pasan el texto destacado a v-700. Ritmo actual: home → rubros, integraciones, planes y preguntas frecuentes (principio 3); servicios → rubros (tarjetas blancas con contorno violeta); soluciones → Preguntas frecuentes. Regla: una o dos secciones claras por página, nunca dos seguidas.
+Dos clases equivalentes: `h2-light` (home) y `section-light` (global, en `global.css`): redefinen los tokens de texto, tarjeta y borde y pasan el texto destacado a v-700. Ritmo actual: home → rubros, trabajos, integraciones, planes y preguntas frecuentes (principio 3); soluciones → "Así lo resolvemos" y preguntas; servicios → "Lo que importa" (comparativa) y rubros; precios → comparativa y preguntas; nosotros → comparativa de identidad; contacto → todo oscuro (formulario); servicios → rubros (tarjetas blancas con contorno violeta); soluciones → Preguntas frecuentes. Regla: una o dos secciones claras por página, nunca dos seguidas.
 
 ## 8. Logo
 Isotipo (flecha) y punto de "kaptativa." en v-500 sólido, sin degradado. Archivos: `Header.astro`, `Footer.astro`, `public/logo.svg`, `public/favicon.svg`, `public/og-image.jpg` (1200×630).
