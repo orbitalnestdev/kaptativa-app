@@ -288,6 +288,7 @@ const detalles = {
     gains: ['Cada cliente ve su propia lista de precios al ingresar', 'Los pedidos llegan cargados y listos para preparar', 'Tu equipo ve el stock real de cada depósito', 'Las listas se actualizan en el sistema, no por mensaje'],
   },
   gastronomia: {
+    foto: '/soluciones/gastronomia-hero.webp', // ambiente de fondo del hero (textura al 10 %)
     short: 'Carta QR, pedidos y reservas', color: 'val-orange', accent: 'en un solo sistema',
     mockup: 'menu',
     metrics: [{ v: 'QR', l: 'Carta digital siempre actualizada' }, { v: '0% comisión', l: 'En los pedidos por tu propia web' }, { v: '24/7', l: 'Reservas online sin llamadas' }, { v: 'En vivo', l: 'Comandas ordenadas a cocina' }],
