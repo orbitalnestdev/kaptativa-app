@@ -1,18 +1,19 @@
 ---
 // Trabajos reales: capturas de sitios y paneles entregados. Solo se muestra cuando hay datos.
+// Los enlaces salen sin referencia (noreferrer + referrerpolicy) y sin seguimiento: el destino no sabe que el clic vino de acá.
 import { trabajos } from '../../data/trabajos.js';
 ---
 
 {trabajos.length > 0 && (
-  <section class="section" id="trabajos">
+  <section class="section section-light" id="trabajos">
     <div class="container">
-      <div class="section-header">
-        <h2>Trabajos que hablan por nosotros</h2>
-        <p>Sitios, tiendas y sistemas en uso hoy. Sin maquetas: capturas de lo entregado.</p>
+      <div class="section-header reveal">
+        <h2>Sitios que ya están<br />funcionando</h2>
+        <p>Capturas reales de lo entregado, sin maquetas. Entrá y recorrelos.</p>
       </div>
       <div class="tr-grid">
         {trabajos.map((t) => (
-          <a class="tr-card" href={t.url} target="_blank" rel="noopener noreferrer">
+          <a class="tr-card" href={t.url} target="_blank" rel="noopener noreferrer nofollow" referrerpolicy="no-referrer">
             <div class="tr-img"><img src={t.imagen} alt={`Sitio de ${t.nombre}`} width="1200" height="750" loading="lazy" decoding="async" /></div>
             <div class="tr-head"><h3>{t.nombre}</h3><span>{t.rubro}</span></div>
             {t.resultado && <p>{t.resultado}</p>}
@@ -24,7 +25,7 @@ import { trabajos } from '../../data/trabajos.js';
 )}
 
 <style>
-  .tr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .tr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
   .tr-card { display: block; text-decoration: none; color: inherit; border-radius: var(--radius-lg); background: var(--card-bg); border: 1px solid var(--border-color); overflow: hidden; transition: border-color var(--transition-normal); }
   .tr-card:hover { border-color: var(--border-hover); }
   .tr-img { aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); }

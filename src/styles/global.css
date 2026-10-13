@@ -7067,12 +7067,12 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 /* ==========================================================================
    TARJETA BLANCA: un solo patrón para toda tarjeta sobre fondo claro (borde degradado violeta + sombra violeta)
    ========================================================================== */
-.section-light .rubro-card, .section-light .faq-item, .section-light .faq-help, .section-light .h2-card, .section-light .h2-integra-banner, .h2-light .h2-integra-banner, .section-light .metric-card-glass, .section-light .for-card, .section-light .glass-card-premium {
+.section-light .tr-card, .section-light .rubro-card, .section-light .faq-item, .section-light .faq-help, .section-light .h2-card, .section-light .h2-integra-banner, .h2-light .h2-integra-banner, .section-light .metric-card-glass, .section-light .for-card, .section-light .glass-card-premium {
   border: 1px solid transparent !important;
   background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, rgba(124, 92, 255, 0.45), rgba(15, 15, 18, 0.06) 45%, rgba(124, 92, 255, 0.45)) border-box !important;
   box-shadow: 0 18px 40px rgba(124, 92, 255, 0.14), 0 2px 6px rgba(15, 15, 18, 0.04) !important;
 }
-.section-light .rubro-card:hover, .section-light .faq-item:hover, .section-light .h2-card:hover {
+.section-light .tr-card:hover, .section-light .rubro-card:hover, .section-light .faq-item:hover, .section-light .h2-card:hover {
   background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, rgba(124, 92, 255, 0.75), rgba(124, 92, 255, 0.2) 45%, rgba(124, 92, 255, 0.85)) border-box !important;
 }
 .section-light .faq-item.active { background: linear-gradient(#F6F3FF, #F6F3FF) padding-box, linear-gradient(135deg, rgba(124, 92, 255, 0.8), rgba(124, 92, 255, 0.3) 45%, rgba(124, 92, 255, 0.9)) border-box !important; }
@@ -7105,3 +7105,9 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 
 /* Texto solo para lectores de pantalla */
 .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+
+/* Footer: crédito "hecho con la plataforma" en la barra inferior */
+.footer-bottom-row .footer-made { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--n-300); text-decoration: none; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(124, 92, 255, 0.3); background: rgba(124, 92, 255, 0.08); transition: border-color var(--transition-fast), color var(--transition-fast); }
+.footer-bottom-row .footer-made::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--brand-primary); box-shadow: 0 0 10px rgba(124, 92, 255, 0.7); }
+.footer-bottom-row .footer-made:hover { color: #fff; border-color: rgba(124, 92, 255, 0.7); }
+@media (max-width: 768px) { .footer-bottom-row .footer-made { order: -1; } }
