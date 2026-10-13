@@ -1,13 +1,15 @@
 ---
 import { faqsData } from '../data/content.js';
+interface Props { items?: { question: string; answer: string }[]; title?: string; subtitle?: string; id?: string }
+const { items = faqsData, title = 'Preguntas frecuentes', subtitle = 'Lo que más nos consultan antes de empezar.', id = 'faq' } = Astro.props;
 const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Tengo una consulta sobre la plataforma.');
 ---
 
-<section class="section section-light" id="faq">
+<section class="section section-light" id={id}>
   <div class="container faq-layout">
     <div class="section-header reveal">
-      <h2>Preguntas frecuentes</h2>
-      <p>Lo que más nos consultan antes de empezar.</p>
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
       <div class="faq-help">
         <p>¿Tu duda no está acá?</p>
         <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary">Preguntar por WhatsApp</a>
@@ -15,7 +17,7 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
     </div>
 
     <div class="faq-wrapper reveal reveal-delay-1">
-      {faqsData.map((faq, index) => (
+      {items.map((faq, index) => (
         <div class="faq-item">
           <button class="faq-header" aria-expanded="false">
             <span>{faq.question}</span>

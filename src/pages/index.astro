@@ -8,6 +8,7 @@ import Footer from '../components/Footer.astro';
 import Faq from '../components/Faq.astro';
 import ControlShowcase from '../components/home2/ControlShowcase.astro';
 import FeatureVisual from '../components/home2/FeatureVisual.astro';
+import Planes from '../components/home2/Planes.astro';
 import { svg, soluciones, modulos } from '../data/plataforma.js';
 import { readFileSync } from 'node:fs';
 
@@ -81,11 +82,6 @@ const heroIntegraciones = [
   { name: 'Google Analytics', icon: 'googleanalytics' }, { name: 'Meta', icon: 'meta' }, { name: 'OpenAI', icon: 'openai' },
 ];
 
-const planes = [
-  { name: 'Presencia', cta: 'Cotizar mi sitio', desc: 'Para emprendedores y profesionales que necesitan una web seria.', features: ['Sitio institucional autoadministrable', 'Hasta 5 secciones', 'Formulario y botón de WhatsApp', 'SEO inicial y Google Analytics', 'Hosting y dominio gestionados'] },
-  { name: 'Tienda', cta: 'Cotizar mi tienda', desc: 'Todo para vender online y administrar cada pedido.', popular: true, features: ['Todo lo del plan Presencia', 'Catálogo ilimitado con variantes', 'Cobros con MercadoPago', 'Cálculo de envíos', 'Panel de pedidos, stock y cupones'] },
-  { name: 'A medida', cta: 'Contar mi proyecto', desc: 'Para empresas con procesos propios que hay que digitalizar.', features: ['Todo lo del plan Tienda', 'Módulos y flujos a medida', 'Integraciones vía API', 'Automatizaciones e IA', 'Soporte prioritario e infraestructura dedicada'] },
-];
 
 ---
 
@@ -267,30 +263,7 @@ const planes = [
     </section>
 
     <!-- ================= PLANES ================= -->
-    <section class="section" id="planes">
-      <div class="container">
-        <div class="section-header reveal">
-          <h2>Planes pensados para crecer</h2>
-          <p>Elegí el punto de partida según la etapa de tu negocio. Cuando lo necesites, escalás.</p>
-        </div>
-        <div class="h2-planes">
-          {planes.map((p, i) => (
-            <div class={`h2-card h2-plan reveal ${p.popular ? 'popular' : ''}`}>
-              {p.popular && <span class="h2-plan-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>Más elegido</span>}
-              <h3>{p.name}</h3>
-              <span class="h2-plan-price">Precio a medida<small>Cotización en 24 hs hábiles</small></span>
-              <p>{p.desc}</p>
-              <ul>
-                {p.features.map((f) => <li><Fragment set:html={svg('check')} />{f}</li>)}
-              </ul>
-              <a href={`/contacto?plan=${encodeURIComponent(p.name)}`} class="btn btn-primary"><span>{p.cta}</span></a>
-              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="h2-plan-alt">Ver una demo de {p.name} por WhatsApp</a>
-            </div>
-          ))}
-        </div>
-        <p class="h2-planes-help">¿No sabés cuál te conviene? <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">Contanos tu caso por WhatsApp</a> y te recomendamos el punto de partida.</p>
-      </div>
-    </section>
+    <Planes />
 
 
     <!-- ================= CTA FINAL ================= -->
@@ -520,29 +493,6 @@ const planes = [
   .h2-integra-banner .btn :global(.ki) { width: 16px; height: 16px; }
 
   /* ---------- PLANES ---------- */
-  /* Planes: sección oscura, el plan recomendado en violeta sólido sobresale por arriba y por abajo */
-  .h2-planes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
-  .h2-plan { position: relative; display: flex; flex-direction: column; padding: 36px 30px 32px; border-radius: var(--radius-xl); }
-  .h2-plan h3 { font-size: 1.5rem; }
-  .h2-plan > p { color: var(--text-secondary); margin-top: 16px; }
-  .h2-plan-price { display: block; margin-top: 14px; font-family: 'Lexend', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
-  .h2-plan-price small { display: block; margin-top: 4px; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 500; color: var(--text-muted); }
-  .h2-plan ul { list-style: none; padding: 0; margin: 26px 0 30px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-  .h2-plan li { display: flex; gap: 10px; align-items: flex-start; color: var(--text-secondary); font-size: 0.92rem; }
-  .h2-plan li :global(.ki) { width: 18px; height: 18px; color: var(--brand-primary-light); margin-top: 1px; }
-  .h2-plan .btn { justify-content: center; }
-  .h2-plan-alt { display: block; text-align: center; margin-top: 12px; font-size: 0.85rem; color: var(--text-secondary); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: color var(--transition-fast), text-decoration-color var(--transition-fast); }
-  .h2-plan-alt:hover { color: var(--brand-primary-light); text-decoration-color: currentColor; }
-  .h2-planes-help { text-align: center; margin: 44px auto 0; max-width: 60ch; color: var(--text-secondary); font-size: 0.95rem; }
-  .h2-planes-help a { color: var(--brand-primary-light); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-  .h2-plan.popular { background: var(--brand-fill); border-color: var(--brand-fill); padding: 46px 32px 40px; box-shadow: 0 30px 70px rgba(106, 72, 245, 0.35); }
-  .h2-plan.popular h3, .h2-plan.popular .h2-plan-price, .h2-plan.popular li { color: #fff; }
-  .h2-plan.popular > p, .h2-plan.popular .h2-plan-price small, .h2-plan.popular .h2-plan-alt { color: rgba(255, 255, 255, 0.78); }
-  .h2-plan.popular li :global(.ki) { color: #fff; }
-  .h2-plan.popular .btn-primary { background: #fff !important; color: var(--v-700) !important; box-shadow: none !important; }
-  .h2-plan.popular .btn-primary:hover { background: var(--v-100) !important; color: var(--v-800) !important; }
-  .h2-plan.popular .h2-plan-alt:hover { color: #fff; }
-  .h2-plan-tag { position: absolute; top: 18px; right: 18px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 600; color: var(--v-700); background: #fff; padding: 6px 12px; border-radius: 999px; }
 
   /* ---------- CTA ---------- */
   .h2-cta { position: relative; text-align: center; padding: 64px 32px; border-radius: var(--border-radius-lg); border: 1px solid transparent; background: radial-gradient(circle at 50% 0%, rgba(124, 92, 255, 0.2), transparent 70%), var(--card-bg); box-shadow: 0 30px 80px rgba(124, 92, 255, 0.12); }
@@ -573,7 +523,6 @@ const planes = [
   .home2 .h2-light .h2-brand-logo,
   .home2 .h2-light .h2-brand-icon { filter: brightness(0); }
   .home2 .h2-light h3, .home2 .h2-light .h2-card h3 { color: #0F0F12 !important; }
-  @media (min-width: 993px) { .h2-plan.popular { margin: -20px 0; } }
   .home2 .h2-light .btn-secondary { color: #0F0F12 !important; background: #FFFFFF !important; border: 1px solid #D4D4D9 !important; }
   .home2 .h2-light .btn-secondary:hover { border-color: #7C5CFF !important; }
 
@@ -598,9 +547,8 @@ const planes = [
     .h2-integra-banner { flex-direction: column; text-align: center; padding: 26px 20px; }
     .h2-integra-banner .btn { width: 100%; justify-content: center; }
     .h2-hero { padding: 120px 0 60px; }
-    .h2-rubros, .h2-bento, .h2-planes, .h2-steps { grid-template-columns: 1fr; }
+    .h2-rubros, .h2-bento, .h2-steps { grid-template-columns: 1fr; }
     .h2-tile--big { grid-column: auto; }
-    .h2-planes { gap: 30px; }
     .h2-side { display: none; }
     .h2-kpis { grid-template-columns: repeat(2, 1fr); }
     .h2-kpis div:nth-child(3) { display: none; }

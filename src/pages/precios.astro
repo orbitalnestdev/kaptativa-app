@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Planes from '../components/home2/Planes.astro';
+import Faq from '../components/Faq.astro';
+import { svg } from '../data/plataforma.js';
+import { planes, comparativa, faqsPrecios } from '../data/planes.js';
+
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo y conocer los planes.');
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://kaptativa.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Planes y precios', item: 'https://kaptativa.com/precios/' },
+    ] },
+    { '@type': 'FAQPage', mainEntity: faqsPrecios.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) },
+  ],
+};
+---
+
+<Layout
+  schema={schema}
+  title="Planes y precios: sitio web, tienda online y sistema a medida | Kaptativa"
+  description="Tres planes sobre la misma plataforma: Presencia, Tienda y A medida. Qué incluye cada uno y cómo se cotiza. Cotización cerrada en 24 hs hábiles después de la demo."
+>
+  <Header slot="header" floating />
+
+  <main class="precios-page">
+    <section class="precios-hero">
+      <div class="precios-glow" aria-hidden="true"></div>
+      <div class="container">
+        <h1>Planes y precios</h1>
+        <p>Tres puntos de partida sobre la misma plataforma. Elegís el que se ajusta a tu etapa y escalás cuando lo necesites, sin rehacer nada.</p>
+        <div class="precios-nota"><Fragment set:html={svg('clipboard')} /> Precio a medida: cotización cerrada en 24 hs hábiles después de la demo.</div>
+      </div>
+    </section>
+
+    <Planes header={false} id="planes" />
+
+    <section class="section" id="comparativa">
+      <div class="container">
+        <div class="section-header">
+          <h2>Qué incluye cada plan</h2>
+          <p>Los planes son acumulativos: cada uno suma sobre el anterior.</p>
+        </div>
+        <div class="cmp-wrap">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th scope="col">Incluye</th>
+                {planes.map((p) => <th scope="col" class:list={{ popular: p.popular }}>{p.name}{p.popular && <small>Más elegido</small>}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {comparativa.map((r) => (
+                <tr>
+                  <th scope="row">{r.item}</th>
+                  {r.planes.map((v, i) => (
+                    <td class:list={{ popular: planes[i].popular }}>
+                      {v === true && <span class="cmp-si"><Fragment set:html={svg('check')} /><span class="sr-only">Incluido</span></span>}
+                      {v === false && <span class="cmp-no" aria-label="No incluido">–</span>}
+                      {typeof v === 'string' && <span class="cmp-txt">{v}</span>}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <Faq items={faqsPrecios} title="Preguntas sobre precios" subtitle="Lo que más nos consultan antes de pedir una cotización." id="preguntas" />
+
+    <section class="section">
+      <div class="container">
+        <div class="precios-cta">
+          <h2>¿Te mostramos la plataforma<br />con tu rubro ya configurado?</h2>
+          <p>Coordinamos una demo de 30 minutos y después te pasamos la cotización del plan que te convenga.</p>
+          <div class="precios-cta-botones">
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow"><span>Solicitar demo</span></a>
+            <a href="/contacto/?plan=Planes" class="btn btn-secondary"><span>Escribinos</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .precios-hero { position: relative; overflow: hidden; padding: 160px 0 40px; text-align: center; }
+  .precios-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124, 92, 255, 0.22), transparent 70%); }
+  .precios-hero .container { position: relative; max-width: 760px; }
+  .precios-hero h1 { font-family: 'Lexend', sans-serif; font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 600; line-height: 1.1; color: var(--text-primary); margin: 0 0 18px; }
+  .precios-hero p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; margin: 0 auto; max-width: 56ch; }
+  .precios-nota { display: inline-flex; align-items: center; gap: 8px; margin-top: 26px; padding: 10px 16px; border-radius: 999px; font-size: 0.9rem; color: var(--brand-primary-light); background: rgba(124, 92, 255, 0.1); border: 1px solid rgba(124, 92, 255, 0.3); }
+  .precios-nota :global(.ki) { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Tabla comparativa */
+  .cmp-wrap { overflow-x: auto; border: 1px solid var(--border-color); border-radius: 20px; background: var(--card-bg); }
+  .cmp { width: 100%; border-collapse: collapse; min-width: 640px; font-size: 0.95rem; }
+  .cmp th, .cmp td { padding: 14px 18px; border-bottom: 1px solid var(--border-color); text-align: center; vertical-align: middle; }
+  .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: 0; }
+  .cmp thead th { font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 1rem; color: var(--text-primary); padding-top: 20px; padding-bottom: 20px; }
+  .cmp thead th small { display: block; margin-top: 4px; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--brand-primary-light); }
+  .cmp th[scope='row'] { text-align: left; font-weight: 500; color: var(--text-secondary); width: 40%; }
+  .cmp thead th:first-child { text-align: left; color: var(--text-muted); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; }
+  .cmp .popular { background: rgba(124, 92, 255, 0.08); }
+  .cmp thead th.popular { color: #fff; }
+  .cmp-si { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgba(124, 92, 255, 0.16); color: var(--brand-primary-light); }
+  .cmp-si :global(.ki) { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .cmp-no { color: var(--text-muted); font-size: 1.1rem; }
+  .cmp-txt { font-weight: 600; color: var(--text-primary); font-size: 0.88rem; }
+
+  /* CTA final */
+  .precios-cta { position: relative; text-align: center; padding: 64px 32px; border-radius: var(--radius-xl); border: 1px solid transparent; background: radial-gradient(circle at 50% 0%, rgba(124, 92, 255, 0.2), transparent 70%), var(--card-bg); box-shadow: 0 30px 80px rgba(124, 92, 255, 0.12); }
+  .precios-cta::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.7), rgba(124, 92, 255, 0.08) 55%, rgba(124, 92, 255, 0.5)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+  .precios-cta h2 { font-family: 'Lexend', sans-serif; font-size: clamp(1.9rem, 4vw, 2.6rem); margin: 0 0 14px; color: var(--text-primary); }
+  .precios-cta p { color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
+  .precios-cta-botones { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+
+  @media (max-width: 768px) {
+    .precios-hero { padding: 130px 0 24px; }
+    .cmp th, .cmp td { padding: 12px 12px; font-size: 0.88rem; }
+    .precios-cta { padding: 44px 20px; }
+    .precios-cta-botones .btn { width: 100%; justify-content: center; }
+  }
+</style>

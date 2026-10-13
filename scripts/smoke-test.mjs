@@ -10,7 +10,7 @@ const soluciones = ['tiendas-online', 'mayoristas', 'gastronomia', 'gimnasios-y-
 const servicios = ['agentes-ia', 'automatizacion', 'desarrollo-software', 'diseno-web', 'email-marketing', 'publicidad-digital', 'seo-geo', 'social-media'];
 
 const checks = [
-  ...['/', '/contacto/', '/nosotros/', '/servicios/', '/inmobiliarias/', '/llms.txt', '/robots.txt', '/sitemap-index.xml'].map((p) => [p, 200]),
+  ...['/', '/contacto/', '/nosotros/', '/servicios/', '/precios/', '/inmobiliarias/', '/llms.txt', '/robots.txt', '/sitemap-index.xml'].map((p) => [p, 200]),
   ...soluciones.map((s) => [`/soluciones/${s}/`, 200]),
   ...servicios.map((s) => [`/servicios/${s}/`, 200]),
   ['/home2', 301], ['/blog', 301], ['/proyectos', 301],

@@ -1,0 +1,65 @@
+---
+// Sección de planes: tres puntos de partida sobre la misma plataforma; el recomendado en violeta sólido.
+import { svg } from '../../data/plataforma.js';
+import { planes } from '../../data/planes.js';
+
+interface Props { header?: boolean; id?: string }
+const { header = true, id = 'planes' } = Astro.props;
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo de la plataforma web.');
+---
+
+<section class="section planes-section" id={id}>
+  <div class="container">
+    {header && (
+      <div class="section-header reveal">
+        <h2>Planes pensados para crecer</h2>
+        <p>Elegí el punto de partida según la etapa de tu negocio. Cuando lo necesites, escalás.</p>
+      </div>
+    )}
+    <div class="h2-planes">
+      {planes.map((p) => (
+        <div class:list={['h2-plan', { popular: p.popular }]}>
+          {p.popular && <span class="h2-plan-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>Más elegido</span>}
+          <h3>{p.name}</h3>
+          <span class="h2-plan-price">Precio a medida<small>Cotización en 24 hs hábiles</small></span>
+          <p>{p.desc}</p>
+          <ul>
+            {p.features.map((f) => <li><Fragment set:html={svg('check')} />{f}</li>)}
+          </ul>
+          <a href={`/contacto/?plan=${encodeURIComponent(p.name)}`} class="btn btn-primary"><span>{p.cta}</span></a>
+          <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="h2-plan-alt">Ver una demo de {p.name} por WhatsApp</a>
+        </div>
+      ))}
+    </div>
+    <p class="h2-planes-help">¿No sabés cuál te conviene? <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">Contanos tu caso por WhatsApp</a> y te recomendamos el punto de partida.</p>
+  </div>
+</section>
+
+<style>
+  .h2-planes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+  .h2-plan { position: relative; display: flex; flex-direction: column; padding: 36px 30px 32px; border-radius: var(--radius-xl); background: var(--card-bg); border: 1px solid var(--border-color); transition: border-color var(--transition-normal); }
+  .h2-plan:hover { border-color: var(--border-hover); }
+  .h2-plan h3 { font-family: 'Lexend', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0; }
+  .h2-plan > p { color: var(--text-secondary); margin: 16px 0 0; line-height: 1.6; }
+  .h2-plan-price { display: block; margin-top: 14px; font-family: 'Lexend', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
+  .h2-plan-price small { display: block; margin-top: 4px; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 500; color: var(--text-muted); }
+  .h2-plan ul { list-style: none; padding: 0; margin: 26px 0 30px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .h2-plan li { display: flex; gap: 10px; align-items: flex-start; color: var(--text-secondary); font-size: 0.92rem; }
+  .h2-plan li :global(.ki) { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; color: var(--brand-primary-light); margin-top: 1px; flex-shrink: 0; }
+  .h2-plan .btn { justify-content: center; }
+  .h2-plan-alt { display: block; text-align: center; margin-top: 12px; font-size: 0.85rem; color: var(--text-secondary); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: color var(--transition-fast), text-decoration-color var(--transition-fast); }
+  .h2-plan-alt:hover { color: var(--brand-primary-light); text-decoration-color: currentColor; }
+  .h2-planes-help { text-align: center; margin: 44px auto 0; max-width: 60ch; color: var(--text-secondary); font-size: 0.95rem; }
+  .h2-planes-help a { color: var(--brand-primary-light); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .h2-plan.popular { background: var(--brand-fill); border-color: var(--brand-fill); padding: 46px 32px 40px; box-shadow: 0 30px 70px rgba(106, 72, 245, 0.35); }
+  .h2-plan.popular:hover { border-color: var(--brand-fill); }
+  .h2-plan.popular h3, .h2-plan.popular .h2-plan-price, .h2-plan.popular li { color: #fff; }
+  .h2-plan.popular > p, .h2-plan.popular .h2-plan-price small, .h2-plan.popular .h2-plan-alt { color: rgba(255, 255, 255, 0.78); }
+  .h2-plan.popular li :global(.ki) { color: #fff; }
+  .h2-plan.popular .btn-primary { background: #fff !important; color: var(--v-700) !important; box-shadow: none !important; }
+  .h2-plan.popular .btn-primary:hover { background: var(--v-100) !important; color: var(--v-800) !important; }
+  .h2-plan.popular .h2-plan-alt:hover { color: #fff; }
+  .h2-plan-tag { position: absolute; top: 18px; right: 18px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 600; color: var(--v-700); background: #fff; padding: 6px 12px; border-radius: 999px; }
+  @media (min-width: 993px) { .h2-plan.popular { margin: -20px 0; } }
+  @media (max-width: 992px) { .h2-planes { grid-template-columns: 1fr; gap: 24px; max-width: 560px; margin: 0 auto; } }
+</style>
