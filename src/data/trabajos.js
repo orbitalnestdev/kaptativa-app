@@ -59,6 +59,38 @@ export const trabajos = [
     imagen: '/trabajos/ms-estudio-inmobiliario.webp',
     resultado: 'Sitio institucional con catálogo de propiedades en venta y alquiler, desarrollos propios y contacto directo por WhatsApp.',
   },
+  {
+    nombre: 'Anchus',
+    categoria: 'tiendas',
+    rubro: 'Indumentaria infantil',
+    url: 'https://anchus.com.ar/',
+    imagen: '/trabajos/anchus.webp',
+    resultado: 'Marca de indumentaria infantil con lookbook, locales, catálogo mayorista con acceso para clientes y tienda minorista.',
+  },
+  {
+    nombre: 'AoMatcha',
+    categoria: 'tiendas',
+    rubro: 'Tienda online',
+    url: 'https://aomatcha.co/',
+    imagen: '/trabajos/aomatcha.webp',
+    resultado: 'Tienda online de matcha de origen japonés con pagos por Mercado Pago, reseñas y contenido sobre el producto.',
+  },
+  {
+    nombre: 'Bodega Iaccarini',
+    categoria: 'institucional',
+    rubro: 'Bodega · Mendoza',
+    url: 'https://bodegaiaccarini.com.ar/',
+    imagen: '/trabajos/bodega-iaccarini.webp',
+    resultado: 'Sitio de bodega con experiencias, hospedaje, winebar, eventos, tienda online y mayorista, y fichas técnicas.',
+  },
+  {
+    nombre: 'Cata Argentina',
+    categoria: 'institucional',
+    rubro: 'Electrodomésticos',
+    url: 'https://cata-argentina.com/',
+    imagen: '/trabajos/cata-argentina.webp',
+    resultado: 'Sitio corporativo de la marca de electrodomésticos con catálogo online y en PDF, productos y servicio técnico.',
+  },
 ];
 
 // Filtros de la sección (orden de aparición)
@@ -67,4 +99,5 @@ export const categorias = [
   { key: 'tiendas', label: 'Tiendas online' },
   { key: 'servicios', label: 'Servicios' },
   { key: 'software', label: 'Software' },
+  { key: 'institucional', label: 'Institucional' },
 ];
