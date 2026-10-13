@@ -96,8 +96,9 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
   .tr-filter.on span { color: #FFFFFF; background: rgba(255, 255, 255, 0.2); }
 
   /* Grilla de cuatro, como Coredevs, con nuestras tarjetas blancas */
-  .tr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .tr-card { display: flex; flex-direction: column; gap: 12px; padding: 12px 12px 14px; text-decoration: none; color: inherit; border-radius: var(--radius-lg); transition: opacity 0.28s ease, transform 0.28s ease, box-shadow var(--transition-normal); }
+  /* minmax(0, 1fr): las columnas no crecen con un nombre largo; el nombre corta con puntos suspensivos */
+  .tr-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+  .tr-card { min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 12px 12px 14px; text-decoration: none; color: inherit; border-radius: var(--radius-lg); transition: opacity 0.28s ease, transform 0.28s ease, box-shadow var(--transition-normal); }
   .tr-card.out { opacity: 0; transform: scale(0.96); }
   .tr-card[hidden] { display: none; }
 
@@ -117,7 +118,7 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
   @keyframes tr-pan { 0%, 12% { transform: translateY(0); } 58%, 68% { transform: translateY(calc(-100% + 62.5cqw)); } 100% { transform: translateY(0); } }
 
   /* Nombre, dominio y etiquetas */
-  .tr-meta { display: flex; align-items: center; gap: 11px; padding: 0 4px; }
+  .tr-meta { display: flex; align-items: center; gap: 11px; padding: 0 4px; min-width: 0; }
   .tr-name { flex: 1; min-width: 0; }
   .tr-ico { flex: none; width: 36px; height: 36px; padding: 4px; border-radius: 10px; background: #FFFFFF; border: 1px solid #ECECEF; object-fit: contain; }
   .tr-name { min-width: 0; }
@@ -135,7 +136,7 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
     .tr-shot img { animation: none !important; transition: none !important; }
   }
 
-  @media (max-width: 1100px) { .tr-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 860px) { .tr-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
-  @media (max-width: 520px) { .tr-grid { grid-template-columns: 1fr; } .tr-filters { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; margin-bottom: 24px; } .tr-filter { flex: none; } }
+  @media (max-width: 1100px) { .tr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 860px) { .tr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
+  @media (max-width: 520px) { .tr-grid { grid-template-columns: minmax(0, 1fr); } .tr-filters { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; margin-bottom: 24px; } .tr-filter { flex: none; } }
 </style>
