@@ -437,7 +437,9 @@ const planes = [
 
   /* ---------- RUBROS: el ícono grande de fondo es la identidad de cada tarjeta ---------- */
   .h2-rubros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .h2-rubro { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 250px; padding: 28px 26px 24px; text-decoration: none; isolation: isolate; }
+  .h2-rubro { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 250px; padding: 28px 26px 24px; text-decoration: none; isolation: isolate; border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; }
+  .h2-rubro::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
+  .h2-rubro:hover { border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
   /* Ícono emblema: entero, arriba a la derecha; el título le deja lugar */
   .h2-rubro-bg { position: absolute; top: -6px; right: -6px; width: 118px; height: 118px; color: var(--brand-primary); opacity: 0.12; pointer-events: none; z-index: -1; transition: opacity var(--transition-slow), transform var(--transition-slow); }
   .h2-rubro-bg :global(.ki) { width: 100%; height: 100%; stroke-width: 1.3; }
