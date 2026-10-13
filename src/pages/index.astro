@@ -102,10 +102,9 @@ const heroIntegraciones = [
         <div class="h2-hero-copy reveal">
           <h1>
             Sitio web y sistema de gestión<br class="br-desk" /> para{" "}
-            <span class="h2-rotator" data-rotator aria-hidden="true">
-              {heroRubros.map((r, i) => <span class:list={['text-gradient-crimson', { on: i === 0 }]}>{r}</span>)}
+            <span class="h2-rotator" data-rotator data-words={JSON.stringify(heroRubros.slice(1))}>
+              <span class="text-gradient-crimson on">{heroRubros[0]}</span>
             </span>
-            <span class="sr-only">tu negocio.</span>
           </h1>
           <p>Diseñamos y desarrollamos una plataforma modular que une sitio web, tienda online, pedidos, facturación y un asistente con IA. Activás solo lo que tu negocio necesita y lo administrás vos.</p>
           <div class="h2-ctas">
@@ -295,10 +294,16 @@ const heroIntegraciones = [
 </Layout>
 
 <script>
-  // Título del hero: rota el rubro cada 2,2 s (quieto si el usuario prefiere menos movimiento)
+  // Título del hero: en el HTML el h1 lleva un solo rubro (SEO); los demás se agregan acá y rotan cada 2,2 s
+  // (quieto si el usuario prefiere menos movimiento)
   document.querySelectorAll<HTMLElement>('[data-rotator]').forEach((rot) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    try {
+      const extra: string[] = JSON.parse(rot.dataset.words || '[]');
+      extra.forEach((w) => { const el = document.createElement('span'); el.className = 'text-gradient-crimson'; el.setAttribute('aria-hidden', 'true'); el.textContent = w; rot.appendChild(el); });
+    } catch { return; }
     const words = [...rot.children] as HTMLElement[];
-    if (words.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (words.length < 2) return;
     let i = 0;
     setInterval(() => {
       if (document.hidden) return;
