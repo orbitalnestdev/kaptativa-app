@@ -37,8 +37,8 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
             <div class="tr-meta">
               <img class="tr-ico" src={icon(t.imagen)} alt="" width="36" height="36" loading="lazy" decoding="async" />
               <div class="tr-name"><h3>{t.nombre}</h3><small>{host(t.url)}</small></div>
+              <span class="tr-tag">{label(t.categoria)}</span>
             </div>
-            <div class="tr-tags"><span>{label(t.categoria)}</span></div>
           </a>
         ))}
       </div>
@@ -98,7 +98,7 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
 
   /* Grilla de cuatro, como Coredevs, con nuestras tarjetas blancas */
   .tr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .tr-card { display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 16px; text-decoration: none; color: inherit; border-radius: var(--radius-lg); transition: opacity 0.28s ease, transform 0.28s ease, box-shadow var(--transition-normal); }
+  .tr-card { display: flex; flex-direction: column; gap: 12px; padding: 12px 12px 14px; text-decoration: none; color: inherit; border-radius: var(--radius-lg); transition: opacity 0.28s ease, transform 0.28s ease, box-shadow var(--transition-normal); }
   .tr-card.out { opacity: 0; transform: scale(0.96); }
   .tr-card[hidden] { display: none; }
 
@@ -119,12 +119,12 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
 
   /* Nombre, dominio y etiquetas */
   .tr-meta { display: flex; align-items: center; gap: 11px; padding: 0 4px; }
+  .tr-name { flex: 1; }
   .tr-ico { flex: none; width: 36px; height: 36px; padding: 4px; border-radius: 10px; background: #FFFFFF; border: 1px solid #ECECEF; object-fit: contain; }
   .tr-name { min-width: 0; }
   .tr-name h3 { font-family: 'Lexend', sans-serif; font-size: 0.98rem; font-weight: 600; color: #0F0F12 !important; margin: 0; line-height: 1.25; }
   .tr-name small { display: block; font-size: 0.74rem; color: #6E6E7A; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tr-tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 4px; }
-  .tr-tags span { font-size: 0.7rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; color: #5B3FE0; background: #F3F0FF; border: 1px solid rgba(124, 92, 255, 0.25); }
+  .tr-tag { margin-left: auto; flex: none; align-self: flex-start; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.01em; padding: 3px 8px; border-radius: 999px; color: #5B3FE0; background: #F3F0FF; border: 1px solid rgba(124, 92, 255, 0.22); white-space: nowrap; }
   .tr-empty { text-align: center; color: #6E6E7A; margin: 24px 0 0; }
 
   /* Entrada escalonada */

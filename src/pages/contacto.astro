@@ -101,32 +101,39 @@ import Footer from '../components/Footer.astro';
                 <input type="url" id="form-website" class="form-control" placeholder="https://tusitio.com">
               </div>
               <div class="form-group">
-                <label for="form-role" class="form-label-uppercase">¿Qué puesto ocupás?</label>
-                <select id="form-role" class="form-control form-select-custom">
+                <label for="form-service-interest" class="form-label-uppercase">¿Qué te interesa? *</label>
+                <select id="form-service-interest" class="form-control form-select-custom" required>
                   <option value="" disabled selected>Elegí una opción</option>
-                  <option value="Fundador / CEO / Socio">Fundador / CEO / Socio</option>
-                  <option value="Director Comercial / Ventas">Director Comercial / Ventas</option>
-                  <option value="Gerente de Marketing">Gerente de Marketing</option>
-                  <option value="Operaciones / Administración">Operaciones / Administración</option>
+                  <optgroup label="Plataforma">
+                    <option value="Plan Presencia">Sitio web (plan Presencia)</option>
+                    <option value="Plan Tienda">Tienda online (plan Tienda)</option>
+                    <option value="Plan A medida">Sistema a medida (plan A medida)</option>
+                    <option value="Solución para mi rubro">Solución para mi rubro</option>
+                  </optgroup>
+                  <optgroup label="Add-ons">
+                    <option value="Add-on: Asistente con IA">Asistente con IA</option>
+                    <option value="Add-on: Contenido con IA">Contenido con IA</option>
+                    <option value="Add-on: Correo con dominio">Correo con tu dominio</option>
+                    <option value="Add-on: Campañas de email y WhatsApp">Campañas de email y WhatsApp</option>
+                    <option value="Add-on: Facturación electrónica">Facturación electrónica</option>
+                    <option value="Add-on: Mantenimiento y evolución">Mantenimiento y evolución</option>
+                  </optgroup>
+                  <optgroup label="Servicios adicionales">
+                    <option value="Publicidad digital">Publicidad digital</option>
+                    <option value="SEO y GEO">SEO y GEO</option>
+                    <option value="Social media">Social media</option>
+                    <option value="Email marketing">Email marketing</option>
+                    <option value="Agentes de IA">Agentes de IA</option>
+                    <option value="Automatización">Automatización e integraciones</option>
+                    <option value="Diseño web">Diseño web y e-commerce</option>
+                    <option value="Desarrollo de software">Desarrollo de software</option>
+                  </optgroup>
+                  <option value="Otra consulta">Otra consulta</option>
                 </select>
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="form-service-interest" class="form-label-uppercase">¿Qué te interesa?</label>
-              <select id="form-service-interest" class="form-control form-select-custom">
-                <option value="" disabled selected>Elegí el servicio de tu interés</option>
-                <option value="Paid Media / Publicidad Digital">Paid Media / Publicidad Digital</option>
-                <option value="SEO & GEO Search">SEO & GEO Search</option>
-                <option value="Social Media Manager">Social Media Manager</option>
-                <option value="Web & E-commerce">Web & E-commerce</option>
-                <option value="Email Marketing & CRM">Email Marketing & CRM</option>
-                <option value="Software a Medida">Software a Medida</option>
-                <option value="Automatización & Integraciones">Automatización & Integraciones</option>
-                <option value="Agentes de Inteligencia Artificial">Agentes de Inteligencia Artificial</option>
-                <option value="Consultoría Enterprise">Consultoría Enterprise</option>
-              </select>
-            </div>
+
 
               <div class="form-group">
                 <label for="form-message" class="form-label-uppercase">¿Cuál es tu principal desafío hoy? *</label>
@@ -201,12 +208,17 @@ import Footer from '../components/Footer.astro';
 
   document.addEventListener('DOMContentLoaded', () => {
     // Llegada desde una solución (/contacto/?demo=Tiendas online): precarga el pedido de demo
-    const demo = new URLSearchParams(window.location.search).get('demo');
+    // Llegada desde un plan (?plan=Tienda), un servicio (?servicio=SEO y GEO) o una solución (?demo=Tiendas online): preselecciona el interés
+    const q = new URLSearchParams(window.location.search);
+    const interestField = document.getElementById('form-service-interest') as HTMLSelectElement | null;
+    const setInterest = (v: string) => { if (interestField && [...interestField.options].some((o) => o.value === v)) interestField.value = v; };
+    const plan = q.get('plan'); const servicio = q.get('servicio'); const demo = q.get('demo');
+    if (plan) setInterest(`Plan ${plan}`);
+    if (servicio) setInterest(servicio);
     if (demo) {
       const messageField = document.getElementById('form-message') as HTMLTextAreaElement | null;
-      const interestField = document.getElementById('form-service-interest') as HTMLSelectElement | null;
       if (messageField && !messageField.value) messageField.value = `Quiero solicitar una demo de la solución para ${demo}.`;
-      if (interestField) interestField.value = 'Web & E-commerce';
+      setInterest('Solución para mi rubro');
     }
 
     const contactForm = document.getElementById('contact-form') as HTMLFormElement;
@@ -223,6 +235,7 @@ import Footer from '../components/Footer.astro';
       const whatsapp = (document.getElementById('form-whatsapp') as HTMLInputElement).value.trim();
       const email = (document.getElementById('form-email') as HTMLInputElement).value.trim();
       const message = (document.getElementById('form-message') as HTMLTextAreaElement).value.trim();
+      const interest = (document.getElementById('form-service-interest') as HTMLSelectElement | null)?.value || '';
       const sendWhatsApp = (document.getElementById('form-send-whatsapp') as HTMLInputElement).checked;
 
       // Hide previous states
@@ -233,7 +246,7 @@ import Footer from '../components/Footer.astro';
       }
 
       // Simple validation
-      if (!name || !business || !whatsapp || !email || !message) {
+      if (!name || !business || !whatsapp || !email || !message || !interest) {
         showError('Por favor, completa todos los campos obligatorios (*).');
         return;
       }
@@ -249,9 +262,9 @@ import Footer from '../components/Footer.astro';
         business,
         whatsapp,
         email,
-        message: `Desafío: ${message}`,
+        message: `Interés: ${interest}\nDesafío: ${message}`,
         status: 'nuevo',
-        tags: 'Contacto Directo',
+        tags: `Contacto Directo, ${interest}`,
         score: 0,
         recommendations: 'Contacto desde formulario directo de la página de contacto.'
       };
@@ -264,7 +277,7 @@ import Footer from '../components/Footer.astro';
 
         const agencyPhoneNumber = '5493804890834';
         const introMessage = `¡Hola Kaptativa! Acabo de enviar una consulta desde el formulario de contacto web.`;
-        const details = `*Datos de contacto:*\n- *Nombre:* ${name}\n- *Negocio:* ${business}\n- *WhatsApp:* ${whatsapp}\n- *Email:* ${email}\n\n*Desafío:* ${message}`;
+        const details = `*Datos de contacto:*\n- *Nombre:* ${name}\n- *Negocio:* ${business}\n- *WhatsApp:* ${whatsapp}\n- *Email:* ${email}\n- *Interés:* ${interest}\n\n*Desafío:* ${message}`;
         const fullText = encodeURIComponent(`${introMessage}\n\n${details}`);
 
         if (sendWhatsApp) {
