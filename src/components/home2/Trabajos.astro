@@ -122,8 +122,9 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
   .tr-name { flex: 1; min-width: 0; }
   .tr-ico { flex: none; width: 32px; height: 32px; padding: 4px; border-radius: 10px; background: #FFFFFF; border: 1px solid #ECECEF; object-fit: contain; }
   .tr-name { min-width: 0; }
-  .tr-name h3 { font-family: 'Lexend', sans-serif; font-size: 0.76rem; font-weight: 600; color: #0F0F12 !important; margin: 0; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tr-name small { display: block; font-size: 0.68rem; color: #6E6E7A; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* !important: una regla global de h3 (con !important) lo dejaba en 20 px */
+  .tr-name h3 { font-family: 'Lexend', sans-serif; font-size: 0.78rem !important; font-weight: 600 !important; color: #0F0F12 !important; margin: 0 !important; line-height: 1.25 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tr-name small { display: block; font-size: 0.68rem !important; color: #6E6E7A; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tr-tag { position: absolute; top: 8px; right: 8px; z-index: 2; font-style: normal; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 999px; color: #5B3FE0; background: rgba(255, 255, 255, 0.92); border: 1px solid rgba(124, 92, 255, 0.25); box-shadow: 0 4px 12px rgba(15, 15, 18, 0.12); white-space: nowrap; backdrop-filter: blur(4px); }
   .tr-empty { text-align: center; color: #6E6E7A; margin: 24px 0 0; }
 
