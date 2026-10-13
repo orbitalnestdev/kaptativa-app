@@ -69,10 +69,9 @@ const iconoMetrica = (m) => {
           <p class="hero-description">{sol.text}</p>
           <div class="hero-buttons">
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Solicitar demo</a>
-            {sol.demo
-              ? <a href={sol.demo} class="btn btn-secondary">Ver demo en vivo</a>
-              : <a href={CONTACTO} class="btn btn-secondary">Escribinos</a>}
+            <a href="/precios/" class="btn btn-secondary">Ver planes</a>
           </div>
+          {sol.demo && <a href={sol.demo} class="sol-hero-demo">Ver una demo en vivo de esta solución</a>}
         </div>
         <div class="sol-hero-visual reveal">
           <SolucionMockup tipo={sol.mockup} />
@@ -229,6 +228,8 @@ const iconoMetrica = (m) => {
   .hero-tagline { font-size: clamp(2.6rem, 4.6vw, 3.6rem); line-height: 1.05; font-weight: 600; margin-bottom: 24px; letter-spacing: -0.02em; }
   .hero-description { font-size: 1.15rem; color: var(--text-secondary); margin: 0 0 36px; max-width: 560px; line-height: 1.6; }
   .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .sol-hero-demo { display: inline-block; margin-top: 16px; font-size: 0.9rem; color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: transparent; transition: color var(--transition-fast), text-decoration-color var(--transition-fast); }
+  .sol-hero-demo:hover { color: var(--brand-primary-light); text-decoration-color: currentColor; }
   .btn-whatsapp { background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); color: #10b981; display: inline-flex; align-items: center; transition: all 0.3s ease; }
   .btn-whatsapp:hover { background: #10b981; border-color: #10b981; color: #fff; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); transform: translateY(-2px); }
   .btn-glow:hover { box-shadow: 0 10px 25px rgba(124, 92, 255, 0.35); }
