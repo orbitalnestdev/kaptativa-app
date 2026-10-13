@@ -23,4 +23,18 @@ export const trabajos = [
     imagen: '/trabajos/urban-points.webp',
     resultado: 'Tienda minorista con catálogo, cuenta de cliente, puntos de retiro por barrio y programa de revendedores con comisiones.',
   },
+  {
+    nombre: 'El almacén de las mil cosas',
+    rubro: 'Tienda online · La Rioja',
+    url: 'https://almacenmil.mitiendapi.com/',
+    imagen: '/trabajos/almacen-mil.webp',
+    resultado: 'Tienda online de aromas, cosmética, accesorios y regalos con catálogo por categorías, carrito, medios de pago y envíos.',
+  },
+  {
+    nombre: 'Airlar',
+    rubro: 'Servicio técnico · La Rioja',
+    url: 'https://airlar.com.ar/',
+    imagen: '/trabajos/airlar.webp',
+    resultado: 'Sitio de servicio técnico de aires acondicionados con reserva de visitas, servicios, preguntas frecuentes y blog.',
+  },
 ];
