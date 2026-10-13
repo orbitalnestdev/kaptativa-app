@@ -296,4 +296,18 @@ document.addEventListener('DOMContentLoaded', () => {
     stepsObserver.observe(steps);
   }
 
+  // 7d. Gráficos de las tarjetas de rubros (home): entran animados cuando la tarjeta se ve
+  const visuals = document.querySelectorAll('.rv');
+  if (visuals.length && !reduceMotion && 'IntersectionObserver' in window) {
+    visuals.forEach((v) => v.classList.add('rv-anim'));
+    const rvObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { entry.target.classList.add('on'); rvObserver.unobserve(entry.target); }
+      });
+    }, { threshold: 0.4 });
+    visuals.forEach((v) => rvObserver.observe(v));
+    // Respaldo: si el observador no llegara a dispararse, los gráficos se muestran igual
+    setTimeout(() => visuals.forEach((v) => v.classList.add('on')), 9000);
+  }
+
 });

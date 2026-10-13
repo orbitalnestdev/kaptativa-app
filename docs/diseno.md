@@ -85,7 +85,7 @@ Bordes sobre oscuro: `rgba(255, 255, 255, 0.06)` en reposo, violeta al 25 % acti
 - Un solo botón principal por bloque.
 
 ## 7. Secciones claras
-Dos clases equivalentes: `h2-light` (home) y `section-light` (global, en `global.css`): redefinen los tokens de texto, tarjeta y borde y pasan el texto destacado a v-700. Ritmo actual: home → Integraciones y Preguntas frecuentes; servicios → rubros (tarjetas blancas con contorno violeta); soluciones → Preguntas frecuentes. Regla: una o dos secciones claras por página, nunca dos seguidas.
+Dos clases equivalentes: `h2-light` (home) y `section-light` (global, en `global.css`): redefinen los tokens de texto, tarjeta y borde y pasan el texto destacado a v-700. Ritmo actual: home → rubros, integraciones, planes y preguntas frecuentes (principio 3); servicios → rubros (tarjetas blancas con contorno violeta); soluciones → Preguntas frecuentes. Regla: una o dos secciones claras por página, nunca dos seguidas.
 
 ## 8. Logo
 Isotipo (flecha) y punto de "kaptativa." en v-500 sólido, sin degradado. Archivos: `Header.astro`, `Footer.astro`, `public/logo.svg`, `public/favicon.svg`, `public/og-image.jpg` (1200×630).
@@ -96,6 +96,7 @@ Isotipo (flecha) y punto de "kaptativa." en v-500 sólido, sin degradado. Archiv
 15. **Menú Soluciones como mega menú.** Panel de presentación a la izquierda y grilla de rubros con descripción de una línea a la derecha, centrado bajo el header.
 
 16. **Contorno con brillo.** Las tarjetas de listado (rubros, contadores) llevan borde en degradado (claro arriba a la izquierda, violeta abajo a la derecha) y una línea de brillo centrada en el borde superior; al pasar el mouse el borde se enciende. Los contadores de servicios llevan además el ícono apoyado sobre el borde superior.
+17. **Gráfico por tarjeta de rubro.** Cada tarjeta de la grilla de rubros de la home abre con una mini-interfaz oscura que ilustra qué resuelve la plataforma en ese rubro (pedido pagado, lista mayorista, comanda con QR, cuotas al día, turno reservado, propiedad publicada, padrón, respuesta automática), con el ícono del rubro como marca de agua en la esquina y animación de entrada al verse (`RubroVisual.astro`, observador en `app.js`). Referencia: la grilla de funciones de MasLeads, pero en HTML/CSS y no en imágenes. El proceso se cuenta en tres pasos, no cuatro.
 
 ## 9. Puntaje por página (2026-10-12, cierre)
 Escala 1–10 sobre estética y "capa genérica". Detalle y método en `2doCerebro/OUTPUTS/auditoria-kaptativa-web-2026-10-12.md`.

@@ -1,0 +1,193 @@
+---
+// Gráfico de mini-interfaz para cada tarjeta de rubro de la home: ilustra qué resuelve la plataforma
+// en ese rubro (como hace MasLeads en su grilla, pero en HTML/CSS en vez de Lottie). Datos de ejemplo.
+// Entra animado cuando la tarjeta aparece en pantalla (app.js agrega .rv-anim y .on) y después
+// cada gráfico mantiene un bucle lento (estados que cambian, turnos que se reservan, chat que responde).
+import { svg } from '../../data/plataforma.js';
+interface Props { slug: string; icon: string; }
+const { slug, icon } = Astro.props;
+---
+
+<div class={`rv rv-${slug}`} aria-hidden="true">
+  <span class="rv-icon"><Fragment set:html={svg(icon)} /></span>
+
+  {slug === 'tiendas-online' && (
+    <>
+      <div class="rv-row" style="--d:.1s"><i class="rv-thumb"></i><span>Buzo frisa<small>M · gris</small></span><b>$ 38.900</b></div>
+      <div class="rv-row" style="--d:.25s"><i class="rv-thumb alt"></i><span>Remera oversize<small>L · negro</small></span><b>$ 18.900</b></div>
+      <div class="rv-foot" style="--d:.45s"><span>Pedido #1043</span><div class="rv-cycle"><em class="rv-chip ok">Pagado</em><em class="rv-chip wait">En preparación</em><em class="rv-chip vio">Enviado</em></div></div>
+    </>
+  )}
+
+  {slug === 'mayoristas' && (
+    <>
+      <div class="rv-head" style="--d:.1s"><span>Lista mayorista · Cliente A</span><em class="rv-chip vio">−18 %</em></div>
+      <div class="rv-swap" style="--d:.25s">
+        <div class="rv-row"><span>Aceite 1,5 L<small>x 12 u. · por bulto</small></span><b>$ 1.890</b></div>
+        <div class="rv-row"><span>Harina 000<small>x 10 kg · por bolsa</small></span><b>$ 980</b></div>
+      </div>
+      <div class="rv-foot" style="--d:.45s"><span>Mínimo $ 150.000</span><em class="rv-chip ok rv-pulse">Alcanzado</em></div>
+    </>
+  )}
+
+  {slug === 'gastronomia' && (
+    <>
+      <div class="rv-gastro" style="--d:.1s">
+        <svg class="rv-qr" viewBox="0 0 21 21" fill="currentColor">
+          <path d="M0 0h7v7H0zM1.5 1.5v4h4v-4zM2.5 2.5h2v2h-2zM14 0h7v7h-7zM15.5 1.5v4h4v-4zM16.5 2.5h2v2h-2zM0 14h7v7H0zM1.5 15.5v4h4v-4zM2.5 16.5h2v2h-2z" fill-rule="evenodd" />
+          <path d="M9 0h1v2H9zM11 1h2v1h-2zM9 3h3v1H9zM9 5h1v3H9zM11 6h2v2h-2zM1 9h2v1H1zM4 8h1v3H4zM6 9h3v1H6zM11 9h1v2h-1zM13 8h1v2h-1zM15 9h2v1h-2zM18 8h1v1h-1zM19 10h2v1h-2zM1 11h1v2H1zM3 12h2v1H3zM6 11h1v2H6zM8 12h3v1H8zM12 11h2v1h-2zM15 11h1v3h-1zM17 12h2v1h-2zM20 12h1v2h-1zM9 14h1v2H9zM11 15h2v1h-2zM14 14h1v1h-1zM16 15h2v2h-2zM19 14h2v1h-2zM9 17h2v1H9zM12 17h1v2h-1zM14 18h1v3h-1zM16 19h2v1h-2zM19 17h1v2h-1zM9 19h1v2H9zM11 20h2v1h-2zM20 20h1v1h-1z" />
+        </svg>
+        <div class="rv-ticket">
+          <b>Mesa 4</b><span>2 ítems · $ 14.600</span>
+          <div class="rv-cycle"><em class="rv-chip wait">Recibido</em><em class="rv-chip vio">En cocina</em><em class="rv-chip ok">Listo</em></div>
+        </div>
+      </div>
+      <div class="rv-foot" style="--d:.4s"><span>Reserva 21:00 · Mesa 6</span><em class="rv-chip ok">Confirmada</em></div>
+    </>
+  )}
+
+  {slug === 'gimnasios-y-clubes' && (
+    <>
+      <div class="rv-head" style="--d:.1s"><span>Cuotas de marzo al día</span><b>92 %</b></div>
+      <div class="rv-bar" style="--d:.2s"><i style="--w:92%"></i></div>
+      <div class="rv-row" style="--d:.4s"><span>Funcional 19:00<small>Prof. Lucas</small></span><div class="rv-cycle"><em class="rv-chip vio">12/14 cupos</em><em class="rv-chip vio">13/14 cupos</em><em class="rv-chip ok">Completa</em></div></div>
+    </>
+  )}
+
+  {slug === 'turnos-y-cursos' && (
+    <>
+      <div class="rv-week" style="--d:.1s">
+        {['L', 'M', 'X', 'J', 'V'].map((d) => <span>{d}</span>)}
+        <i></i><i class="busy"></i><i></i><i class="booked"></i><i class="busy"></i>
+        <i class="busy"></i><i class="booked b2"></i><i class="busy"></i><i></i><i></i>
+      </div>
+      <div class="rv-foot" style="--d:.45s"><span>Jue 10:30 · Consulta</span><em class="rv-chip ok rv-pulse">Reservado</em></div>
+    </>
+  )}
+
+  {slug === 'inmobiliarias' && (
+    <>
+      <div class="rv-row" style="--d:.1s"><i class="rv-photo"></i><span>Depto 2 amb · Centro<small>Alquiler · $ 85.000</small></span><div class="rv-cycle"><em class="rv-chip ok">Publicada</em><em class="rv-chip wait">Reservada</em><em class="rv-chip vio">Alquilada</em></div></div>
+      <div class="rv-foot" style="--d:.35s"><span><i class="rv-dot"></i>3 consultas nuevas</span><em class="rv-chip vio">Tokko · ML</em></div>
+    </>
+  )}
+
+  {slug === 'asociaciones-y-mutuales' && (
+    <>
+      <div class="rv-head" style="--d:.1s"><span>Padrón</span><b>1.240 asociados</b></div>
+      <div class="rv-row" style="--d:.25s"><i class="rv-av">MG</i><span>María G.<small>Socia 0412</small></span><em class="rv-chip ok">Al día</em></div>
+      <div class="rv-row" style="--d:.4s"><i class="rv-av alt">JP</i><span>Juan P.<small>Socio 1187</small></span><div class="rv-cycle rv-cycle2"><em class="rv-chip wait">Vence 10/04</em><em class="rv-chip ok">Pagada</em></div></div>
+    </>
+  )}
+
+  {slug === 'servicios-profesionales' && (
+    <>
+      <div class="rv-bub in" style="--d:.1s">¿Atienden el jueves a la tarde?</div>
+      <div class="rv-slot" style="--d:.4s">
+        <div class="rv-typing"><i></i><i></i><i></i></div>
+        <div class="rv-bub out">Sí, tenemos 15:30. ¿Te lo reservo?</div>
+      </div>
+      <div class="rv-foot" style="--d:.6s"><span>Respuesta automática</span><em class="rv-chip vio">IA · 1 min</em></div>
+    </>
+  )}
+</div>
+
+<style>
+  .rv {
+    position: relative; overflow: hidden; height: 150px; padding: 14px;
+    display: flex; flex-direction: column; justify-content: center; gap: 7px;
+    border-radius: 14px; color: #ECECEF; font-size: 0.73rem; line-height: 1.25;
+    background: linear-gradient(155deg, #1F1848 0%, #121218 62%);
+    border: 1px solid rgba(124, 92, 255, 0.3);
+    transition: border-color var(--transition-fast, 0.2s ease);
+  }
+  .rv::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 18% 0%, rgba(124, 92, 255, 0.35), transparent 55%); pointer-events: none; }
+  .rv > :not(.rv-icon) { position: relative; z-index: 1; }
+  :global(.h2-rubro:hover) .rv { border-color: rgba(124, 92, 255, 0.65); }
+  .rv-icon { position: absolute; right: -10px; bottom: -12px; width: 92px; height: 92px; color: #7C5CFF; opacity: 0.14; pointer-events: none; transition: opacity var(--transition-slow, 0.4s ease), transform var(--transition-slow, 0.4s ease); }
+  .rv-icon :global(.ki) { width: 100%; height: 100%; stroke-width: 1.2; }
+  :global(.h2-rubro:hover) .rv-icon { opacity: 0.26; transform: scale(1.04); }
+
+  /* Piezas de interfaz */
+  .rv-row, .rv-head, .rv-foot { display: flex; align-items: center; gap: 8px; }
+  .rv-row { padding: 6px 9px; border-radius: 9px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); }
+  .rv-head, .rv-foot { padding: 0 2px; color: rgba(255, 255, 255, 0.72); }
+  .rv-head b { color: #fff; }
+  .rv-row > span, .rv-head > span, .rv-foot > span { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .rv-foot > span { flex-direction: row; align-items: center; gap: 6px; }
+  .rv-row small { font-size: 0.64rem; color: rgba(255, 255, 255, 0.55); }
+  .rv b { font-weight: 600; color: #fff; white-space: nowrap; }
+  .rv-thumb, .rv-photo, .rv-av { flex: none; width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #A08CFF, #5B3FE0); }
+  .rv-thumb.alt { background: linear-gradient(135deg, #ECECEF, #8E8E99); }
+  .rv-photo { width: 34px; border-radius: 7px; background: linear-gradient(160deg, #3B2E8C, #1B1538 60%, #7C5CFF); }
+  .rv-av { border-radius: 50%; display: grid; place-items: center; font-size: 0.58rem; font-weight: 600; color: #fff; background: #5B3FE0; }
+  .rv-av.alt { background: #2A2A31; }
+  .rv-chip { font-style: normal; font-size: 0.62rem; font-weight: 600; padding: 3px 8px; border-radius: 999px; white-space: nowrap; line-height: 1.3; }
+  .rv-chip.ok { color: #34D399; background: rgba(16, 185, 129, 0.16); }
+  .rv-chip.wait { color: #FB923C; background: rgba(249, 115, 22, 0.16); }
+  .rv-chip.vio { color: #C9BFFF; background: rgba(124, 92, 255, 0.26); }
+  .rv-dot { width: 7px; height: 7px; border-radius: 50%; background: #7C5CFF; box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.6); animation: rv-ping 2s infinite; }
+
+  /* Bucles: un estado que rota (tres o dos valores apilados en la misma celda) y dos filas que se alternan */
+  .rv-cycle { display: grid; }
+  .rv-cycle em { grid-area: 1 / 1; justify-self: start; opacity: 0; animation: rv-cycle3 7.5s infinite; }
+  .rv-cycle em:nth-child(2) { animation-delay: 2.5s; }
+  .rv-cycle em:nth-child(3) { animation-delay: 5s; }
+  .rv-cycle2 em { animation: rv-cycle2 7s infinite; }
+  .rv-cycle2 em:nth-child(2) { animation-delay: 3.5s; }
+  .rv-swap { display: grid; }
+  .rv-swap > div { grid-area: 1 / 1; opacity: 0; animation: rv-cycle2 7s 1s infinite; }
+  .rv-swap > div:nth-child(2) { animation-delay: 4.5s; }
+
+  /* Gastronomía: QR + comanda */
+  .rv-gastro { display: flex; align-items: center; gap: 10px; }
+  .rv-qr { flex: none; width: 46px; height: 46px; padding: 4px; border-radius: 8px; background: #fff; color: #0F0F12; }
+  .rv-ticket { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 7px 9px; border-radius: 9px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); }
+  .rv-ticket span { color: rgba(255, 255, 255, 0.6); font-size: 0.64rem; }
+  .rv-ticket .rv-cycle { margin-top: 3px; }
+
+  /* Gimnasios: barra de cuotas */
+  .rv-bar { height: 7px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+  .rv-bar i { display: block; height: 100%; width: var(--w); border-radius: inherit; background: linear-gradient(90deg, #7C5CFF, #A08CFF); transform-origin: left; }
+  .rv.on .rv-bar i { animation: rv-fill 1.2s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  /* Turnos: semana en la que van entrando reservas */
+  .rv-week { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .rv-week span { font-size: 0.58rem; text-align: center; color: rgba(255, 255, 255, 0.5); }
+  .rv-week i { height: 15px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); }
+  .rv-week i.busy { background: rgba(124, 92, 255, 0.32); }
+  .rv-week i.booked { background: #7C5CFF; animation: rv-book 9s 1s infinite; }
+  .rv-week i.booked.b2 { animation-delay: 5.5s; }
+
+  /* Servicios profesionales: la conversación se repite */
+  .rv-bub { max-width: 86%; padding: 6px 10px; border-radius: 11px; font-size: 0.7rem; }
+  .rv-bub.in { align-self: flex-start; background: rgba(255, 255, 255, 0.1); border-bottom-left-radius: 3px; }
+  .rv-bub.out { align-self: flex-end; background: #6A48F5; color: #fff; border-bottom-right-radius: 3px; animation: rv-reply 9s infinite; }
+  .rv-slot { position: relative; display: flex; flex-direction: column; min-height: 26px; }
+  .rv-typing { position: absolute; left: 0; top: 0; display: flex; gap: 3px; padding: 8px 10px; border-radius: 11px; background: rgba(255, 255, 255, 0.1); opacity: 0; animation: rv-typing 9s infinite; }
+  .rv-typing i { width: 5px; height: 5px; border-radius: 50%; background: rgba(255, 255, 255, 0.7); animation: rv-dots 1s infinite; }
+  .rv-typing i:nth-child(2) { animation-delay: 0.15s; }
+  .rv-typing i:nth-child(3) { animation-delay: 0.3s; }
+
+  /* Entrada: app.js agrega .rv-anim al cargar y .on cuando la tarjeta aparece en pantalla */
+  .rv-anim [style*='--d'] { opacity: 0; }
+  .rv.on [style*='--d'] { animation: rv-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d); }
+  .rv.on .rv-pulse { animation: rv-up 0.55s var(--d, 0s) both, rv-glow 2.6s calc(var(--d, 0s) + 0.8s) infinite; }
+
+  @keyframes rv-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes rv-fill { from { transform: scaleX(0); } }
+  @keyframes rv-cycle3 { 0%, 30% { opacity: 1; transform: none; } 33.3%, 97% { opacity: 0; transform: translateY(4px); } 100% { opacity: 1; transform: none; } }
+  @keyframes rv-cycle2 { 0%, 46% { opacity: 1; transform: none; } 50%, 97% { opacity: 0; transform: translateY(4px); } 100% { opacity: 1; transform: none; } }
+  @keyframes rv-book { 0%, 3% { background: rgba(255, 255, 255, 0.08); transform: scale(1); box-shadow: none; } 8% { background: #7C5CFF; transform: scale(1.25); box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.3); } 12%, 70% { background: #7C5CFF; transform: scale(1); box-shadow: none; } 80%, 100% { background: rgba(255, 255, 255, 0.08); } }
+  @keyframes rv-typing { 0%, 4% { opacity: 0; } 8%, 20% { opacity: 1; } 24%, 100% { opacity: 0; } }
+  @keyframes rv-reply { 0%, 23% { opacity: 0; transform: translateY(6px); } 28%, 95% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @keyframes rv-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } 50% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.22); } }
+  @keyframes rv-ping { 0% { box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.6); } 70%, 100% { box-shadow: 0 0 0 7px rgba(124, 92, 255, 0); } }
+  @keyframes rv-dots { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-3px); opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rv *, .rv.on * { animation: none !important; opacity: 1 !important; }
+    .rv-cycle em:not(:last-child), .rv-swap > div:not(:last-child), .rv-typing { display: none; }
+    .rv-bar i { transform: none; }
+  }
+</style>
