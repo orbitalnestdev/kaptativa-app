@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Equipo from '../components/Equipo.astro';
+import { svg } from '../data/plataforma.js';
 ---
 
 <Layout title="Quiénes somos: el equipo detrás de Kaptativa" description="Conocé el equipo y la metodología detrás de Kaptativa. Desarrollamos soluciones tecnológicas a medida, CRM y automatizaciones con IA.">
@@ -120,21 +121,44 @@ import Equipo from '../components/Equipo.astro';
     </section>
 
     <!-- CÓMO TRABAJAMOS (CARRUSEL MARQUEE INFINITO DE EXTREMO A EXTREMO) -->
-    <section class="section section-dark" id="valores">
+    <section class="section section-dark" id="por-que">
       <div class="container">
         <div class="section-header reveal">
-          <h2>Siete valores que se notan<br />en cada entrega</h2>
-          <p>No son una placa en la pared. Son la forma en que hablamos, decidimos y entregamos.</p>
+          <h2>Por qué elegir Kaptativa</h2>
+          <p>Seis razones concretas, no adjetivos.</p>
         </div>
-        <ol class="valores-grid reveal">
-          <li class="valor" style="--i:0"><span class="valor-num">01</span><h3>Directa</h3><p>Sin rodeos ni relleno. Vamos al punto y te decimos lo que importa en cada etapa.</p></li>
-          <li class="valor" style="--i:1"><span class="valor-num">02</span><h3>Honesta</h3><p>No inflamos expectativas. Si algo no conviene a tu negocio, te lo decimos sin vueltas.</p></li>
-          <li class="valor" style="--i:2"><span class="valor-num">03</span><h3>Estratégica</h3><p>Todo comunica con propósito. Cada diseño y automatización responde a metas de rentabilidad.</p></li>
-          <li class="valor" style="--i:3"><span class="valor-num">04</span><h3>Cálida</h3><p>Cercanos sin perder seriedad. Trabajamos mano a mano con líderes reales, no con tickets fríos.</p></li>
-          <li class="valor" style="--i:4"><span class="valor-num">05</span><h3>Premium</h3><p>La calidad se nota en cada detalle. Desde el copy comercial hasta la velocidad del código.</p></li>
-          <li class="valor" style="--i:5"><span class="valor-num">06</span><h3>Educativa</h3><p>Explicamos el porqué de cada decisión. Querés entender lo que se construye y nosotros también.</p></li>
-          <li class="valor" style="--i:6"><span class="valor-num">07</span><h3>Accountable</h3><p>Nos hacemos cargo de los resultados. Si nos equivocamos, lo asumimos y lo resolvemos.</p></li>
-        </ol>
+        <ul class="porque-grid reveal">
+          <li class="porque" style="--i:0">
+            <span class="porque-icon"><Fragment set:html={svg('layers')} /></span>
+            <h3>Una plataforma, no diez herramientas</h3>
+            <p>Sitio, tienda, pedidos, facturación y asistente con IA en un solo panel. Sin pegar sistemas que no se hablan.</p>
+          </li>
+          <li class="porque" style="--i:1">
+            <span class="porque-icon"><Fragment set:html={svg('shield')} /></span>
+            <h3>El código es tuyo</h3>
+            <p>Sin licencias por usuario ni suscripciones que te atan. Si mañana querés irte, te llevás todo.</p>
+          </li>
+          <li class="porque" style="--i:2">
+            <span class="porque-icon"><Fragment set:html={svg('chart')} /></span>
+            <h3>Resultados que se miden</h3>
+            <p>Cada sitio sale con Lighthouse en verde y con los eventos de conversión conectados. Sabés qué canal trae consultas.</p>
+          </li>
+          <li class="porque" style="--i:3">
+            <span class="porque-icon"><Fragment set:html={svg('message')} /></span>
+            <h3>Hablás con quien construye</h3>
+            <p>Equipo chico y directo: la persona que te responde el WhatsApp es la que diseña y programa tu sistema.</p>
+          </li>
+          <li class="porque" style="--i:4">
+            <span class="porque-icon"><Fragment set:html={svg('clipboard')} /></span>
+            <h3>Por etapas y sin letra chica</h3>
+            <p>Propuesta con alcance y plazos por módulo. Arrancamos por lo que vende y sumamos la gestión después.</p>
+          </li>
+          <li class="porque" style="--i:5">
+            <span class="porque-icon"><Fragment set:html={svg('rocket')} /></span>
+            <h3>Hecho en Argentina, para vender acá</h3>
+            <p>MercadoPago, ARCA, Andreani, WhatsApp y Tokko integrados de fábrica, porque así se vende en el país.</p>
+          </li>
+        </ul>
       </div>
     </section>
 

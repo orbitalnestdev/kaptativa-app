@@ -7181,3 +7181,16 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .mock-maps-widget span[style*="ffb800"], .mock-snippet span[style*="ffb800"] { display: inline-flex !important; align-items: center; gap: 1px; }
 .mock-maps-widget span[style*="ffb800"] > svg.glyph, .mock-snippet span[style*="ffb800"] > svg.glyph { display: inline-block !important; width: 1em !important; height: 1em !important; margin: 0 !important; }
 .mock-testing-widget svg.glyph { display: inline-block !important; vertical-align: -0.1em; }
+
+/* Nosotros: aire bajo el equipo y grilla "Por qué elegir Kaptativa" */
+.team-section { padding-top: 110px !important; padding-bottom: 130px !important; }
+.porque-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.porque-grid .porque { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 26px 24px 24px; border-radius: 18px; border: 1px solid transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; transition: background var(--transition-normal); }
+.porque-grid .porque:hover { background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
+.porque-grid .porque::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
+.porque-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 10px; color: var(--brand-primary-light); background: rgba(124, 92, 255, 0.12); border: 1px solid rgba(124, 92, 255, 0.32); }
+.porque-icon .ki { width: 22px; height: 22px; }
+.porque-grid h3 { font-family: 'Lexend', sans-serif; font-size: 1.08rem; font-weight: 600; color: var(--text-primary); margin: 0; line-height: 1.3; }
+.porque-grid p { font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); margin: 0; }
+@media (max-width: 1024px) { .porque-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .porque-grid { grid-template-columns: minmax(0, 1fr); } .team-section { padding-top: 72px !important; padding-bottom: 84px !important; } }
