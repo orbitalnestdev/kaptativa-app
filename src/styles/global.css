@@ -7099,3 +7099,6 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .metric-label { font-size: 0.84rem !important; color: var(--text-muted) !important; }
 @media (max-width: 992px) { .metrics-grid-premium { grid-template-columns: repeat(2, 1fr) !important; gap: 34px 16px !important; } }
 @media (max-width: 480px) { .metrics-grid-premium { grid-template-columns: 1fr !important; gap: 34px !important; } }
+
+/* Íconos del menú de servicios: un solo acento (las clases de color por servicio quedaron sin uso) */
+.dropdown-item .item-icon-wrapper, .val-orange, .val-emerald, .val-blue, .val-pink, .val-purple { background: rgba(124, 92, 255, 0.12) !important; border: 1px solid rgba(124, 92, 255, 0.25) !important; color: var(--brand-primary) !important; box-shadow: none !important; }
