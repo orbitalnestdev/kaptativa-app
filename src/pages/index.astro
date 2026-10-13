@@ -117,8 +117,8 @@ const planes = [
           <div class="h2-trust">
             <span>Se integra con</span>
             <ul aria-label="Integraciones">
-              {heroIntegraciones.map((m) => (
-                <li>
+              {heroIntegraciones.map((m, i) => (
+                <li style={`--i:${i}`}>
                   {m.logo
                     ? <img class="wide" src={`/integraciones/${m.logo}.svg`} alt={m.name} width={logoWidth(m.logo, 22)} height="22" decoding="async" />
                     : <><img src={`/integraciones/${m.icon}.svg`} alt="" width="20" height="20" decoding="async" /><span>{m.name}</span></>}
@@ -256,7 +256,7 @@ const planes = [
         </div>
         <ol class="h2-steps">
           {pasos.map((paso, i) => (
-            <li class="h2-step">
+            <li class="h2-step" style={`--i:${i}`}>
               <span class="h2-step-num">{i + 1}</span>
               <h3>{paso.title}</h3>
               <p>{paso.text}</p>
@@ -465,7 +465,11 @@ const planes = [
   .h2-tile--solid :global(.fv) { background: rgba(14, 8, 40, 0.45); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.85); }
   /* Cómo trabajamos: cuatro pasos unidos por una línea */
   .h2-steps { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; position: relative; }
-  .h2-steps::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; height: 1px; background: var(--border-hover); }
+  .h2-steps::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; height: 1px; background: linear-gradient(90deg, var(--brand-primary), rgba(124, 92, 255, 0.35)); transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .h2-steps.drawn::before { transform: scaleX(1); }
+  .h2-step-num { transition: border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease; transition-delay: calc(var(--i, 0) * 0.35s); }
+  .h2-steps.drawn .h2-step-num { border-color: var(--brand-primary); box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.14), 0 0 18px rgba(124, 92, 255, 0.35); }
+  @media (prefers-reduced-motion: reduce) { .h2-steps::before { transform: none; transition: none; } .h2-step-num { transition: none; } }
   .h2-step-num { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 0.95rem; background: var(--bg-primary); border: 1px solid var(--border-hover); color: var(--brand-primary-light); }
   .h2-step h3 { font-family: 'Lexend', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: 18px 0 8px; }
   .h2-step p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; max-width: 30ch; }
@@ -473,6 +477,7 @@ const planes = [
   .h2-trust { margin-top: 34px; display: flex; align-items: center; gap: 14px 26px; flex-wrap: wrap; color: var(--text-muted); font-size: 0.85rem; }
   .h2-trust ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
   .h2-trust li { display: flex; align-items: center; gap: 6px; color: var(--n-300); font-weight: 600; font-size: 0.84rem; opacity: 0.7; transition: opacity var(--transition-fast); }
+  @media (prefers-reduced-motion: no-preference) { .h2-trust li { animation: h2-trust-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(0.5s + var(--i, 0) * 70ms); } @keyframes h2-trust-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 0.7; transform: none; } } }
   .h2-trust li:hover { opacity: 1; }
   .h2-trust img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
   .h2-trust img.wide { width: auto; height: 22px; }

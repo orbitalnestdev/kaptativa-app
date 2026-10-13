@@ -11,7 +11,7 @@
 5. **Los colores con significado no se usan para decorar.** Verde = pagado/éxito, naranja = aviso, rojo = error/problema, cian = datos.
 6. **Sin capa de plantilla.** No hay etiquetas en mayúsculas sobre los títulos, ni una frase en violeta en cada título, ni flechas "→" pegadas a botones y enlaces, ni puntos medios "·" en los textos. El violeta en texto queda reservado para el hero (la palabra que rota).
 7. **Cada bloque con su propio dispositivo visual.** Rubros = tarjetas con el ícono grande de fondo como identidad. Módulos = grilla de celdas con líneas finas (catálogo). Planes = tarjetas comparables sobre fondo claro. No repetir el mismo kit de tarjeta en tres secciones seguidas.
-8. **Movimiento con un solo foco.** Sin animación de entrada por sección ni "salto" de tarjetas al pasar el mouse. Lo único que se mueve en la home: la palabra del hero y el recorrido "Control total". Al pasar el mouse, solo cambia el borde o el ícono.
+8. **Movimiento con sentido, no por sección.** Sin animación de entrada genérica por bloque ni "salto" de tarjetas. Lo que sí se mueve, porque cuenta algo: la palabra del hero, el recorrido "Control total", los contadores que cuentan al entrar en pantalla, la línea del proceso que se dibuja, el brillo que sigue el mouse dentro de las tarjetas (`.spot-glow`, lo agrega `app.js`), el mega menú que entra escalonado y los logos del hero. Todo respeta `prefers-reduced-motion`.
 9. **Íconos, no caracteres.** Tildes, cruces, estrellas y flechas son SVG en línea (`svg.glyph`, 1 em, color heredado) o íconos de `plataforma.js`. Nada de "✓", "★" ni emojis como íconos, tampoco dentro de las maquetas de producto.
 10. **Sentence case en todo.** Títulos, chips, etiquetas de formulario y textos de maquetas van en minúscula tras la primera letra; sin `text-transform: uppercase` en páginas públicas (solo siglas: CRM, SEO, API). Las maquetas hablan castellano ("Flujo de dependencias", no "Dependency flow").
 11. **Comparaciones sin chip.** Las tarjetas "antes / con Kaptativa" llevan su título y el ícono en círculo; no llevan etiqueta flotante encima.
@@ -85,7 +85,7 @@ Bordes sobre oscuro: `rgba(255, 255, 255, 0.06)` en reposo, violeta al 25 % acti
 - Un solo botón principal por bloque.
 
 ## 7. Secciones claras
-Agregar la clase `h2-light` a la `<section>`: redefine los tokens de texto, tarjeta y borde, y pasa el texto destacado a v-700. Hoy: Integraciones en la home.
+Dos clases equivalentes: `h2-light` (home) y `section-light` (global, en `global.css`): redefinen los tokens de texto, tarjeta y borde y pasan el texto destacado a v-700. Ritmo actual: home → Integraciones y Preguntas frecuentes; servicios → rubros (tarjetas blancas con contorno violeta); soluciones → Preguntas frecuentes. Regla: una o dos secciones claras por página, nunca dos seguidas.
 
 ## 8. Logo
 Isotipo (flecha) y punto de "kaptativa." en v-500 sólido, sin degradado. Archivos: `Header.astro`, `Footer.astro`, `public/logo.svg`, `public/favicon.svg`, `public/og-image.jpg` (1200×630).
@@ -94,6 +94,8 @@ Isotipo (flecha) y punto de "kaptativa." en v-500 sólido, sin degradado. Archiv
 13. **Numerar solo secuencias.** "De la demo a tu negocio funcionando" lleva 1–4 porque es un proceso; ninguna otra grilla se numera.
 14. **Planes: el recomendado en violeta sólido.** Sección oscura; el plan "Más elegido" es la única tarjeta rellena en violeta, sobresale 20 px por arriba y por abajo, con etiqueta y botón blancos. Los demás planes llevan tarjeta oscura y botón violeta. El precio es un bloque propio ("Precio a medida" + nota chica).
 15. **Menú Soluciones como mega menú.** Panel de presentación a la izquierda y grilla de rubros con descripción de una línea a la derecha, centrado bajo el header.
+
+16. **Contorno con brillo.** Las tarjetas de listado (rubros, contadores) llevan borde en degradado (claro arriba a la izquierda, violeta abajo a la derecha) y una línea de brillo centrada en el borde superior; al pasar el mouse el borde se enciende. Los contadores de servicios llevan además el ícono apoyado sobre el borde superior.
 
 ## 9. Puntaje por página (2026-10-12, cierre)
 Escala 1–10 sobre estética y "capa genérica". Detalle y método en `2doCerebro/OUTPUTS/auditoria-kaptativa-web-2026-10-12.md`.

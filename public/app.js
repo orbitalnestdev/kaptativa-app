@@ -248,4 +248,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+
+  // ==========================================================================
+  // 7. DETALLES DE MOVIMIENTO (respetan prefers-reduced-motion)
+  // ==========================================================================
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 7a. Contadores que cuentan al entrar en pantalla (solo valores numéricos: "100", "0%", "72hs")
+  const counters = [...document.querySelectorAll('.metric-value')].filter((el) => /^\d+([.,]\d+)?\s*(%|hs)?$/.test(el.textContent.trim()));
+  if (counters.length && !reduceMotion && 'IntersectionObserver' in window) {
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target; countObserver.unobserve(el);
+        const raw = el.textContent.trim(); const target = parseFloat(raw.replace(',', '.')); const suffix = raw.replace(/^[\d.,\s]+/, '');
+        const decimals = (raw.match(/[.,](\d+)/) || ['', ''])[1].length; const start = performance.now(); const dur = 1200;
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / dur); const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = (target * eased).toFixed(decimals).replace('.', ',') + suffix;
+          if (p < 1) requestAnimationFrame(tick); else el.textContent = raw;
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach((el) => countObserver.observe(el));
+  }
+
+  // 7b. Brillo que sigue el mouse en tarjetas (rubros, contadores, módulos, planes)
+  if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.rubro-card, .h2-rubro, .metric-card-glass, .h2-tile, .h2-plan, .glass-card-premium').forEach((card) => {
+      card.classList.add('spot');
+      const glow = document.createElement('i'); glow.className = 'spot-glow'; card.appendChild(glow);
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--sx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        card.style.setProperty('--sy', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+      });
+    });
+  }
+
+  // 7c. Línea del proceso que se dibuja al entrar en pantalla (home)
+  const steps = document.querySelector('.h2-steps');
+  if (steps && 'IntersectionObserver' in window) {
+    const stepsObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => { if (entry.isIntersecting) { steps.classList.add('drawn'); stepsObserver.disconnect(); } });
+    }, { threshold: 0.35 });
+    stepsObserver.observe(steps);
+  }
+
 });

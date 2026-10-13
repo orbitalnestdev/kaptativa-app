@@ -7013,3 +7013,39 @@ img, svg, video, canvas {
 .form-label, .form-label-uppercase, label.form-label-uppercase, .direct-contact-form label { text-transform: none !important; letter-spacing: 0 !important; }
 /* Glifos SVG en línea (tildes, cruces, estrellas, íconos de maquetas) */
 svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
+
+/* ==========================================================================
+   SECCIÓN CLARA GLOBAL (.section-light): corta el negro con el mismo set de tokens que la home
+   ========================================================================== */
+.section-light {
+  --text-primary: #0F0F12; --text-secondary: #52525B; --text-muted: #6E6E7A;
+  --card-bg: #FFFFFF; --bg-primary: #F6F6F7; --bg-secondary: #FFFFFF; --bg-tertiary: #ECECEF;
+  --border-color: #ECECEF; --border-hover: rgba(124, 92, 255, 0.45); --shadow-glow: 0 10px 30px rgba(15, 15, 18, 0.08);
+  background: #F6F6F7 !important; color: var(--text-primary);
+}
+.section-light .section-header h2, .section-light h2, .section-light h3, .section-light h4 { color: #0F0F12 !important; }
+.section-light .section-header p, .section-light p { color: #52525B !important; }
+.section-light .faq-item { background: #FFFFFF; border-color: #ECECEF; box-shadow: 0 6px 20px rgba(15, 15, 18, 0.05); }
+.section-light .faq-header { color: #0F0F12 !important; }
+.section-light .faq-header:hover, .section-light .faq-item.active .faq-header, .section-light .faq-item.active .faq-icon-toggle { color: #5B3FE0 !important; }
+.section-light .faq-item.active { border-color: rgba(124, 92, 255, 0.5); }
+.section-light .faq-icon-toggle { color: #6E6E7A; }
+.section-light .faq-content, .section-light .faq-content p { color: #52525B !important; }
+.section-light .btn-secondary { color: #0F0F12 !important; background: #FFFFFF !important; border: 1px solid #D4D4D9 !important; }
+.section-light .btn-secondary:hover { border-color: #7C5CFF !important; }
+.section-light a:not(.btn) { color: #5B3FE0; }
+/* Rubros de servicios sobre fondo claro: tarjeta blanca con contorno violeta suave */
+.section-light .rubro-card { background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, rgba(124, 92, 255, 0.4), rgba(15, 15, 18, 0.06) 45%, rgba(124, 92, 255, 0.45)) border-box !important; box-shadow: 0 12px 30px rgba(15, 15, 18, 0.06) !important; }
+.section-light .rubro-card:hover { background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, rgba(124, 92, 255, 0.7), rgba(124, 92, 255, 0.2) 45%, rgba(124, 92, 255, 0.8)) border-box !important; }
+.section-light .rubro-card h3 { color: #0F0F12 !important; }
+.section-light .rubro-card p { color: #52525B !important; }
+.section-light .rubro-card .rubro-icon-wrapper { opacity: 0.14; }
+
+/* ==========================================================================
+   SPOTLIGHT: brillo violeta que sigue el mouse dentro de la tarjeta (app.js agrega .spot y el <i class="spot-glow">)
+   ========================================================================== */
+.spot { isolation: isolate; }
+.spot-glow { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; z-index: -1; transition: opacity 0.35s ease; background: radial-gradient(280px circle at var(--sx, 50%) var(--sy, 50%), rgba(124, 92, 255, 0.18), transparent 62%); }
+.spot:hover .spot-glow { opacity: 1; }
+.section-light .spot-glow { background: radial-gradient(280px circle at var(--sx, 50%) var(--sy, 50%), rgba(124, 92, 255, 0.12), transparent 62%); }
+@media (prefers-reduced-motion: reduce) { .spot-glow { display: none; } }
