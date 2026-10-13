@@ -12,6 +12,7 @@ export default defineConfig({
     mode: 'standalone'
   }),
   redirects: {
+    '/inmo-demo': '/inmobiliarias',
     '/home2': '/',
     '/proyectos': '/',
     '/blog': '/',
@@ -39,7 +40,6 @@ export default defineConfig({
         !page.includes('/home-anterior') &&
         !page.includes('/presupuestos/') &&
         !page.includes('/demo-sistema') &&
-        !page.includes('/inmo-demo') &&
         !page.includes('/api/'),
     }),
     react()

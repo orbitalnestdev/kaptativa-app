@@ -13,7 +13,7 @@ const checks = [
   ...['/', '/contacto/', '/nosotros/', '/servicios/', '/precios/', '/inmobiliarias/', '/llms.txt', '/robots.txt', '/sitemap-index.xml'].map((p) => [p, 200]),
   ...soluciones.map((s) => [`/soluciones/${s}/`, 200]),
   ...servicios.map((s) => [`/servicios/${s}/`, 200]),
-  ['/home2', 301], ['/blog', 301], ['/proyectos', 301],
+  ['/home2', 301], ['/blog', 301], ['/proyectos', 301], ['/inmo-demo', 301],
   ['/Realstate/prompt.md', 404], ['/Realstate/tests/test-static.cjs', 404], ['/logo-proposals', 404],
 ];
 const REQUIRED_HEADERS = ['strict-transport-security', 'x-content-type-options', 'x-frame-options', 'referrer-policy', 'content-security-policy-report-only'];
