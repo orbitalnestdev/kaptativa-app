@@ -1,12 +1,17 @@
 ---
 import { faqsData } from '../data/content.js';
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Tengo una consulta sobre la plataforma.');
 ---
 
 <section class="section section-light" id="faq">
   <div class="container faq-layout">
     <div class="section-header reveal">
       <h2>Preguntas frecuentes</h2>
-      <p>Lo que más nos consultan antes de empezar. Si tu duda no está acá, escribinos por WhatsApp.</p>
+      <p>Lo que más nos consultan antes de empezar.</p>
+      <div class="faq-help">
+        <p>¿Tu duda no está acá?</p>
+        <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary">Preguntar por WhatsApp</a>
+      </div>
     </div>
 
     <div class="faq-wrapper reveal reveal-delay-1">
@@ -33,6 +38,9 @@ import { faqsData } from '../data/content.js';
   .faq-layout .section-header { text-align: left !important; margin: 0 !important; max-width: none !important; position: sticky; top: 110px; }
   .faq-layout .section-header p { margin-left: 0 !important; }
   .faq-layout .faq-wrapper { margin: 0 !important; max-width: none !important; }
+  .faq-help { margin-top: 28px; padding: 22px; border-radius: 18px; background: #F3F0FF; border: 1px solid rgba(124, 92, 255, 0.25); }
+  .faq-help p { margin: 0 0 14px !important; color: #0F0F12 !important; font-weight: 600; font-size: 1rem; }
+  .faq-help .btn { display: inline-flex; }
   @media (max-width: 992px) {
     .faq-layout { grid-template-columns: 1fr !important; gap: 24px !important; }
     .faq-layout .section-header { position: static; }

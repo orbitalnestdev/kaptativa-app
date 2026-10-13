@@ -7049,3 +7049,17 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .spot:hover .spot-glow { opacity: 1; }
 .section-light .spot-glow { background: radial-gradient(280px circle at var(--sx, 50%) var(--sy, 50%), rgba(124, 92, 255, 0.12), transparent 62%); }
 @media (prefers-reduced-motion: reduce) { .spot-glow { display: none; } }
+
+/* Secciones claras con detalle: panel blanco redondeado, resplandores violeta, línea de brillo arriba y barra sobre el título */
+.section-light { position: relative; isolation: isolate; overflow: hidden; background: #FFFFFF !important; border-radius: 36px; margin: 0 16px; }
+.section-light::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse 55% 45% at 6% 0%, rgba(124, 92, 255, 0.16), transparent 62%), radial-gradient(ellipse 50% 45% at 100% 100%, rgba(124, 92, 255, 0.13), transparent 62%), linear-gradient(180deg, #FFFFFF 0%, #F7F6FC 100%); }
+.section-light::after { content: ''; position: absolute; top: 0; left: 18%; right: 18%; height: 2px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.75), transparent); pointer-events: none; }
+.section-light .section-header h2::before { content: ''; display: block; width: 44px; height: 4px; border-radius: 4px; margin: 0 auto 18px; background: linear-gradient(90deg, #7C5CFF, #A08CFF); }
+.section-light .faq-layout .section-header h2::before { margin-left: 0; }
+.section-light .faq-item { border: 1px solid #E8E6F2; box-shadow: 0 6px 20px rgba(15, 15, 18, 0.05); transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.section-light .faq-item:hover { border-color: rgba(124, 92, 255, 0.4); }
+.section-light .faq-item.active { background: #F6F3FF; border-color: rgba(124, 92, 255, 0.5); box-shadow: 0 14px 34px rgba(124, 92, 255, 0.14); }
+.section-light .faq-icon-toggle { width: 28px; height: 28px; padding: 5px; border-radius: 50%; background: #F1EEFF; color: #5B3FE0 !important; flex-shrink: 0; }
+.section-light .rubro-card { background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, rgba(124, 92, 255, 0.55), rgba(124, 92, 255, 0.08) 45%, rgba(124, 92, 255, 0.55)) border-box !important; box-shadow: 0 14px 34px rgba(124, 92, 255, 0.08) !important; }
+.section-light .rubro-card::before { background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.8), transparent); }
+@media (max-width: 768px) { .section-light { margin: 0 8px; border-radius: 24px; } }
