@@ -16,4 +16,11 @@ export const trabajos = [
     imagen: '/trabajos/muv-propiedades.webp',
     resultado: 'Buscador de propiedades por operación, barrio y tipo, emprendimientos premium, tasaciones y reseñas de Google integradas.',
   },
+  {
+    nombre: 'UrbanPoint',
+    rubro: 'Tienda online · Retiro de cercanía',
+    url: 'https://urbanpoints.com.ar/',
+    imagen: '/trabajos/urban-points.webp',
+    resultado: 'Tienda minorista con catálogo, cuenta de cliente, puntos de retiro por barrio y programa de revendedores con comisiones.',
+  },
 ];

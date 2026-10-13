@@ -5,7 +5,8 @@ import Footer from '../components/Footer.astro';
 import Planes from '../components/home2/Planes.astro';
 import Faq from '../components/Faq.astro';
 import { svg } from '../data/plataforma.js';
-import { planes, comparativa, faqsPrecios } from '../data/planes.js';
+import { planes, comparativa, faqsPrecios, extras } from '../data/planes.js';
+const waExtra = (t) => 'https://wa.me/5493804890834?text=' + encodeURIComponent(`¡Hola Kaptativa! Quiero consultar por el extra ${t}.`);
 
 const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo y conocer los planes.');
 const schema = {
@@ -72,6 +73,30 @@ const schema = {
       </div>
     </section>
 
+    <section class="section" id="extras">
+      <div class="container">
+        <div class="section-header">
+          <h2>Extras que se suman<br />a cualquier plan</h2>
+          <p>Servicios por suscripción: los activás cuando los necesitás y pagás según cuánto los usás.</p>
+        </div>
+        <div class="ex-grid">
+          {extras.map((x) => (
+            <article class="ex-card">
+              <span class="ex-icon"><Fragment set:html={svg(x.icon)} /></span>
+              <h3>{x.title}</h3>
+              {x.niveles && <div class="ex-niveles">{x.niveles.map((n) => <span>{n}</span>)}</div>}
+              <p>{x.desc}</p>
+              <ul>{x.features.map((f) => <li><Fragment set:html={svg('check')} />{f}</li>)}</ul>
+              <div class="ex-foot">
+                <span>Suscripción mensual</span>
+                <a href={waExtra(x.title)} target="_blank" rel="noopener noreferrer">Consultar</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <Faq items={faqsPrecios} title="Preguntas sobre precios" subtitle="Lo que más nos consultan antes de pedir una cotización." id="preguntas" />
 
     <section class="section">
@@ -129,4 +154,24 @@ const schema = {
     .precios-cta { padding: 44px 20px; }
     .precios-cta-botones .btn { width: 100%; justify-content: center; }
   }
+
+  /* Extras: tarjetas oscuras con contorno con brillo, como las de la home */
+  .ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .ex-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 26px 24px 22px; border-radius: var(--radius-lg); border: 1px solid transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; }
+  .ex-card::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
+  .ex-card:hover { background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
+  .ex-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: var(--brand-primary); background: rgba(124, 92, 255, 0.12); border: 1px solid rgba(124, 92, 255, 0.3); }
+  .ex-icon :global(.ki) { width: 22px; height: 22px; }
+  .ex-card h3 { font-family: 'Lexend', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 4px 0 0; }
+  .ex-niveles { display: flex; gap: 6px; flex-wrap: wrap; }
+  .ex-niveles span { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; color: var(--brand-primary-light); background: rgba(124, 92, 255, 0.12); border: 1px solid rgba(124, 92, 255, 0.3); }
+  .ex-card p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+  .ex-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .ex-card li { display: flex; gap: 8px; align-items: flex-start; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }
+  .ex-card li :global(.ki) { flex: none; width: 16px; height: 16px; margin-top: 3px; color: var(--brand-primary); }
+  .ex-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); }
+  .ex-foot a { font-weight: 600; color: var(--brand-primary-light); text-decoration: none; }
+  .ex-foot a:hover { text-decoration: underline; }
+  @media (max-width: 992px) { .ex-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .ex-grid { grid-template-columns: 1fr; } }
 </style>
