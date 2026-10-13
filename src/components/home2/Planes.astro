@@ -21,7 +21,7 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
         <div class:list={['h2-plan', { popular: p.popular }]}>
           {p.popular && <span class="h2-plan-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>Más elegido</span>}
           <h3>{p.name}</h3>
-          <span class="h2-plan-price">Precio a medida<small>Cotización en 24 hs hábiles</small></span>
+          <span class="h2-plan-price">Precio a medida</span>
           <p>{p.desc}</p>
           <ul>
             {p.features.map((f) => <li><Fragment set:html={svg('check')} />{f}</li>)}

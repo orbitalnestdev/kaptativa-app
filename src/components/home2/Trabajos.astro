@@ -1,11 +1,11 @@
 ---
 // Trabajos reales en panel claro: filtros por rubro, tarjetas compactas (captura en marco de navegador,
-// monograma, nombre, dominio y etiqueta) y la captura larga que recorre el sitio al pasar el mouse.
+// favicon del sitio, nombre, dominio y etiqueta de rubro) y la captura larga que recorre el sitio al pasar el mouse.
 // Solo se muestra cuando hay datos. Los enlaces salen sin referencia ni seguimiento (proyectos hechos bajo otra agencia).
 import { trabajos, categorias } from '../../data/trabajos.js';
 const host = (u) => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
 const full = (img) => img.replace(/\.webp$/, '-full.webp');
-const initials = (n) => n.split(/\s+/).filter((w) => w.length > 2 || /[A-Z]/.test(w)).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+const icon = (img) => img.replace(/\.webp$/, '-icon.webp');
 const label = (key) => categorias.find((c) => c.key === key)?.label ?? '';
 const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key));
 ---
@@ -35,10 +35,10 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
               <div class="tr-shot"><img src={full(t.imagen)} alt="" width="1000" height="1694" loading="lazy" decoding="async" /></div>
             </div>
             <div class="tr-meta">
-              <span class="tr-mono" aria-hidden="true">{initials(t.nombre)}</span>
+              <img class="tr-ico" src={icon(t.imagen)} alt="" width="36" height="36" loading="lazy" decoding="async" />
               <div class="tr-name"><h3>{t.nombre}</h3><small>{host(t.url)}</small></div>
             </div>
-            <div class="tr-tags"><span>{label(t.categoria)}</span><span>{t.rubro.split(' · ')[1] ?? t.rubro}</span></div>
+            <div class="tr-tags"><span>{label(t.categoria)}</span></div>
           </a>
         ))}
       </div>
@@ -119,13 +119,12 @@ const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key
 
   /* Nombre, dominio y etiquetas */
   .tr-meta { display: flex; align-items: center; gap: 11px; padding: 0 4px; }
-  .tr-mono { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: 'Lexend', sans-serif; font-size: 0.78rem; font-weight: 600; color: #FFFFFF; background: linear-gradient(135deg, #7C5CFF, #5B3FE0); }
+  .tr-ico { flex: none; width: 36px; height: 36px; padding: 4px; border-radius: 10px; background: #FFFFFF; border: 1px solid #ECECEF; object-fit: contain; }
   .tr-name { min-width: 0; }
   .tr-name h3 { font-family: 'Lexend', sans-serif; font-size: 0.98rem; font-weight: 600; color: #0F0F12 !important; margin: 0; line-height: 1.25; }
   .tr-name small { display: block; font-size: 0.74rem; color: #6E6E7A; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tr-tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 4px; }
   .tr-tags span { font-size: 0.7rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; color: #5B3FE0; background: #F3F0FF; border: 1px solid rgba(124, 92, 255, 0.25); }
-  .tr-tags span:nth-child(2) { color: #52525B; background: #F6F6F7; border-color: #ECECEF; }
   .tr-empty { text-align: center; color: #6E6E7A; margin: 24px 0 0; }
 
   /* Entrada escalonada */
