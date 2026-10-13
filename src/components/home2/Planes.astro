@@ -16,6 +16,7 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
         <p>Elegí el punto de partida según la etapa de tu negocio. Cuando lo necesites, escalás.</p>
       </div>
     )}
+    {!header && <h2 class="sr-only">Planes</h2>}
     <div class="h2-planes">
       {planes.map((p) => (
         <div class:list={['h2-plan', { popular: p.popular }]}>
@@ -54,7 +55,7 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
   .h2-plan.popular { background: var(--brand-fill); border-color: var(--brand-fill); padding: 46px 32px 40px; box-shadow: 0 30px 70px rgba(106, 72, 245, 0.35); }
   .h2-plan.popular:hover { border-color: var(--brand-fill); }
   .h2-plan.popular h3, .h2-plan.popular .h2-plan-price, .h2-plan.popular li { color: #fff; }
-  .h2-plan.popular > p, .h2-plan.popular .h2-plan-price small, .h2-plan.popular .h2-plan-alt { color: rgba(255, 255, 255, 0.78); }
+  .h2-plan.popular > p, .h2-plan.popular .h2-plan-price small, .h2-plan.popular .h2-plan-alt { color: rgba(255, 255, 255, 0.94); }
   .h2-plan.popular li :global(.ki) { color: #fff; }
   .h2-plan.popular .btn-primary { background: #fff !important; color: var(--v-700) !important; box-shadow: none !important; }
   .h2-plan.popular .btn-primary:hover { background: var(--v-100) !important; color: var(--v-800) !important; }

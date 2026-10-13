@@ -8,6 +8,7 @@ import Footer from '../components/Footer.astro';
 import Faq from '../components/Faq.astro';
 import ControlShowcase from '../components/home2/ControlShowcase.astro';
 import RubroVisual from '../components/home2/RubroVisual.astro';
+import IsoK3D from '../components/IsoK3D.astro';
 import FeatureVisual from '../components/home2/FeatureVisual.astro';
 import Planes from '../components/home2/Planes.astro';
 import Trabajos from '../components/home2/Trabajos.astro';
@@ -276,6 +277,7 @@ const heroIntegraciones = [
     <section class="section">
       <div class="container">
         <div class="h2-cta reveal">
+          <IsoK3D class="h2-cta-iso" />
           <h2>¿Hablamos de tu proyecto?</h2>
           <p>Contanos qué necesita tu negocio y te mostramos la plataforma funcionando en una demo, sin compromiso.</p>
           <div class="h2-ctas" style="justify-content:center;">
@@ -437,7 +439,7 @@ const heroIntegraciones = [
   .h2-tile h3 { font-family: 'Lexend', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 10px 0 6px; }
   .h2-tile p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; }
   .h2-tile--solid .h2-icon, .h2-tile--solid h3 { color: #fff; }
-  .h2-tile--solid p { color: rgba(255, 255, 255, 0.82); }
+  .h2-tile--solid p { color: rgba(255, 255, 255, 0.93); }
   .h2-tile :global(.fv) { margin-top: auto; }
   .h2-tile--solid :global(.fv) { background: rgba(14, 8, 40, 0.45); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.85); }
   /* Cómo trabajamos: tres pasos unidos por una línea */
@@ -501,6 +503,9 @@ const heroIntegraciones = [
   /* ---------- CTA ---------- */
   .h2-cta { position: relative; text-align: center; padding: 64px 32px; border-radius: var(--border-radius-lg); border: 1px solid transparent; background: radial-gradient(circle at 50% 0%, rgba(124, 92, 255, 0.2), transparent 70%), var(--card-bg); box-shadow: 0 30px 80px rgba(124, 92, 255, 0.12); }
   .h2-cta::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.7), rgba(124, 92, 255, 0.08) 55%, rgba(124, 92, 255, 0.5)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+  .h2-cta { overflow: visible; }
+  .h2-cta :global(.h2-cta-iso) { top: -46px; right: -22px; }
+  @media (max-width: 768px) { .h2-cta :global(.h2-cta-iso) { width: 92px; height: 92px; top: -30px; right: -6px; } }
   .h2-cta h2 { font-family: 'Lexend', sans-serif; font-size: clamp(1.9rem, 4vw, 2.6rem); margin: 0 0 14px; color: var(--text-primary); }
   .h2-cta p { color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
 

@@ -7,6 +7,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { svg, soluciones, modulos } from '../../data/plataforma.js';
 import SolucionMockup from '../../components/home2/SolucionMockup.astro';
+import IsoK3D from '../../components/IsoK3D.astro';
 import FeatureVisual from '../../components/home2/FeatureVisual.astro';
 
 export function getStaticPaths() {
@@ -192,6 +193,7 @@ const iconoMetrica = (m) => {
       <div class="container">
         <div class="cta-card-neon reveal">
           <div class="cta-glow-overlay"></div>
+          <IsoK3D size={118} />
           <div class="cta-info-side">
             <h2>¿Te mostramos cómo funcionaría<br />en tu negocio?</h2>
             <p style="margin-bottom: 25px;">Coordinamos una demo con tu rubro ya configurado, con ejemplos que te resulten familiares, y te pasamos un presupuesto a medida.</p>

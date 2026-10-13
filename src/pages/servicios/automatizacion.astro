@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import IsoK3D from '../../components/IsoK3D.astro';
 import '../../styles/servicios.css';
 ---
 
@@ -19,12 +20,12 @@ import '../../styles/servicios.css';
       
       <div class="container hero-container">
         <div class="hero-content reveal">
-          <h1 class="hero-tagline">Tu empresa funcionando sola, <span class="text-gradient-cyan">sin errores humanos</span></h1>
+          <h1 class="hero-tagline">Tu empresa <span class="text-gradient-cyan">funcionando sola</span></h1>
           <p class="hero-description">Dejá de hacer manual lo que la tecnología puede resolver en segundos. Conectamos tus sistemas y automatizamos las tareas repetitivas (copiar datos, mandar presupuestos, agendar reuniones) para que te enfoques en escalar tu negocio.</p>
           
           <div class="hero-buttons">
-            <a href="https://wa.me/5493804890834?text=Hola!%20Me%20gustaria%20automatizar%20los%20procesos%20de%20mi%20negocio." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Hablar por WhatsApp</a>
-            <a href="/contacto/?servicio=Automatizaci%C3%B3n" class="btn btn-secondary">Ir a contacto</a>
+            <a href="https://wa.me/5493804890834?text=Hola!%20Me%20gustaria%20automatizar%20los%20procesos%20de%20mi%20negocio." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
+            <a href="/contacto/?servicio=Automatizaci%C3%B3n" class="btn btn-secondary">Completar el formulario</a>
           </div>
         </div>
       </div>
@@ -353,15 +354,16 @@ import '../../styles/servicios.css';
       <div class="container">
         <div class="cta-card-neon reveal">
           <div class="cta-glow-overlay"></div>
+          <IsoK3D size={118} />
           
           <!-- Columna Izquierda: Información -->
           <div class="cta-info-side">
-            <h2>¿Listo para poner a trabajar a la tecnología por vos?</h2>
+            <h2>Empecemos por tu flujo más pesado</h2>
             <p style="margin-bottom: 25px;">Agendá una sesión estratégica de 45 minutos para analizar tus tareas administrativas repetitivas y ver cómo automatizarlas.</p>
             
             <div class="cta-buttons">
-              <a href="https://wa.me/5493804890834?text=%C2%A1Hola%20Kaptativa%21%20Quiero%20consultar%20por%20el%20servicio%20de%20Automatizaci%C3%B3n." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Hablar por WhatsApp</a>
-              <a href="/contacto/?servicio=Automatizaci%C3%B3n" class="btn btn-secondary">Ir a contacto</a>
+              <a href="https://wa.me/5493804890834?text=%C2%A1Hola%20Kaptativa%21%20Quiero%20consultar%20por%20el%20servicio%20de%20Automatizaci%C3%B3n." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
+              <a href="/contacto/?servicio=Automatizaci%C3%B3n" class="btn btn-secondary">Completar el formulario</a>
             </div>
           </div>
         </div>

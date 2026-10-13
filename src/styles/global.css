@@ -6839,8 +6839,10 @@ img, svg, video, canvas {
   content-visibility: auto;
 }
 
-.hero {
+/* La primera sección de cada página se pinta completa: con el tamaño de reserva de 400 px el footer aparecía y luego saltaba (CLS 0,30 en Contacto) */
+.hero, .hero-contacto, .precios-hero, main > section:first-child, main > section:first-of-type {
   content-visibility: visible !important;
+  contain-intrinsic-size: auto !important;
 }
 
 /* ==========================================================================
@@ -7156,3 +7158,17 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .metric-label { font-size: 0.86rem !important; line-height: 1.5; color: var(--text-secondary) !important; }
 @media (max-width: 992px) { .metrics-grid-premium { gap: 14px !important; } }
 @media (max-width: 480px) { .metrics-grid-premium { gap: 12px !important; } .metric-card-glass { padding: 18px 18px 16px !important; } }
+
+/* Nosotros: valores en grilla compacta (antes carrusel infinito) */
+.valores-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.valores-grid .valor { position: relative; padding: 22px 20px 20px; border-radius: 18px; border: 1px solid transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; }
+.valores-grid .valor-num { display: inline-block; font-family: 'Lexend', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; color: var(--brand-primary-light); margin-bottom: 10px; }
+.valores-grid h3 { font-family: 'Lexend', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: 0 0 6px; }
+.valores-grid p { font-size: 0.88rem; line-height: 1.55; color: var(--text-secondary); margin: 0; }
+@media (max-width: 1024px) { .valores-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .valores-grid { grid-template-columns: minmax(0, 1fr); } }
+/* Iso 3D en las tarjetas de cierre */
+.cta-card-neon { position: relative; }
+.cta-card-neon .iso3d { top: 18px; right: 22px; width: 118px; height: 118px; }
+.precios-cta { position: relative; overflow: visible; }
+@media (max-width: 768px) { .cta-card-neon .iso3d { width: 80px; height: 80px; top: 12px; right: 12px; } }

@@ -6,6 +6,7 @@ import Planes from '../components/home2/Planes.astro';
 import Faq from '../components/Faq.astro';
 import { svg } from '../data/plataforma.js';
 import FeatureVisual from '../components/home2/FeatureVisual.astro';
+import IsoK3D from '../components/IsoK3D.astro';
 import { planes, comparativa, faqsPrecios, extras } from '../data/planes.js';
 const WA_EXTRAS = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero consultar por los extras de la plataforma.');
 
@@ -24,8 +25,8 @@ const schema = {
 
 <Layout
   schema={schema}
-  title="Planes y precios: sitio web, tienda online y sistema a medida | Kaptativa"
-  description="Tres planes sobre la misma plataforma: Presencia, Tienda y A medida. Qué incluye cada uno y cómo se cotiza. Cotización cerrada en 24 hs hábiles después de la demo."
+  title="Planes y precios: sitio web, tienda y sistema | Kaptativa"
+  description="Tres planes sobre la misma plataforma: Presencia, Tienda y A medida. Qué incluye cada uno, los add-ons por suscripción y cómo se cotiza."
 >
   <Header slot="header" floating />
 
@@ -103,6 +104,7 @@ const schema = {
     <section class="section">
       <div class="container">
         <div class="precios-cta">
+          <IsoK3D class="precios-iso" />
           <h2>¿Te mostramos la plataforma<br />con tu rubro ya configurado?</h2>
           <p>Coordinamos una demo de 30 minutos y después te pasamos la cotización del plan que te convenga.</p>
           <div class="precios-cta-botones">
@@ -118,6 +120,8 @@ const schema = {
 </Layout>
 
 <style>
+  .precios-cta :global(.precios-iso) { top: -46px; right: -22px; }
+  @media (max-width: 768px) { .precios-cta :global(.precios-iso) { width: 92px; height: 92px; top: -30px; right: -6px; } }
   .precios-hero { position: relative; overflow: hidden; padding: 160px 0 40px; text-align: center; }
   .precios-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124, 92, 255, 0.22), transparent 70%); }
   .precios-hero .container { position: relative; max-width: 760px; }
@@ -172,9 +176,9 @@ const schema = {
   .ex-niveles { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
   .ex-niveles span { font-size: 0.74rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; color: var(--brand-primary-light); background: rgba(124, 92, 255, 0.12); border: 1px solid rgba(124, 92, 255, 0.3); }
   .ex-tile--solid .ex-icon, .ex-tile--solid h3 { color: #fff; }
-  .ex-tile--solid p { color: rgba(255, 255, 255, 0.85); }
-  .ex-tile--solid small { color: rgba(255, 255, 255, 0.7); }
-  .ex-tile--solid .ex-niveles span { color: #fff; background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.3); }
+  .ex-tile--solid p { color: rgba(255, 255, 255, 0.94); }
+  .ex-tile--solid small { color: rgba(255, 255, 255, 0.86); }
+  .ex-tile--solid .ex-niveles span { color: #fff; background: rgba(14, 8, 40, 0.38); border-color: rgba(255, 255, 255, 0.28); }
   .ex-tile--solid :global(.fv) { background: rgba(14, 8, 40, 0.45); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.85); }
   .ex-help { text-align: center; margin: 36px auto 0; max-width: 60ch; color: var(--text-secondary); font-size: 0.95rem; }
   .ex-help a { color: var(--brand-primary-light); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }

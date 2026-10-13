@@ -21,33 +21,17 @@ import Equipo from '../components/Equipo.astro';
           
           <div class="hero-buttons">
             <a href="/contacto" class="btn btn-primary btn-glow">Agendá una demo</a>
-            <a href="#nuestra-historia" class="btn btn-secondary">Ver el método</a>
+            <a href="#equipo" class="btn btn-secondary">Conocer al equipo</a>
           </div>
         </div>
       </div>
     </section>
 
+    <Equipo />
+
+
     <!-- NUESTRA HISTORIA -->
-    <section class="section section-dark" id="nuestra-historia">
-      <div class="container">
-        <div class="story-card-wrapper reveal">
-          <div class="section-header" style="margin-bottom: 25px;">
-            <h2>Kap de captación, Tativa de transformación.</h2>
-          </div>
-          <div class="story-body">
-            <p>
-              El nombre lo dice todo. <strong>Kap viene de captación y Tativa de transformación</strong>: las dos cosas que buscamos cada vez que entramos a un negocio. No nacimos para ejecutar tareas sueltas, nacimos para mover empresas hacia adelante.
-            </p>
-            <p>
-              <strong style="color: var(--text-primary);">kaptativa<sup>®</sup></strong> empezó con una idea simple y poco común en el rubro: la mayoría de las empresas no necesita más herramientas ni más campañas, necesita orden. Necesita que alguien lea su operación como un sistema y construya las piezas que faltan para que escale sin romperse.
-            </p>
-            <p>
-              Por eso no nos presentamos como una agencia. Una agencia te gestiona campañas; una fábrica de software te entrega un producto y desaparece. Nosotros nos integramos en tu negocio como un brazo estratégico, construimos los sistemas que necesitás y te enseñamos a operarlos. Desde La Rioja trabajamos con clientes en Argentina y en el exterior, en e-commerce, eventos, inmobiliarias, estética, salud y B2B.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+
 
     <!-- QUÉ SOMOS Y QUÉ NO SOMOS (COMPARATIVA CON TARJETAS GLASS) -->
     <section class="section section-light" id="comparativa-identidad">
@@ -136,80 +120,25 @@ import Equipo from '../components/Equipo.astro';
     </section>
 
     <!-- CÓMO TRABAJAMOS (CARRUSEL MARQUEE INFINITO DE EXTREMO A EXTREMO) -->
-    <section class="section section-dark overflow-hidden" id="valores">
-      <div class="section-header reveal text-center" style="max-width: 750px; margin: 0 auto 40px auto;">
-        <h2 style="margin-top: 12px; margin-bottom: 12px;">Siete valores que se notan en cada palabra.</h2>
-        <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; margin: 0 auto; max-width: 620px;">No son una placa en la pared. Son la forma en que hablamos, decidimos y entregamos.</p>
-      </div>
-
-      <!-- Full Bleed 100vw Marquee Slider -->
-      <div class="infinite-marquee-viewport reveal">
-        <div class="infinite-marquee-track">
-          <!-- SET 1 -->
-          <div class="val-marquee-card">
-            <h3>Directa</h3>
-            <p>Sin rodeos ni relleno. Vamos al punto y te decimos lo que importa en cada etapa.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Honesta</h3>
-            <p>No inflamos expectativas. Si algo no conviene a tu negocio, te lo decimos sin vueltas.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Estratégica</h3>
-            <p>Todo comunica con propósito. Cada diseño y automatización responde a metas de rentabilidad.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Cálida</h3>
-            <p>Cercanos sin perder seriedad. Trabajamos mano a mano con líderes reales, no con tickets fríos.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Premium</h3>
-            <p>La calidad se nota en cada detalle. Desde el copy comercial hasta la velocidad del código.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Educativa</h3>
-            <p>Explicamos el porqué de cada decisión. Querés entender lo que se construye y nosotros también.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Accountable</h3>
-            <p>Nos hacemos cargo de los resultados. Si nos equivocamos, lo asumimos y lo resolvemos.</p>
-          </div>
-
-          <!-- SET 2 (DUPLICADO PARA LOOP INFINITO SIN CORTES) -->
-          <div class="val-marquee-card">
-            <h3>Directa</h3>
-            <p>Sin rodeos ni relleno. Vamos al punto y te decimos lo que importa en cada etapa.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Honesta</h3>
-            <p>No inflamos expectativas. Si algo no conviene a tu negocio, te lo decimos sin vueltas.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Estratégica</h3>
-            <p>Todo comunica con propósito. Cada diseño y automatización responde a metas de rentabilidad.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Cálida</h3>
-            <p>Cercanos sin perder seriedad. Trabajamos mano a mano con líderes reales, no con tickets fríos.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Premium</h3>
-            <p>La calidad se nota en cada detalle. Desde el copy comercial hasta la velocidad del código.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Educativa</h3>
-            <p>Explicamos el porqué de cada decisión. Querés entender lo que se construye y nosotros también.</p>
-          </div>
-          <div class="val-marquee-card">
-            <h3>Accountable</h3>
-            <p>Nos hacemos cargo de los resultados. Si nos equivocamos, lo asumimos y lo resolvemos.</p>
-          </div>
+    <section class="section section-dark" id="valores">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>Siete valores que se notan<br />en cada entrega</h2>
+          <p>No son una placa en la pared. Son la forma en que hablamos, decidimos y entregamos.</p>
         </div>
+        <ol class="valores-grid reveal">
+          <li class="valor" style="--i:0"><span class="valor-num">01</span><h3>Directa</h3><p>Sin rodeos ni relleno. Vamos al punto y te decimos lo que importa en cada etapa.</p></li>
+          <li class="valor" style="--i:1"><span class="valor-num">02</span><h3>Honesta</h3><p>No inflamos expectativas. Si algo no conviene a tu negocio, te lo decimos sin vueltas.</p></li>
+          <li class="valor" style="--i:2"><span class="valor-num">03</span><h3>Estratégica</h3><p>Todo comunica con propósito. Cada diseño y automatización responde a metas de rentabilidad.</p></li>
+          <li class="valor" style="--i:3"><span class="valor-num">04</span><h3>Cálida</h3><p>Cercanos sin perder seriedad. Trabajamos mano a mano con líderes reales, no con tickets fríos.</p></li>
+          <li class="valor" style="--i:4"><span class="valor-num">05</span><h3>Premium</h3><p>La calidad se nota en cada detalle. Desde el copy comercial hasta la velocidad del código.</p></li>
+          <li class="valor" style="--i:5"><span class="valor-num">06</span><h3>Educativa</h3><p>Explicamos el porqué de cada decisión. Querés entender lo que se construye y nosotros también.</p></li>
+          <li class="valor" style="--i:6"><span class="valor-num">07</span><h3>Accountable</h3><p>Nos hacemos cargo de los resultados. Si nos equivocamos, lo asumimos y lo resolvemos.</p></li>
+        </ol>
       </div>
     </section>
 
     <!-- EL EQUIPO -->
-    <Equipo />
 
     <!-- SECCIÓN DE CONTACTO FINAL -->
     <section class="section section-dark" id="contacto-nosotros" style="padding: 100px 0;">
