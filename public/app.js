@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 7b. Brillo que sigue el mouse en tarjetas (rubros, contadores, módulos, planes)
   if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
-    document.querySelectorAll('.rubro-card, .h2-rubro, .metric-card-glass, .h2-tile, .h2-plan, .glass-card-premium').forEach((card) => {
+    document.querySelectorAll('.rubro-card, .h2-rubro, .metric-card-glass, .h2-tile, .h2-plan, .glass-card-premium, .tr-card, .ex-tile').forEach((card) => {
       card.classList.add('spot');
       const glow = document.createElement('i'); glow.className = 'spot-glow'; card.appendChild(glow);
       card.addEventListener('pointermove', (e) => {

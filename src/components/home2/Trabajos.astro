@@ -1,7 +1,13 @@
 ---
-// Trabajos reales: capturas de sitios y paneles entregados. Solo se muestra cuando hay datos.
-// Los enlaces salen sin referencia (noreferrer + referrerpolicy) y sin seguimiento: el destino no sabe que el clic vino de acá.
-import { trabajos } from '../../data/trabajos.js';
+// Trabajos reales en panel claro: filtros por rubro, tarjetas compactas (captura en marco de navegador,
+// monograma, nombre, dominio y etiqueta) y la captura larga que recorre el sitio al pasar el mouse.
+// Solo se muestra cuando hay datos. Los enlaces salen sin referencia ni seguimiento (proyectos hechos bajo otra agencia).
+import { trabajos, categorias } from '../../data/trabajos.js';
+const host = (u) => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const full = (img) => img.replace(/\.webp$/, '-full.webp');
+const initials = (n) => n.split(/\s+/).filter((w) => w.length > 2 || /[A-Z]/.test(w)).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+const label = (key) => categorias.find((c) => c.key === key)?.label ?? '';
+const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key));
 ---
 
 {trabajos.length > 0 && (
@@ -9,33 +15,129 @@ import { trabajos } from '../../data/trabajos.js';
     <div class="container">
       <div class="section-header reveal">
         <h2>Sitios que ya están<br />funcionando</h2>
-        <p>Capturas reales de lo entregado, sin maquetas. Entrá y recorrelos.</p>
+        <p>Capturas reales de lo entregado, sin maquetas. Pasá el mouse por una tarjeta para recorrer el sitio.</p>
       </div>
+
+      {cats.length > 1 && (
+        <div class="tr-filters" aria-label="Filtrar por rubro">
+          <button type="button" class="tr-filter on" data-cat="todos" aria-pressed="true">Todos <span>{trabajos.length}</span></button>
+          {cats.map((c) => (
+            <button type="button" class="tr-filter" data-cat={c.key} aria-pressed="false">{c.label} <span>{trabajos.filter((t) => t.categoria === c.key).length}</span></button>
+          ))}
+        </div>
+      )}
+
       <div class="tr-grid">
-        {trabajos.map((t) => (
-          <a class="tr-card" href={t.url} target="_blank" rel="noopener noreferrer nofollow" referrerpolicy="no-referrer">
-            <div class="tr-img"><img src={t.imagen} alt={`Sitio de ${t.nombre}`} width="1200" height="750" loading="lazy" decoding="async" /></div>
-            <div class="tr-head"><h3>{t.nombre}</h3><span>{t.rubro}</span></div>
-            {t.resultado && <p>{t.resultado}</p>}
+        {trabajos.map((t, i) => (
+          <a class="tr-card" data-cat={t.categoria} style={`--i:${i}`} href={t.url} target="_blank" rel="noopener noreferrer nofollow" referrerpolicy="no-referrer" aria-label={`${t.nombre}: ${t.resultado}`}>
+            <div class="tr-frame">
+              <div class="tr-bar"><i></i><i></i><i></i><span>{host(t.url)}</span></div>
+              <div class="tr-shot"><img src={full(t.imagen)} alt="" width="1000" height="1694" loading="lazy" decoding="async" /></div>
+            </div>
+            <div class="tr-meta">
+              <span class="tr-mono" aria-hidden="true">{initials(t.nombre)}</span>
+              <div class="tr-name"><h3>{t.nombre}</h3><small>{host(t.url)}</small></div>
+            </div>
+            <div class="tr-tags"><span>{label(t.categoria)}</span><span>{t.rubro.split(' · ')[1] ?? t.rubro}</span></div>
           </a>
         ))}
       </div>
+      <p class="tr-empty" hidden>Todavía no hay sitios publicados en este rubro.</p>
     </div>
   </section>
 )}
 
+<script>
+  const grid = document.querySelector<HTMLElement>('.tr-grid');
+  if (grid) {
+    const cards = [...grid.querySelectorAll<HTMLElement>('.tr-card')];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Entrada escalonada al verse (con respaldo por si el observador no dispara)
+    if (!reduce && 'IntersectionObserver' in window) {
+      grid.classList.add('tr-anim');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { grid.classList.add('on'); io.disconnect(); } });
+      }, { threshold: 0.15 });
+      io.observe(grid);
+      setTimeout(() => grid.classList.add('on'), 9000);
+    }
+
+    // Filtros: las tarjetas que no corresponden se apagan y se retiran; las que vuelven entran escalonadas
+    const filters = [...document.querySelectorAll<HTMLButtonElement>('.tr-filter')];
+    const empty = document.querySelector<HTMLElement>('.tr-empty');
+    filters.forEach((btn) => btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      filters.forEach((b) => { b.classList.toggle('on', b === btn); b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      let shown = 0;
+      cards.forEach((card) => {
+        const match = cat === 'todos' || card.dataset.cat === cat;
+        if (match) {
+          card.hidden = false;
+          card.style.setProperty('--i', String(shown++));
+          card.classList.add('out');
+          requestAnimationFrame(() => requestAnimationFrame(() => card.classList.remove('out')));
+        } else {
+          card.classList.add('out');
+          setTimeout(() => { if (card.classList.contains('out')) card.hidden = true; }, 280);
+        }
+      });
+      if (empty) empty.hidden = shown > 0;
+    }));
+  }
+</script>
+
 <style>
-  /* Flex con centrado: si la última fila queda incompleta, las tarjetas se centran */
-  .tr-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
-  .tr-card { flex: 1 1 340px; max-width: calc((100% - 48px) / 3); display: block; text-decoration: none; color: inherit; border-radius: var(--radius-lg); background: var(--card-bg); border: 1px solid var(--border-color); overflow: hidden; transition: border-color var(--transition-normal); }
-  .tr-card:hover { border-color: var(--border-hover); }
-  .tr-img { aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); }
-  .tr-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.6s ease; }
-  .tr-card:hover .tr-img img { transform: scale(1.03); }
-  .tr-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 18px 20px 0; }
-  .tr-head h3 { font-family: 'Lexend', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: 0; }
-  .tr-head span { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; }
-  .tr-card p { margin: 8px 0 0; padding: 0 20px 20px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.55; }
-  @media (max-width: 992px) { .tr-card { max-width: calc((100% - 24px) / 2); } }
-  @media (max-width: 640px) { .tr-card { flex-basis: 100%; max-width: 100%; } }
+  /* Filtros */
+  .tr-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: -8px 0 36px; }
+  .tr-filter { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; font: inherit; font-size: 0.86rem; font-weight: 600; color: #52525B; background: #FFFFFF; border: 1px solid #D4D4D9; cursor: pointer; transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast); }
+  .tr-filter span { font-size: 0.72rem; font-weight: 600; padding: 1px 7px; border-radius: 999px; color: #5B3FE0; background: #F3F0FF; }
+  .tr-filter:hover { border-color: #7C5CFF; color: #0F0F12; transform: translateY(-1px); }
+  .tr-filter.on { color: #FFFFFF; background: #6A48F5; border-color: #6A48F5; }
+  .tr-filter.on span { color: #FFFFFF; background: rgba(255, 255, 255, 0.2); }
+
+  /* Grilla de cuatro, como Coredevs, con nuestras tarjetas blancas */
+  .tr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .tr-card { display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 16px; text-decoration: none; color: inherit; border-radius: var(--radius-lg); transition: opacity 0.28s ease, transform 0.28s ease, box-shadow var(--transition-normal); }
+  .tr-card.out { opacity: 0; transform: scale(0.96); }
+  .tr-card[hidden] { display: none; }
+
+  /* Marco de navegador con la captura larga que se desplaza al pasar el mouse */
+  .tr-frame { container-type: inline-size; border-radius: 12px; overflow: hidden; border: 1px solid #ECECEF; background: #F6F6F7; }
+  .tr-bar { display: flex; align-items: center; gap: 5px; padding: 7px 10px; border-bottom: 1px solid #ECECEF; }
+  .tr-bar i { width: 7px; height: 7px; border-radius: 50%; background: #D4D4D9; }
+  .tr-bar span { margin-left: 6px; flex: 1; font-size: 0.66rem; color: #6E6E7A; background: #FFFFFF; border-radius: 6px; padding: 2px 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tr-shot { position: relative; aspect-ratio: 16 / 10; background: #FFFFFF; overflow: hidden; }
+  .tr-shot img { position: absolute; top: 0; left: 0; width: 100%; height: auto; display: block; transform: translateY(0); transition: transform 1.1s ease; }
+  @media (hover: hover) {
+    .tr-card:hover .tr-shot img { transform: translateY(calc(-100% + 62.5cqw)); transition: transform 7s linear; }
+  }
+  @media (hover: none) {
+    .tr-shot img { animation: tr-pan 24s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 1.3s); }
+  }
+  @keyframes tr-pan { 0%, 12% { transform: translateY(0); } 58%, 68% { transform: translateY(calc(-100% + 62.5cqw)); } 100% { transform: translateY(0); } }
+
+  /* Nombre, dominio y etiquetas */
+  .tr-meta { display: flex; align-items: center; gap: 11px; padding: 0 4px; }
+  .tr-mono { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: 'Lexend', sans-serif; font-size: 0.78rem; font-weight: 600; color: #FFFFFF; background: linear-gradient(135deg, #7C5CFF, #5B3FE0); }
+  .tr-name { min-width: 0; }
+  .tr-name h3 { font-family: 'Lexend', sans-serif; font-size: 0.98rem; font-weight: 600; color: #0F0F12 !important; margin: 0; line-height: 1.25; }
+  .tr-name small { display: block; font-size: 0.74rem; color: #6E6E7A; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tr-tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 4px; }
+  .tr-tags span { font-size: 0.7rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; color: #5B3FE0; background: #F3F0FF; border: 1px solid rgba(124, 92, 255, 0.25); }
+  .tr-tags span:nth-child(2) { color: #52525B; background: #F6F6F7; border-color: #ECECEF; }
+  .tr-empty { text-align: center; color: #6E6E7A; margin: 24px 0 0; }
+
+  /* Entrada escalonada */
+  .tr-grid.tr-anim .tr-card { opacity: 0; }
+  .tr-grid.tr-anim.on .tr-card { animation: tr-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+  @keyframes tr-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .tr-grid.tr-anim .tr-card { opacity: 1; animation: none; }
+    .tr-shot img { animation: none !important; transition: none !important; }
+  }
+
+  @media (max-width: 1100px) { .tr-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 860px) { .tr-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+  @media (max-width: 520px) { .tr-grid { grid-template-columns: 1fr; } .tr-filters { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; margin-bottom: 24px; } .tr-filter { flex: none; } }
 </style>

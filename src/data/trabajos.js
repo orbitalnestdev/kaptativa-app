@@ -1,9 +1,11 @@
 // Trabajos reales para la sección "Trabajos" de la home. Vacío = la sección no se muestra.
-// Cada ítem: { nombre, rubro, url, imagen: '/trabajos/<slug>.webp', resultado: 'una línea con lo entregado' }
+// Cada ítem: { nombre, categoria, rubro, url, imagen: '/trabajos/<slug>.webp', resultado: 'una línea con lo entregado' }
+// categoria: clave de `categorias` (filtros). La captura larga para el recorrido al pasar el mouse es '/trabajos/<slug>-full.webp'.
 // Capturas: Chrome headless a 1440×900, recortadas a 1200×750 (16:10) en WebP. Sin maquetas ni fotos de stock.
 export const trabajos = [
   {
     nombre: 'MS Estudio Inmobiliario',
+    categoria: 'inmobiliarias',
     rubro: 'Inmobiliaria · Buenos Aires',
     url: 'https://msestudioinmobiliario.com.ar/',
     imagen: '/trabajos/ms-estudio-inmobiliario.webp',
@@ -11,6 +13,7 @@ export const trabajos = [
   },
   {
     nombre: 'MUV Propiedades',
+    categoria: 'inmobiliarias',
     rubro: 'Inmobiliaria boutique · Buenos Aires',
     url: 'https://muvpropiedades.com/',
     imagen: '/trabajos/muv-propiedades.webp',
@@ -18,6 +21,7 @@ export const trabajos = [
   },
   {
     nombre: 'UrbanPoint',
+    categoria: 'tiendas',
     rubro: 'Tienda online · Retiro de cercanía',
     url: 'https://urbanpoints.com.ar/',
     imagen: '/trabajos/urban-points.webp',
@@ -25,6 +29,7 @@ export const trabajos = [
   },
   {
     nombre: 'El almacén de las mil cosas',
+    categoria: 'tiendas',
     rubro: 'Tienda online · La Rioja',
     url: 'https://almacenmil.mitiendapi.com/',
     imagen: '/trabajos/almacen-mil.webp',
@@ -32,9 +37,34 @@ export const trabajos = [
   },
   {
     nombre: 'Airlar',
+    categoria: 'servicios',
     rubro: 'Servicio técnico · La Rioja',
     url: 'https://airlar.com.ar/',
     imagen: '/trabajos/airlar.webp',
     resultado: 'Sitio de servicio técnico de aires acondicionados con reserva de visitas, servicios, preguntas frecuentes y blog.',
   },
+  {
+    nombre: 'INMOActiva',
+    categoria: 'software',
+    rubro: 'Software · CRM inmobiliario',
+    url: 'https://inmoactiva.com/',
+    imagen: '/trabajos/inmoactiva.webp',
+    resultado: 'CRM y sitio web para inmobiliarias: propiedades, consultas, alquileres y reservas en un solo panel, con demo agendable.',
+  },
+  {
+    nombre: 'Tiendapi',
+    categoria: 'software',
+    rubro: 'Software · Tiendas con IA',
+    url: 'https://tiendapi.com/',
+    imagen: '/trabajos/tiendapi.webp',
+    resultado: 'Creador de tiendas online con punto de venta, stock único y una IA que vende por WhatsApp.',
+  },
+];
+
+// Filtros de la sección (orden de aparición)
+export const categorias = [
+  { key: 'inmobiliarias', label: 'Inmobiliarias' },
+  { key: 'tiendas', label: 'Tiendas online' },
+  { key: 'servicios', label: 'Servicios' },
+  { key: 'software', label: 'Software' },
 ];

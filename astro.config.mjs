@@ -37,7 +37,6 @@ export default defineConfig({
         !page.includes('/checkout') &&
         !page.includes('/logo-proposals') &&
         !page.includes('/home-anterior') &&
-        !page.includes('/trabajos-opciones') &&
         !page.includes('/presupuestos/') &&
         !page.includes('/demo-sistema') &&
         !page.includes('/inmo-demo') &&
