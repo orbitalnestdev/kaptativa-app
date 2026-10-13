@@ -507,3 +507,13 @@
   .servicio-page .rubro-card .rubro-icon-wrapper { width: 96px !important; height: 96px !important; }
   .servicio-page .rubro-card h3 { padding-right: 84px !important; }
 }
+
+/* CTA de cierre: mismo patrón que soluciones (tarjeta centrada, dos botones) */
+.servicio-page .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.servicio-page .cta-card-neon { grid-template-columns: 1fr !important; justify-items: center; text-align: center; }
+.servicio-page .cta-card-neon .cta-info-side { text-align: center !important; max-width: 720px; }
+@media (max-width: 576px) { .servicio-page .cta-buttons .btn { width: 100%; justify-content: center; } }
+
+/* Rubros: todo alineado a la izquierda, como en la home */
+.servicio-page .rubro-card, .servicio-page .rubro-card h3, .servicio-page .rubro-card p, .servicio-page .rubro-card .card-header-row, .servicio-page .rubro-card .card-header-left { text-align: left !important; align-items: flex-start !important; justify-content: flex-start !important; }
+
