@@ -46,6 +46,13 @@ const solSchema = [
 ];
 const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent(`¡Hola Kaptativa! Quiero solicitar una demo de la solución para ${sol.title.toLowerCase()}.`);
 const CONTACTO = `/contacto/?demo=${encodeURIComponent(sol.title)}`;
+// Ícono de cada contador según lo que dice (misma idea que en servicios)
+const iconoMetrica = (m) => {
+  const t = `${m.v} ${m.l}`.toLowerCase();
+  const reglas = [['24/7', 'bell'], ['qr', 'qr'], ['whatsapp', 'message'], ['consulta', 'message'], ['turno', 'calendar'], ['agenda', 'calendar'], ['reserva', 'calendar'], ['cuota', 'card'], ['cobro', 'card'], ['seña', 'card'], ['pago', 'card'], ['factur', 'receipt'], ['stock', 'box'], ['depósito', 'box'], ['pedido', 'cart'], ['propiedad', 'building'], ['socio', 'users'], ['asociado', 'users'], ['cliente', 'users'], ['panel', 'monitor'], ['sitio', 'monitor'], ['web', 'monitor'], ['planilla', 'file'], ['carta', 'utensils'], ['mesa', 'utensils'], ['beneficio', 'tag'], ['%', 'chart']];
+  for (const [k, ic] of reglas) if (t.includes(k)) return ic;
+  return 'check';
+};
 ---
 
 <Layout title={`${sol.headline} | Kaptativa`} description={sol.text} schema={solSchema}>
@@ -79,6 +86,7 @@ const CONTACTO = `/contacto/?demo=${encodeURIComponent(sol.title)}`;
         <div class="metrics-grid-premium">
           {sol.metrics.map((m) => (
             <div class="metric-card-glass">
+              <span class="metric-icon" aria-hidden="true"><Fragment set:html={svg(iconoMetrica(m))} /></span>
               <div class:list={['metric-value', { long: m.v.length > 6 }]}>{m.v}</div>
               <div class="metric-label">{m.l}</div>
             </div>
