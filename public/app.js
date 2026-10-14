@@ -296,6 +296,27 @@ document.addEventListener('DOMContentLoaded', () => {
     stepsObserver.observe(steps);
   }
 
+  // 7e. Inclinación 3D suave de los mockups del hero siguiendo el mouse (solo con puntero y sin "reducir movimiento")
+  if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('[data-tilt]').forEach((el) => {
+      const zone = el.closest('section') || el;
+      let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+      const tick = () => {
+        cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
+        el.style.setProperty('--tx', cx.toFixed(2) + 'deg'); el.style.setProperty('--ty', cy.toFixed(2) + 'deg');
+        raf = (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) ? requestAnimationFrame(tick) : 0;
+      };
+      zone.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / r.width));
+        const dy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / r.height));
+        ty = dx * 7; tx = -dy * 6;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+      zone.addEventListener('pointerleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(tick); });
+    });
+  }
+
   // 7d. Gráficos de las tarjetas de rubros (home): entran animados cuando la tarjeta se ve
   const visuals = document.querySelectorAll('.rv');
   if (visuals.length && !reduceMotion && 'IntersectionObserver' in window) {

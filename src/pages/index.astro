@@ -8,10 +8,11 @@ import Footer from '../components/Footer.astro';
 import Faq from '../components/Faq.astro';
 import ControlShowcase from '../components/home2/ControlShowcase.astro';
 import RubroVisual from '../components/home2/RubroVisual.astro';
+import HeroAurora from '../components/HeroAurora.astro';
 import IsoK3D from '../components/IsoK3D.astro';
 import FeatureVisual from '../components/home2/FeatureVisual.astro';
 import Planes from '../components/home2/Planes.astro';
-import Trabajos from '../components/home2/Trabajos.astro';
+import TrabajosCinta from '../components/home2/TrabajosCinta.astro';
 import { svg, soluciones, modulos } from '../data/plataforma.js';
 import { readFileSync } from 'node:fs';
 
@@ -97,6 +98,7 @@ const heroIntegraciones = [
   <main class="home2">
     <!-- ================= HERO ================= -->
     <section class="h2-hero">
+      <HeroAurora />
       <div class="h2-hero-glow" aria-hidden="true"></div>
       <div class="container h2-hero-grid">
         <div class="h2-hero-copy reveal">
@@ -126,7 +128,7 @@ const heroIntegraciones = [
         </div>
 
         <!-- Mockup del panel -->
-        <div class="h2-browser reveal reveal-delay-1" aria-hidden="true">
+        <div class="h2-browser reveal reveal-delay-1" data-tilt aria-hidden="true">
           <div class="h2-browser-bar"><span></span><span></span><span></span><div class="h2-url">tunegocio.com.ar/admin</div></div>
           <div class="h2-browser-body">
             <aside class="h2-side">
@@ -179,8 +181,8 @@ const heroIntegraciones = [
     <!-- ================= CONTROL TOTAL ================= -->
     <ControlShowcase />
 
-    <!-- ================= TRABAJOS (se muestra cuando hay datos) ================= -->
-    <Trabajos />
+    <!-- ================= TRABAJOS: cinta curva; la grilla completa está en /proyectos/ ================= -->
+    <TrabajosCinta />
 
     <!-- ================= MÓDULOS ================= -->
     <section class="section" id="modulos">
@@ -369,6 +371,15 @@ const heroIntegraciones = [
 
   /* ---------- HERO ---------- */
   .h2-hero { position: relative; padding: 150px 0 90px; overflow: hidden; }
+  /* Entrada orquestada: título, texto, botones e integraciones suben escalonados una sola vez */
+  .h2-hero-copy > * { opacity: 0; }
+  .h2-hero-copy.active > * { animation: h2-rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .h2-hero-copy.active > :nth-child(1) { animation-delay: 0.05s; }
+  .h2-hero-copy.active > :nth-child(2) { animation-delay: 0.22s; }
+  .h2-hero-copy.active > :nth-child(3) { animation-delay: 0.38s; }
+  .h2-hero-copy.active > :nth-child(4) { animation-delay: 0.54s; }
+  @keyframes h2-rise { from { opacity: 0; transform: translateY(22px); filter: blur(6px); } to { opacity: 1; transform: none; filter: blur(0); } }
+  @media (prefers-reduced-motion: reduce) { .h2-hero-copy > * { opacity: 1; animation: none !important; } }
   .h2-hero-glow {
     position: absolute; inset: 0; pointer-events: none;
     /* Elipses con tamaño explícito: se desvanecen antes de tocar los bordes de la caja */

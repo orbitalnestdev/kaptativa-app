@@ -8,14 +8,16 @@ const full = (img) => img.replace(/\.webp$/, '-full.webp');
 const icon = (img) => img.replace(/\.webp$/, '-icon.webp');
 const label = (key) => categorias.find((c) => c.key === key)?.label ?? '';
 const cats = categorias.filter((c) => trabajos.some((t) => t.categoria === c.key));
+// Título y bajada configurables (la página /proyectos/ usa los suyos)
+const { title = 'Sitios que ya están<br />funcionando', text = 'Tiendas, sitios y sistemas que hoy venden, reservan y gestionan. Entrá y recorrelos.' } = Astro.props;
 ---
 
 {trabajos.length > 0 && (
   <section class="section section-light" id="trabajos">
     <div class="container">
       <div class="section-header reveal">
-        <h2>Sitios que ya están<br />funcionando</h2>
-        <p>Tiendas, sitios y sistemas que hoy venden, reservan y gestionan. Entrá y recorrelos.</p>
+        <h2 set:html={title} />
+        <p>{text}</p>
       </div>
 
       {cats.length > 1 && (

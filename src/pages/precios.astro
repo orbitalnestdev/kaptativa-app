@@ -6,6 +6,7 @@ import Planes from '../components/home2/Planes.astro';
 import Faq from '../components/Faq.astro';
 import { svg } from '../data/plataforma.js';
 import FeatureVisual from '../components/home2/FeatureVisual.astro';
+import HeroAurora from '../components/HeroAurora.astro';
 import IsoK3D from '../components/IsoK3D.astro';
 import { planes, comparativa, faqsPrecios, extras } from '../data/planes.js';
 const WA_EXTRAS = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero consultar por los extras de la plataforma.');
@@ -32,6 +33,7 @@ const schema = {
 
   <main class="precios-page">
     <section class="precios-hero">
+      <HeroAurora />
       <div class="precios-glow" aria-hidden="true"></div>
       <div class="container">
         <h1>Planes y precios</h1>

@@ -10,10 +10,10 @@ const soluciones = ['tiendas-online', 'mayoristas', 'gastronomia', 'gimnasios-y-
 const servicios = ['agentes-ia', 'automatizacion', 'desarrollo-software', 'diseno-web', 'email-marketing', 'publicidad-digital', 'seo-geo', 'social-media'];
 
 const checks = [
-  ...['/', '/contacto/', '/nosotros/', '/servicios/', '/precios/', '/inmobiliarias/', '/llms.txt', '/robots.txt', '/sitemap-index.xml'].map((p) => [p, 200]),
+  ...['/', '/contacto/', '/nosotros/', '/servicios/', '/precios/', '/proyectos/', '/inmobiliarias/', '/llms.txt', '/robots.txt', '/sitemap-index.xml'].map((p) => [p, 200]),
   ...soluciones.map((s) => [`/soluciones/${s}/`, 200]),
   ...servicios.map((s) => [`/servicios/${s}/`, 200]),
-  ['/home2', 301], ['/blog', 301], ['/proyectos', 301], ['/inmo-demo', 301],
+  ['/home2', 301], ['/blog', 301], ['/inmo-demo', 301],
   ['/Realstate/prompt.md', 404], ['/Realstate/tests/test-static.cjs', 404], ['/logo-proposals', 404],
 ];
 const REQUIRED_HEADERS = ['strict-transport-security', 'x-content-type-options', 'x-frame-options', 'referrer-policy', 'content-security-policy-report-only'];
@@ -43,7 +43,7 @@ try {
   if (!/"@type":"FAQPage"/.test(sol)) fail('Tiendas online no tiene el JSON-LD FAQPage');
 
   const sitemap = readFileSync('dist/client/sitemap-0.xml', 'utf8');
-  for (const hidden of ['/home-anterior', '/proyectos', '/logo-proposals', '/admin', '/blog']) {
+  for (const hidden of ['/home-anterior', '/logo-proposals', '/admin', '/blog']) {
     if (sitemap.includes(hidden)) fail(`El sitemap incluye ${hidden}`);
   }
 } finally {

@@ -14,7 +14,6 @@ export default defineConfig({
   redirects: {
     '/inmo-demo': '/inmobiliarias',
     '/home2': '/',
-    '/proyectos': '/',
     '/blog': '/',
     '/como-digitalizar-inmobiliaria-catalogo-crm-whatsapp-ia': '/inmobiliarias',
     '/porque-depender-solo-de-instagram-y-whatsapp-arruina-ventas-inmobiliarias': '/inmobiliarias',
