@@ -1,0 +1,175 @@
+---
+// Soluciones por rubro: la misma plataforma configurada para cada tipo de negocio.
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import HeroAurora from '../components/HeroAurora.astro';
+import IsoK3D from '../components/IsoK3D.astro';
+import CtaBeam from '../components/CtaBeam.astro';
+import RubroVisual from '../components/home2/RubroVisual.astro';
+import { soluciones, svg } from '../data/plataforma.js';
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo de la plataforma para mi rubro.');
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Soluciones por rubro de Kaptativa',
+  itemListElement: soluciones.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.title, url: `https://kaptativa.com/soluciones/${s.slug}/` })),
+};
+---
+
+<Layout title="Soluciones por rubro: sitio web, tienda y gestión para tu negocio | Kaptativa" description="La misma plataforma configurada para tiendas online, mayoristas, gastronomía, gimnasios, turnos, inmobiliarias, mutuales y profesionales. Elegí tu rubro y mirá qué resuelve." schema={schema}>
+  <Header slot="header" floating />
+
+  <main>
+    <section class="hero hero-section" id="soluciones-hero">
+      <HeroAurora />
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      <div class="container hero-container">
+        <div class="hero-content reveal">
+          <h1 class="hero-tagline">Una plataforma, <span class="text-gradient-crimson">configurada para tu rubro</span></h1>
+          <p class="hero-description">La misma base tecnológica, adaptada a cómo trabaja tu negocio: sitio, tienda, gestión y asistente de IA en WhatsApp. Elegí el tuyo y mirá qué resuelve.</p>
+          <div class="hero-buttons">
+            <a href="#rubros" class="btn btn-primary btn-glow">Ver los rubros</a>
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Solicitar demo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light" id="rubros">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>Elegí tu rubro</h2>
+          <p>Ocho configuraciones listas. Tocá la tuya y mirá qué problema resuelve y cómo queda la plataforma.</p>
+        </div>
+        <div class="ex reveal" data-explorer>
+          <div class="ex-list" role="tablist" aria-label="Rubros">
+            {soluciones.map((s, i) => (
+              <button type="button" role="tab" id={`ex-tab-${s.slug}`} class:list={['ex-tab', { on: i === 0 }]} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`ex-panel-${s.slug}`} tabindex={i === 0 ? 0 : -1} data-slug={s.slug}>
+                <span class="ex-tab-ic"><Fragment set:html={svg(s.icon)} /></span>
+                <span class="ex-tab-txt"><strong>{s.title}</strong><small>{s.short}</small></span>
+                <svg class="ex-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            ))}
+          </div>
+          <div class="ex-panels">
+            {soluciones.map((s, i) => (
+              <article id={`ex-panel-${s.slug}`} role="tabpanel" aria-labelledby={`ex-tab-${s.slug}`} class:list={['ex-panel', { on: i === 0 }]} hidden={i !== 0}>
+                <div class="ex-visual"><RubroVisual slug={s.slug} icon={s.icon} /></div>
+                <div class="ex-body">
+                  <span class="ex-kicker">Si hoy te pasa esto</span>
+                  <ul class="ex-pains">{s.pains.slice(0, 3).map((p) => <li><Fragment set:html={svg('alert')} />{p}</li>)}</ul>
+                  <h3>{s.headline}</h3>
+                  <p>{s.text}</p>
+                  <div class="ex-actions">
+                    <a class="btn btn-primary" href={`/soluciones/${s.slug}/`}><span>Ver la solución</span></a>
+                    <a class="btn btn-secondary" href={WHATSAPP} target="_blank" rel="noopener noreferrer"><span>Solicitar demo</span></a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+        <p class="sol-nota reveal">¿Tu rubro no está? La plataforma se adapta igual: <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">contanos tu caso por WhatsApp</a> y te mostramos cómo quedaría.</p>
+      </div>
+    </section>
+
+    <section class="section section-cta">
+      <div class="container">
+        <div class="cta-card-neon reveal">
+          <CtaBeam />
+          <div class="cta-glow-overlay"></div>
+          <IsoK3D size={118} />
+          <div class="cta-info-side">
+            <h2>¿Te mostramos cómo funcionaría<br />en tu negocio?</h2>
+            <p style="margin-bottom: 25px;">Coordinamos una demo con tu rubro ya configurado y te pasamos una propuesta a medida en 24 hs hábiles.</p>
+            <div class="cta-buttons">
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Solicitar demo</a>
+              <a href="/precios/" class="btn btn-secondary">Ver planes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>
+
+
+<script>
+  // Explorador: la lista de rubros cambia el panel (clic, mouse encima o flechas del teclado)
+  const ex = document.querySelector<HTMLElement>('[data-explorer]');
+  if (ex) {
+    const tabs = [...ex.querySelectorAll<HTMLButtonElement>('.ex-tab')];
+    const panels = [...ex.querySelectorAll<HTMLElement>('.ex-panel')];
+    let hoverT = 0;
+    const show = (slug: string, focus = false) => {
+      tabs.forEach((t) => { const on = t.dataset.slug === slug; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+      panels.forEach((p) => { const on = p.id === `ex-panel-${slug}`; p.hidden = !on; p.classList.toggle('on', on); if (on) p.querySelector('.rv')?.classList.add('on'); });
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => show(t.dataset.slug!));
+      t.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'mouse') return; clearTimeout(hoverT); hoverT = window.setTimeout(() => show(t.dataset.slug!), 140); });
+      t.addEventListener('pointerleave', () => clearTimeout(hoverT));
+      t.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return; e.preventDefault(); show(tabs[(i + d + tabs.length) % tabs.length].dataset.slug!, true);
+      });
+    });
+  }
+</script>
+
+<style>
+  /* Explorador de rubros: lista a la izquierda, panel con el gráfico y el relato a la derecha */
+  .ex { display: grid; grid-template-columns: minmax(280px, 0.85fr) 1.65fr; gap: 18px; align-items: start; }
+  .ex-list { display: flex; flex-direction: column; gap: 6px; }
+  .ex-tab { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 11px 14px 11px 16px; border-radius: 14px; border: 1px solid transparent; background: transparent; cursor: pointer; font: inherit; color: #17161D; transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+  .ex-tab::before { content: ''; position: absolute; left: 0; top: 22%; bottom: 22%; width: 3px; border-radius: 3px; background: #7C5CFF; opacity: 0; transition: opacity 0.25s ease; }
+  .ex-tab:hover { background: #FFFFFF; border-color: #E9E5F8; }
+  .ex-tab.on { background: #FFFFFF; border-color: rgba(124, 92, 255, 0.45); box-shadow: 0 14px 34px -20px rgba(124, 92, 255, 0.45); }
+  .ex-tab.on::before { opacity: 1; }
+  .ex-tab:focus-visible { outline: 2px solid #7C5CFF; outline-offset: 2px; }
+  .ex-tab-ic { flex: none; width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #5B3FE0; background: linear-gradient(135deg, #F3F0FF, #E6E0FF); border: 1px solid rgba(124, 92, 255, 0.28); transition: background 0.25s ease, color 0.25s ease; }
+  .ex-tab-ic :global(.ki) { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ex-tab.on .ex-tab-ic { background: linear-gradient(135deg, #7C5CFF, #6A48F5); color: #FFFFFF; border-color: transparent; }
+  .ex-tab-txt { min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+  .ex-tab-txt strong { font-family: 'Lexend', sans-serif; font-size: 0.98rem; font-weight: 600; }
+  .ex-tab-txt small { font-size: 0.8rem; color: #6E6E7A; margin-top: 2px; }
+  .ex-arrow { margin-left: auto; flex: none; color: #5B3FE0; opacity: 0; transform: translateX(-6px); transition: opacity 0.25s ease, transform 0.25s ease; }
+  .ex-tab.on .ex-arrow { opacity: 1; transform: none; }
+  .ex-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; padding: 28px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E9E5F8; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 24px 50px -28px rgba(124, 92, 255, 0.4); }
+  .ex-panel[hidden] { display: none; }
+  .ex-panel.on { animation: ex-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  @keyframes ex-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .ex-visual { zoom: 1.28; }
+  .ex-kicker { display: inline-block; font-size: 0.8rem; font-weight: 600; color: #5B3FE0; }
+  .ex-pains { list-style: none; padding: 0; margin: 10px 0 18px; display: grid; gap: 8px; }
+  .ex-pains li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; line-height: 1.45; color: #4B4A57; }
+  .ex-pains :global(.ki) { flex: none; width: 18px; height: 18px; margin-top: 1px; color: #7C5CFF; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ex-body h3 { font-family: 'Lexend', sans-serif; font-size: 1.45rem !important; line-height: 1.25 !important; color: #17161D !important; margin: 0 0 8px !important; }
+  .ex-body p { color: #4B4A57 !important; line-height: 1.6; margin: 0; }
+  .ex-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  @media (max-width: 960px) {
+    .ex { grid-template-columns: 1fr; }
+    .ex-list { flex-direction: row; overflow-x: auto; gap: 8px; padding: 2px 2px 8px; scrollbar-width: thin; }
+    .ex-tab { flex: none; width: auto; padding: 9px 12px; }
+    .ex-tab-txt small, .ex-arrow { display: none; }
+    .ex-panel { grid-template-columns: 1fr; gap: 22px; padding: 22px; }
+    .ex-visual { zoom: 1; }
+  }
+  @media (max-width: 480px) { .ex-actions .btn { width: 100%; justify-content: center; } }
+  @media (prefers-reduced-motion: reduce) { .ex-panel.on { animation: none; } }
+  .sol-nota { text-align: center; margin: 32px auto 0; max-width: 60ch; color: #52525B; font-size: 0.95rem; }
+  .sol-nota a { color: #5B3FE0; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .section-cta { padding: 80px 0; }
+  .cta-card-neon { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--border-radius-lg); padding: 60px 40px; display: grid; grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 40px; align-items: center; position: relative; overflow: hidden; }
+  .cta-glow-overlay { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(124, 92, 255, 0.12) 0%, transparent 75%), radial-gradient(circle at 80% 80%, rgba(124, 92, 255, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .cta-info-side { position: relative; z-index: 5; max-width: 720px; }
+  .cta-card-neon h2 { font-size: 2.4rem; font-family: 'Lexend', sans-serif; font-weight: 600; margin-bottom: 20px; line-height: 1.2; }
+  .cta-card-neon p { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+  .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  @media (max-width: 768px) { .section-cta { padding: 56px 0; } .cta-card-neon { gap: 30px; padding: 40px 30px; } .cta-card-neon h2 { font-size: 1.9rem; } }
+  @media (max-width: 480px) { .cta-buttons .btn { width: 100%; justify-content: center; } .cta-card-neon { padding: 32px 18px; } }
+</style>

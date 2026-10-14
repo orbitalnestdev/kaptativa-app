@@ -7,7 +7,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Faq from '../components/Faq.astro';
 import ControlShowcase from '../components/home2/ControlShowcase.astro';
-import RubroVisual from '../components/home2/RubroVisual.astro';
+import RubrosGrid from '../components/home2/RubrosGrid.astro';
 import HeroAurora from '../components/HeroAurora.astro';
 import IsoK3D from '../components/IsoK3D.astro';
 import CtaBeam from '../components/CtaBeam.astro';
@@ -166,18 +166,7 @@ const heroIntegraciones = [
           <h2>Una plataforma,<br />configurada para tu rubro</h2>
           <p>La misma base tecnológica, adaptada a cómo trabaja tu negocio. Elegí el tuyo y mirá qué resuelve.</p>
         </div>
-        <div class="h2-rubros">
-          {rubros.map((r, i) => (
-            <a class="h2-card h2-rubro" href={`/soluciones/${r.slug}`}>
-              <RubroVisual slug={r.slug} icon={r.icon} />
-              <div class="h2-rubro-body">
-                <h3>{r.title}</h3>
-                <p>{r.text}</p>
-                <span class="h2-link">Ver solución</span>
-              </div>
-            </a>
-          ))}
-        </div>
+        <RubrosGrid />
       </div>
     </section>
 
@@ -439,16 +428,6 @@ const heroIntegraciones = [
   @keyframes h2-float { 50% { transform: translateY(-8px); } }
 
   /* ---------- RUBROS: el ícono grande de fondo es la identidad de cada tarjeta ---------- */
-  .h2-rubros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .h2-rubro { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 10px 10px 22px; text-decoration: none; isolation: isolate; border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; }
-  .h2-rubro::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
-  .h2-rubro:hover { border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
-  /* Ícono emblema: entero, arriba a la derecha; el título le deja lugar */
-  .h2-rubro-body { flex: 1; display: flex; flex-direction: column; padding: 18px 14px 0; }
-  .h2-rubro h3 { font-size: 1.1rem; }
-  .h2-rubro p { flex: 1; margin-top: 8px; font-size: 0.88rem; }
-  .h2-link { display: inline-block; margin-top: 22px; font-size: 0.88rem; font-weight: 600; color: var(--brand-primary-light); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color var(--transition-fast); }
-  .h2-rubro:hover .h2-link { text-decoration-color: currentColor; }
 
   /* ---------- MÓDULOS: catálogo en grilla de celdas (distinto de las tarjetas de rubros) ---------- */
   /* Módulos: grilla bento, dos tiles en violeta sólido como foco */
@@ -562,7 +541,6 @@ const heroIntegraciones = [
     .h2-marquee-track { animation: none; }
   }
   @media (max-width: 1024px) {
-    .h2-rubros, .h2-bento { grid-template-columns: repeat(2, 1fr); }
     .h2-steps { gap: 22px; }
     .h2-hero-grid { grid-template-columns: 1fr; gap: 48px; }
     .h2-float-1 { left: 12px; top: -18px; }
@@ -577,7 +555,6 @@ const heroIntegraciones = [
     .h2-integra-banner { flex-direction: column; text-align: center; padding: 26px 20px; }
     .h2-integra-banner .btn { width: 100%; justify-content: center; }
     .h2-hero { padding: 120px 0 60px; }
-    .h2-rubros, .h2-bento, .h2-steps { grid-template-columns: 1fr; }
     .h2-tile--big { grid-column: auto; }
     .h2-side { display: none; }
     .h2-kpis { grid-template-columns: repeat(2, 1fr); }

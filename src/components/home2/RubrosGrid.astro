@@ -1,0 +1,44 @@
+---
+// Grilla de las ocho soluciones por rubro (home y /soluciones/): tarjeta con el gráfico animado del rubro,
+// título, bajada y enlace. Los estilos viven acá para que las dos páginas se vean iguales.
+import RubroVisual from './RubroVisual.astro';
+import { soluciones } from '../../data/plataforma.js';
+---
+        <div class="h2-rubros">
+          {soluciones.map((r) => (
+            <a class="h2-card h2-rubro" href={`/soluciones/${r.slug}`}>
+              <RubroVisual slug={r.slug} icon={r.icon} />
+              <div class="h2-rubro-body">
+                <h3>{r.title}</h3>
+                <p>{r.text}</p>
+                <span class="h2-link">Ver solución</span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+<style>
+  .h2-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 26px;
+    transition: opacity var(--transition-slow), border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+  .h2-rubros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .h2-rubro { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 10px 10px 22px; text-decoration: none; isolation: isolate; border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; }
+  .h2-rubro::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
+  .h2-rubro:hover { border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
+  /* Ícono emblema: entero, arriba a la derecha; el título le deja lugar */
+  .h2-rubro-body { flex: 1; display: flex; flex-direction: column; padding: 18px 14px 0; }
+  .h2-rubro h3 { font-size: 1.1rem; }
+  .h2-rubro p { flex: 1; margin-top: 8px; font-size: 0.88rem; }
+  .h2-link { display: inline-block; margin-top: 22px; font-size: 0.88rem; font-weight: 600; color: var(--brand-primary-light); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color var(--transition-fast); }
+  .h2-rubro:hover .h2-link { text-decoration-color: currentColor; }
+  @media (max-width: 1024px) {
+      .h2-rubros, .h2-bento { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+      .h2-rubros, .h2-bento, .h2-steps { grid-template-columns: 1fr; }
+  }
+</style>
