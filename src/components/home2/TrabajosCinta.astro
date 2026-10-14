@@ -69,6 +69,16 @@ const a0 = (2 * 360) / n;
     let pauseUntil = 0, pauseT = 0, raf = 0, last = 0;
 
     const render = () => { ring.style.transform = `rotateY(${angle.toFixed(3)}deg)`; };
+    // Radio y perspectiva según la cantidad de paneles: la cuerda entre paneles vecinos tiene que superar el ancho del panel más un hueco
+    const fit = () => {
+      const w = parseFloat(getComputedStyle(root).getPropertyValue('--w')) || 380;
+      const r = Math.round((w + 26) / (2 * Math.sin(Math.PI / n)));
+      root.style.setProperty('--r', `${r}px`);
+      root.style.setProperty('--p', `${Math.round(r * 2.4)}px`);
+    };
+    fit();
+    let fitT = 0;
+    window.addEventListener('resize', () => { clearTimeout(fitT); fitT = window.setTimeout(fit, 150); });
 
     // Un solo bucle: arrastre, inercia, destino (botones y foco) o deriva lenta. Se apaga cuando no hay nada que mover.
     const loop = (now: number) => {
