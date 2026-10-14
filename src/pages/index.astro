@@ -55,7 +55,8 @@ const heroRubros = ['tu tienda online.', 'tu distribuidora.', 'tu restaurante.',
 // Integraciones en dos filas (pagos/logística y herramientas/IA).
 // `logo` = logotipo completo (va solo). `icon` = símbolo de la marca (va con el nombre al lado).
 // Sin archivo: logotipo tipográfico (`w` = peso, `t` = tratamiento).
-// Fuentes: Simple Icons 16.32.0 (CC0) y Wikimedia Commons (dominio público). Archivos en /public/integraciones.
+// Fuentes: Simple Icons 16.32.0 (CC0), Wikimedia Commons (dominio público) y los sitios oficiales de cada marca
+// (WooCommerce, Perfit, Zonaprop, Argenprop). Archivos en /public/integraciones.
 // Ancho de cada logotipo (alto 36px) según su viewBox, para que el navegador reserve el espacio
 const logoWidth = (file, size = 36, known) => {
   if (known) return Math.round((size * known[0]) / known[1]);
@@ -65,16 +66,20 @@ const logoWidth = (file, size = 36, known) => {
 };
 
 const integracionesFilas = [
+  // Ventas, pagos, logística y facturación
   [
-    { name: 'Mercado Pago', icon: 'mercadopago' }, { name: 'Mercado Libre', logo: 'mercadolibre', h: 46 }, { name: 'MODO', logo: 'modo', ext: 'png', size: [524, 120], h: 30 },
-    { name: 'PayPal', icon: 'paypal' }, { name: 'Mobbex', logo: 'mobbex', ext: 'png', size: [360, 64], h: 28 }, { name: 'Go Cuotas', logo: 'gocuotas', h: 40 },
-    { name: 'Payway', w: 700 }, { name: 'Ualá', logo: 'uala' }, { name: 'Correo Argentino', logo: 'correoargentino', h: 42 },
+    { name: 'Mercado Pago', icon: 'mercadopago' }, { name: 'Mercado Libre', logo: 'mercadolibre', h: 46 }, { name: 'WooCommerce', logo: 'woocommerce', h: 26 },
+    { name: 'MODO', logo: 'modo', ext: 'png', size: [524, 120], h: 30 }, { name: 'PayPal', icon: 'paypal' }, { name: 'Mobbex', logo: 'mobbex', ext: 'png', size: [360, 64], h: 28 },
+    { name: 'Go Cuotas', logo: 'gocuotas', h: 40 }, { name: 'Payway', w: 700 }, { name: 'Ualá', logo: 'uala' }, { name: 'Correo Argentino', logo: 'correoargentino', h: 42 },
     { name: 'Andreani', logo: 'andreani', ext: 'png', size: [525, 120], h: 30 }, { name: 'OCA', logo: 'oca', h: 26 }, { name: 'ARCA', w: 800, t: 'upper' },
   ],
+  // Comunicación, marketing, herramientas, portales inmobiliarios e IA
   [
-    { name: 'WhatsApp', icon: 'whatsapp' }, { name: 'Google Analytics', icon: 'googleanalytics' }, { name: 'Meta', icon: 'meta' },
-    { name: 'Google Calendar', icon: 'googlecalendar' }, { name: 'Tokko Broker', w: 700 }, { name: 'OpenAI', icon: 'openai' },
-    { name: 'Claude', icon: 'claude' }, { name: 'Gemini', icon: 'googlegemini' },
+    { name: 'WhatsApp', icon: 'whatsapp' }, { name: 'Instagram', icon: 'instagram' }, { name: 'Meta', icon: 'meta' }, { name: 'Google Ads', icon: 'googleads' },
+    { name: 'Google Analytics', icon: 'googleanalytics' }, { name: 'Google Maps', icon: 'googlemaps' }, { name: 'Google Sheets', icon: 'googlesheets' },
+    { name: 'Google Calendar', icon: 'googlecalendar' }, { name: 'Perfit', logo: 'perfit', h: 32 }, { name: 'n8n', icon: 'n8n' }, { name: 'Tokko Broker', w: 700 },
+    { name: 'Zonaprop', logo: 'zonaprop', h: 30 }, { name: 'Argenprop', logo: 'argenprop', h: 29 }, { name: 'OpenAI', icon: 'openai' }, { name: 'Claude', icon: 'claude' },
+    { name: 'Gemini', icon: 'googlegemini' },
   ],
 ];
 
@@ -207,7 +212,7 @@ const heroIntegraciones = [
       <div class="container">
         <div class="section-header reveal">
           <h2>Soluciones integradas</h2>
-          <p>Plataformas de pagos, logística, comunicación e inteligencia artificial con las que podemos integrar tu sistema.</p>
+          <p>Plataformas de pagos, logística, marketing, comunicación e inteligencia artificial con las que podemos integrar tu sistema.</p>
         </div>
       </div>
 
