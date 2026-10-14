@@ -9,7 +9,7 @@ if (!sessionCookie) {
 }
 ---
 
-<AdminLayout title="Generador de Presupuestos | Kaptativa">
+<AdminLayout title="Generador de Presupuestos | kaptativa">
   <div class="admin-wrapper" id="admin-main-view">
     
     <!-- SIDEBAR NAVIGATION -->
@@ -410,7 +410,7 @@ if (!sessionCookie) {
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; page-break-inside: avoid; break-inside: avoid;">
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 8px;">
           <h4 style="margin: 0 0 6px 0; font-size: 0.68rem; color: #475569; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600;">Prestador de Servicios</h4>
-          <p style="margin: 0; font-size: 0.9rem; font-weight: 600; color: #0f172a;">Kaptativa Digital</p>
+          <p style="margin: 0; font-size: 0.9rem; font-weight: 600; color: #0f172a;">kaptativa Digital</p>
           <p style="margin: 4px 0 0 0; font-size: 0.775rem; color: #475569;">Email: <span id="pdf-agency-email">contacto@kaptativa.com</span></p>
           <p style="margin: 2px 0 0 0; font-size: 0.775rem; color: #475569;">WhatsApp: <span id="pdf-agency-phone">+54 9 11 1234-5678</span></p>
         </div>
@@ -497,7 +497,7 @@ if (!sessionCookie) {
 
       <!-- Footer watermark -->
       <div style="margin-top: 30px; text-align: center; font-size: 0.7rem; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 12px;">
-        Esta cotización es de carácter confidencial para el cliente indicado. Kaptativa Systems.
+        Esta cotización es de carácter confidencial para el cliente indicado. kaptativa Systems.
       </div>
     </div>
   </div>
@@ -2296,7 +2296,7 @@ if (!sessionCookie) {
 
       const opt = {
         margin:       [0.3, 0.3, 0.3, 0.3],
-        filename:     `Presupuesto_Kaptativa_${(budget.client_business || 'Cliente').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
+        filename:     `Presupuesto_kaptativa_${(budget.client_business || 'Cliente').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }

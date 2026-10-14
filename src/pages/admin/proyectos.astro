@@ -9,7 +9,7 @@ if (!sessionCookie) {
 }
 ---
 
-<AdminLayout title="Gestión de Proyectos & Casos de Éxito | Kaptativa Admin">
+<AdminLayout title="Gestión de Proyectos & Casos de Éxito | kaptativa Admin">
   <div class="admin-wrapper" id="admin-main-view">
     
     <!-- SIDEBAR NAVIGATION -->
@@ -199,7 +199,7 @@ if (!sessionCookie) {
                   
                   <div style="margin-bottom: 10px;">
                     <label class="form-label">Título SEO (Meta Title)</label>
-                    <input type="text" id="proj-seo-title" class="form-control" placeholder="Plataforma B2B | Casos de Éxito Kaptativa">
+                    <input type="text" id="proj-seo-title" class="form-control" placeholder="Plataforma B2B | Casos de Éxito kaptativa">
                   </div>
                   <div>
                     <label class="form-label">Descripción SEO (Meta Description)</label>
@@ -309,7 +309,7 @@ if (!sessionCookie) {
     destacado: true,
     status: 'published',
     slug: c.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-'),
-    seoTitulo: `${c.title} | Casos de Éxito Kaptativa`,
+    seoTitulo: `${c.title} | Casos de Éxito kaptativa`,
     seoDescripcion: c.solution
   }));
 
@@ -530,7 +530,7 @@ if (!sessionCookie) {
       if (!inputId.value) {
         const autoSlug = inputTitle.value.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-');
         inputSlug.value = autoSlug;
-        inputSeoTitle.value = inputTitle.value ? `${inputTitle.value} | Casos de Éxito Kaptativa` : '';
+        inputSeoTitle.value = inputTitle.value ? `${inputTitle.value} | Casos de Éxito kaptativa` : '';
       }
       updateLivePreview();
     });
@@ -636,7 +636,7 @@ if (!sessionCookie) {
         servicios: inputServices.value,
         resultados: inputResults.value,
         link: inputLink.value,
-        seoTitulo: inputSeoTitle.value || `${inputTitle.value} | Casos de Éxito Kaptativa`,
+        seoTitulo: inputSeoTitle.value || `${inputTitle.value} | Casos de Éxito kaptativa`,
         seoDescripcion: inputSeoDesc.value || inputDescShort.value,
         status: inputStatus.value,
         order: parseInt(inputOrder.value) || 1,

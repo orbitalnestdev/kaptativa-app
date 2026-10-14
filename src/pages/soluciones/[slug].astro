@@ -58,7 +58,8 @@ const iconoMetrica = (m) => {
 };
 ---
 
-<Layout title={`${sol.headline} | kaptativa`} description={sol.text} schema={solSchema}>
+<!-- Inmobiliarias tiene su landing propia (/inmobiliarias/): esta versión no se indexa para que no compitan en Google -->
+<Layout title={`${sol.headline} | kaptativa`} description={sol.text} schema={solSchema} noindex={sol.slug === 'inmobiliarias'}>
   <Header slot="header" floating />
 
   <main>

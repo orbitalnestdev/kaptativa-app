@@ -452,9 +452,9 @@ class MockDB {
 
         const randomVal = Math.floor(Math.random() * 2);
         if (randomVal === 0) {
-          intro = `¡Hola! Soy Diego, de Kaptativa. Estuve viendo lo de ${p.nombre} en ${p.ciudad}`;
+          intro = `¡Hola! Soy Diego, de kaptativa. Estuve viendo lo de ${p.nombre} en ${p.ciudad}`;
         } else {
-          intro = `Buenas, ¿cómo andan? Soy Diego de Kaptativa. Vi el perfil de ${p.nombre} de ${p.ciudad}`;
+          intro = `Buenas, ¿cómo andan? Soy Diego de kaptativa. Vi el perfil de ${p.nombre} de ${p.ciudad}`;
         }
 
         if (rubroL === "gimnasio") {
@@ -466,7 +466,7 @@ class MockDB {
         else if (rubroL === "estudio contable") {
           gancho = sinWeb
             ? ` y vi que no tienen un portal web para centralizar clientes ni recibir consultas automáticas.`
-            : ` y vi su web. En Kaptativa ayudamos a estudios contables a automatizar la facturación y la agenda.`;
+            : ` y vi su web. En kaptativa ayudamos a estudios contables a automatizar la facturación y la agenda.`;
           cierre = ` Vinculamos todo a WhatsApp con asistentes inteligentes para responder dudas frecuentes 24/7. ¿Te interesaría ver un ejemplo rápido?`;
         }
         else if (rubroL === "e-commerce") {
@@ -583,7 +583,7 @@ class MockDB {
     if (!localStorage.getItem('mock_whatsapp_messages')) {
       localStorage.setItem('mock_whatsapp_messages', JSON.stringify([
         { $id: "msg-1", chatId: "chat-1", sender: "client", text: "¡Hola! Vi su publicación sobre agentes de WhatsApp. ¿Cómo funciona?", time: "10:05", created_at: new Date(Date.now() - 3500000).toISOString() },
-        { $id: "msg-2", chatId: "chat-1", sender: "bot", text: "¡Hola! Un gusto saludarte. Soy el asistente virtual de Kaptativa. Ayudamos a automatizar reservas, agendas y respuestas 24/7 vinculando todo a WhatsApp con IA. ¿De qué rubro es tu negocio?", time: "10:06", created_at: new Date(Date.now() - 3400000).toISOString() },
+        { $id: "msg-2", chatId: "chat-1", sender: "bot", text: "¡Hola! Un gusto saludarte. Soy el asistente virtual de kaptativa. Ayudamos a automatizar reservas, agendas y respuestas 24/7 vinculando todo a WhatsApp con IA. ¿De qué rubro es tu negocio?", time: "10:06", created_at: new Date(Date.now() - 3400000).toISOString() },
         { $id: "msg-3", chatId: "chat-1", sender: "client", text: "Es un estudio contable, Estudio Mendoza.", time: "10:08", created_at: new Date(Date.now() - 3200000).toISOString() },
         { $id: "msg-4", chatId: "chat-1", sender: "bot", text: "Excelente. Justo ayudamos a estudios contables a automatizar la facturación y la agenda, vinculando todo a WhatsApp con asistentes inteligentes para responder dudas de clientes 24/7. ¿Te interesaría agendar un diagnóstico de 15 minutos para ver cómo funciona?", time: "10:09", created_at: new Date(Date.now() - 3100000).toISOString() },
         { $id: "msg-5", chatId: "chat-1", sender: "client", text: "Sí, me interesa. Quiero agendar la reunión para ver el bot.", time: "10:14", created_at: new Date(Date.now() - 3000000).toISOString() },
@@ -615,7 +615,7 @@ class MockDB {
         {
           $id: 'global_settings',
           bot_active: true,
-          bot_prompt: `Eres el asistente virtual inteligente de Kaptativa (empresa de desarrollo de software and automatizaciones con IA).
+          bot_prompt: `Eres el asistente virtual inteligente de kaptativa (empresa de desarrollo de software and automatizaciones con IA).
 Tu objetivo es calificar al lead conversando amigablemente y coordinar por chat una videollamada corta de 15 minutos para un diagnóstico.
 Sé breve, profesional y directo. No uses textos largos ni envíes enlaces de reservas.
 Si el usuario pregunta precios, menciónale los precios base:
@@ -631,7 +631,7 @@ Intenta descubrir su rubro de negocio and en qué le gustaría automatizar.`,
           evolution_key: 'd25b6a78-9e12-4cfb-81ff-a320c74b126d',
           evolution_instance: 'kaptativa_sales_bot',
           knowledge_base: `# PREGUNTAS FRECUENTES Y SERVICIOS - KAPTATIVA
-- **¿Qué es Kaptativa?** Es una consultora tecnológica que automatiza procesos y crea agentes de Inteligencia Artificial para Pymes.
+- **¿Qué es kaptativa?** Es una consultora tecnológica que automatiza procesos y crea agentes de Inteligencia Artificial para Pymes.
 - **Proceso de Trabajo:**
   1. Diagnóstico inicial y mapeo de procesos.
   2. Diseño de propuesta a medida.
@@ -728,7 +728,7 @@ class MockAccount {
 
   async createEmailPasswordSession(email, password) {
     if (email === 'admin@kaptativa.com' && password === 'admin123') {
-      const user = { email, name: 'Administrador Kaptativa', $id: 'admin-user' };
+      const user = { email, name: 'Administrador kaptativa', $id: 'admin-user' };
       localStorage.setItem('mock_session', JSON.stringify(user));
       return user;
     }

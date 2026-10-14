@@ -28,7 +28,7 @@ export const POST = async ({ request }) => {
     // Build email content
     const htmlContent = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #2b2b2b;">Nuevo Lead desde la web Kaptativa</h2>
+        <h2 style="color: #2b2b2b;">Nuevo Lead desde la web kaptativa</h2>
         <p>Has recibido un nuevo mensaje a través de los formularios de la web:</p>
         <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
           <tr>
@@ -52,13 +52,13 @@ export const POST = async ({ request }) => {
             <td style="padding: 10px; border: 1px solid #ddd;">${message || challenge || 'Sin mensaje'}</td>
           </tr>
         </table>
-        <p style="color: #888; font-size: 12px; margin-top: 20px;">Este es un mensaje automático de tu sistema Kaptativa.</p>
+        <p style="color: #888; font-size: 12px; margin-top: 20px;">Este es un mensaje automático de tu sistema kaptativa.</p>
       </div>
     `;
 
     // Send email
     await transporter.sendMail({
-      from: `"Kaptativa Web" <${process.env.SMTP_USER}>`,
+      from: `"kaptativa Web" <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_TO,
       subject: `Nuevo Lead 🚀 - ${name} (${tags || 'Contacto'})`,
       html: htmlContent,

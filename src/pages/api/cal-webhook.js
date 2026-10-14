@@ -197,7 +197,7 @@ async function checkAndSendMeetingReminders() {
         continue;
       }
 
-      const messageText = `👋 ¡Hola! Te recuerdo que en unos minutos comienza nuestra reunión de diagnóstico con Kaptativa.
+      const messageText = `👋 ¡Hola! Te recuerdo que en unos minutos comienza nuestra reunión de diagnóstico con kaptativa.
 
 Para unirte a la videollamada de Google Meet, haz clic en el siguiente enlace:
 🔗 ${m.meeting_url}

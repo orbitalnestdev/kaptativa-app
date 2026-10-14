@@ -11,9 +11,9 @@ function generarSecuenciaLocal(p, tono = 'informal') {
   const ciudad = p.ciudad;
 
   const saludos = {
-    informal: `¡Hola! Soy Diego de Kaptativa. Vi ${nombre} en ${ciudad}${rating}`,
-    corporativo: `Estimados, les escribo de parte de Kaptativa. Revisé el perfil de ${nombre} en ${ciudad}`,
-    directo: `Hola, Diego de Kaptativa. Vi ${nombre} en ${ciudad}${rating}`
+    informal: `¡Hola! Soy Diego de kaptativa. Vi ${nombre} en ${ciudad}${rating}`,
+    corporativo: `Estimados, les escribo de parte de kaptativa. Revisé el perfil de ${nombre} en ${ciudad}`,
+    directo: `Hola, Diego de kaptativa. Vi ${nombre} en ${ciudad}${rating}`
   };
 
   const ganchos = {
@@ -46,7 +46,7 @@ function generarSecuenciaLocal(p, tono = 'informal') {
 
   const seguimiento = tono === 'corporativo'
     ? `Buenas, les reenvío mi consulta anterior sobre ${nombre}. ${gancho.seg} ¿Tienen disponibilidad esta semana para conversar?`
-    : `Hola de nuevo, soy Diego de Kaptativa. Quería retomar el mensaje anterior sobre ${nombre}. ${gancho.seg} ¿Les viene bien una llamada corta?`;
+    : `Hola de nuevo, soy Diego de kaptativa. Quería retomar el mensaje anterior sobre ${nombre}. ${gancho.seg} ¿Les viene bien una llamada corta?`;
 
   const reenganche = tono === 'corporativo'
     ? `Estimados de ${nombre}, entiendo que el día a día es muy exigente. ${gancho.reen} Sin compromiso.`
@@ -74,9 +74,9 @@ async function generarSecuenciaConIA(p, tono) {
     p.notas ? `Notas adicionales: "${p.notas}"` : null
   ].filter(Boolean).join('\n');
 
-  const systemPrompt = `Sos Diego, fundador de Kaptativa (empresa de desarrollo web, automatizaciones y agentes de IA con WhatsApp). Escribís mensajes de prospección en WhatsApp para ofrecer servicios.
+  const systemPrompt = `Sos Diego, fundador de kaptativa (empresa de desarrollo web, automatizaciones y agentes de IA con WhatsApp). Escribís mensajes de prospección en WhatsApp para ofrecer servicios.
 
-Servicios de Kaptativa:
+Servicios de kaptativa:
 - Webs y catálogos digitales desde USD 600
 - Automatizaciones de procesos desde USD 500
 - Agentes de WhatsApp con IA desde USD 800

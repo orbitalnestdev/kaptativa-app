@@ -37,7 +37,7 @@ export async function POST({ request, cookies }) {
       return Response.json({ error: 'OPENAI_API_KEY no configurada' }, { status: 500 });
     }
 
-    const systemPrompt = `Sos un experto en presupuestos de software de Kaptativa. Analizás descripciones de proyectos y devolvés una configuración de presupuesto estructurada.
+    const systemPrompt = `Sos un experto en presupuestos de software de kaptativa. Analizás descripciones de proyectos y devolvés una configuración de presupuesto estructurada.
 
 Plantillas disponibles (elegí UNA según el tipo de proyecto):
 - "web": Diseño Web / Landing Page / Sitio corporativo → $600 base

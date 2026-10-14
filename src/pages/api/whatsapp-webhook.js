@@ -8,7 +8,7 @@ const EVOLUTION_API_URL = import.meta.env.EVOLUTION_API_URL || 'https://api.evol
 const EVOLUTION_API_KEY = import.meta.env.EVOLUTION_API_KEY || '';
 const EVOLUTION_INSTANCE = import.meta.env.EVOLUTION_INSTANCE || 'kaptativa_sales_bot';
 const DEFAULT_BOT_PROMPT = import.meta.env.BOT_PROMPT || 
-  `Eres el asistente virtual inteligente de Kaptativa (empresa de desarrollo de software y automatizaciones con IA).
+  `Eres el asistente virtual inteligente de kaptativa (empresa de desarrollo de software y automatizaciones con IA).
 Tu objetivo es calificar al lead conversando amigablemente y coordinar por chat una videollamada corta de 15 minutos para un diagnóstico.
 Sé breve, profesional y directo. No uses textos largos ni envíes enlaces de reservas.
 Si el usuario pregunta precios, menciónale los precios base:
