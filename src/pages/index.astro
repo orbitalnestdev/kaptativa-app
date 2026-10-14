@@ -57,7 +57,8 @@ const heroRubros = ['tu tienda online.', 'tu distribuidora.', 'tu restaurante.',
 // Sin archivo: logotipo tipográfico (`w` = peso, `t` = tratamiento).
 // Fuentes: Simple Icons 16.32.0 (CC0) y Wikimedia Commons (dominio público). Archivos en /public/integraciones.
 // Ancho de cada logotipo (alto 36px) según su viewBox, para que el navegador reserve el espacio
-const logoWidth = (file, size = 36) => {
+const logoWidth = (file, size = 36, known) => {
+  if (known) return Math.round((size * known[0]) / known[1]);
   const vb = readFileSync(`public/integraciones/${file}.svg`, 'utf8').match(/viewBox="([^"]+)"/);
   const [, , w, h] = vb ? vb[1].trim().split(/[\s,]+/).map(Number) : [0, 0, 1, 1];
   return Math.round((size * w) / h);
@@ -65,14 +66,15 @@ const logoWidth = (file, size = 36) => {
 
 const integracionesFilas = [
   [
-    { name: 'Mercado Pago', icon: 'mercadopago' }, { name: 'Mercado Libre', logo: 'mercadolibre', h: 46 }, { name: 'MODO', w: 800, t: 'upper' },
-    { name: 'Ualá', logo: 'uala' }, { name: 'Correo Argentino', logo: 'correoargentino', h: 42 }, { name: 'ANDREANI', w: 800, t: 'upper' },
-    { name: 'OCA', logo: 'oca', h: 26 }, { name: 'ARCA', w: 800, t: 'upper' },
+    { name: 'Mercado Pago', icon: 'mercadopago' }, { name: 'Mercado Libre', logo: 'mercadolibre', h: 46 }, { name: 'MODO', logo: 'modo', ext: 'png', size: [524, 120], h: 30 },
+    { name: 'PayPal', icon: 'paypal' }, { name: 'Mobbex', logo: 'mobbex', ext: 'png', size: [360, 64], h: 28 }, { name: 'Go Cuotas', logo: 'gocuotas', h: 40 },
+    { name: 'Payway', w: 700 }, { name: 'Ualá', logo: 'uala' }, { name: 'Correo Argentino', logo: 'correoargentino', h: 42 },
+    { name: 'Andreani', logo: 'andreani', ext: 'png', size: [525, 120], h: 30 }, { name: 'OCA', logo: 'oca', h: 26 }, { name: 'ARCA', w: 800, t: 'upper' },
   ],
   [
     { name: 'WhatsApp', icon: 'whatsapp' }, { name: 'Google Analytics', icon: 'googleanalytics' }, { name: 'Meta', icon: 'meta' },
     { name: 'Google Calendar', icon: 'googlecalendar' }, { name: 'Tokko Broker', w: 700 }, { name: 'OpenAI', icon: 'openai' },
-    { name: 'Claude', icon: 'claude' }, { name: 'Gemini', icon: 'googlegemini' }, { name: 'n8n', icon: 'n8n' }, { name: 'Make', icon: 'make' },
+    { name: 'Claude', icon: 'claude' }, { name: 'Gemini', icon: 'googlegemini' },
   ],
 ];
 
@@ -228,7 +230,7 @@ const heroIntegraciones = [
                 <ul class="h2-marquee-group" aria-hidden={copia === 1 ? 'true' : undefined}>
                   {fila.map((m) => (
                     m.logo
-                      ? <li class="h2-brand"><img class="h2-brand-logo" src={`/integraciones/${m.logo}.svg`} alt={m.name} width={logoWidth(m.logo, m.h ?? 36)} height={m.h ?? 36} style={m.h ? `--lh:${m.h - 2}px` : undefined} decoding="async" /></li>
+                      ? <li class="h2-brand"><img class="h2-brand-logo" src={`/integraciones/${m.logo}.${m.ext ?? 'svg'}`} alt={m.name} width={logoWidth(m.logo, m.h ?? 36, m.size)} height={m.h ?? 36} style={m.h ? `--lh:${m.h - 2}px` : undefined} decoding="async" /></li>
                       : m.icon
                         ? <li class="h2-brand"><img class="h2-brand-icon" src={`/integraciones/${m.icon}.svg`} alt="" width="30" height="30" decoding="async" /><span>{m.name}</span></li>
                         : <li class={`h2-brand h2-wordmark ${m.t ?? ''}`} style={`font-weight:${m.w}`}>{m.name}</li>

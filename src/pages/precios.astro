@@ -39,7 +39,6 @@ const schema = {
       <div class="container">
         <h1>Planes y precios</h1>
         <p>Tres puntos de partida sobre la misma plataforma. Elegís el que se ajusta a tu etapa y escalás cuando lo necesites, sin rehacer nada.</p>
-        <div class="precios-nota"><Fragment set:html={svg('clipboard')} /> Precio a medida: cotización cerrada en 24 hs hábiles después de la demo.</div>
       </div>
     </section>
 
@@ -131,8 +130,6 @@ const schema = {
   .precios-hero .container { position: relative; max-width: 760px; }
   .precios-hero h1 { font-family: 'Lexend', sans-serif; font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 600; line-height: 1.1; color: var(--text-primary); margin: 0 0 18px; }
   .precios-hero p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; margin: 0 auto; max-width: 56ch; }
-  .precios-nota { display: inline-flex; align-items: center; gap: 8px; margin-top: 26px; padding: 10px 16px; border-radius: 999px; font-size: 0.9rem; color: var(--brand-primary-light); background: rgba(124, 92, 255, 0.1); border: 1px solid rgba(124, 92, 255, 0.3); }
-  .precios-nota :global(.ki) { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
   /* Tabla comparativa */
   .cmp-wrap { overflow-x: auto; border: 1px solid var(--border-color); border-radius: 20px; background: var(--card-bg); }

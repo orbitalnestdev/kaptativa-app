@@ -571,3 +571,27 @@
 .servicio-page .section-header { margin-bottom: 56px !important; }
 @media (max-width: 768px) { .servicio-page .section { padding: 72px 0 !important; } .servicio-page .section-header { margin-bottom: 36px !important; } }
 
+
+/* ---------- Tarjetas de rubro en panel claro: más cálidas sin cambiar la estética ----------
+   Lavado lila de arriba hacia abajo, sombra con tinte violeta, caja del ícono con degradado y texto un punto más oscuro.
+   Al pasar el mouse la tarjeta se eleva apenas y el contorno se tiñe de violeta. */
+.servicio-page .section-light .rubro-card {
+  background: linear-gradient(180deg, #FAF8FF 0%, #FFFFFF 58%) !important;
+  border: 1px solid #E9E5F8 !important;
+  box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -20px rgba(124, 92, 255, 0.35) !important;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+.servicio-page .section-light .rubro-card:hover {
+  transform: translateY(-4px) !important;
+  background: linear-gradient(180deg, #F6F3FF 0%, #FFFFFF 62%) !important;
+  border-color: rgba(124, 92, 255, 0.45) !important;
+  box-shadow: 0 2px 4px rgba(15, 15, 18, 0.04), 0 24px 48px -20px rgba(124, 92, 255, 0.45) !important;
+}
+.servicio-page .section-light .rubro-card::before { display: none; }
+.servicio-page .section-light .rubro-card::after { width: 220px; height: 220px; top: -70px; right: -70px; background: radial-gradient(circle, rgba(124, 92, 255, 0.2), transparent 62%); }
+.servicio-page .section-light .rubro-card .rubro-icon-wrapper { width: 46px !important; height: 46px !important; background: linear-gradient(135deg, #F3F0FF, #E6E0FF) !important; border: 1px solid rgba(124, 92, 255, 0.28) !important; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 6px 14px -8px rgba(124, 92, 255, 0.5) !important; }
+.servicio-page .section-light .rubro-card:hover .rubro-icon-wrapper { background: linear-gradient(135deg, #7C5CFF, #6A48F5) !important; border-color: transparent !important; }
+.servicio-page .section-light .rubro-card h3 { color: #17161D !important; }
+.servicio-page .section-light .rubro-card h3::after { background: linear-gradient(90deg, #7C5CFF, #C9BDFF); }
+.servicio-page .section-light .rubro-card p { color: #4B4A57 !important; line-height: 1.6 !important; }
+@media (prefers-reduced-motion: reduce) { .servicio-page .section-light .rubro-card:hover { transform: none !important; } }
