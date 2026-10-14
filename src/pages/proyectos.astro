@@ -7,7 +7,13 @@ import HeroAurora from '../components/HeroAurora.astro';
 import IsoK3D from '../components/IsoK3D.astro';
 import CtaBeam from '../components/CtaBeam.astro';
 import Trabajos from '../components/home2/Trabajos.astro';
+import { trabajos, categorias } from '../data/trabajos.js';
 const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Vi los proyectos y quiero solicitar una demo para mi negocio.');
+// Mosaico del hero: tres sitios de rubros distintos, con su captura real
+const host = (u: string) => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const destacados = ['AoMatcha', 'MUV Propiedades', 'Bodega Iaccarini'].map((n) => trabajos.find((t) => t.nombre === n)).filter(Boolean);
+const label = (key: string) => categorias.find((c) => c.key === key)?.label ?? '';
+const rubrosConProyectos = new Set(trabajos.map((t) => t.categoria)).size;
 ---
 
 <Layout title="Proyectos: sitios, tiendas y sistemas que ya funcionan | Kaptativa" description="Sitios web, tiendas online y sistemas hechos con la plataforma Kaptativa que hoy venden, reservan y gestionan. Filtrá por rubro y recorrelos.">
@@ -18,7 +24,7 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
       <HeroAurora />
       <div class="hero-glow-1"></div>
       <div class="hero-glow-2"></div>
-      <div class="container hero-container">
+      <div class="container pj-hero-grid">
         <div class="hero-content reveal">
           <h1 class="hero-tagline">Proyectos que ya <span class="text-gradient-crimson">están funcionando</span></h1>
           <p class="hero-description">Tiendas, sitios y sistemas hechos con la plataforma Kaptativa que hoy venden, reservan y gestionan. Filtrá por rubro y entrá a recorrerlos.</p>
@@ -26,6 +32,22 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
             <a href="#trabajos" class="btn btn-primary btn-glow">Ver los proyectos</a>
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Solicitar demo</a>
           </div>
+          <ul class="pj-stats">
+            <li><b>{trabajos.length}</b><span>sitios en línea</span></li>
+            <li><b>{rubrosConProyectos}</b><span>rubros distintos</span></li>
+            <li><b>100 %</b><span>capturas reales</span></li>
+          </ul>
+        </div>
+
+        <!-- Mosaico: tres sitios reales en ventanas de navegador superpuestas -->
+        <div class="pj-mosaic reveal reveal-delay-1" aria-hidden="true">
+          {destacados.map((t, i) => (
+            <figure class={`pj-shot pj-shot-${i + 1}`}>
+              <div class="pj-bar"><span></span><span></span><span></span><em>{host(t!.url)}</em></div>
+              <img src={t!.imagen} alt="" width="1200" height="750" decoding="async" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'low'} />
+              <figcaption><img src={t!.imagen.replace(/\.webp$/, '-icon.webp')} alt="" width="20" height="20" />{t!.nombre}<small>{label(t!.categoria)}</small></figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>
@@ -55,6 +77,50 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
 </Layout>
 
 <style>
+  /* Hero compacto: texto a la izquierda y mosaico de sitios reales a la derecha (antes ocupaba toda la pantalla y la mitad quedaba vacía) */
+  #proyectos-hero { min-height: 0; padding: 150px 0 72px; }
+  .pj-hero-grid { position: relative; z-index: 1; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
+  .pj-stats { list-style: none; margin: 34px 0 0; padding: 22px 0 0; display: flex; gap: 34px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+  .pj-stats li { display: flex; flex-direction: column; gap: 2px; }
+  .pj-stats b { font-family: 'Lexend', sans-serif; font-size: 1.6rem; font-weight: 600; line-height: 1.1; color: #fff; }
+  .pj-stats span { font-size: 0.85rem; color: var(--text-secondary); }
+
+  .pj-mosaic { position: relative; height: 430px; }
+  .pj-shot { position: absolute; margin: 0; width: 60%; border-radius: 14px; overflow: hidden; background: #1B1B20; border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55); transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+  .pj-shot > img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+  .pj-bar { display: flex; align-items: center; gap: 5px; padding: 7px 10px; background: #1F1F25; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+  .pj-bar span { width: 7px; height: 7px; border-radius: 50%; background: #3A3A44; }
+  .pj-bar em { margin-left: 8px; font-style: normal; font-size: 0.7rem; color: #9A9AA6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pj-shot figcaption { position: absolute; left: 10px; bottom: 10px; display: flex; align-items: center; gap: 7px; padding: 6px 10px 6px 6px; border-radius: 10px; font-size: 0.76rem; font-weight: 600; color: #0F0F12; background: rgba(255, 255, 255, 0.95); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); }
+  .pj-shot figcaption img { width: 20px; height: 20px; border-radius: 5px; object-fit: contain; }
+  .pj-shot figcaption small { font-size: 0.7rem; font-weight: 600; color: #5B3FE0; background: #F3F0FF; padding: 2px 7px; border-radius: 99px; }
+  .pj-shot-1 { left: 0; top: 0; z-index: 1; transform: rotate(-3deg); }
+  .pj-shot-2 { right: 0; top: 34px; z-index: 2; transform: rotate(2.5deg); }
+  .pj-shot-3 { left: 20%; bottom: 0; z-index: 3; transform: rotate(-1deg); }
+  /* La etiqueta de las dos de atrás va arriba, donde no las tapa la de adelante */
+  .pj-shot-1 figcaption, .pj-shot-2 figcaption { top: 38px; bottom: auto; }
+  .pj-shot-2 figcaption { left: auto; right: 10px; }
+  .pj-mosaic:hover .pj-shot-1 { transform: rotate(-4deg) translate(-8px, -6px); }
+  .pj-mosaic:hover .pj-shot-2 { transform: rotate(3.5deg) translate(8px, -4px); }
+  .pj-mosaic:hover .pj-shot-3 { transform: rotate(-1deg) translateY(6px); }
+  @media (max-width: 1024px) {
+    .pj-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+    .pj-mosaic { max-width: 600px; width: 100%; margin: 0 auto; }
+  }
+  @media (max-width: 600px) {
+    #proyectos-hero { padding: 120px 0 48px; }
+    .pj-stats { gap: 22px; }
+    .pj-stats b { font-size: 1.35rem; }
+    .pj-stats span { font-size: 0.78rem; }
+    .pj-mosaic { height: 300px; }
+    .pj-shot { width: 68%; }
+    .pj-shot-2 { top: 26px; }
+    .pj-shot-3 { left: 16%; }
+    .pj-shot figcaption { font-size: 0.7rem; }
+    .pj-shot figcaption small { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .pj-shot { transition: none; } }
+
   /* Cierre: mismas reglas que en soluciones y servicios (allí viven en cada página) */
   .section-cta { padding: 80px 0; }
   .cta-card-neon { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--border-radius-lg); padding: 60px 40px; display: grid; grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 40px; align-items: center; position: relative; overflow: hidden; }
