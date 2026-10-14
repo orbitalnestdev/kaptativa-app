@@ -59,6 +59,9 @@ export const soluciones = [
     title: 'Tiendas online',
     headline: 'Tu tienda online con la gestión adentro',
     text: 'Catálogo, stock, cobros con MercadoPago y envíos en una tienda que administrás vos, con los pedidos y la facturación en el mismo panel.',
+    // Tarjeta de la home: el resultado para el negocio primero (text queda para la página y la descripción en Google)
+    card: 'Vendé las 24 horas con cobro por Mercado Pago y envíos calculados. El stock y la facturación se actualizan solos con cada venta.',
+    cta: 'tiendas online',
     pains: [
       'Vendés por Instagram o WhatsApp y los pedidos se mezclan entre chats',
       'El stock está en una planilla que siempre va un paso atrás',
@@ -86,6 +89,9 @@ export const soluciones = [
     title: 'Mayoristas y distribuidores',
     headline: 'Tu canal mayorista, ordenado y online',
     text: 'Listas de precios por cliente, pedidos que carga tu propia red de revendedores y stock por depósito: tu canal B2B sin planillas.',
+    // Tarjeta de la home: el resultado para el negocio primero (text queda para la página y la descripción en Google)
+    card: 'Tus clientes hacen sus pedidos solos, con su lista de precios y el mínimo de compra. Menos llamadas, cero errores de carga y stock real por depósito.',
+    cta: 'mayoristas',
     pains: [
       'Cada cliente tiene un precio distinto y todo vive en planillas',
       'Los pedidos llegan por WhatsApp, audio o foto y hay que transcribirlos',
@@ -113,6 +119,9 @@ export const soluciones = [
     title: 'Gastronomía',
     headline: 'Carta, pedidos y reservas en un solo sistema',
     text: 'Carta digital con QR, pedidos online, reservas y comandas ordenadas para que el salón y la cocina trabajen sincronizados.',
+    // Tarjeta de la home: el resultado para el negocio primero (text queda para la página y la descripción en Google)
+    card: 'Más pedidos por tu propio canal, sin comisiones de apps, y una cocina que recibe cada comanda en orden. Carta con QR y reservas incluidas.',
+    cta: 'gastronomía',
     pains: [
       'Actualizar precios de la carta implica reimprimir todo',
       'Los pedidos por WhatsApp se pierden en horas pico',
@@ -140,6 +149,9 @@ export const soluciones = [
     title: 'Gimnasios y clubes',
     headline: 'Socios, cuotas y clases bajo control',
     text: 'Socios al día, cuotas cobradas online, reservas de clases con cupos y un sitio que comunica horarios y novedades.',
+    // Tarjeta de la home: el resultado para el negocio primero (text queda para la página y la descripción en Google)
+    card: 'Cuotas que se cobran solas y socios que reservan su clase desde el celular. Sabés quién está al día y cuánto se ocupa cada clase.',
+    cta: 'gimnasios',
     pains: [
       'No sabés con certeza quién está al día con la cuota',
       'Cobrar implica perseguir a cada socio por mensaje',
@@ -167,6 +179,9 @@ export const soluciones = [
     title: 'Turnos y cursos',
     headline: 'Agenda e inscripciones que se llenan solas',
     text: 'Agenda online, inscripciones con cupo y cobro anticipado para estudios, consultorios y capacitadores.',
+    // Tarjeta de la home: el resultado para el negocio primero (text queda para la página y la descripción en Google)
+    card: 'Agenda abierta las 24 horas, recordatorios que bajan las ausencias y seña al reservar. Para consultorios, profesores y capacitadores.',
+    cta: 'turnos y cursos',
     pains: [
       'Coordinar un turno lleva cinco mensajes de ida y vuelta',
       'Los ausentes sin aviso te hacen perder horas',
@@ -194,6 +209,9 @@ export const soluciones = [
     title: 'Inmobiliarias',
     headline: 'Tu cartera de propiedades en tu propio sitio',
     text: 'Tu cartera de propiedades publicada en tu propio sitio, con buscador, fichas profesionales y consultas que llegan calificadas.',
+    // Tarjeta de la home: el resultado para el negocio primero (text queda para la página y la descripción en Google)
+    card: 'Tu cartera en tu propio sitio, sincronizada con Tokko, y consultas que llegan calificadas por WhatsApp. Menos tiempo respondiendo, más visitas.',
+    cta: 'inmobiliarias',
     pains: [
       'Dependés de portales que cobran y muestran a tu competencia al lado',
       'Las fichas en tu sitio están desactualizadas respecto de tu CRM',
@@ -222,6 +240,9 @@ export const soluciones = [
     title: 'Asociaciones y mutuales',
     headline: 'Asociados, beneficios y comunicación en orden',
     text: 'Padrón de asociados, beneficios y convenios en un solo sistema, con un sitio institucional claro y actualizado.',
+    // Tarjeta de la home: el resultado para el negocio primero (text queda para la página y la descripción en Google)
+    card: 'Padrón, cuotas y beneficios en un solo sistema. Cada socio ve su estado de cuenta y pide órdenes o beneficios sin ir a la sede.',
+    cta: 'mutuales',
     pains: [
       'El padrón vive en planillas que nadie se anima a tocar',
       'Los asociados no conocen todos los beneficios disponibles',
@@ -249,6 +270,9 @@ export const soluciones = [
     title: 'Servicios profesionales',
     headline: 'Presencia profesional que genera consultas',
     text: 'Presencia seria para estudios y consultoras: consultas centralizadas, agenda de reuniones y clientes organizados.',
+    // Tarjeta de la home: el resultado para el negocio primero (text queda para la página y la descripción en Google)
+    card: 'Una presencia que transmite confianza y un asistente que responde y agenda reuniones por vos. Para estudios contables, jurídicos y consultoras.',
+    cta: 'estudios',
     pains: [
       'Tu web no transmite el nivel de tu trabajo',
       'Las consultas llegan por varios canales y algunas se pierden',

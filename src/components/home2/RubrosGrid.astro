@@ -1,21 +1,47 @@
 ---
-// Grilla de las ocho soluciones por rubro (home y /soluciones/): tarjeta con el gráfico animado del rubro,
-// título, bajada y enlace. Los estilos viven acá para que las dos páginas se vean iguales.
+// Grilla de las ocho soluciones por rubro de la home: tarjeta con el gráfico animado del rubro, título con su ícono,
+// el resultado para el negocio (campo `card`) y un enlace que nombra el rubro.
+// En el celular pasa a carrusel horizontal con puntos de posición: la sección baja de ~3.500 px a una pantalla.
 import RubroVisual from './RubroVisual.astro';
-import { soluciones } from '../../data/plataforma.js';
+import { soluciones, svg } from '../../data/plataforma.js';
 ---
-        <div class="h2-rubros">
+        <div class="h2-rubros" data-rubros>
           {soluciones.map((r) => (
-            <a class="h2-card h2-rubro" href={`/soluciones/${r.slug}`}>
-              <RubroVisual slug={r.slug} icon={r.icon} />
+            <a class="h2-card h2-rubro" href={`/soluciones/${r.slug}/`}>
+              <RubroVisual slug={r.slug} />
               <div class="h2-rubro-body">
-                <h3>{r.title}</h3>
-                <p>{r.text}</p>
-                <span class="h2-link">Ver solución</span>
+                <h3><span class="h2-rubro-ico"><Fragment set:html={svg(r.icon)} /></span>{r.title}</h3>
+                <p>{r.card ?? r.text}</p>
+                <span class="h2-link">Ver solución para {r.cta ?? r.title.toLowerCase()} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
               </div>
             </a>
           ))}
         </div>
+        <div class="h2-rubros-dots" data-rubros-dots aria-hidden="true">
+          {soluciones.map((_, i) => <button type="button" tabindex="-1" class:list={{ on: i === 0 }} data-i={i}></button>)}
+        </div>
+
+<script>
+  // Carrusel del celular: los puntos siguen a la tarjeta visible y llevan a cada una
+  const track = document.querySelector<HTMLElement>('[data-rubros]');
+  const dots = [...document.querySelectorAll<HTMLButtonElement>('[data-rubros-dots] button')];
+  if (track && dots.length) {
+    const cards = [...track.children] as HTMLElement[];
+    let raf = 0;
+    const sync = () => {
+      raf = 0;
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      let best = 0, dist = Infinity;
+      cards.forEach((c, i) => { const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = i; } });
+      dots.forEach((d, i) => d.classList.toggle('on', i === best));
+    };
+    track.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+    dots.forEach((d, i) => d.addEventListener('click', () => {
+      const c = cards[i];
+      track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' });
+    }));
+  }
+</script>
 
 <style>
   .h2-card {
@@ -25,20 +51,34 @@ import { soluciones } from '../../data/plataforma.js';
     padding: 26px;
     transition: opacity var(--transition-slow), border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
   }
-  .h2-rubros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .h2-rubros { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
   .h2-rubro { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 10px 10px 22px; text-decoration: none; isolation: isolate; border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(124, 92, 255, 0.38)) border-box; }
   .h2-rubro::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 1px; background: linear-gradient(90deg, transparent, rgba(124, 92, 255, 0.6), transparent); pointer-events: none; }
-  .h2-rubro:hover { border-color: transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
-  /* Ícono emblema: entero, arriba a la derecha; el título le deja lugar */
+  .h2-rubro:hover { border-color: transparent; transform: translateY(-3px); box-shadow: 0 22px 44px -24px rgba(91, 63, 224, 0.45); background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.25) 45%, rgba(124, 92, 255, 0.7)) border-box; }
   .h2-rubro-body { flex: 1; display: flex; flex-direction: column; padding: 18px 14px 0; }
-  .h2-rubro h3 { font-size: 1.1rem; }
-  .h2-rubro p { flex: 1; margin-top: 8px; font-size: 0.88rem; }
-  .h2-link { display: inline-block; margin-top: 22px; font-size: 0.88rem; font-weight: 600; color: var(--brand-primary-light); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color var(--transition-fast); }
+  .h2-rubro h3 { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; line-height: 1.25; }
+  .h2-rubro-ico { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; color: #5B3FE0; background: rgba(124, 92, 255, 0.12); }
+  .h2-rubro-ico :global(.ki) { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .h2-rubro p { flex: 1; margin-top: 10px; font-size: 0.9rem; line-height: 1.6; }
+  /* Violeta oscuro sobre blanco (contraste 6,5:1). La regla de la home no llegaba: el enlace vive en este componente */
+  .h2-rubro .h2-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; font-size: 0.88rem; font-weight: 600; color: #5B3FE0 !important; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color var(--transition-fast); }
+  .h2-link svg { transition: transform var(--transition-fast); }
   .h2-rubro:hover .h2-link { text-decoration-color: currentColor; }
+  .h2-rubro:hover .h2-link svg { transform: translateX(3px); }
+  .h2-rubros-dots { display: none; }
   @media (max-width: 1024px) {
-      .h2-rubros, .h2-bento { grid-template-columns: repeat(2, 1fr); }
+    .h2-rubros { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
+  /* Celular: carrusel horizontal con la tarjeta siguiente asomando */
   @media (max-width: 768px) {
-      .h2-rubros, .h2-bento, .h2-steps { grid-template-columns: 1fr; }
+    .h2-rubros { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; margin: 0 -20px; padding: 6px 20px 14px; scroll-padding: 0 20px; scrollbar-width: none; }
+    .h2-rubros::-webkit-scrollbar { display: none; }
+    .h2-rubro { scroll-snap-align: center; }
+    .h2-rubro:hover { transform: none; }
+    .h2-rubros-dots { display: flex; justify-content: center; gap: 4px; margin-top: 6px; }
+    .h2-rubros-dots button { width: 22px; height: 22px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+    .h2-rubros-dots button::after { content: ''; width: 7px; height: 7px; border-radius: 99px; background: #D4D4D9; transition: width 0.3s ease, background 0.3s ease; }
+    .h2-rubros-dots button.on::after { width: 20px; background: #7C5CFF; }
   }
+  @media (prefers-reduced-motion: reduce) { .h2-rubro:hover { transform: none; } }
 </style>

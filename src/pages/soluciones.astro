@@ -52,7 +52,7 @@ const schema = {
         <div class="bg reveal">
           {bento.map((s) => destacados.includes(s.slug) ? (
             <a class="bg-tile bg-feat" href={`/soluciones/${s.slug}/`}>
-              <div class="bg-stage"><RubroVisual slug={s.slug} icon={s.icon} /></div>
+              <div class="bg-stage"><RubroVisual slug={s.slug} /></div>
               <div class="bg-body">
                 <span class="bg-kicker">{s.short}</span>
                 <h3>{s.title}</h3>
@@ -102,9 +102,10 @@ const schema = {
   .bg-tile { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 22px; border-radius: 22px; text-decoration: none; color: inherit; background: linear-gradient(180deg, #FAF8FF 0%, #FFFFFF 58%); border: 1px solid #E9E5F8; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -20px rgba(124, 92, 255, 0.35); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease; }
   .bg-tile:hover { transform: translateY(-4px); border-color: rgba(124, 92, 255, 0.45); box-shadow: 0 2px 4px rgba(15, 15, 18, 0.04), 0 24px 48px -20px rgba(124, 92, 255, 0.45); }
   .bg-feat { grid-column: span 2; flex-direction: row; align-items: center; gap: 22px; padding: 18px 26px 18px 18px; }
-  .bg-stage { flex: 0 0 46%; display: grid; place-items: center; align-self: stretch; padding: 20px 16px; border-radius: 16px; background: radial-gradient(circle at 30% 20%, rgba(124, 92, 255, 0.18), transparent 60%), linear-gradient(180deg, #F1EDFF, #F8F6FF); border: 1px solid #E9E5F8; transition: background 0.3s ease; }
+  .bg-stage { flex: 0 0 46%; display: grid; place-items: center; align-self: stretch; padding: 14px 10px; border-radius: 16px; background: radial-gradient(circle at 30% 20%, rgba(124, 92, 255, 0.18), transparent 60%), linear-gradient(180deg, #F1EDFF, #F8F6FF); border: 1px solid #E9E5F8; transition: background 0.3s ease; }
   .bg-feat:hover .bg-stage { background: radial-gradient(circle at 30% 20%, rgba(124, 92, 255, 0.28), transparent 60%), linear-gradient(180deg, #EDE8FF, #F6F3FF); }
-  .bg-stage > :global(.rv) { width: 100%; }
+  .bg-stage > :global(.rv) { width: 100%; font-size: 0.72rem; height: auto; min-height: 150px; padding: 12px; }
+  .bg-stage :global(.rv-photo) { display: none; }
   .bg-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
   .bg-kicker { font-size: 0.78rem; font-weight: 600; color: #5B3FE0; margin-bottom: 6px; }
   .bg-tile h3 { font-family: 'Lexend', sans-serif; font-weight: 600; color: #17161D !important; margin: 0 !important; line-height: 1.25 !important; }

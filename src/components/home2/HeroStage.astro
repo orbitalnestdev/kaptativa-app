@@ -52,12 +52,12 @@ const escenas: Escena[] = [
     q: '¿Quedan lugares en funcional a las 19?', a: 'Quedan 6. Ya te anoté, ¡te esperamos! 💪', toast: 'Cuota cobrada: $ 32.000', toastIcon: 'card',
   },
   {
-    icon: 'calendar', store: 'Estudio Ríos', banner: 'Turnos online', bannerSub: 'Elegí día y horario', cta: 'Pedir turno',
-    items: [{ name: 'Consulta impositiva', price: '$ 25.000', tint: '#56CCF2' }, { name: 'Liquidación de sueldos', price: '$ 48.000', tint: '#8C7BFF' }],
-    kpis: [{ label: 'Facturado del mes', value: '$ 3,2 M', delta: '+14%' }, { label: 'Turnos', value: '96', delta: '+19%' }, { label: 'Clientes', value: '74', delta: '+8%' }],
+    icon: 'calendar', store: 'Consultorio Andes', banner: 'Turnos online', bannerSub: 'Elegí día y horario', cta: 'Pedir turno',
+    items: [{ name: 'Sesión de kinesiología', price: '$ 18.000', tint: '#56CCF2' }, { name: 'Taller de postura', price: '6 cupos', tint: '#8C7BFF' }],
+    kpis: [{ label: 'Facturado del mes', value: '$ 2,9 M', delta: '+14%' }, { label: 'Turnos', value: '214', delta: '+19%' }, { label: 'Ausencias', value: '4%', delta: '−9 pts' }],
     chart: 'Turnos', bars: [48, 60, 66, 58, 72, 30, 26, 64, 70, 76, 68, 84],
-    rows: [{ who: 'Paula V.', what: 'Martes 10:00', status: 'Confirmado', kind: 'ok' }, { who: 'Ferretería Lux', what: 'Honorarios $ 48.000', status: 'Pagado', kind: 'ok' }, { who: 'Gabriel T.', what: 'Jueves 16:30', status: 'Pendiente', kind: 'wait' }],
-    q: '¿Tienen turno esta semana?', a: 'Tengo el martes 10 hs o el jueves 16:30. ¿Cuál te reservo?', toast: 'Turno confirmado: martes 10 hs', toastIcon: 'calendar',
+    rows: [{ who: 'Paula V.', what: 'Jueves 10:30', status: 'Confirmado', kind: 'ok' }, { who: 'Taller de postura', what: '6 de 12 cupos', status: 'Inscripción', kind: 'new' }, { who: 'Gabriel T.', what: 'Viernes 16:00', status: 'Seña pendiente', kind: 'wait' }],
+    q: '¿Tienen turno el jueves a la mañana?', a: 'Sí, a las 10:30. Te mando el link para la seña y queda reservado.', toast: 'Turno reservado: jueves 10:30', toastIcon: 'calendar',
   },
   {
     icon: 'building', store: 'Ríos Propiedades', banner: 'Propiedades destacadas', bannerSub: 'Venta y alquiler', cta: 'Agendar visita',
@@ -76,12 +76,12 @@ const escenas: Escena[] = [
     q: '¿Cómo pido una orden para el médico?', a: 'Te la genero ahora. ¿Para qué especialidad?', toast: 'Orden emitida: socio 1182', toastIcon: 'file',
   },
   {
-    icon: 'briefcase', store: 'Norte Consultores', banner: 'Agendá un diagnóstico', bannerSub: 'Primera reunión sin cargo', cta: 'Agendar reunión',
-    items: [{ name: 'Diagnóstico · 45 min', price: 'Sin cargo', tint: '#8C7BFF' }, { name: 'Plan de mejora', price: '$ 380.000', tint: '#56CCF2' }],
-    kpis: [{ label: 'Propuestas cerradas', value: '$ 7,4 M', delta: '+16%' }, { label: 'Propuestas enviadas', value: '38', delta: '+22%' }, { label: 'Leads', value: '152', delta: '+31%' }],
-    chart: 'Leads', bars: [30, 42, 38, 50, 46, 58, 54, 66, 62, 74, 80, 92],
-    rows: [{ who: 'Grupo Andes', what: 'Propuesta $ 380.000', status: 'Aceptada', kind: 'ok' }, { who: 'Textil Rivera', what: 'Reunión jueves', status: 'Agendada', kind: 'new' }, { who: 'Agro Sur', what: 'Lead nuevo', status: 'Pendiente', kind: 'wait' }],
-    q: '¿Pueden ayudarnos a ordenar costos?', a: '¡Claro! Te propongo un diagnóstico el jueves 11 hs. ¿Te sirve?', toast: 'Propuesta aceptada: $ 380.000', toastIcon: 'check',
+    icon: 'briefcase', store: 'Estudio Molina', banner: 'Contadores y asesores', bannerSub: 'Primera reunión sin cargo', cta: 'Agendar reunión',
+    items: [{ name: 'Consulta impositiva', price: '$ 25.000', tint: '#56CCF2' }, { name: 'Liquidación de sueldos', price: '$ 48.000', tint: '#8C7BFF' }],
+    kpis: [{ label: 'Facturado del mes', value: '$ 3,2 M', delta: '+14%' }, { label: 'Reuniones', value: '96', delta: '+19%' }, { label: 'Clientes', value: '74', delta: '+8%' }],
+    chart: 'Consultas', bars: [48, 60, 66, 58, 72, 30, 26, 64, 70, 76, 68, 84],
+    rows: [{ who: 'Paula V.', what: 'Martes 10:00', status: 'Confirmado', kind: 'ok' }, { who: 'Ferretería Lux', what: 'Honorarios $ 48.000', status: 'Pagado', kind: 'ok' }, { who: 'Gabriel T.', what: 'Jueves 16:30', status: 'Pendiente', kind: 'wait' }],
+    q: '¿Pueden llevarme la contabilidad del negocio?', a: '¡Claro! Te propongo una reunión el martes 10 hs o el jueves 16:30.', toast: 'Reunión agendada: martes 10 hs', toastIcon: 'calendar',
   },
 ].slice(0, rubros.length);
 

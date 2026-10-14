@@ -3,14 +3,12 @@
 // en ese rubro (como hace MasLeads en su grilla, pero en HTML/CSS en vez de Lottie). Datos de ejemplo.
 // Entra animado cuando la tarjeta aparece en pantalla (app.js agrega .rv-anim y .on) y después
 // cada gráfico mantiene un bucle lento (estados que cambian, turnos que se reservan, chat que responde).
-import { svg } from '../../data/plataforma.js';
-interface Props { slug: string; icon: string; }
-const { slug, icon } = Astro.props;
+// Letra de 11 px como mínimo y sin ícono de fondo (se pisaba con los datos); el ícono del rubro va junto al título.
+interface Props { slug: string; }
+const { slug } = Astro.props;
 ---
 
 <div class={`rv rv-${slug}`} aria-hidden="true">
-  <span class="rv-icon"><Fragment set:html={svg(icon)} /></span>
-
   {slug === 'tiendas-online' && (
     <>
       <div class="rv-row" style="--d:.1s"><i class="rv-thumb"></i><span>Buzo frisa<small>M · gris</small></span><b>$ 38.900</b></div>
@@ -51,6 +49,7 @@ const { slug, icon } = Astro.props;
       <div class="rv-head" style="--d:.1s"><span>Cuotas de marzo al día</span><b>92 %</b></div>
       <div class="rv-bar" style="--d:.2s"><i style="--w:92%"></i></div>
       <div class="rv-row" style="--d:.4s"><span>Funcional 19:00<small>Prof. Lucas</small></span><div class="rv-cycle"><em class="rv-chip vio">12/14 cupos</em><em class="rv-chip vio">13/14 cupos</em><em class="rv-chip ok">Completa</em></div></div>
+      <div class="rv-row" style="--d:.55s"><span>Spinning 20:00<small>Prof. Caro</small></span><em class="rv-chip vio">8/12 cupos</em></div>
     </>
   )}
 
@@ -67,8 +66,9 @@ const { slug, icon } = Astro.props;
 
   {slug === 'inmobiliarias' && (
     <>
-      <div class="rv-row" style="--d:.1s"><i class="rv-photo"></i><span>Depto 2 amb · Centro<small>Alquiler · $ 85.000</small></span><div class="rv-cycle"><em class="rv-chip ok">Publicada</em><em class="rv-chip wait">Reservada</em><em class="rv-chip vio">Alquilada</em></div></div>
-      <div class="rv-foot" style="--d:.35s"><span><i class="rv-dot"></i>3 consultas nuevas</span><em class="rv-chip vio">Tokko · ML</em></div>
+      <div class="rv-row" style="--d:.1s"><i class="rv-photo"></i><span>Depto Centro<small>Alquiler $ 85.000</small></span><div class="rv-cycle"><em class="rv-chip ok">Publicada</em><em class="rv-chip wait">Reservada</em><em class="rv-chip vio">Alquilada</em></div></div>
+      <div class="rv-row" style="--d:.25s"><i class="rv-photo alt"></i><span>Casa Norte<small>Venta US$ 98.000</small></span><em class="rv-chip ok">Publicada</em></div>
+      <div class="rv-foot" style="--d:.4s"><span><i class="rv-dot"></i>3 consultas nuevas</span><em class="rv-chip vio">Tokko · ML</em></div>
     </>
   )}
 
@@ -94,35 +94,34 @@ const { slug, icon } = Astro.props;
 
 <style>
   .rv {
-    position: relative; overflow: hidden; height: 150px; padding: 14px;
-    display: flex; flex-direction: column; justify-content: center; gap: 7px;
-    border-radius: 14px; color: #ECECEF; font-size: 0.73rem; line-height: 1.25;
+    position: relative; overflow: hidden; height: 172px; padding: 14px;
+    display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    border-radius: 14px; color: #ECECEF; font-size: 0.8rem; line-height: 1.3;
     background: linear-gradient(155deg, #1F1848 0%, #121218 62%);
     border: 1px solid rgba(124, 92, 255, 0.3);
     transition: border-color var(--transition-fast, 0.2s ease);
   }
   .rv::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 18% 0%, rgba(124, 92, 255, 0.35), transparent 55%); pointer-events: none; }
-  .rv > :not(.rv-icon) { position: relative; z-index: 1; }
+  .rv > * { position: relative; z-index: 1; }
   :global(.h2-rubro:hover) .rv { border-color: rgba(124, 92, 255, 0.65); }
-  .rv-icon { position: absolute; right: -10px; bottom: -12px; width: 92px; height: 92px; color: #7C5CFF; opacity: 0.14; pointer-events: none; transition: opacity var(--transition-slow, 0.4s ease), transform var(--transition-slow, 0.4s ease); }
-  .rv-icon :global(.ki) { width: 100%; height: 100%; stroke-width: 1.2; }
-  :global(.h2-rubro:hover) .rv-icon { opacity: 0.26; transform: scale(1.04); }
 
   /* Piezas de interfaz */
   .rv-row, .rv-head, .rv-foot { display: flex; align-items: center; gap: 8px; }
   .rv-row { padding: 6px 9px; border-radius: 9px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); }
   .rv-head, .rv-foot { padding: 0 2px; color: rgba(255, 255, 255, 0.72); }
   .rv-head b { color: #fff; }
-  .rv-row > span, .rv-head > span, .rv-foot > span { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .rv-row > span, .rv-head > span, .rv-foot > span { flex: 1; display: flex; flex-direction: column; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rv-row small { overflow: hidden; text-overflow: ellipsis; }
   .rv-foot > span { flex-direction: row; align-items: center; gap: 6px; }
-  .rv-row small { font-size: 0.64rem; color: rgba(255, 255, 255, 0.55); }
+  .rv-row small { font-size: 0.875em; color: rgba(255, 255, 255, 0.62); }
   .rv b { font-weight: 600; color: #fff; white-space: nowrap; }
   .rv-thumb, .rv-photo, .rv-av { flex: none; width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #A08CFF, #5B3FE0); }
   .rv-thumb.alt { background: linear-gradient(135deg, #ECECEF, #8E8E99); }
   .rv-photo { width: 34px; border-radius: 7px; background: linear-gradient(160deg, #3B2E8C, #1B1538 60%, #7C5CFF); }
-  .rv-av { border-radius: 50%; display: grid; place-items: center; font-size: 0.58rem; font-weight: 600; color: #fff; background: #5B3FE0; }
+  .rv-photo.alt { background: linear-gradient(160deg, #1F6F5A, #12251F 60%, #34D399); }
+  .rv-av { border-radius: 50%; display: grid; place-items: center; font-size: 0.85em; font-weight: 600; color: #fff; background: #5B3FE0; }
   .rv-av.alt { background: #2A2A31; }
-  .rv-chip { font-style: normal; font-size: 0.62rem; font-weight: 600; padding: 3px 8px; border-radius: 999px; white-space: nowrap; line-height: 1.3; }
+  .rv-chip { font-style: normal; font-size: 0.86em; font-weight: 600; padding: 3px 8px; border-radius: 999px; white-space: nowrap; line-height: 1.3; }
   .rv-chip.ok { color: #34D399; background: rgba(16, 185, 129, 0.16); }
   .rv-chip.wait { color: #FB923C; background: rgba(249, 115, 22, 0.16); }
   .rv-chip.vio { color: #C9BFFF; background: rgba(124, 92, 255, 0.26); }
@@ -143,7 +142,7 @@ const { slug, icon } = Astro.props;
   .rv-gastro { display: flex; align-items: center; gap: 10px; }
   .rv-qr { flex: none; width: 46px; height: 46px; padding: 4px; border-radius: 8px; background: #fff; color: #0F0F12; }
   .rv-ticket { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 7px 9px; border-radius: 9px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); }
-  .rv-ticket span { color: rgba(255, 255, 255, 0.6); font-size: 0.64rem; }
+  .rv-ticket span { color: rgba(255, 255, 255, 0.65); font-size: 0.875em; }
   .rv-ticket .rv-cycle { margin-top: 3px; }
 
   /* Gimnasios: barra de cuotas */
@@ -153,14 +152,14 @@ const { slug, icon } = Astro.props;
 
   /* Turnos: semana en la que van entrando reservas */
   .rv-week { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
-  .rv-week span { font-size: 0.58rem; text-align: center; color: rgba(255, 255, 255, 0.5); }
-  .rv-week i { height: 15px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); }
+  .rv-week span { font-size: 0.875em; text-align: center; color: rgba(255, 255, 255, 0.6); }
+  .rv-week i { height: 18px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); }
   .rv-week i.busy { background: rgba(124, 92, 255, 0.32); }
   .rv-week i.booked { background: #7C5CFF; animation: rv-book 9s 1s infinite; }
   .rv-week i.booked.b2 { animation-delay: 5.5s; }
 
   /* Servicios profesionales: la conversación se repite */
-  .rv-bub { max-width: 86%; padding: 6px 10px; border-radius: 11px; font-size: 0.7rem; }
+  .rv-bub { max-width: 88%; padding: 7px 11px; border-radius: 11px; font-size: 0.95em; }
   .rv-bub.in { align-self: flex-start; background: rgba(255, 255, 255, 0.1); border-bottom-left-radius: 3px; }
   .rv-bub.out { align-self: flex-end; background: #6A48F5; color: #fff; border-bottom-right-radius: 3px; animation: rv-reply 9s infinite; }
   .rv-slot { position: relative; display: flex; flex-direction: column; min-height: 26px; }
