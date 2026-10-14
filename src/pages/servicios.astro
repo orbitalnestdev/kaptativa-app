@@ -12,17 +12,18 @@ const servicios = [
   { slug: 'publicidad-digital', icon: 'megaphone', title: 'Publicidad digital', text: 'Campañas en Meta y Google medidas por resultados: más consultas y ventas, no solo clics.' },
   { slug: 'seo-geo', icon: 'search', title: 'SEO y GEO', text: 'Que te encuentren en Google y en las respuestas de la IA cuando buscan lo que vendés.' },
   { slug: 'social-media', icon: 'users', title: 'Social media', text: 'Contenido y calendario para tus redes, con una línea clara y constante.' },
+  { slug: 'diseno-web', icon: 'monitor', title: 'Diseño web y e-commerce', text: 'Sitios y tiendas enfocados en conversión, rápidos y fáciles de administrar.' },
   { slug: 'email-marketing', icon: 'message', title: 'Email marketing', text: 'Campañas y automatizaciones de correo integradas con Perfit y tu base de clientes.' },
   { slug: 'agentes-ia', icon: 'bot', title: 'Agentes de IA', text: 'Un asistente que atiende, califica y agenda 24/7 en WhatsApp y en tu web.' },
   { slug: 'automatizacion', icon: 'layers', title: 'Automatización e integraciones', text: 'Conectamos tus herramientas y eliminamos el trabajo repetitivo entre sistemas.' },
-  { slug: 'diseno-web', icon: 'monitor', title: 'Diseño web y e-commerce', text: 'Sitios y tiendas enfocados en conversión, rápidos y fáciles de administrar.' },
   { slug: 'desarrollo-software', icon: 'grid', title: 'Desarrollo de software', text: 'Sistemas a medida para procesos propios: paneles, APIs e integraciones.' },
 ];
 const etapas = [
   { n: '01', title: 'Que te encuentren', text: 'Llevar tu negocio a quien ya está buscando lo que vendés.', slugs: ['seo-geo', 'publicidad-digital', 'social-media'] },
   { n: '02', title: 'Que te elijan', text: 'Un sitio o una tienda claros y rápidos, y correos que acompañan la decisión.', slugs: ['diseno-web', 'email-marketing'] },
-  { n: '03', title: 'Que la operación no dependa de nadie', text: 'Atención, procesos y sistemas que trabajan solos.', slugs: ['agentes-ia', 'automatizacion', 'desarrollo-software'] },
+  { n: '03', title: 'Operación automática', text: 'Atención, procesos y sistemas que trabajan solos.', slugs: ['agentes-ia', 'automatizacion', 'desarrollo-software'] },
 ];
+const etapaDe = (slug) => etapas.find((e) => e.slugs.includes(slug));
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -55,27 +56,23 @@ const schema = {
       <div class="container">
         <div class="section-header reveal">
           <h2>Qué podemos sumar</h2>
-          <p>Ocho servicios ordenados por la etapa que empujan. Trabajan solos o combinados, sobre tu plataforma o sobre la web que ya tenés.</p>
+          <p>Ocho servicios que trabajan solos o combinados, sobre tu plataforma o sobre la web que ya tenés. La etiqueta dice qué etapa empuja cada uno.</p>
         </div>
-        <div class="sv-map">
-          {etapas.map((e) => (
-            <div class="sv-stage reveal">
-              <div class="sv-stage-head">
-                <span class="sv-stage-n">{e.n}</span>
-                <h3>{e.title}</h3>
-                <p>{e.text}</p>
-              </div>
-              <div class="sv-stage-items">
-                {e.slugs.map((slug) => servicios.find((x) => x.slug === slug)).map((s) => (
-                  <a class="sv-item" href={`/servicios/${s.slug}/`}>
-                    <span class="sv-icon"><Fragment set:html={svg(s.icon)} /></span>
-                    <span class="sv-item-txt"><strong>{s.title}</strong><span>{s.text}</span></span>
-                    <span class="sv-item-go">Ver servicio <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
+        <div class="sg">
+          {servicios.map((s, i) => {
+            const e = etapaDe(s.slug);
+            return (
+              <a class="sg-card reveal" href={`/servicios/${s.slug}/`} style={`--i:${i}`}>
+                <span class="sg-ic"><Fragment set:html={svg(s.icon)} /></span>
+                <span class="sg-body">
+                  {e && <span class="sg-tag"><b>{e.n}</b>{e.title}</span>}
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </span>
+                <span class="sg-go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -103,32 +100,25 @@ const schema = {
 </Layout>
 
 <style>
-  /* Mapa por etapas: cada etapa es una fila con su cabecera y sus servicios en lista, separados por filetes */
-  .sv-map { display: grid; gap: 16px; }
-  .sv-stage { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 26px; padding: 26px 28px; border-radius: 22px; background: linear-gradient(180deg, #FAF8FF 0%, #FFFFFF 58%); border: 1px solid #E9E5F8; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -20px rgba(124, 92, 255, 0.3); }
-  .sv-stage-n { display: block; font-family: 'Lexend', sans-serif; font-size: 2rem; font-weight: 600; line-height: 1; color: #7C5CFF; letter-spacing: -0.02em; }
-  .sv-stage-head h3 { font-family: 'Lexend', sans-serif; font-size: 1.3rem !important; line-height: 1.25 !important; color: #17161D !important; margin: 12px 0 8px !important; }
-  .sv-stage-head p { margin: 0 !important; font-size: 0.92rem; line-height: 1.55; color: #4B4A57 !important; }
-  .sv-stage-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
-  .sv-item { display: flex; flex-direction: column; gap: 12px; min-width: 0; padding: 6px 20px 6px 22px; border-left: 1px solid #ECE9F6; text-decoration: none; color: inherit; border-radius: 0; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
-  .sv-item:first-child { border-left: 0; padding-left: 0; }
-  .sv-item:hover { transform: translateY(-3px); }
-  .sv-icon { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; color: #5B3FE0; background: linear-gradient(135deg, #F3F0FF, #E6E0FF); border: 1px solid rgba(124, 92, 255, 0.28); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9); transition: background 0.25s ease, color 0.25s ease; }
-  .sv-icon :global(.ki) { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .sv-item:hover .sv-icon { background: linear-gradient(135deg, #7C5CFF, #6A48F5); color: #FFFFFF; border-color: transparent; }
-  .sv-item-txt { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-  .sv-item-txt strong { font-family: 'Lexend', sans-serif; font-size: 1rem; font-weight: 600; color: #17161D; line-height: 1.3; }
-  .sv-item-txt span { font-size: 0.88rem; line-height: 1.55; color: #4B4A57; }
-  .sv-item-go { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: #5B3FE0; }
-  .sv-item-go svg { transition: transform 0.25s ease; }
-  .sv-item:hover .sv-item-go svg { transform: translateX(3px); }
-  @media (max-width: 960px) {
-    .sv-stage { grid-template-columns: 1fr; gap: 18px; padding: 22px; }
-    .sv-stage-items { grid-template-columns: 1fr; }
-    .sv-item { border-left: 0; padding: 16px 0 0; border-top: 1px solid #ECE9F6; }
-    .sv-item:first-child { border-top: 0; padding-top: 0; }
-  }
-  @media (prefers-reduced-motion: reduce) { .sv-item:hover { transform: none; } }
+  /* Grilla de servicios: tarjetas horizontales en dos columnas (ícono, etiqueta de etapa, título, texto y flecha) */
+  .sg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .sg-card { position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr) 40px; gap: 18px; align-items: start; min-width: 0; padding: 24px 22px 24px 24px; border-radius: 20px; text-decoration: none; color: inherit; background: linear-gradient(180deg, #FAF8FF 0%, #FFFFFF 58%); border: 1px solid #E9E5F8; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -20px rgba(124, 92, 255, 0.35); overflow: hidden; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease; }
+  .sg-card::before { content: ''; position: absolute; left: 0; top: 18px; bottom: 18px; width: 3px; border-radius: 3px; background: linear-gradient(180deg, #7C5CFF, #C9BDFF); opacity: 0; transform: scaleY(0.6); transition: opacity 0.3s ease, transform 0.3s ease; }
+  .sg-card:hover { transform: translateY(-3px); border-color: rgba(124, 92, 255, 0.45); box-shadow: 0 2px 4px rgba(15, 15, 18, 0.04), 0 24px 48px -20px rgba(124, 92, 255, 0.45); }
+  .sg-card:hover::before { opacity: 1; transform: none; }
+  .sg-ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; color: #5B3FE0; background: linear-gradient(135deg, #F3F0FF, #E6E0FF); border: 1px solid rgba(124, 92, 255, 0.28); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 6px 14px -8px rgba(124, 92, 255, 0.5); transition: background 0.25s ease, color 0.25s ease; }
+  .sg-ic :global(.ki) { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .sg-card:hover .sg-ic { background: linear-gradient(135deg, #7C5CFF, #6A48F5); color: #FFFFFF; border-color: transparent; }
+  .sg-body { display: flex; flex-direction: column; min-width: 0; }
+  .sg-tag { display: inline-flex; align-items: center; gap: 7px; align-self: flex-start; font-size: 0.74rem; font-weight: 600; color: #5B3FE0; background: #F3F0FF; border: 1px solid rgba(124, 92, 255, 0.22); border-radius: 999px; padding: 3px 10px 3px 4px; margin-bottom: 10px; }
+  .sg-tag b { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; font-family: 'Lexend', sans-serif; font-size: 0.68rem; color: #FFFFFF; background: #7C5CFF; }
+  .sg-card h3 { font-family: 'Lexend', sans-serif; font-size: 1.15rem !important; font-weight: 600; line-height: 1.3 !important; color: #17161D !important; margin: 0 !important; }
+  .sg-card p { margin: 8px 0 0 !important; font-size: 0.93rem; line-height: 1.6; color: #4B4A57 !important; }
+  .sg-go { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: #5B3FE0; border: 1px solid #E9E5F8; background: #FFFFFF; transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease; }
+  .sg-card:hover .sg-go { background: #7C5CFF; color: #FFFFFF; border-color: transparent; transform: translateX(2px); }
+  @media (max-width: 760px) { .sg { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .sg-card { grid-template-columns: 46px minmax(0, 1fr); padding: 20px 18px; gap: 14px; } .sg-go { display: none; } .sg-ic { width: 46px; height: 46px; } }
+  @media (prefers-reduced-motion: reduce) { .sg-card:hover { transform: none; } }
 
   /* Cierre */
   .section-cta { padding: 80px 0; }
