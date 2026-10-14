@@ -70,7 +70,8 @@ const iconoMetrica = (m) => {
       <div class="container sol-hero-grid">
         <div class="hero-content reveal">
           <h1 class="hero-tagline">{titleStart}<span class="text-gradient-cyan">{sol.accent}</span>{titleEnd}</h1>
-          <p class="hero-description">{sol.text}</p>
+          <!-- En pantalla, el resultado para el negocio; `text` sigue como descripción para Google -->
+          <p class="hero-description">{sol.card ?? sol.text}</p>
           <div class="hero-buttons">
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Solicitar demo</a>
             <a href="/precios/" class="btn btn-secondary">Ver planes</a>

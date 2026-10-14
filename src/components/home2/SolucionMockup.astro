@@ -6,7 +6,9 @@ import { svg } from '../../data/plataforma.js';
 interface Props { tipo: 'shop' | 'b2b' | 'menu' | 'members' | 'agenda' | 'props' | 'padron' | 'inbox'; }
 const { tipo } = Astro.props;
 
-type Fila = { a: string; b?: string; c?: string; s: 'ok' | 'warn' | 'info' | 'muted'; t: string; thumb?: string; ini?: string };
+type Estado = 'ok' | 'warn' | 'info' | 'muted';
+// `luego`: el estado al que pasa la fila en el bucle (el pedido se envía, la cuota se paga, la consulta se responde)
+type Fila = { a: string; b?: string; c?: string; s: Estado; t: string; thumb?: string; ini?: string; luego?: [Estado, string] };
 type Panel = {
   url: string; brand: string; title: string;
   nav: [string, string][]; // [ícono, etiqueta]
@@ -22,28 +24,28 @@ const paneles: Record<string, Panel> = {
     kpis: [['$ 186.400', 'Ventas hoy', '+12 %'], ['23', 'Pedidos'], ['$ 8.100', 'Ticket promedio']],
     filas: [
       { a: 'Remera oversize ×2', b: '#1042, Ana R.', c: '$ 37.800', s: 'ok', t: 'Pagado', thumb: 'linear-gradient(135deg, #7C5CFF, #6A48F5)' },
-      { a: 'Buzo frisa', b: '#1041, Lucas P.', c: '$ 38.900', s: 'warn', t: 'En preparación', thumb: 'linear-gradient(135deg, #A08CFF, #7C5CFF)' },
+      { a: 'Buzo frisa', b: '#1041, Lucas P.', c: '$ 38.900', s: 'warn', t: 'En preparación', thumb: 'linear-gradient(135deg, #A08CFF, #7C5CFF)', luego: ['info', 'Enviado'] },
       { a: 'Gorra bordada ×3', b: '#1040, Sofía G.', c: '$ 37.500', s: 'info', t: 'Enviado', thumb: 'linear-gradient(135deg, #5B3FE0, #7C5CFF)' },
     ],
     toast: { icon: 'cart', text: 'Nueva venta: $ 38.900' },
   },
   b2b: {
     url: 'mayorista.tunegocio.com.ar/admin', brand: 'Distribuidora', title: 'Lista de precios, Cliente A',
-    nav: [['clipboard', 'Pedidos'], ['receipt', 'Listas de precios'], ['users', 'Clientes'], ['box', 'Stock']],
+    nav: [['clipboard', 'Pedidos'], ['receipt', 'Precios'], ['users', 'Clientes'], ['box', 'Stock']],
     kpis: [['142', 'Pedidos del mes', '+9 %'], ['$ 312.000', 'Ticket promedio'], ['86', 'Clientes activos']],
     filas: [
       { a: 'Aceite 900 ml ×12', b: 'Stock 86', c: '$ 41.200', s: 'info', t: 'Lista A −18 %' },
       { a: 'Yerba 1 kg ×10', b: 'Stock 140', c: '$ 52.800', s: 'info', t: 'Lista A −18 %' },
-      { a: 'Fideos 500 g ×20', b: 'Stock 312', c: '$ 23.600', s: 'ok', t: 'En pedido' },
+      { a: 'Fideos 500 g ×20', b: 'Stock 312', c: '$ 23.600', s: 'warn', t: 'En pedido', luego: ['ok', 'Despachado'] },
     ],
     toast: { icon: 'clipboard', text: 'Pedido #2081, 48 unidades' },
   },
   menu: {
     url: 'turesto.com.ar/admin', brand: 'Tu resto', title: 'Comandas en curso',
     nav: [['utensils', 'Comandas'], ['file', 'Carta'], ['grid', 'Mesas'], ['calendar', 'Reservas']],
-    kpis: [['64', 'Pedidos hoy', '+8 %'], ['$ 11.300', 'Ticket promedio'], ['18', 'Reservas esta noche']],
+    kpis: [['64', 'Pedidos hoy', '+8 %'], ['$ 11.300', 'Ticket promedio'], ['18', 'Reservas hoy']],
     filas: [
-      { a: 'Mesa 7', b: 'Hamburguesa doble ×2, limonada', c: '$ 33.900', s: 'warn', t: 'En cocina', ini: '7' },
+      { a: 'Mesa 7', b: 'Hamburguesa doble ×2, limonada', c: '$ 33.900', s: 'warn', t: 'En cocina', ini: '7', luego: ['ok', 'Listo'] },
       { a: 'Mesa 3', b: 'Pizza napolitana', c: '$ 16.200', s: 'ok', t: 'Listo', ini: '3' },
       { a: 'Delivery #88', b: 'Papas con cheddar ×2', c: '$ 15.600', s: 'info', t: 'En camino', ini: 'D' },
     ],
@@ -55,17 +57,17 @@ const paneles: Record<string, Panel> = {
     kpis: [['428', 'Socios activos', '+14'], ['91 %', 'Cuotas al día'], ['12', 'Clases hoy']],
     filas: [
       { a: 'Ana Rodríguez', b: 'Musculación, plan full', c: '$ 24.000', s: 'ok', t: 'Al día', ini: 'A' },
-      { a: 'Lucas Pérez', b: 'Crossfit, plan 3 días', c: '$ 18.500', s: 'warn', t: 'Vence hoy', ini: 'L' },
+      { a: 'Lucas Pérez', b: 'Crossfit, plan 3 días', c: '$ 18.500', s: 'warn', t: 'Vence hoy', ini: 'L', luego: ['ok', 'Pagó hoy'] },
       { a: 'Sofía Gómez', b: 'Natación, plan full', c: '$ 24.000', s: 'ok', t: 'Al día', ini: 'S' },
     ],
     toast: { icon: 'card', text: 'Cuota de Ana R. acreditada' },
   },
   agenda: {
-    url: 'tuestudio.com.ar/admin', brand: 'Tu estudio', title: 'Agenda, semana 3',
+    url: 'tuconsultorio.com.ar/admin', brand: 'Tu consultorio', title: 'Agenda, semana 3',
     nav: [['calendar', 'Agenda'], ['users', 'Clientes'], ['file', 'Cursos'], ['card', 'Cobros']],
-    kpis: [['48', 'Turnos esta semana', '+6'], ['86 %', 'Con seña cobrada'], ['3', 'Ausencias']],
+    kpis: [['48', 'Turnos (semana)', '+6'], ['86 %', 'Con seña cobrada'], ['3', 'Ausencias']],
     filas: [
-      { a: 'Jueves 10:30', b: 'Consulta inicial, Marcos T.', c: '$ 12.000', s: 'ok', t: 'Seña pagada', ini: 'J' },
+      { a: 'Jueves 10:30', b: 'Consulta inicial, Marcos T.', c: '$ 12.000', s: 'warn', t: 'Seña pendiente', ini: 'J', luego: ['ok', 'Seña pagada'] },
       { a: 'Jueves 15:00', b: 'Curso intensivo, grupo B', c: '8 cupos', s: 'info', t: 'Confirmado', ini: 'J' },
     ],
     toast: { icon: 'calendar', text: 'Turno confirmado, 10:30' },
@@ -73,10 +75,10 @@ const paneles: Record<string, Panel> = {
   props: {
     url: 'tuinmobiliaria.com.ar/admin', brand: 'Tu inmobiliaria', title: 'Propiedades',
     nav: [['building', 'Propiedades'], ['message', 'Consultas'], ['calendar', 'Visitas'], ['monitor', 'Sitio web']],
-    kpis: [['126', 'Publicadas', '+5'], ['37', 'Consultas esta semana'], ['9', 'Visitas agendadas']],
+    kpis: [['126', 'Publicadas', '+5'], ['37', 'Consultas nuevas'], ['9', 'Visitas agendadas']],
     filas: [
       { a: 'Depto. 3 amb., Palermo', b: '78 m², 14 consultas', c: 'USD 168.000', s: 'info', t: 'Destacada', thumb: 'linear-gradient(135deg, #6A48F5, #A08CFF)' },
-      { a: 'Casa 4 amb., Nordelta', b: '110 m², 6 consultas', c: 'USD 245.000', s: 'ok', t: 'Nueva', thumb: 'linear-gradient(135deg, #7C5CFF, #5B3FE0)' },
+      { a: 'Casa 4 amb., Nordelta', b: '110 m², 6 consultas', c: 'USD 245.000', s: 'ok', t: 'Nueva', thumb: 'linear-gradient(135deg, #7C5CFF, #5B3FE0)', luego: ['info', 'Visita jueves'] },
       { a: 'Local comercial, Centro', b: '45 m², 3 consultas', c: 'USD 92.000', s: 'muted', t: 'Reservado', thumb: 'linear-gradient(135deg, #A08CFF, #C9BFFF)' },
     ],
     toast: { icon: 'message', text: 'Consulta por Depto. 3 amb.' },
@@ -84,10 +86,10 @@ const paneles: Record<string, Panel> = {
   padron: {
     url: 'tumutual.org.ar/admin', brand: 'Tu mutual', title: 'Padrón de asociados',
     nav: [['users', 'Asociados'], ['card', 'Cuotas'], ['tag', 'Beneficios'], ['megaphone', 'Comunicación']],
-    kpis: [['2.140', 'Asociados activos', '+12'], ['88 %', 'Cuotas al día'], ['36', 'Convenios vigentes']],
+    kpis: [['2.140', 'Asociados activos', '+12'], ['88 %', 'Cuotas al día'], ['36', 'Convenios']],
     filas: [
       { a: 'Juan Paredes', b: 'Plan full, categoría A', c: '$ 9.800', s: 'ok', t: 'Al día', ini: 'J' },
-      { a: 'María Luján', b: 'Plan básico, categoría B', c: '$ 6.400', s: 'warn', t: 'Vence el 15', ini: 'M' },
+      { a: 'María Luján', b: 'Plan básico, categoría B', c: '$ 6.400', s: 'warn', t: 'Vence el 15', ini: 'M', luego: ['ok', 'Al día'] },
       { a: 'Farmacia Central', b: 'Convenio, 20 % de descuento', c: '312 usos', s: 'info', t: 'Activo', ini: 'F' },
     ],
     toast: { icon: 'users', text: '12 asociados nuevos este mes' },
@@ -95,11 +97,11 @@ const paneles: Record<string, Panel> = {
   inbox: {
     url: 'tuestudio.com.ar/admin', brand: 'Tu estudio', title: 'Consultas',
     nav: [['message', 'Consultas'], ['calendar', 'Agenda'], ['users', 'Clientes'], ['monitor', 'Sitio web']],
-    kpis: [['23', 'Consultas esta semana', '+7'], ['92 %', 'Respondidas en 1 h'], ['7', 'Reuniones agendadas']],
+    kpis: [['23', 'Consultas nuevas', '+7'], ['92 %', 'Respuesta < 1 h'], ['7', 'Reuniones']],
     filas: [
-      { a: 'Laura M.', b: 'Formulario web: asesoramiento para mi sociedad', c: 'Hace 12 min', s: 'warn', t: 'Nueva', ini: 'L' },
-      { a: 'Pablo S.', b: 'WhatsApp: ¿tienen disponibilidad esta semana?', c: 'Hace 1 h', s: 'ok', t: 'Respondida', ini: 'P' },
-      { a: 'Carla V.', b: 'Google: planificación impositiva', c: 'Ayer', s: 'info', t: 'Reunión jueves', ini: 'C' },
+      { a: 'Laura M.', b: 'Web: asesoramiento societario', c: 'Hace 12 min', s: 'warn', t: 'Nueva', ini: 'L', luego: ['ok', 'Respondida'] },
+      { a: 'Pablo S.', b: 'WhatsApp: turno esta semana', c: 'Hace 1 h', s: 'ok', t: 'Respondida', ini: 'P' },
+      { a: 'Carla V.', b: 'Google: plan impositivo', c: 'Ayer', s: 'info', t: 'Reunión jueves', ini: 'C' },
     ],
     toast: { icon: 'calendar', text: 'Reunión agendada: jueves 16 h' },
   },
@@ -139,12 +141,14 @@ const p = paneles[tipo];
                 <span><b>{f.a}</b>{f.b && <small>{f.b}</small>}</span>
               </span>
               {f.c && <span class="sm-c2">{f.c}</span>}
-              <em class={f.s}>{f.t}</em>
+              {f.luego
+                ? <span class="sm-st"><em class={f.s}>{f.t}</em><em class={f.luego[0]}>{f.luego[1]}</em></span>
+                : <em class={f.s}>{f.t}</em>}
             </div>
           ))}
           {tipo === 'agenda' && (
             <div class="sm-cal" style="--d:0.3s">
-              {['L', 'M', 'M', 'J', 'V'].map((d) => <small>{d}</small>)}
+              {['L', 'M', 'X', 'J', 'V'].map((d) => <small>{d}</small>)}
               {Array.from({ length: 15 }).map((_, k) => <i class:list={[{ busy: [1, 3, 6, 7, 9, 12, 14].includes(k), pick: k === 8 }]}></i>)}
             </div>
           )}
@@ -164,31 +168,31 @@ const p = paneles[tipo];
   .sm :global(.ki) { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
   /* Ventana clara */
-  .sm-window { border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid rgba(124, 92, 255, 0.3); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(124, 92, 255, 0.18); color: #0F0F12; font-size: 0.74rem; }
+  .sm-window { border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid rgba(124, 92, 255, 0.3); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(124, 92, 255, 0.18); color: #0F0F12; font-size: 0.8rem; }
   .sm-chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #F6F5FB; border-bottom: 1px solid #ECECEF; }
   .sm-chrome span { width: 9px; height: 9px; border-radius: 50%; background: #D4D4D9; }
-  .sm-chrome em { margin-left: 10px; font-style: normal; font-size: 0.66rem; color: #6E6E7A; background: #FFFFFF; border: 1px solid #ECECEF; border-radius: 8px; padding: 3px 10px; }
-  .sm-app { display: grid; grid-template-columns: 132px 1fr; min-height: 328px; }
+  .sm-chrome em { margin-left: 10px; font-style: normal; font-size: 0.7rem; color: #6E6E7A; background: #FFFFFF; border: 1px solid #ECECEF; border-radius: 8px; padding: 3px 10px; }
+  .sm-app { display: grid; grid-template-columns: 124px 1fr; min-height: 328px; }
 
   /* Barra lateral */
   .sm-side { background: #F8F7FC; border-right: 1px solid #ECECEF; padding: 14px 10px; display: flex; flex-direction: column; gap: 4px; }
-  .sm-logo { display: flex; align-items: center; gap: 8px; padding: 4px 8px 12px; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 0.76rem; color: #0F0F12; }
+  .sm-logo { display: flex; align-items: center; gap: 8px; padding: 4px 8px 12px; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 0.76rem; color: #0F0F12; white-space: nowrap; }
   .sm-logo i { width: 18px; height: 18px; border-radius: 6px; background: linear-gradient(135deg, #7C5CFF, #6A48F5); flex-shrink: 0; }
-  .sm-nav { display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: 9px; font-size: 0.7rem; color: #52525B; white-space: nowrap; }
+  .sm-nav { display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: 9px; font-size: 0.74rem; color: #52525B; white-space: nowrap; }
   .sm-nav.on { background: #EDE9FF; color: #5B3FE0; font-weight: 600; }
 
   /* Contenido */
   .sm-main { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
   .sm-top { display: flex; align-items: center; gap: 10px; }
   .sm-top b { font-family: 'Lexend', sans-serif; font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sm-search { margin-left: auto; display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 8px; font-size: 0.66rem; color: #8E8E99; background: #F6F5FB; border: 1px solid #ECECEF; }
-  .sm-avatar { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-weight: 600; font-size: 0.68rem; color: #5B3FE0; background: #EDE9FF; flex-shrink: 0; }
+  .sm-search { margin-left: auto; display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 8px; font-size: 0.7rem; color: #8E8E99; background: #F6F5FB; border: 1px solid #ECECEF; }
+  .sm-avatar { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-weight: 600; font-size: 0.7rem; color: #5B3FE0; background: #EDE9FF; flex-shrink: 0; }
 
   .sm-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .sm-kpi { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: #FFFFFF; border: 1px solid #ECECEF; min-width: 0; }
+  .sm-kpi { display: flex; flex-direction: column; gap: 2px; padding: 10px 10px; border-radius: 12px; background: #FFFFFF; border: 1px solid #ECECEF; min-width: 0; }
   .sm-kpi b { font-family: 'Lexend', sans-serif; font-size: 1rem; line-height: 1.2; color: #0F0F12; white-space: nowrap; }
-  .sm-kpi span { font-size: 0.62rem; color: #6E6E7A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sm-kpi em { font-style: normal; font-size: 0.6rem; font-weight: 600; color: #047857; }
+  .sm-kpi span { font-size: 0.7rem; color: #6E6E7A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sm-kpi em { font-style: normal; font-size: 0.7rem; font-weight: 600; color: #047857; }
   .sm-kpi.hi { background: linear-gradient(135deg, #6A48F5, #7C5CFF); border-color: transparent; box-shadow: 0 10px 24px rgba(106, 72, 245, 0.3); }
   .sm-kpi.hi b, .sm-kpi.hi em { color: #FFFFFF; }
   .sm-kpi.hi span { color: rgba(255, 255, 255, 0.82); }
@@ -197,20 +201,31 @@ const p = paneles[tipo];
   .sm-tr { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; background: #FFFFFF; border: 1px solid #F0EFF5; }
   .sm-c1 { display: flex; align-items: center; gap: 8px; min-width: 0; }
   .sm-c1 > i { width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0; }
-  .sm-c1 > i.sm-ini { display: grid; place-items: center; font-style: normal; font-weight: 600; font-size: 0.66rem; color: #5B3FE0; background: #EDE9FF; }
+  .sm-c1 > i.sm-ini { display: grid; place-items: center; font-style: normal; font-weight: 600; font-size: 0.7rem; color: #5B3FE0; background: #EDE9FF; }
   .sm-c1 > span { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
   .sm-c1 b { color: #0F0F12; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sm-c1 small { color: #8E8E99; font-size: 0.62rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sm-c2 { color: #0F0F12; font-weight: 600; white-space: nowrap; font-size: 0.72rem; }
-  .sm-tr em { font-style: normal; font-size: 0.6rem; font-weight: 600; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+  .sm-c1 small { color: #75757F; font-size: 0.7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sm-c2 { color: #0F0F12; font-weight: 600; white-space: nowrap; font-size: 0.76rem; }
+  .sm-tr em { font-style: normal; font-size: 0.7rem; font-weight: 600; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
   .sm-tr em.ok { color: #047857; background: #E6F7F1; }
   .sm-tr em.warn { color: #C2410C; background: #FFF1E7; }
   .sm-tr em.info { color: #5B3FE0; background: #EDE9FF; }
   .sm-tr em.muted { color: #52525B; background: #ECECEF; }
 
+  /* Estado que cambia en bucle: los dos apilados en la misma celda */
+  .sm-st { display: grid; justify-items: end; }
+  .sm-st em { grid-area: 1 / 1; }
+  .sm-st em:last-child { opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .sm-st em:first-child { animation: sm-st-a 7s 2.4s infinite; }
+    .sm-st em:last-child { animation: sm-st-b 7s 2.4s infinite; }
+  }
+  @keyframes sm-st-a { 0%, 42% { opacity: 1; transform: none; } 48%, 94% { opacity: 0; transform: translateY(-4px); } 100% { opacity: 1; transform: none; } }
+  @keyframes sm-st-b { 0%, 42% { opacity: 0; transform: translateY(4px); } 48%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+
   /* Agenda: semana en miniatura */
   .sm-cal { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 2px; }
-  .sm-cal small { text-align: center; color: #8E8E99; font-size: 0.62rem; }
+  .sm-cal small { text-align: center; color: #75757F; font-size: 0.7rem; }
   .sm-cal i { height: 22px; border-radius: 6px; background: #F6F5FB; border: 1px solid #ECECEF; }
   .sm-cal i.busy { background: #DDD6FF; border-color: #DDD6FF; }
   .sm-cal i.pick { background: linear-gradient(135deg, #7C5CFF, #6A48F5); border-color: transparent; box-shadow: 0 0 12px rgba(124, 92, 255, 0.45); }
@@ -219,10 +234,11 @@ const p = paneles[tipo];
   .sm-cupo { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; border: 1px solid #F0EFF5; color: #0F0F12; }
   .sm-cupo div { height: 7px; border-radius: 8px; background: #ECECEF; overflow: hidden; }
   .sm-cupo div i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, #7C5CFF, #A08CFF); }
-  .sm-cupo b { font-size: 0.72rem; }
+  .sm-cupo b { font-size: 0.76rem; }
 
   /* Notificación flotante */
-  .sm-toast { position: absolute; right: -18px; bottom: -20px; display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 12px; font-size: 0.8rem; font-weight: 500; color: #0F0F12; background: #FFFFFF; border: 1px solid rgba(124, 92, 255, 0.4); box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(124, 92, 255, 0.2); animation: sm-pop 0.5s 1.1s both, sm-float 5s 1.6s ease-in-out infinite; }
+  /* Arriba a la derecha, sobre la barra del navegador: así no tapa ninguna fila */
+  .sm-toast { position: absolute; right: -14px; top: -22px; display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 12px; font-size: 0.8rem; font-weight: 500; color: #0F0F12; background: #FFFFFF; border: 1px solid rgba(124, 92, 255, 0.4); box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(124, 92, 255, 0.2); animation: sm-pop 0.5s 1.1s both, sm-float 5s 1.6s ease-in-out infinite; }
   .sm-toast :global(.ki) { color: #7C5CFF; width: 16px; height: 16px; }
 
   @keyframes sm-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -241,7 +257,7 @@ const p = paneles[tipo];
     .sm-kpis { grid-template-columns: 1fr 1fr; }
     .sm-kpi:last-child { display: none; }
     .sm-c2 { display: none; }
-    .sm-toast { right: 8px; bottom: -18px; font-size: 0.72rem; }
+    .sm-toast { right: 6px; top: -20px; font-size: 0.74rem; padding: 9px 12px; }
   }
   @media (prefers-reduced-motion: reduce) {
     [style*='--d'], .sm-toast { animation: none; }
