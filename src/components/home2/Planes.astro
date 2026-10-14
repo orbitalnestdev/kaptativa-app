@@ -22,7 +22,7 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
         <div class:list={['h2-plan', { popular: p.popular }]}>
           {p.popular && <span class="h2-plan-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>Más elegido</span>}
           <h3>{p.name}</h3>
-          <span class="h2-plan-price">Precio a medida</span>
+          <span class="h2-plan-etapa">{p.etapa}</span>
           <p>{p.desc}</p>
           <ul>
             {p.features.map((f) => <li><Fragment set:html={svg('check')} />{f}</li>)}
@@ -41,6 +41,8 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
   .h2-plan:hover { border-color: var(--border-hover); }
   .h2-plan h3 { font-family: 'Lexend', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0; }
   .h2-plan > p { color: var(--text-secondary); margin: 16px 0 0; line-height: 1.6; }
+  .h2-plan-etapa { display: block; margin-top: 8px; font-size: 0.92rem; font-weight: 600; color: var(--brand-primary-light); }
+  .h2-plan.popular .h2-plan-etapa { color: #fff; opacity: 0.9; }
   .h2-plan-price { display: block; margin-top: 14px; font-family: 'Lexend', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
   .h2-plan-price small { display: block; margin-top: 4px; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 500; color: var(--text-muted); }
   .h2-plan ul { list-style: none; padding: 0; margin: 26px 0 30px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
@@ -58,5 +60,8 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
   .h2-plan.popular .btn-primary:hover { background: var(--v-100) !important; color: var(--v-800) !important; }
   .h2-plan-tag { position: absolute; top: 18px; right: 18px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 600; color: var(--v-700); background: #fff; padding: 6px 12px; border-radius: 999px; }
   @media (min-width: 993px) { .h2-plan.popular { margin: -20px 0; } }
+  /* Versión sobre fondo claro (home): violeta oscuro para el contraste y el nombre del plan destacado en blanco */
+  .section-light .h2-plan-etapa { color: #5B3FE0; }
+  .section-light .h2-plan.popular h3, .section-light .h2-plan.popular .h2-plan-etapa { color: #fff !important; }
   @media (max-width: 992px) { .h2-planes { grid-template-columns: 1fr; gap: 24px; max-width: 560px; margin: 0 auto; } }
 </style>

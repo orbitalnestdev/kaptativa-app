@@ -97,8 +97,8 @@ import HeroAurora from '../components/HeroAurora.astro';
                   <option value="" disabled selected>Elegí una opción</option>
                   <optgroup label="Plataforma">
                     <option value="Plan Presencia">Sitio web (plan Presencia)</option>
-                    <option value="Plan Tienda">Tienda online (plan Tienda)</option>
-                    <option value="Plan A medida">Sistema a medida (plan A medida)</option>
+                    <option value="Plan E-commerce">Tienda online (plan E-commerce)</option>
+                    <option value="Plan Corporativo">Sistema a medida (plan Corporativo)</option>
                     <option value="Solución para mi rubro">Solución para mi rubro</option>
                   </optgroup>
                   <optgroup label="Add-ons">
@@ -199,7 +199,7 @@ import HeroAurora from '../components/HeroAurora.astro';
 
   document.addEventListener('DOMContentLoaded', () => {
     // Llegada desde una solución (/contacto/?demo=Tiendas online): precarga el pedido de demo
-    // Llegada desde un plan (?plan=Tienda), un servicio (?servicio=SEO y GEO) o una solución (?demo=Tiendas online): preselecciona el interés
+    // Llegada desde un plan (?plan=E-commerce), un servicio (?servicio=SEO y GEO) o una solución (?demo=Tiendas online): preselecciona el interés
     const q = new URLSearchParams(window.location.search);
     const interestField = document.getElementById('form-service-interest') as HTMLSelectElement | null;
     const setInterest = (v: string) => { if (interestField && [...interestField.options].some((o) => o.value === v)) interestField.value = v; };
