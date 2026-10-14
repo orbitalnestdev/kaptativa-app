@@ -1,0 +1,356 @@
+---
+// Escena del hero: el producto completo en una imagen. Atrás el panel de gestión, adelante el celular con la tienda
+// o el sitio del cliente y, al costado, el asistente de IA respondiendo por WhatsApp.
+// Cambia con el rubro del título (una escena por rubro, mismo orden que `rubros`) y en cada cambio cuenta la historia:
+// entra un mensaje → la IA responde → aparece la venta o la reserva → sube el número del mes.
+// Todo el texto se escribe en elementos que ya existen (data-k); el script no crea nodos, así no pierden el alcance de Astro.
+import { svg } from '../../data/plataforma.js';
+
+interface Props { rubros: string[] }
+const { rubros } = Astro.props;
+
+type Fila = { who: string; what: string; status: string; kind: 'ok' | 'wait' | 'new' };
+type Escena = {
+  icon: string; store: string; banner: string; bannerSub: string; cta: string;
+  items: { name: string; price: string; tint: string }[];
+  kpis: { label: string; value: string; delta: string }[];
+  chart: string; bars: number[]; rows: Fila[];
+  q: string; a: string; toast: string; toastIcon: string;
+};
+
+const escenas: Escena[] = [
+  {
+    icon: 'store', store: 'Nómade Store', banner: 'Nueva temporada', bannerSub: '3 cuotas sin interés', cta: 'Agregar al carrito',
+    items: [{ name: 'Remera oversize', price: '$ 18.900', tint: '#F4A26B' }, { name: 'Buzo frisa', price: '$ 38.900', tint: '#8C7BFF' }],
+    kpis: [{ label: 'Ventas del mes', value: '$ 4,82 M', delta: '+18%' }, { label: 'Pedidos', value: '312', delta: '+9%' }, { label: 'Visitas', value: '21,4 k', delta: '+32%' }],
+    chart: 'Ventas', bars: [40, 62, 48, 75, 58, 86, 70, 94, 66, 82, 90, 100],
+    rows: [{ who: '#1043 · Lucía G.', what: '$ 38.900', status: 'Pagado', kind: 'ok' }, { who: '#1042 · Martín R.', what: '$ 57.800', status: 'En camino', kind: 'wait' }, { who: '#1041 · Sofía P.', what: '$ 18.900', status: 'Pagado', kind: 'ok' }],
+    q: '¿Hacen envíos a Córdoba?', a: '¡Sí! Llega en 48 hs. Te paso el link de pago 👉', toast: 'Nueva venta: $ 38.900', toastIcon: 'cart',
+  },
+  {
+    icon: 'truck', store: 'Distribuidora Sur', banner: 'Lista mayorista', bannerSub: 'Precios por bulto', cta: 'Sumar al pedido',
+    items: [{ name: 'Aceite 900 ml × 12', price: '$ 21.600', tint: '#F2C94C' }, { name: 'Yerba 1 kg × 10', price: '$ 32.400', tint: '#6FCF97' }],
+    kpis: [{ label: 'Facturado del mes', value: '$ 18,6 M', delta: '+12%' }, { label: 'Pedidos', value: '486', delta: '+15%' }, { label: 'Clientes activos', value: '128', delta: '+6%' }],
+    chart: 'Facturación', bars: [55, 48, 70, 62, 80, 58, 76, 88, 72, 84, 78, 96],
+    rows: [{ who: 'Almacén Don José', what: '$ 184.300', status: 'Pagado', kind: 'ok' }, { who: 'Kiosco La Esquina', what: '$ 62.900', status: 'En reparto', kind: 'wait' }, { who: 'Súper Norte', what: '$ 312.000', status: 'Nuevo', kind: 'new' }],
+    q: '¿Me repetís el pedido de la semana pasada?', a: 'Listo: 14 productos por $ 184.300. ¿Lo confirmo?', toast: 'Pedido mayorista: $ 184.300', toastIcon: 'box',
+  },
+  {
+    icon: 'utensils', store: 'La Cantina', banner: 'Menú de hoy', bannerSub: 'Delivery y take away', cta: 'Pedir ahora',
+    items: [{ name: 'Milanesa napolitana', price: '$ 14.500', tint: '#EB8F5A' }, { name: 'Ravioles de ricota', price: '$ 12.800', tint: '#F2C94C' }],
+    kpis: [{ label: 'Ventas del mes', value: '$ 9,4 M', delta: '+21%' }, { label: 'Pedidos', value: '1.284', delta: '+17%' }, { label: 'Reservas', value: '236', delta: '+11%' }],
+    chart: 'Pedidos', bars: [50, 44, 58, 52, 90, 100, 62, 48, 56, 60, 92, 98],
+    rows: [{ who: 'Mesa 4 · Carla M.', what: 'Hoy 21:00', status: 'Reservada', kind: 'new' }, { who: 'Delivery #882', what: '$ 27.300', status: 'En camino', kind: 'wait' }, { who: 'Take away #881', what: '$ 14.500', status: 'Listo', kind: 'ok' }],
+    q: '¿Tienen mesa para 4 hoy a las 21?', a: '¡Sí! Te reservé la mesa 4 a las 21 hs. ¿A nombre de quién?', toast: 'Nueva reserva: mesa 4, 21 hs', toastIcon: 'calendar',
+  },
+  {
+    icon: 'dumbbell', store: 'Pulso Gym', banner: 'Clases de hoy', bannerSub: 'Reservá desde el celu', cta: 'Reservar clase',
+    items: [{ name: 'Funcional · 19 hs', price: '6 lugares', tint: '#8C7BFF' }, { name: 'Spinning · 20 hs', price: '2 lugares', tint: '#56CCF2' }],
+    kpis: [{ label: 'Cuotas cobradas', value: '$ 6,1 M', delta: '+9%' }, { label: 'Socios activos', value: '418', delta: '+7%' }, { label: 'Asistencia', value: '82%', delta: '+4%' }],
+    chart: 'Asistencia', bars: [70, 76, 68, 80, 74, 52, 40, 72, 78, 70, 84, 88],
+    rows: [{ who: 'Juan P.', what: 'Cuota $ 32.000', status: 'Pagada', kind: 'ok' }, { who: 'Ana L.', what: 'Funcional 19 hs', status: 'Reservó', kind: 'new' }, { who: 'Diego S.', what: 'Cuota $ 32.000', status: 'Vence hoy', kind: 'wait' }],
+    q: '¿Quedan lugares en funcional a las 19?', a: 'Quedan 6. Ya te anoté, ¡te esperamos! 💪', toast: 'Cuota cobrada: $ 32.000', toastIcon: 'card',
+  },
+  {
+    icon: 'calendar', store: 'Estudio Ríos', banner: 'Turnos online', bannerSub: 'Elegí día y horario', cta: 'Pedir turno',
+    items: [{ name: 'Consulta impositiva', price: '$ 25.000', tint: '#56CCF2' }, { name: 'Liquidación de sueldos', price: '$ 48.000', tint: '#8C7BFF' }],
+    kpis: [{ label: 'Facturado del mes', value: '$ 3,2 M', delta: '+14%' }, { label: 'Turnos', value: '96', delta: '+19%' }, { label: 'Clientes', value: '74', delta: '+8%' }],
+    chart: 'Turnos', bars: [48, 60, 66, 58, 72, 30, 26, 64, 70, 76, 68, 84],
+    rows: [{ who: 'Paula V.', what: 'Martes 10:00', status: 'Confirmado', kind: 'ok' }, { who: 'Ferretería Lux', what: 'Honorarios $ 48.000', status: 'Pagado', kind: 'ok' }, { who: 'Gabriel T.', what: 'Jueves 16:30', status: 'Pendiente', kind: 'wait' }],
+    q: '¿Tienen turno esta semana?', a: 'Tengo el martes 10 hs o el jueves 16:30. ¿Cuál te reservo?', toast: 'Turno confirmado: martes 10 hs', toastIcon: 'calendar',
+  },
+  {
+    icon: 'building', store: 'Ríos Propiedades', banner: 'Propiedades destacadas', bannerSub: 'Venta y alquiler', cta: 'Agendar visita',
+    items: [{ name: 'Depto 2 amb · Palermo', price: 'US$ 128.000', tint: '#56CCF2' }, { name: 'Casa 4 amb · Pilar', price: 'US$ 245.000', tint: '#6FCF97' }],
+    kpis: [{ label: 'Consultas del mes', value: '184', delta: '+27%' }, { label: 'Visitas agendadas', value: '46', delta: '+18%' }, { label: 'Propiedades', value: '92', delta: '+5' }],
+    chart: 'Consultas', bars: [36, 52, 44, 60, 56, 70, 64, 78, 72, 86, 80, 100],
+    rows: [{ who: 'Laura M.', what: 'Depto Palermo', status: 'Visita jueves', kind: 'new' }, { who: 'Tomás B.', what: 'Casa Pilar', status: 'Consulta', kind: 'wait' }, { who: 'Inés C.', what: 'Alquiler Centro', status: 'Reservado', kind: 'ok' }],
+    q: '¿El depto de Palermo sigue disponible?', a: '¡Sí! ¿Te viene bien visitarlo el jueves a las 18 hs?', toast: 'Visita agendada: jueves 18 hs', toastIcon: 'calendar',
+  },
+  {
+    icon: 'users', store: 'Mutual Unión', banner: 'Beneficios para socios', bannerSub: 'Salud, turismo y ayudas', cta: 'Ver beneficios',
+    items: [{ name: 'Orden de consulta', price: 'Sin cargo', tint: '#6FCF97' }, { name: 'Turismo en cuotas', price: '12 sin interés', tint: '#F2C94C' }],
+    kpis: [{ label: 'Cuotas cobradas', value: '$ 12,7 M', delta: '+8%' }, { label: 'Socios', value: '2.340', delta: '+3%' }, { label: 'Al día', value: '94%', delta: '+2%' }],
+    chart: 'Cobranza', bars: [88, 72, 60, 52, 46, 40, 92, 78, 64, 56, 50, 96],
+    rows: [{ who: 'Socio 1182 · R. Gómez', what: 'Cuota mensual', status: 'Pagada', kind: 'ok' }, { who: 'Socio 0954 · M. Paz', what: 'Orden de consulta', status: 'Emitida', kind: 'new' }, { who: 'Socio 2210 · L. Díaz', what: 'Cuota mensual', status: 'Vence hoy', kind: 'wait' }],
+    q: '¿Cómo pido una orden para el médico?', a: 'Te la genero ahora. ¿Para qué especialidad?', toast: 'Orden emitida: socio 1182', toastIcon: 'file',
+  },
+  {
+    icon: 'briefcase', store: 'Norte Consultores', banner: 'Agendá un diagnóstico', bannerSub: 'Primera reunión sin cargo', cta: 'Agendar reunión',
+    items: [{ name: 'Diagnóstico · 45 min', price: 'Sin cargo', tint: '#8C7BFF' }, { name: 'Plan de mejora', price: '$ 380.000', tint: '#56CCF2' }],
+    kpis: [{ label: 'Propuestas cerradas', value: '$ 7,4 M', delta: '+16%' }, { label: 'Propuestas enviadas', value: '38', delta: '+22%' }, { label: 'Leads', value: '152', delta: '+31%' }],
+    chart: 'Leads', bars: [30, 42, 38, 50, 46, 58, 54, 66, 62, 74, 80, 92],
+    rows: [{ who: 'Grupo Andes', what: 'Propuesta $ 380.000', status: 'Aceptada', kind: 'ok' }, { who: 'Textil Rivera', what: 'Reunión jueves', status: 'Agendada', kind: 'new' }, { who: 'Agro Sur', what: 'Lead nuevo', status: 'Pendiente', kind: 'wait' }],
+    q: '¿Pueden ayudarnos a ordenar costos?', a: '¡Claro! Te propongo un diagnóstico el jueves 11 hs. ¿Te sirve?', toast: 'Propuesta aceptada: $ 380.000', toastIcon: 'check',
+  },
+].slice(0, rubros.length);
+
+// Montos sin corte de línea entre el signo y el número ("$ 38.900", "US$ 128.000")
+const nb = (v: unknown): any => typeof v === 'string' ? v.replace(/\$ /g, '$\u00a0') : Array.isArray(v) ? v.map(nb) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, nb(x)])) : v;
+// Íconos ya armados para que el script solo los intercambie
+const data = escenas.map((e) => ({ ...nb(e), iconSvg: svg(e.icon), toastSvg: svg(e.toastIcon) }));
+const e0 = data[0];
+const side = ['grid', e0.icon, 'users', 'message', 'chart'];
+---
+
+<div class="hs" data-hs data-escenas={JSON.stringify(data)} aria-hidden="true">
+  <!-- Panel de gestión -->
+  <div class="hs-panel">
+    <div class="hs-bar"><span></span><span></span><span></span><div class="hs-url">tunegocio.com.ar/admin</div></div>
+    <div class="hs-body">
+      <aside class="hs-side">
+        {side.map((ic, k) => k === 1
+          ? <i class="on" data-ki="iconSvg"><Fragment set:html={svg(ic)} /></i>
+          : <i><Fragment set:html={svg(ic)} /></i>)}
+      </aside>
+      <div class="hs-dash hs-fx">
+        <div class="hs-kpis">
+          {e0.kpis.map((k, i) => (
+            <div class:list={['hs-kpi', { 'hs-kpi--main': i === 0 }]}>
+              <small data-k={`kpis.${i}.label`}>{k.label}</small>
+              <b data-k={`kpis.${i}.value`}>{k.value}</b>
+              <em data-k={`kpis.${i}.delta`}>{k.delta}</em>
+            </div>
+          ))}
+        </div>
+        <div class="hs-split">
+          <div class="hs-chart">
+            <div class="hs-chart-head"><span data-k="chart">{e0.chart}</span><em>Últimos 12 días</em></div>
+            <div class="hs-bars">{e0.bars.map((h, i) => <span data-kb={i} style={`height:${h}%`}></span>)}</div>
+          </div>
+          <ul class="hs-rows">
+            {e0.rows.map((r, i) => (
+              <li>
+                <span class="hs-row-txt"><strong data-k={`rows.${i}.who`}>{r.who}</strong><small data-k={`rows.${i}.what`}>{r.what}</small></span>
+                <b class={r.kind} data-k={`rows.${i}.status`} data-kc={`rows.${i}.kind`}>{r.status}</b>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Celular con la tienda o el sitio -->
+  <div class="hs-phone">
+    <div class="hs-screen hs-fx">
+      <div class="hs-notch"></div>
+      <div class="hs-shop-head">
+        <span class="hs-shop-logo" data-ki="iconSvg"><Fragment set:html={e0.iconSvg} /></span>
+        <strong data-k="store">{e0.store}</strong>
+        <span class="hs-shop-cart"><Fragment set:html={svg('cart')} /><i>2</i></span>
+      </div>
+      <div class="hs-banner">
+        <strong data-k="banner">{e0.banner}</strong>
+        <small data-k="bannerSub">{e0.bannerSub}</small>
+      </div>
+      <div class="hs-items">
+        {e0.items.map((it, i) => (
+          <div class="hs-item">
+            <i data-ks={`items.${i}.tint`} style={`--t:${it.tint}`}></i>
+            <span data-k={`items.${i}.name`}>{it.name}</span>
+            <b data-k={`items.${i}.price`}>{it.price}</b>
+          </div>
+        ))}
+      </div>
+      <div class="hs-cta" data-k="cta">{e0.cta}</div>
+      <div class="hs-pay"><img src="/integraciones/mercadopago.svg" alt="" width="14" height="14" /> Pagá con Mercado Pago</div>
+    </div>
+  </div>
+
+  <!-- Asistente de IA en WhatsApp -->
+  <div class="hs-chat">
+    <div class="hs-chat-head">
+      <span class="hs-chat-avatar"><Fragment set:html={svg('bot')} /></span>
+      <span class="hs-chat-name"><strong>Asistente IA</strong><small>en línea · WhatsApp</small></span>
+      <img class="hs-chat-wa" src="/integraciones/whatsapp.svg" alt="" width="16" height="16" />
+    </div>
+    <div class="hs-msgs">
+      <p class="hs-msg hs-q" data-k="q">{e0.q}</p>
+      <p class="hs-msg hs-typing"><i></i><i></i><i></i></p>
+      <p class="hs-msg hs-a" data-k="a">{e0.a}</p>
+    </div>
+  </div>
+
+  <!-- Aviso de la venta o la reserva -->
+  <div class="hs-toast">
+    <span class="hs-toast-ico" data-ki="toastSvg"><Fragment set:html={e0.toastSvg} /></span>
+    <span data-k="toast">{e0.toast}</span>
+  </div>
+
+  <!-- Celular: el número principal como ficha (el panel no entra) -->
+  <div class="hs-chip">
+    <small data-k="kpis.0.label">{e0.kpis[0].label}</small>
+    <b data-k="kpis.0.value">{e0.kpis[0].value}</b>
+    <em data-k="kpis.0.delta">{e0.kpis[0].delta}</em>
+  </div>
+</div>
+
+<script>
+  // Una escena por rubro. Cada ~6 s pasa a la siguiente y avisa al título (evento 'hero:rubro') para que cambien juntos.
+  const root = document.querySelector<HTMLElement>('[data-hs]');
+  if (root) {
+    type Escena = Record<string, any>;
+    const escenas: Escena[] = JSON.parse(root.dataset.escenas || '[]');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const get = (o: any, path: string) => path.split('.').reduce((v, k) => (v == null ? v : v[k]), o);
+    const STEP = ['s1', 's2', 's3', 's4'];
+    const timers: number[] = [];
+    const later = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
+
+    const fill = (e: Escena) => {
+      root.querySelectorAll<HTMLElement>('[data-k]').forEach((el) => { el.textContent = String(get(e, el.dataset.k!) ?? ''); });
+      root.querySelectorAll<HTMLElement>('[data-ki]').forEach((el) => { el.innerHTML = get(e, el.dataset.ki!); });
+      root.querySelectorAll<HTMLElement>('[data-kc]').forEach((el) => { el.classList.remove('ok', 'wait', 'new'); el.classList.add(get(e, el.dataset.kc!)); });
+      root.querySelectorAll<HTMLElement>('[data-ks]').forEach((el) => { el.style.setProperty('--t', get(e, el.dataset.ks!)); });
+      root.querySelectorAll<HTMLElement>('[data-kb]').forEach((el) => { el.style.height = `${e.bars[Number(el.dataset.kb)]}%`; });
+    };
+
+    // Historia de cada escena: mensaje → escribiendo → respuesta de la IA → venta y número del mes
+    const story = () => {
+      later(150, () => root.classList.add('s1'));
+      later(700, () => root.classList.add('s2'));
+      later(1700, () => root.classList.add('s3'));
+      later(2400, () => root.classList.add('s4'));
+    };
+
+    if (reduce || escenas.length < 2) {
+      root.classList.add(...STEP);
+    } else {
+      let i = 0;
+      story();
+      const next = () => {
+        if (document.hidden) return;
+        timers.splice(0).forEach(clearTimeout);
+        root.classList.add('swap');
+        root.classList.remove(...STEP);
+        later(320, () => {
+          i = (i + 1) % escenas.length;
+          fill(escenas[i]);
+          document.dispatchEvent(new CustomEvent('hero:rubro', { detail: i }));
+          root.classList.remove('swap');
+          story();
+        });
+      };
+      window.setInterval(next, 6200);
+    }
+  }
+</script>
+
+<style>
+  .hs { position: relative; height: 510px; padding: 26px 0 0 70px; }
+  .hs :global(.ki) { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  .hs-fx { transition: opacity 0.3s ease; }
+  .hs.swap .hs-fx { opacity: 0; }
+
+  /* ---------- Panel ---------- */
+  .hs-panel { position: relative; border-radius: 20px; background: #1B1B20; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 60px rgba(124, 92, 255, 0.12); overflow: hidden; }
+  .hs-bar { display: flex; align-items: center; gap: 7px; padding: 11px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+  .hs-bar > span { width: 9px; height: 9px; border-radius: 50%; background: #3A3A44; }
+  .hs-url { margin-left: 10px; flex: 1; font-size: 0.72rem; color: #8A8A96; background: #151519; border-radius: 8px; padding: 5px 12px; }
+  .hs-body { display: flex; }
+  .hs-side { display: flex; flex-direction: column; gap: 6px; padding: 14px 10px; border-right: 1px solid rgba(255, 255, 255, 0.07); }
+  .hs-side i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; color: #6E6E7A; }
+  .hs-side i.on { color: #fff; background: linear-gradient(135deg, #7C5CFF, #5B3FE0); box-shadow: 0 6px 16px rgba(124, 92, 255, 0.35); }
+  .hs-dash { flex: 1; min-width: 0; padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+  .hs-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .hs-kpi { display: flex; flex-direction: column; gap: 2px; padding: 9px 11px; border-radius: 12px; background: #151519; border: 1px solid rgba(255, 255, 255, 0.06); min-width: 0; }
+  .hs-kpi small { font-size: 0.64rem; color: #8A8A96; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hs-kpi b { font-size: 1.02rem; color: #fff; font-variant-numeric: tabular-nums; white-space: nowrap; transition: color 0.4s ease, transform 0.4s ease; transform-origin: left center; }
+  .hs-kpi em { font-style: normal; font-size: 0.66rem; color: #34D399; }
+  .hs-kpi--main { border-color: rgba(124, 92, 255, 0.35); background: linear-gradient(160deg, rgba(124, 92, 255, 0.16), #151519 70%); }
+  .hs.s4 .hs-kpi--main b { color: #C9BDFF; transform: scale(1.06); }
+
+  .hs-split { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 10px; }
+  .hs-chart { display: flex; flex-direction: column; gap: 8px; padding: 10px 10px 8px; border-radius: 12px; background: #151519; border: 1px solid rgba(255, 255, 255, 0.06); }
+  .hs-chart-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; font-size: 0.66rem; color: #C8C8D0; font-weight: 600; }
+  .hs-chart-head em { font-style: normal; font-weight: 400; color: #6E6E7A; font-size: 0.6rem; white-space: nowrap; }
+  .hs-bars { display: flex; align-items: flex-end; gap: 4px; height: 104px; }
+  .hs-bars span { flex: 1; border-radius: 3px 3px 0 0; background: linear-gradient(180deg, #8C70FF, rgba(106, 72, 245, 0.22)); transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .hs-bars span:last-child { background: linear-gradient(180deg, #C9BDFF, #7C5CFF); }
+  .hs-rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .hs-rows li { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 11px; background: #151519; border: 1px solid rgba(255, 255, 255, 0.05); min-width: 0; }
+  .hs-row-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+  .hs-row-txt strong { font-size: 0.7rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hs-row-txt small { font-size: 0.64rem; color: #8A8A96; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hs-rows b { flex: none; font-size: 0.6rem; font-weight: 600; padding: 3px 8px; border-radius: 99px; white-space: nowrap; }
+  .hs-rows b.ok { color: #34D399; background: rgba(16, 185, 129, 0.14); }
+  .hs-rows b.wait { color: #FB923C; background: rgba(249, 115, 22, 0.14); }
+  .hs-rows b.new { color: #C9BDFF; background: rgba(124, 92, 255, 0.2); }
+
+  /* ---------- Celular ---------- */
+  .hs-phone { position: absolute; left: 0; bottom: 0; z-index: 2; width: 178px; height: 340px; padding: 7px; border-radius: 32px; background: #0B0B0F; border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.6); }
+  .hs-screen { position: relative; height: 100%; border-radius: 26px; overflow: hidden; background: #FFFFFF; color: #0F0F12; display: flex; flex-direction: column; padding: 26px 11px 11px; gap: 9px; }
+  .hs-notch { position: absolute; top: 7px; left: 50%; width: 52px; height: 13px; margin-left: -26px; border-radius: 99px; background: #0B0B0F; }
+  .hs-shop-head { display: flex; align-items: center; gap: 6px; }
+  .hs-shop-head strong { flex: 1; font-family: 'Lexend', sans-serif; font-size: 0.72rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hs-shop-logo { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; color: #fff; background: linear-gradient(135deg, #7C5CFF, #5B3FE0); }
+  .hs-shop-logo :global(.ki) { width: 13px; height: 13px; }
+  .hs-shop-cart { position: relative; color: #0F0F12; display: grid; }
+  .hs-shop-cart i { position: absolute; top: -5px; right: -6px; min-width: 13px; height: 13px; padding: 0 3px; border-radius: 99px; background: #7C5CFF; color: #fff; font-style: normal; font-size: 0.5rem; font-weight: 700; display: grid; place-items: center; }
+  .hs-banner { display: flex; flex-direction: column; gap: 2px; padding: 12px 11px; border-radius: 13px; color: #fff; background: radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.28), transparent 45%), linear-gradient(135deg, #7C5CFF, #4B2FD0); }
+  .hs-banner strong { font-family: 'Lexend', sans-serif; font-size: 0.8rem; font-weight: 600; line-height: 1.2; }
+  .hs-banner small { font-size: 0.58rem; opacity: 0.9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hs-items { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .hs-item { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .hs-item i { height: 62px; border-radius: 10px; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.55), transparent 55%), var(--t, #ddd); transition: background 0.4s ease; }
+  .hs-item span { font-size: 0.58rem; line-height: 1.25; color: #3A3A44; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .hs-item b { font-size: 0.66rem; font-weight: 700; color: #0F0F12; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hs-cta { margin-top: auto; padding: 9px; border-radius: 99px; text-align: center; font-size: 0.64rem; font-weight: 700; color: #fff; background: #7C5CFF; box-shadow: 0 8px 18px rgba(124, 92, 255, 0.35); }
+  .hs-pay { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.54rem; color: #6E6E7A; }
+  .hs-pay img { opacity: 0.7; }
+
+  /* ---------- WhatsApp con la IA ---------- */
+  .hs-chat { position: absolute; right: -18px; bottom: 6px; z-index: 3; width: 252px; border-radius: 18px; overflow: hidden; background: #0B141A; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55); }
+  .hs-chat-head { display: flex; align-items: center; gap: 9px; padding: 9px 12px; background: #1F2C33; }
+  .hs-chat-avatar { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: #fff; background: linear-gradient(135deg, #7C5CFF, #5B3FE0); }
+  .hs-chat-name { flex: 1; display: flex; flex-direction: column; line-height: 1.2; }
+  .hs-chat-name strong { font-size: 0.74rem; color: #E9EDEF; }
+  .hs-chat-name small { font-size: 0.6rem; color: #8696A0; }
+  .hs-chat-wa { filter: invert(64%) sepia(83%) saturate(456%) hue-rotate(88deg) brightness(95%); }
+  .hs-msgs { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 10px 10px 12px; min-height: 104px; }
+  .hs-msg { margin: 0; max-width: 86%; padding: 7px 10px; border-radius: 10px; font-size: 0.7rem; line-height: 1.38; opacity: 0; transform: translateY(6px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  .hs-q { align-self: flex-start; color: #E9EDEF; background: #202C33; border-top-left-radius: 3px; }
+  .hs-a { align-self: flex-end; color: #E9EDEF; background: #005C4B; border-top-right-radius: 3px; }
+  .hs-typing { display: none; align-self: flex-end; gap: 3px; padding: 9px 11px; background: #005C4B; border-top-right-radius: 3px; }
+  .hs-typing i { width: 5px; height: 5px; border-radius: 50%; background: #9BD8C9; animation: hs-dot 1s ease-in-out infinite; }
+  .hs-typing i:nth-child(2) { animation-delay: 0.15s; }
+  .hs-typing i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes hs-dot { 50% { transform: translateY(-3px); opacity: 0.5; } }
+  .hs.s1 .hs-q { opacity: 1; transform: none; }
+  .hs.s2:not(.s3) .hs-typing { display: flex; opacity: 1; transform: none; }
+  .hs.s3 .hs-a { opacity: 1; transform: none; }
+
+  /* ---------- Aviso de venta ---------- */
+  .hs-toast { position: absolute; top: 0; right: 20px; z-index: 3; display: flex; align-items: center; gap: 9px; padding: 9px 14px 9px 9px; border-radius: 14px; font-size: 0.78rem; font-weight: 600; color: #fff; background: rgba(21, 21, 25, 0.92); border: 1px solid rgba(124, 92, 255, 0.4); box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45), 0 0 24px rgba(124, 92, 255, 0.2); backdrop-filter: blur(10px); opacity: 0; transform: translateY(-8px) scale(0.96); transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); white-space: nowrap; }
+  .hs-toast-ico { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; color: #fff; background: linear-gradient(135deg, #34D399, #10B981); }
+  .hs.s4 .hs-toast { opacity: 1; transform: none; }
+
+  .hs-chip { display: none; }
+
+  /* ---------- Tablet ---------- */
+  @media (max-width: 1024px) { .hs { max-width: 620px; margin: 0 auto; width: 100%; } }
+
+  /* ---------- Celular: celular + WhatsApp + ficha del número principal ---------- */
+  @media (max-width: 600px) {
+    .hs { height: 380px; padding: 0; max-width: 360px; }
+    .hs-panel { display: none; }
+    .hs-phone { left: 0; bottom: auto; top: 26px; width: 162px; height: 330px; }
+    .hs-chat { right: 0; bottom: 0; width: 192px; }
+    .hs-chat-head { padding: 8px 10px; }
+    .hs-msgs { min-height: 96px; padding: 8px 8px 10px; }
+    .hs-msg { font-size: 0.66rem; max-width: 92%; }
+    .hs-toast { top: 0; right: 0; left: auto; font-size: 0.7rem; padding: 7px 11px 7px 7px; }
+    .hs-toast-ico { width: 22px; height: 22px; }
+    .hs-chip { position: absolute; right: 0; top: 62px; z-index: 1; display: flex; flex-direction: column; gap: 1px; width: 150px; padding: 11px 13px; border-radius: 14px; background: linear-gradient(160deg, rgba(124, 92, 255, 0.22), #151519 75%); border: 1px solid rgba(124, 92, 255, 0.35); box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4); }
+    .hs-chip small { font-size: 0.62rem; color: #A9A9B6; }
+    .hs-chip b { font-size: 1.15rem; color: #fff; font-variant-numeric: tabular-nums; transition: color 0.4s ease; }
+    .hs-chip em { font-style: normal; font-size: 0.66rem; color: #34D399; }
+    .hs.s4 .hs-chip b { color: #C9BDFF; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hs-fx, .hs-msg, .hs-toast, .hs-kpi b, .hs-bars span { transition: none; }
+    .hs-typing { display: none; }
+  }
+</style>

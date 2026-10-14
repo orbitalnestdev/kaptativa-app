@@ -14,6 +14,7 @@ import CtaBeam from '../components/CtaBeam.astro';
 import FeatureVisual from '../components/home2/FeatureVisual.astro';
 import Planes from '../components/home2/Planes.astro';
 import TrabajosCinta from '../components/home2/TrabajosCinta.astro';
+import HeroStage from '../components/home2/HeroStage.astro';
 import { svg, soluciones, modulos } from '../data/plataforma.js';
 import { readFileSync } from 'node:fs';
 
@@ -111,7 +112,7 @@ const heroIntegraciones = [
       <div class="container h2-hero-grid">
         <div class="h2-hero-copy reveal">
           <h1>
-            Sitio web y sistema de gestión<br class="br-desk" /> para{" "}
+            Sitio web y sistema de&nbsp;gestión<br class="br-desk" /> para{" "}
             <span class="h2-rotator" data-rotator data-words={JSON.stringify(heroRubros.slice(1))}>
               <span class="text-gradient-crimson on">{heroRubros[0]}</span>
             </span>
@@ -121,45 +122,23 @@ const heroIntegraciones = [
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow"><span>Solicitar demo</span></a>
             <a href="#rubros" class="btn btn-secondary"><span>Soluciones por rubro</span></a>
           </div>
-          <div class="h2-trust">
-            <span>Se integra con</span>
-            <ul aria-label="Integraciones">
-              {heroIntegraciones.map((m, i) => (
-                <li style={`--i:${i}`}>
-                  {m.logo
-                    ? <img class="wide" src={`/integraciones/${m.logo}.svg`} alt={m.name} width={logoWidth(m.logo, 22)} height="22" decoding="async" />
-                    : <><img src={`/integraciones/${m.icon}.svg`} alt="" width="20" height="20" decoding="async" /><span>{m.name}</span></>}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
-        <!-- Mockup del panel -->
-        <div class="h2-browser reveal reveal-delay-1" data-tilt aria-hidden="true">
-          <div class="h2-browser-bar"><span></span><span></span><span></span><div class="h2-url">tunegocio.com.ar/admin</div></div>
-          <div class="h2-browser-body">
-            <aside class="h2-side">
-              <i class="on"></i><i></i><i></i><i></i><i></i>
-            </aside>
-            <div class="h2-dash">
-              <div class="h2-kpis">
-                <div><small>Ventas del mes</small><b>$ 4.82M</b><em>+18%</em></div>
-                <div><small>Pedidos</small><b>312</b><em>+9%</em></div>
-                <div><small>Visitas</small><b>21.4k</b><em>+32%</em></div>
-              </div>
-              <div class="h2-bars">
-                {[40, 62, 48, 75, 58, 86, 70, 94, 66, 82, 90, 100].map((h) => <span style={`height:${h}%`}></span>)}
-              </div>
-              <div class="h2-rows">
-                <div><i></i><span></span><b class="ok">Pagado</b></div>
-                <div><i></i><span></span><b class="wait">En camino</b></div>
-                <div><i></i><span></span><b class="ok">Pagado</b></div>
-              </div>
-            </div>
-          </div>
-          <div class="h2-float h2-float-1"><Fragment set:html={svg('cart')} /> Nueva venta: $ 38.900</div>
-          <div class="h2-float h2-float-2"><Fragment set:html={svg('bot')} /> IA respondió 14 consultas</div>
+        <!-- Escena del producto: panel, tienda en el celular y asistente de IA en WhatsApp; cambia con el rubro del título -->
+        <div class="h2-stage reveal reveal-delay-1" data-tilt>
+          <HeroStage rubros={heroRubros} />
+        </div>
+        <div class="h2-trust reveal reveal-delay-2">
+          <span>Se integra con</span>
+          <ul aria-label="Integraciones">
+            {heroIntegraciones.map((m, i) => (
+              <li style={`--i:${i}`}>
+                {m.logo
+                  ? <img class="wide" src={`/integraciones/${m.logo}.svg`} alt={m.name} width={logoWidth(m.logo, 22)} height="22" decoding="async" />
+                  : <><img src={`/integraciones/${m.icon}.svg`} alt="" width="20" height="20" decoding="async" /><span>{m.name}</span></>}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -294,7 +273,7 @@ const heroIntegraciones = [
 </Layout>
 
 <script>
-  // Título del hero: en el HTML el h1 lleva un solo rubro (SEO); los demás se agregan acá y rotan cada 2,2 s
+  // Título del hero: en el HTML el h1 lleva un solo rubro (SEO); los demás se agregan acá y rotan junto con la escena
   // (quieto si el usuario prefiere menos movimiento)
   document.querySelectorAll<HTMLElement>('[data-rotator]').forEach((rot) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -307,16 +286,18 @@ const heroIntegraciones = [
     const words = [...rot.children] as HTMLElement[];
     if (words.length < 2) return;
     let i = 0;
-    setInterval(() => {
-      if (document.hidden) return;
+    // La escena del hero avisa qué rubro muestra; así el título y la escena cambian juntos
+    document.addEventListener('hero:rubro', (ev) => {
+      const n = (ev as CustomEvent<number>).detail % words.length;
+      if (n === i) return;
       const prev = words[i];
-      i = (i + 1) % words.length;
+      i = n;
       prev.classList.remove('on');
       prev.classList.add('out');
       words[i].classList.remove('out');
       words[i].classList.add('on');
       setTimeout(() => prev.classList.remove('out'), 500);
-    }, 2200);
+    });
   });
 
 </script>
@@ -386,7 +367,10 @@ const heroIntegraciones = [
     -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
     mask-image: linear-gradient(to bottom, #000 55%, transparent);
   }
-  .h2-hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+  .h2-hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; grid-template-areas: 'copy stage' 'trust stage'; column-gap: 48px; align-items: center; }
+  .h2-hero-copy { grid-area: copy; align-self: end; }
+  .h2-stage { grid-area: stage; }
+  .h2-trust { grid-area: trust; align-self: start; }
   .h2-hero h1 { font-family: 'Lexend', sans-serif; font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.08; letter-spacing: -0.02em; margin: 18px 0 20px; color: var(--text-primary); }
   .h2-rotator { display: inline-grid; vertical-align: bottom; }
   .h2-rotator > span { grid-area: 1 / 1; white-space: nowrap; opacity: 0; transform: translateY(0.45em); transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -396,41 +380,6 @@ const heroIntegraciones = [
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
   .h2-hero-copy > p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.65; max-width: 560px; }
 
-  .h2-browser {
-    position: relative; border-radius: 20px; background: var(--bg-tertiary);
-    border: 1px solid var(--border-color); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), var(--shadow-glow);
-  }
-  .h2-browser-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--border-color); }
-  .h2-browser-bar > span { width: 10px; height: 10px; border-radius: 50%; background: var(--text-muted); opacity: 0.5; }
-  .h2-url { margin-left: 12px; flex: 1; font-size: 0.75rem; color: var(--text-muted); background: var(--bg-secondary); border-radius: 8px; padding: 5px 12px; }
-  .h2-browser-body { display: flex; min-height: 300px; }
-  .h2-side { display: flex; flex-direction: column; gap: 12px; padding: 18px 14px; border-right: 1px solid var(--border-color); }
-  .h2-side i { width: 22px; height: 22px; border-radius: 8px; background: var(--border-color); }
-  .h2-side i.on { background: var(--gradient-primary); }
-  .h2-dash { flex: 1; padding: 18px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-  .h2-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .h2-kpis div { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
-  .h2-kpis small { font-size: 0.66rem; color: var(--text-muted); }
-  .h2-kpis b { font-size: 1rem; color: var(--text-primary); }
-  .h2-kpis em { font-style: normal; font-size: 0.68rem; color: var(--accent-emerald); }
-  .h2-bars { display: flex; align-items: flex-end; gap: 6px; height: 90px; }
-  .h2-bars span { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--accent-indigo), rgba(106, 72, 245, 0.25)); }
-  .h2-rows { display: flex; flex-direction: column; gap: 8px; }
-  .h2-rows div { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: var(--bg-secondary); }
-  .h2-rows i { width: 22px; height: 22px; border-radius: 8px; background: var(--border-color); }
-  .h2-rows span { flex: 1; height: 7px; border-radius: 8px; background: var(--border-color); }
-  .h2-rows b { font-size: 0.66rem; padding: 3px 8px; border-radius: 20px; font-weight: 500; }
-  .h2-rows b.ok { color: var(--accent-emerald); background: rgba(16, 185, 129, 0.12); }
-  .h2-rows b.wait { color: var(--accent-orange); background: var(--accent-orange-glow); }
-  .h2-float {
-    position: absolute; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 500; color: var(--text-primary);
-    background: var(--glass-bg); border: 1px solid var(--border-hover); border-radius: 12px; padding: 10px 14px;
-    backdrop-filter: blur(12px); box-shadow: var(--shadow-lg); animation: h2-float 5s ease-in-out infinite;
-  }
-  .h2-float :global(.ki) { width: 16px; height: 16px; color: var(--accent-indigo); }
-  .h2-float-1 { top: 70px; left: -34px; }
-  .h2-float-2 { bottom: -18px; right: 24px; animation-delay: -2.5s; }
-  @keyframes h2-float { 50% { transform: translateY(-8px); } }
 
   /* ---------- RUBROS: el ícono grande de fondo es la identidad de cada tarjeta ---------- */
 
@@ -550,8 +499,8 @@ const heroIntegraciones = [
   }
   @media (max-width: 1024px) {
     .h2-steps { gap: 22px; }
-    .h2-hero-grid { grid-template-columns: 1fr; gap: 48px; }
-    .h2-float-1 { left: 12px; top: -18px; }
+    .h2-hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'copy' 'stage' 'trust'; row-gap: 40px; }
+    .h2-trust { margin-top: 0; }
   }
   @media (max-width: 768px) {
     .h2-marquees { gap: 26px; }
@@ -563,9 +512,6 @@ const heroIntegraciones = [
     .h2-integra-banner { flex-direction: column; text-align: center; padding: 26px 20px; }
     .h2-integra-banner .btn { width: 100%; justify-content: center; }
     .h2-hero { padding: 120px 0 60px; }
-    .h2-side { display: none; }
-    .h2-kpis { grid-template-columns: repeat(2, 1fr); }
-    .h2-kpis div:nth-child(3) { display: none; }
     .h2-ctas .btn { flex: 1; justify-content: center; }
     .h2-cta { padding: 44px 20px; }
   }
