@@ -7198,14 +7198,11 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 
 
 /* ==========================================================================
-   COMPARATIVA EN PANEL CLARO (servicios): "Lo habitual" apagado vs "Nuestro método" destacado, lista con filetes y chip "vs"
+   COMPARATIVA EN PANEL CLARO (servicios): la opción habitual apagada vs la nuestra destacada, lista con filetes y chip "vs"
    ========================================================================== */
 .section-light .comparison-grid { position: relative; gap: 28px !important; align-items: stretch !important; }
 .section-light .comparison-grid::after { content: 'vs'; position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 3; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; font-family: 'Lexend', sans-serif; font-size: 0.85rem; font-weight: 600; color: #FFFFFF; background: linear-gradient(135deg, #7C5CFF, #6A48F5); box-shadow: 0 10px 24px -8px rgba(124, 92, 255, 0.7), 0 0 0 6px #FFFFFF; }
 .section-light .comp-card-bad, .section-light .comp-card-good { padding: 30px 30px 26px !important; border-radius: 24px !important; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease !important; }
-.section-light .comp-card-bad::before, .section-light .comp-card-good::before { display: inline-block; align-self: flex-start; margin-bottom: 18px; padding: 5px 11px; border-radius: 999px; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.01em; }
-.section-light .comp-card-bad::before { content: 'Lo habitual'; color: #6E6E7A; background: #F3F3F5; border: 1px solid #E4E4E9; }
-.section-light .comp-card-good::before { content: 'Nuestro método'; color: #FFFFFF; background: linear-gradient(135deg, #7C5CFF, #6A48F5); border: 1px solid transparent; }
 .section-light .comp-card-bad { background: linear-gradient(180deg, #FAFAFB, #FFFFFF 55%) !important; border: 1px solid #E6E6EA !important; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -24px rgba(15, 15, 18, 0.3) !important; }
 .section-light .comp-card-bad:hover { border-color: #D4D4D9 !important; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 18px 40px -24px rgba(15, 15, 18, 0.35) !important; }
 .section-light .comp-card-good { background: linear-gradient(180deg, #F6F3FF, #FFFFFF 55%) padding-box, linear-gradient(135deg, #7C5CFF, #C9BDFF 45%, #7C5CFF) border-box !important; border: 1px solid transparent !important; box-shadow: 0 2px 4px rgba(15, 15, 18, 0.04), 0 28px 56px -24px rgba(124, 92, 255, 0.5) !important; }
