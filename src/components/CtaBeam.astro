@@ -1,0 +1,16 @@
+---
+// Haz de luz para las tarjetas de cierre (call to action): un destello violeta recorre el borde de la tarjeta
+// en un bucle lento. Minimalista y liviano: un gradiente cónico que gira (solo `transform`) recortado al contorno
+// de 1,5 px con una máscara. Queda quieto con "reducir movimiento". La tarjeta debe tener `position: relative`.
+---
+<div class="cta-beam" aria-hidden="true"></div>
+
+<style is:global>
+  .cta-beam { position: absolute; inset: 0; z-index: 0; border-radius: inherit; padding: 1.5px; overflow: hidden; pointer-events: none; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; }
+  /* Contorno base tenue, siempre presente */
+  .cta-beam::after { content: ''; position: absolute; inset: 0; background: rgba(124, 92, 255, 0.16); }
+  /* El haz: cuadrado grande que gira detrás de la máscara; solo se ve el tramo que pasa por el contorno */
+  .cta-beam::before { content: ''; position: absolute; left: 50%; top: 50%; width: 200%; aspect-ratio: 1 / 1; translate: -50% -50%; z-index: 1; background: conic-gradient(from 0deg, transparent 0deg, transparent 240deg, rgba(124, 92, 255, 0.25) 300deg, #A08CFF 342deg, #FFFFFF 356deg, transparent 360deg); animation: cta-beam 8s linear infinite; }
+  @keyframes cta-beam { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .cta-beam::before { animation: none; transform: rotate(300deg); } }
+</style>
