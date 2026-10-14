@@ -32,7 +32,7 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
 
     <Trabajos title="Todos los proyectos" text="Capturas reales de cada sitio. Elegí un rubro o recorrelos todos." />
 
-    <section class="section">
+    <section class="section section-cta">
       <div class="container">
         <div class="cta-card-neon reveal">
           <CtaBeam />
@@ -53,3 +53,23 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
 
   <Footer slot="footer" />
 </Layout>
+
+<style>
+  /* Cierre: mismas reglas que en soluciones y servicios (allí viven en cada página) */
+  .section-cta { padding: 80px 0; }
+  .cta-card-neon { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--border-radius-lg); padding: 60px 40px; display: grid; grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 40px; align-items: center; position: relative; overflow: hidden; }
+  .cta-glow-overlay { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(124, 92, 255, 0.12) 0%, transparent 75%), radial-gradient(circle at 80% 80%, rgba(124, 92, 255, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .cta-info-side { position: relative; z-index: 5; max-width: 720px; }
+  .cta-card-neon h2 { font-size: 2.4rem; font-family: 'Lexend', sans-serif; font-weight: 600; margin-bottom: 20px; line-height: 1.2; }
+  .cta-card-neon p { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+  .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  @media (max-width: 768px) {
+    .section-cta { padding: 56px 0; }
+    .cta-card-neon { gap: 30px; padding: 40px 30px; }
+    .cta-card-neon h2 { font-size: 1.9rem; }
+  }
+  @media (max-width: 480px) {
+    .cta-buttons .btn { width: 100%; justify-content: center; }
+    .cta-card-neon { padding: 32px 18px; }
+  }
+</style>
