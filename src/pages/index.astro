@@ -431,7 +431,7 @@ const heroIntegraciones = [
 
   /* ---------- MÓDULOS: catálogo en grilla de celdas (distinto de las tarjetas de rubros) ---------- */
   /* Módulos: grilla bento, dos tiles en violeta sólido como foco */
-  .h2-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .h2-bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
   .h2-tile { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 26px 24px 24px; border-radius: var(--radius-lg); background: var(--card-bg); border: 1px solid var(--border-color); min-height: 210px; }
   .h2-tile--big { grid-column: span 2; }
   .h2-tile--big .h2-tile-head { max-width: 36ch; }
@@ -443,6 +443,9 @@ const heroIntegraciones = [
   .h2-tile--solid p { color: rgba(255, 255, 255, 0.93); }
   .h2-tile :global(.fv) { margin-top: auto; }
   .h2-tile--solid :global(.fv) { background: rgba(14, 8, 40, 0.45); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.85); }
+  /* Tablet: dos columnas (los destacados ocupan el ancho); celular: una columna. Antes quedaban 4 columnas y la grilla se salía de la pantalla */
+  @media (max-width: 992px) { .h2-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .h2-bento { grid-template-columns: minmax(0, 1fr); gap: 12px; } .h2-tile--big { grid-column: auto; } .h2-tile { min-height: 0; padding: 22px 20px 20px; } }
   /* Cómo trabajamos: tres pasos unidos por una línea */
   .h2-steps { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; position: relative; }
   .h2-steps::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; height: 1px; background: linear-gradient(90deg, var(--brand-primary), rgba(124, 92, 255, 0.35)); transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -555,7 +558,6 @@ const heroIntegraciones = [
     .h2-integra-banner { flex-direction: column; text-align: center; padding: 26px 20px; }
     .h2-integra-banner .btn { width: 100%; justify-content: center; }
     .h2-hero { padding: 120px 0 60px; }
-    .h2-tile--big { grid-column: auto; }
     .h2-side { display: none; }
     .h2-kpis { grid-template-columns: repeat(2, 1fr); }
     .h2-kpis div:nth-child(3) { display: none; }

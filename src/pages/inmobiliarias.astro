@@ -689,11 +689,6 @@ const waDemoUrl = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=Hola,%20vi%20la
     </div>
   </footer>
 
-  <!-- Botón de WhatsApp Flotante Inteligente -->
-  <a href={waDemoUrl} class="whatsapp-float-btn" id="wa-float" target="_blank" rel="noopener noreferrer">
-    <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M12.004 0C5.378 0 0 5.378 0 12.004c0 2.118.553 4.106 1.52 5.882l-1.52 5.544 5.674-1.488a11.968 11.968 0 005.83 1.516c6.626 0 12.004-5.378 12.004-12.004C24.008 5.378 18.63 0 12.004 0zm6.096 17.144c-.266.743-1.53 1.35-2.096 1.41-.4.04-1.07.07-2.67-.59-1.6-.66-2.63-2.28-2.71-2.39-.08-.11-.68-.9-.68-1.72 0-.82.43-1.22.58-1.39.15-.17.33-.21.44-.21h.31c.11 0 .26.01.41.34.15.35.53 1.3.58 1.41.05.11.08.24 0 .41-.08.17-.16.27-.26.39-.1.12-.22.25-.1.45.12.2.52.85 1.11 1.38.76.68 1.4.89 1.6.99.2.1.32.08.44-.06.12-.14.53-.61.67-.82.14-.2.28-.17.47-.1.19.07 1.2.56 1.4.67.2.11.34.16.39.25.05.09.05.53-.16 1.27z"/></svg>
-    <span class="wa-tooltip">¿Quieres ver tu catálogo aquí? Hablemos</span>
-  </a>
 
 </Layout>
 
@@ -2394,47 +2389,6 @@ input:checked + .inmo-slider:before {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin: 0;
-  }
-/* Whatsapp Floating Button */
-.whatsapp-float-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #25D366;
-    color: #fff;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3), 0 0 20px rgba(37, 211, 102, 0.2);
-    z-index: 999;
-    cursor: pointer;
-    transition: transform var(--transition-fast);
-  }
-.whatsapp-float-btn:hover {
-    transform: scale(1.1);
-  }
-.wa-tooltip {
-    position: absolute;
-    right: 75px;
-    background: #1e293b;
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-    transform: translateX(10px);
-    box-shadow: var(--shadow-md);
-  }
-.whatsapp-float-btn:hover .wa-tooltip {
-    opacity: 1;
-    transform: translateX(0);
   }
 /* Utility classes */
 .hidden {

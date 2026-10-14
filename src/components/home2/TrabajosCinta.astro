@@ -7,6 +7,8 @@ import { trabajos, categorias } from '../../data/trabajos.js';
 const host = (u) => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
 const full = (img) => img.replace(/\.webp$/, '-full.webp');
 const icon = (img) => img.replace(/\.webp$/, '-icon.webp');
+// Portada liviana de la tarjeta (recorte 4:5 de la captura larga, 560×700): la larga solo baja en escritorio para el recorrido
+const card = (img) => img.replace(/\.webp$/, '-card.webp');
 const label = (key) => categorias.find((c) => c.key === key)?.label ?? '';
 const n = trabajos.length;
 // Arranca con el tercer proyecto al centro: los dos primeros quedan a la izquierda, en orden de lectura
@@ -27,9 +29,9 @@ const a0 = (2 * 360) / n;
         <div class="cinta-ring" style={`--a:${a0}deg`}>
           {trabajos.map((t, i) => (
             <a class="cinta-item" style={`--i:${i}`} href={t.url} target="_blank" rel="noopener noreferrer nofollow" referrerpolicy="no-referrer" aria-label={`${t.nombre}: ${t.resultado}`} draggable="false">
-              <img src={full(t.imagen)} alt="" width="1000" height="1694" loading="lazy" decoding="async" draggable="false" />
+              <img data-src={card(t.imagen)} data-full={full(t.imagen)} alt="" width="560" height="700" decoding="async" draggable="false" />
               <span class="cinta-info">
-                <img class="cinta-ico" src={icon(t.imagen)} alt="" width="28" height="28" loading="lazy" decoding="async" draggable="false" />
+                <img class="cinta-ico" data-src={icon(t.imagen)} alt="" width="28" height="28" decoding="async" draggable="false" />
                 <span class="cinta-txt"><strong>{t.nombre}</strong><small>{host(t.url)}</small></span>
                 <em>{label(t.categoria)}</em>
               </span>
@@ -155,6 +157,31 @@ const a0 = (2 * 360) / n;
       target = t; vel = 0; rest(); start();
     }));
 
+    // Imágenes: todas juntas cuando la cinta se acerca a la pantalla. Con loading="lazy" dentro del cilindro 3D
+    // el navegador solo las pedía al girar cada tarjeta hacia el frente y se veían en blanco.
+    let loaded = false;
+    const loadImgs = () => {
+      if (loaded) return; loaded = true;
+      root.querySelectorAll<HTMLImageElement>('img[data-src]').forEach((im) => { im.src = im.dataset.src!; });
+      // En escritorio (con mouse) se precarga la captura larga para el recorrido al pasar el mouse
+      const toFull = (im: HTMLImageElement) => { if (!im.src.endsWith(im.dataset.full!)) im.src = im.dataset.full!; };
+      items.forEach((el) => el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') toFull(el.querySelector<HTMLImageElement>(':scope > img')!); }));
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      const idle = (cb: () => void) => ('requestIdleCallback' in window ? requestIdleCallback(cb, { timeout: 4000 }) : setTimeout(cb, 1500));
+      idle(() => items.forEach((el) => {
+        const im = el.querySelector<HTMLImageElement>(':scope > img')!;
+        const pre = new Image(); pre.decoding = 'async';
+        pre.onload = () => { im.src = im.dataset.full!; };
+        pre.src = im.dataset.full!;
+      }));
+    };
+    if ('IntersectionObserver' in window) {
+      const near = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { loadImgs(); near.disconnect(); }
+      }, { rootMargin: '900px 0px' });
+      near.observe(root);
+    } else loadImgs();
+
     // Solo gira cuando está a la vista; entrada suave al aparecer (con respaldo por si el observador no dispara)
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => entries.forEach((e) => {
@@ -162,7 +189,7 @@ const a0 = (2 * 360) / n;
         if (visible) { root.classList.add('on'); start(); }
       }), { threshold: 0.05 });
       io.observe(root);
-      setTimeout(() => root.classList.add('on'), 9000);
+      setTimeout(() => { root.classList.add('on'); loadImgs(); }, 9000);
     } else { visible = true; root.classList.add('on'); start(); }
     document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
     render();
