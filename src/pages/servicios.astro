@@ -7,7 +7,7 @@ import HeroAurora from '../components/HeroAurora.astro';
 import IsoK3D from '../components/IsoK3D.astro';
 import CtaBeam from '../components/CtaBeam.astro';
 import { svg } from '../data/plataforma.js';
-const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero pedir una propuesta de servicios para mi negocio.');
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola kaptativa! Quiero pedir una propuesta de servicios para mi negocio.');
 const servicios = [
   { slug: 'publicidad-digital', icon: 'megaphone', title: 'Publicidad digital', text: 'Campañas en Meta y Google medidas por resultados: más consultas y ventas, no solo clics.' },
   { slug: 'seo-geo', icon: 'search', title: 'SEO y GEO', text: 'Que te encuentren en Google y en las respuestas de la IA cuando buscan lo que vendés.' },
@@ -24,15 +24,17 @@ const etapas = [
   { n: '03', title: 'Operación automática', text: 'Atención, procesos y sistemas que trabajan solos.', slugs: ['agentes-ia', 'automatizacion', 'desarrollo-software'] },
 ];
 const etapaDe = (slug) => etapas.find((e) => e.slugs.includes(slug));
+// Lo que gana el negocio en cada etapa (embudo del hero)
+const resultadoEtapa = ['Más visitas y consultas', 'Más ventas y clientes que vuelven', 'Menos trabajo manual'];
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'Servicios de Kaptativa',
+  name: 'Servicios de kaptativa',
   itemListElement: servicios.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.title, url: `https://kaptativa.com/servicios/${s.slug}/` })),
 };
 ---
 
-<Layout title="Servicios de marketing, IA y desarrollo para tu negocio | Kaptativa" description="Publicidad digital, SEO y GEO, social media, email marketing, agentes de IA, automatización, diseño web y desarrollo de software. Se contratan aparte o se suman a tu plataforma." schema={schema}>
+<Layout title="Servicios de marketing, IA y desarrollo para tu negocio | kaptativa" description="Publicidad digital, SEO y GEO, social media, email marketing, agentes de IA, automatización, diseño web y desarrollo de software. Se contratan aparte o se suman a tu plataforma." schema={schema}>
   <Header slot="header" floating />
 
   <main>
@@ -40,15 +42,26 @@ const schema = {
       <HeroAurora />
       <div class="hero-glow-1"></div>
       <div class="hero-glow-2"></div>
-      <div class="container hero-container">
+      <div class="container sv-hero-grid">
         <div class="hero-content reveal">
-          <h1 class="hero-tagline">Servicios adicionales para <span class="text-gradient-crimson">hacer crecer tu negocio</span></h1>
+          <h1 class="hero-tagline">Servicios adicionales para&nbsp;<span class="text-gradient-crimson">hacer crecer tu negocio</span></h1>
           <p class="hero-description">Se contratan aparte o se suman a tu plataforma o a la web que ya tenés: marketing, publicidad, contenido, automatización y desarrollo a medida.</p>
           <div class="hero-buttons">
             <a href="#servicios" class="btn btn-primary btn-glow">Ver los servicios</a>
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Pedir propuesta por WhatsApp</a>
           </div>
         </div>
+
+        <!-- Embudo: las tres etapas que empujan los servicios, con los íconos de cada uno -->
+        <ol class="sv-funnel reveal reveal-delay-1" aria-hidden="true">
+          {etapas.map((e, i) => (
+            <li class={`sv-step sv-step-${i + 1}`}>
+              <span class="sv-n">{e.n}</span>
+              <span class="sv-txt"><strong>{e.title}</strong><small>{resultadoEtapa[i]}</small></span>
+              <span class="sv-ics">{e.slugs.map((sl) => <i title={servicios.find((x) => x.slug === sl)?.title}><Fragment set:html={svg(servicios.find((x) => x.slug === sl)?.icon ?? 'grid')} /></i>)}</span>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
@@ -100,6 +113,44 @@ const schema = {
 </Layout>
 
 <style>
+  /* Hero compacto con el embudo de etapas a la derecha (antes ocupaba toda la pantalla y la mitad quedaba vacía) */
+  #inicio.hero { min-height: 0; padding: 150px 0 80px; }
+  .sv-hero-grid { position: relative; z-index: 2; width: 100%; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 48px; align-items: center; }
+  /* El degradado en línea (no inline-block) para que "para" quede pegado a "hacer" y no sola en un renglón */
+  .sv-hero-grid .hero-tagline .text-gradient-crimson { display: inline !important; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .sv-funnel { text-align: left; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .sv-step { position: relative; display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 18px; color: #fff; border: 1px solid rgba(124, 92, 255, 0.35); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35); }
+  .sv-step-1 { width: 100%; background: linear-gradient(135deg, rgba(124, 92, 255, 0.22), rgba(21, 21, 25, 0.92)); }
+  .sv-step-2 { width: 88%; background: linear-gradient(135deg, rgba(124, 92, 255, 0.38), rgba(21, 21, 25, 0.92)); }
+  .sv-step-3 { width: 76%; background: linear-gradient(135deg, #7C5CFF, #4B2FD0); border-color: transparent; box-shadow: 0 18px 40px rgba(91, 63, 224, 0.4); }
+  .sv-step:not(:last-child)::after { content: ''; position: absolute; left: 50%; bottom: -11px; width: 10px; height: 10px; margin-left: -5px; border-right: 2px solid rgba(160, 140, 255, 0.7); border-bottom: 2px solid rgba(160, 140, 255, 0.7); transform: rotate(45deg); }
+  .sv-n { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; font-family: 'Lexend', sans-serif; font-size: 0.85rem; font-weight: 600; color: #fff; background: rgba(255, 255, 255, 0.12); }
+  .sv-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+  .sv-txt strong { font-family: 'Lexend', sans-serif; font-size: 1rem; font-weight: 600; }
+  .sv-txt small { font-size: 0.8rem; color: rgba(255, 255, 255, 0.75); }
+  .sv-ics { flex: none; display: flex; gap: 6px; }
+  .sv-ics i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.12); }
+  .sv-ics :global(.ki) { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  @media (prefers-reduced-motion: no-preference) {
+    .sv-funnel.active .sv-step { animation: sv-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .sv-funnel.active .sv-step-2 { animation-delay: 0.12s; }
+    .sv-funnel.active .sv-step-3 { animation-delay: 0.24s; }
+    @keyframes sv-in { from { opacity: 0; transform: translateY(10px); } }
+  }
+  @media (max-width: 1024px) {
+    .sv-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+    .sv-funnel { max-width: 520px; width: 100%; margin: 0 auto; }
+  }
+  @media (max-width: 600px) {
+    #inicio.hero { padding: 120px 0 48px; }
+    .sv-step { padding: 12px 12px; gap: 10px; }
+    .sv-step-2 { width: 94%; }
+    .sv-step-3 { width: 88%; }
+    .sv-txt strong { font-size: 0.9rem; }
+    .sv-txt small { font-size: 0.74rem; }
+    .sv-ics i { width: 26px; height: 26px; }
+    .sv-ics :global(.ki) { width: 14px; height: 14px; }
+  }
   /* Grilla de servicios: tarjetas horizontales en dos columnas (ícono, etiqueta de etapa, título, texto y flecha) */
   .sg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .sg-card { position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr) 40px; gap: 18px; align-items: start; min-width: 0; padding: 24px 22px 24px 24px; border-radius: 20px; text-decoration: none; color: inherit; background: linear-gradient(180deg, #FAF8FF 0%, #FFFFFF 58%); border: 1px solid #E9E5F8; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -20px rgba(124, 92, 255, 0.35); overflow: hidden; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease; }

@@ -1,6 +1,6 @@
 ---
 // Home: enfocada en desarrollo web (sitio + tienda + gestión).
-// Estructura inspirada en referencias del rubro, con identidad y textos propios de Kaptativa.
+// Estructura inspirada en referencias del rubro, con identidad y textos propios de kaptativa.
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
@@ -18,7 +18,7 @@ import HeroStage from '../components/home2/HeroStage.astro';
 import { svg, soluciones, modulos } from '../data/plataforma.js';
 import { readFileSync } from 'node:fs';
 
-const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo de la plataforma web.');
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola kaptativa! Quiero solicitar una demo de la plataforma web.');
 
 const rubros = soluciones;
 
@@ -26,7 +26,7 @@ const homeSchema = [
   {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Kaptativa',
+    name: 'kaptativa',
     url: 'https://kaptativa.com/',
     logo: 'https://kaptativa.com/logo.svg',
     image: 'https://kaptativa.com/og-image.jpg',
@@ -45,7 +45,7 @@ const homeSchema = [
       })),
     },
   },
-  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Kaptativa', url: 'https://kaptativa.com/', inLanguage: 'es-AR' },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'kaptativa', url: 'https://kaptativa.com/', inLanguage: 'es-AR' },
 ];
 
 // Rubros que rotan en el título del hero, en el orden del menú Soluciones
@@ -86,9 +86,9 @@ const integracionesFilas = [
 ];
 
 const pasos = [
-  { title: 'Demo y diagnóstico', text: 'Una videollamada de 30 minutos: vemos cómo trabajás hoy y te mostramos la plataforma con casos de tu rubro.' },
-  { title: 'Propuesta en 24 hs hábiles', text: 'Qué módulos activar, en qué orden y cuánto cuesta. Sin letra chica.' },
-  { title: 'Implementación y acompañamiento', text: 'Arrancamos por lo que vende y sumamos la gestión por etapas. Capacitamos a tu equipo y seguimos del otro lado del WhatsApp.' },
+  { icon: 'monitor', tag: '30 minutos', title: 'Demo y diagnóstico', text: 'Una videollamada de 30 minutos: vemos cómo trabajás hoy y te mostramos la plataforma con casos de tu rubro.' },
+  { icon: 'file', tag: '24 hs hábiles', title: 'Propuesta a medida', text: 'Qué módulos activar, en qué orden y cuánto cuesta. Sin letra chica.' },
+  { icon: 'rocket', tag: 'Por etapas', title: 'Implementación y acompañamiento', text: 'Arrancamos por lo que vende y sumamos la gestión por etapas. Capacitamos a tu equipo y seguimos del otro lado del WhatsApp.' },
 ];
 const heroIntegraciones = [
   { name: 'Mercado Pago', icon: 'mercadopago' }, { name: 'WhatsApp', icon: 'whatsapp' }, { name: 'Mercado Libre', logo: 'mercadolibre' },
@@ -100,7 +100,7 @@ const heroIntegraciones = [
 
 <Layout
   schema={homeSchema}
-  title="Kaptativa | Sitios web, tiendas online y sistemas de gestión"
+  title="kaptativa | Sitios web, tiendas online y sistemas de gestión"
   description="Tu sitio web, tu tienda online y la gestión de tu negocio en una sola plataforma autoadministrable. Diseño, desarrollo e integraciones a medida."
 >
   <Header slot="header" floating />
@@ -238,7 +238,11 @@ const heroIntegraciones = [
         <ol class="h2-steps">
           {pasos.map((paso, i) => (
             <li class="h2-step" style={`--i:${i}`}>
-              <span class="h2-step-num">{i + 1}</span>
+              <div class="h2-step-top">
+                <span class="h2-step-ic"><Fragment set:html={svg(paso.icon)} /></span>
+                <span class="h2-step-tag">{paso.tag}</span>
+                <span class="h2-step-num">0{i + 1}</span>
+              </div>
               <h3>{paso.title}</h3>
               <p>{paso.text}</p>
             </li>
@@ -402,15 +406,27 @@ const heroIntegraciones = [
   @media (max-width: 992px) { .h2-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 600px) { .h2-bento { grid-template-columns: minmax(0, 1fr); gap: 12px; } .h2-tile--big { grid-column: auto; } .h2-tile { min-height: 0; padding: 22px 20px 20px; } }
   /* Cómo trabajamos: tres pasos unidos por una línea */
-  .h2-steps { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; position: relative; }
-  .h2-steps::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; height: 1px; background: linear-gradient(90deg, var(--brand-primary), rgba(124, 92, 255, 0.35)); transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
-  .h2-steps.drawn::before { transform: scaleX(1); }
-  .h2-step-num { transition: border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease; transition-delay: calc(var(--i, 0) * 0.35s); }
-  .h2-steps.drawn .h2-step-num { border-color: var(--brand-primary); box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.14), 0 0 18px rgba(124, 92, 255, 0.35); }
-  @media (prefers-reduced-motion: reduce) { .h2-steps::before { transform: none; transition: none; } .h2-step-num { transition: none; } }
-  .h2-step-num { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 0.95rem; background: var(--bg-primary); border: 1px solid var(--border-hover); color: var(--brand-primary-light); }
-  .h2-step h3 { font-family: 'Lexend', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: 18px 0 8px; }
-  .h2-step p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; max-width: 34ch; }
+  /* Proceso: tres tarjetas unidas por flechas (antes una línea que seguía de largo después del último paso) */
+  .h2-steps { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; counter-reset: paso; }
+  .h2-step { position: relative; display: flex; flex-direction: column; padding: 24px 24px 26px; border-radius: 20px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015) 60%), #141418; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.8); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease; }
+  .h2-step:hover { transform: translateY(-3px); border-color: rgba(124, 92, 255, 0.45); }
+  .h2-step:last-child { background: radial-gradient(circle at 100% 0%, rgba(124, 92, 255, 0.22), transparent 55%), linear-gradient(180deg, rgba(124, 92, 255, 0.1), rgba(255, 255, 255, 0.015) 60%), #141418; border-color: rgba(124, 92, 255, 0.35); }
+  /* Flecha entre tarjetas: vive en el hueco, centrada */
+  .h2-step:not(:last-child)::after { content: ''; position: absolute; z-index: 1; top: 50%; right: -30px; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%; background: #7C5CFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 13px no-repeat; box-shadow: 0 0 0 5px rgba(124, 92, 255, 0.15); }
+  .h2-step-top { display: flex; align-items: center; gap: 10px; }
+  .h2-step-ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; color: #fff; background: linear-gradient(135deg, #7C5CFF, #5B3FE0); box-shadow: 0 10px 22px rgba(124, 92, 255, 0.35); }
+  .h2-step-ic :global(.ki) { width: 20px; height: 20px; }
+  .h2-step-tag { padding: 4px 10px; border-radius: 99px; font-size: 0.78rem; font-weight: 600; color: #C9BDFF; background: rgba(124, 92, 255, 0.16); }
+  .h2-step-num { margin-left: auto; font-family: 'Lexend', sans-serif; font-size: 1.5rem; font-weight: 600; color: rgba(255, 255, 255, 0.14); }
+  .h2-step h3 { font-family: 'Lexend', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 20px 0 8px; }
+  .h2-step p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+  @media (prefers-reduced-motion: reduce) { .h2-step:hover { transform: none; } }
+  /* Tablet y celular: una columna y la flecha apunta hacia abajo */
+  @media (max-width: 860px) {
+    .h2-steps { grid-template-columns: minmax(0, 1fr); gap: 30px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .h2-step { padding: 20px 20px 22px; }
+    .h2-step:not(:last-child)::after { top: auto; bottom: -27px; right: auto; left: 50%; margin: 0 0 0 -12px; transform: rotate(90deg); }
+  }
   /* Hero: fila de integraciones */
   .h2-trust { margin-top: 34px; display: flex; align-items: center; gap: 14px 26px; flex-wrap: wrap; color: var(--text-muted); font-size: 0.85rem; }
   .h2-trust ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
@@ -499,7 +515,6 @@ const heroIntegraciones = [
     .h2-marquee-track { animation: none; }
   }
   @media (max-width: 1024px) {
-    .h2-steps { gap: 22px; }
     .h2-hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'copy' 'stage' 'trust'; row-gap: 40px; }
     .h2-trust { margin-top: 0; }
   }

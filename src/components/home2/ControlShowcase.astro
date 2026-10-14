@@ -2,15 +2,23 @@
 // Sección "Control total": lista de funciones + mazo de pantallas animadas que avanza solo.
 // Cada pantalla es una interfaz simulada en HTML/CSS (no hay videos del sistema todavía).
 import { svg } from '../../data/plataforma.js';
+import IsoK3D from '../IsoK3D.astro';
 
-const DEMO_URL = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo de la plataforma web.');
+const DEMO_URL = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola kaptativa! Quiero solicitar una demo de la plataforma web.');
 
 const slides = [
-  { icon: 'layers', title: 'Todo tu negocio en un mismo lugar', text: 'Sitio, tienda, pedidos y marketing conectados. Un solo acceso, cero planillas paralelas.', caption: 'Ventas, pedidos y visitas en un solo tablero.', scene: 'dash' },
-  { icon: 'edit', title: 'Tu web, editada por vos', text: 'Cambiás portada, bloques y catálogo sin depender de nadie. Lo que tocás se publica al instante.', caption: 'Cambiás el banner y se publica al toque.', scene: 'editor' },
+  { icon: 'layers', title: 'Todo tu negocio en un mismo lugar', text: 'Sitio, tienda, pedidos y marketing conectados. Un solo acceso, cero planillas paralelas.', caption: 'Lo que pasó hoy en tu negocio, en una sola pantalla.', scene: 'dash' },
+  { icon: 'edit', title: 'Tu web, editada por vos', text: 'Cambiás portada, bloques y catálogo sin depender de nadie. Lo que tocás se publica al instante.', caption: 'Sin pedir cambios ni esperar a nadie.', scene: 'editor' },
   { icon: 'receipt', title: 'Cada venta, bajo control', text: 'Pedidos con estados claros, historial por cliente y stock que se descuenta solo.', caption: 'Cada pago confirma el pedido y descuenta stock.', scene: 'orders' },
   { icon: 'megaphone', title: 'Marketing que vende solo', text: 'Cupones, promociones, campañas y un asistente con IA que responde a tus clientes 24/7.', caption: 'Cupones y un asistente IA que atiende por vos.', scene: 'mkt' },
   { icon: 'grid', title: 'Empezá con lo justo, sumá el resto', text: 'Módulos que se activan cuando tu negocio los necesita, sin migrar nada.', caption: 'Activás módulos a medida que crecés.', scene: 'mods' },
+];
+
+const sideIcons = ['grid', 'cart', 'users', 'message', 'chart'];
+const feed = [
+  { icon: 'cart', tone: 'ok', title: 'Pedido #1043 pagado', sub: 'Lucía M. · $ 38.900 · Mercado Pago', time: '10:42' },
+  { icon: 'calendar', tone: 'vio', title: 'Turno reservado', sub: 'Jueves 10:30 · seña cobrada', time: '10:35' },
+  { icon: 'bot', tone: 'vio', title: 'La IA respondió por WhatsApp', sub: '"¿Hacen envíos a Córdoba?" · en 8 s', time: '10:31' },
 ];
 
 const modsDemo = [
@@ -50,38 +58,48 @@ const modsDemo = [
               <div class={`cs-scene cs-${s.scene}`} aria-hidden="true">
                 {s.scene === 'dash' && (
                   <Fragment>
-                    <aside class="cs-side"><i class="on"></i><i></i><i></i><i></i><i></i></aside>
+                    <aside class="cs-side">{sideIcons.map((ic, k) => <i class:list={{ on: k === 0 }}><Fragment set:html={svg(ic)} /></i>)}</aside>
                     <div class="cs-dash-main">
+                      <div class="cs-day"><b>Hoy, martes</b><span>Actualizado hace 1 min</span></div>
                       <div class="cs-kpis">
-                        <div class="a1"><small>Ventas del mes</small><b>$ 4.82M</b><em>+18%</em></div>
-                        <div class="a2"><small>Pedidos</small><b>312</b><em>+9%</em></div>
-                        <div class="a3"><small>Visitas</small><b>21.4k</b><em>+32%</em></div>
+                        <div class="a1"><small>Ventas de hoy</small><b>$ 186.400</b><em>+12%</em></div>
+                        <div class="a2"><small>Pedidos</small><b>23</b><em>+4</em></div>
+                        <div class="a3"><small>Consultas IA</small><b>41</b><em>98% resueltas</em></div>
                       </div>
-                      <div class="cs-bars">{[38, 55, 46, 70, 58, 82, 66, 90, 74, 95].map((h, k) => <span style={`height:${h}%; animation-delay:${0.3 + k * 0.07}s`}></span>)}</div>
+                      <ul class="cs-feed">
+                        {feed.map((f, k) => (
+                          <li class={`f${k + 1}`}>
+                            <span class={`cs-feed-ic ${f.tone}`}><Fragment set:html={svg(f.icon)} /></span>
+                            <span class="cs-feed-txt"><strong>{f.title}</strong><small>{f.sub}</small></span>
+                            <em>{f.time}</em>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <div class="cs-toast">{<Fragment set:html={svg('cart')} />} Nueva venta: $ 38.900</div>
                   </Fragment>
                 )}
                 {s.scene === 'editor' && (
-                  <Fragment>
-                    <div class="cs-ed-bar"><b>Editor de portada</b><span class="cs-badge-live">Publicado</span></div>
-                    <div class="cs-ed-hero">
-                      <div class="cs-ed-title"><span class="t1">Nueva colección</span><span class="t2">Hasta 30% OFF</span></div>
-                      <span class="cs-ed-sub"></span>
-                      <i class="cs-ed-btn"></i>
-                      <span class="cs-cursor"></span>
-                    </div>
-                    <div class="cs-ed-blocks"><div><i></i><span></span></div><div><i></i><span></span></div><div><i></i><span></span></div></div>
-                  </Fragment>
+                  <div class="cs-tc">
+                    <span class="cs-tc-glow"></span>
+                    <IsoK3D class="cs-tc-iso" size={64} />
+                    <span class="cs-tc-kicker">Sitio + tienda</span>
+                    <strong class="cs-tc-title">Tu web y tu tienda, <span>tuyas de verdad</span></strong>
+                    <span class="cs-tc-sub">La editás vos. Se publica al instante.</span>
+                    <span class="cs-tc-live"><Fragment set:html={svg('check')} /> Cambios publicados</span>
+                  </div>
                 )}
                 {s.scene === 'orders' && (
                   <Fragment>
-                    <div class="cs-ord-head"><b>Pedidos</b><span>Stock remera negra: <b class="cs-stock"><span class="s1">12</span><span class="s2">11</span></b></span></div>
+                    <div class="cs-ord-head"><b>Pedidos de hoy</b><span>23 pedidos · $ 186.400</span></div>
                     <div class="cs-ord-list">
-                      <div class="r r1"><i></i><span>#1043 Lucía M.</span><b class="st st-swap"><span class="p">Pendiente</span><span class="ok">Pagado</span></b></div>
-                      <div class="r r2"><i></i><span>#1042 Martín G.</span><b class="st ship">En camino</b></div>
-                      <div class="r r3"><i></i><span>#1041 Sofía R.</span><b class="st done">Entregado</b></div>
-                      <div class="r r4"><i></i><span>#1040 Diego P.</span><b class="st done">Entregado</b></div>
+                      <div class="r r1"><i>LM</i><span>#1043 Lucía M.<small>Buzo frisa · M</small></span><b class="amt">$ 38.900</b><b class="st st-swap"><span class="p">Pendiente</span><span class="ok">Pagado</span></b></div>
+                      <div class="r r2"><i>MG</i><span>#1042 Martín G.<small>Remera ×2</small></span><b class="amt">$ 37.800</b><b class="st ship">En camino</b></div>
+                      <div class="r r3"><i>SR</i><span>#1041 Sofía R.<small>Gorra bordada</small></span><b class="amt">$ 12.500</b><b class="st done">Entregado</b></div>
+                    </div>
+                    <div class="cs-stock-card">
+                      <span class="cs-stock-ic"><Fragment set:html={svg('box')} /></span>
+                      <span class="cs-stock-txt"><strong>Buzo frisa gris · M</strong><small>Se descontó solo con el pedido #1043</small></span>
+                      <b class="cs-stock"><span class="s1">12</span><span class="s2">11</span></b>
                     </div>
                   </Fragment>
                 )}
@@ -173,6 +191,9 @@ const modsDemo = [
         s.setAttribute('aria-hidden', active ? 'false' : 'true');
       });
       tabs.forEach((t, k) => { t.classList.toggle('active', k === index); t.setAttribute('aria-selected', k === index ? 'true' : 'false'); });
+      // En el celular las pestañas son una tira horizontal: la activa se desliza a la vista sin mover la página
+      const strip = tabs[index]?.parentElement;
+      if (strip && strip.scrollWidth > strip.clientWidth) strip.scrollTo({ left: tabs[index].offsetLeft - 20, behavior: 'smooth' });
       dots.forEach((d, k) => { d.classList.toggle('active', k === index); d.style.setProperty('--p', '0'); });
       if (mTitle) mTitle.textContent = data[index]?.title ?? '';
       if (mText) mText.textContent = data[index]?.text ?? '';
@@ -214,30 +235,33 @@ const modsDemo = [
 <style>
   .cs { position: relative; }
   .cs :global(.ki) { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-  .cs-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: center; }
+  /* El panel arranca a la altura del título y queda fijo mientras se recorre la lista (antes quedaba corrido abajo) */
+  .cs-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 64px; align-items: center; }
 
   /* ---------- Columna de texto ---------- */
   .cs-title { font-family: 'Lexend', sans-serif; font-size: clamp(2.2rem, 4.5vw, 3.4rem) !important; line-height: 1.1 !important; margin: 18px 0 16px !important; color: var(--text-primary); }
   .cs-lead { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; max-width: 480px; margin: 0; }
-  .cs-tabs { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+  .cs-tabs { display: flex; flex-direction: column; gap: 8px; margin-top: 28px; }
   .cs-tab {
     display: flex; gap: 16px; align-items: flex-start; width: 100%; text-align: left; cursor: pointer; font: inherit;
-    padding: 16px; border-radius: 20px; background: transparent; border: 1px solid var(--border-color);
+    padding: 10px 14px 10px 10px; border-radius: 16px; background: transparent; border: 1px solid var(--border-color); align-items: center;
     transition: background var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
   }
   .cs-tab:hover { border-color: rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.02); }
   .cs-tab.active { background: var(--bg-tertiary); border-color: var(--border-hover); }
   .cs-tab-icon {
-    width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     color: var(--accent-indigo); background: var(--accent-indigo-glow); transition: all var(--transition-normal);
   }
   .cs-tab.active .cs-tab-icon { color: #fff; background: var(--gradient-primary); box-shadow: 0 6px 18px rgba(124, 92, 255, 0.35); }
-  .cs-tab-text { display: flex; flex-direction: column; gap: 4px; }
+  .cs-tab-text { display: flex; flex-direction: column; gap: 0; }
   .cs-tab-text strong { font-family: 'Lexend', sans-serif; font-size: 1.02rem; font-weight: 600; color: var(--text-secondary); transition: color var(--transition-normal); }
   .cs-tab.active .cs-tab-text strong { color: var(--text-primary); }
-  .cs-tab-text span { font-size: 0.88rem; line-height: 1.5; color: var(--text-muted); }
+  /* Solo la función activa muestra su descripción: la lista queda del alto del panel (antes sobraba espacio debajo del panel) */
+  .cs-tab-text span { display: block; max-height: 0; overflow: hidden; font-size: 0.88rem; line-height: 1.5; color: var(--text-muted); opacity: 0; transition: max-height 0.35s ease, opacity 0.35s ease, margin 0.35s ease; }
+  .cs-tab.active .cs-tab-text span { max-height: 4.6em; opacity: 1; margin-top: 4px; }
   .cs-tab.active .cs-tab-text span { color: var(--text-secondary); }
-  .cs-cta { margin-top: 32px; gap: 10px; }
+  .cs-cta { margin-top: 24px; gap: 10px; }
   .cs-cta :global(.ki) { width: 18px; height: 18px; }
 
   /* ---------- Escenario ---------- */
@@ -248,7 +272,7 @@ const modsDemo = [
   .cs-dot i { position: absolute; inset: 0; background: var(--accent-indigo); transform-origin: top; transform: scaleY(0); }
   .cs-dot.active i { transform: scaleY(var(--p, 0)); }
 
-  .cs-deck { position: relative; flex: 1; aspect-ratio: 16 / 11.5; touch-action: pan-y; user-select: none; }
+  .cs-deck { position: relative; flex: 1; min-width: 0; aspect-ratio: 16 / 12.6; touch-action: pan-y; user-select: none; }
   .cs-slide {
     position: absolute; inset: 0; display: flex; flex-direction: column; gap: 12px;
     padding: 14px; border-radius: 28px; background: #18181D; border: 1px solid rgba(255, 255, 255, 0.08);
@@ -264,8 +288,8 @@ const modsDemo = [
   .cs-screen { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; background: #121215; border: 1px solid rgba(255, 255, 255, 0.06); }
   .cs-chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
   .cs-chrome span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, 0.18); }
-  .cs-chrome em { margin-left: 10px; font-style: normal; font-size: 0.7rem; color: var(--text-muted); background: rgba(255, 255, 255, 0.04); border-radius: 8px; padding: 3px 10px; }
-  .cs-scene { position: relative; flex: 1; min-height: 0; padding: 16px; display: flex; gap: 14px; overflow: hidden; font-size: 0.78rem; color: var(--text-secondary); }
+  .cs-chrome em { margin-left: 10px; font-style: normal; font-size: 0.75rem; color: var(--text-muted); background: rgba(255, 255, 255, 0.04); border-radius: 8px; padding: 3px 10px; }
+  .cs-scene { position: relative; flex: 1; min-height: 0; padding: 16px; display: flex; gap: 14px; overflow: hidden; font-size: 0.82rem; color: var(--text-secondary); }
   .cs-caption { margin: 0; padding: 2px 6px 4px 14px; border-left: 3px solid var(--accent-indigo); color: var(--text-primary); font-size: 0.92rem; font-weight: 500; }
 
   .cs-controls { display: flex; flex-direction: column; gap: 8px; }
@@ -288,76 +312,91 @@ const modsDemo = [
   @keyframes cs-out { to { opacity: 0; transform: translateY(-8px); } }
   @keyframes cs-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-  /* Escena 1: tablero */
-  .cs-side { display: flex; flex-direction: column; gap: 10px; padding-right: 12px; border-right: 1px solid rgba(255, 255, 255, 0.06); }
-  .cs-side i { width: 20px; height: 20px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); }
-  .cs-side i.on { background: var(--gradient-primary); }
-  .cs-dash-main { flex: 1; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-  .cs-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .cs-kpis div { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); animation: cs-up 0.5s both; }
+  /* Escena 1: resumen del día */
+  .cs-side { display: flex; flex-direction: column; gap: 8px; padding-right: 12px; border-right: 1px solid rgba(255, 255, 255, 0.06); }
+  .cs-side i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; color: #6E6E7A; }
+  .cs-side i.on { color: #fff; background: var(--gradient-primary); }
+  .cs-side :global(.ki) { width: 15px; height: 15px; }
+  .cs-dash-main { flex: 1; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .cs-day { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .cs-day b { font-family: 'Lexend', sans-serif; font-size: 0.95rem; color: #fff; }
+  .cs-day span { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+  .cs-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .cs-kpis div { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); min-width: 0; animation: cs-up 0.5s both; }
+  .cs-kpis .a1 { border-color: rgba(124, 92, 255, 0.35); background: linear-gradient(160deg, rgba(124, 92, 255, 0.18), rgba(255, 255, 255, 0.02) 70%); }
   .cs-kpis .a2 { animation-delay: 0.1s; } .cs-kpis .a3 { animation-delay: 0.2s; }
-  .cs-kpis small { font-size: 0.65rem; color: var(--text-muted); }
-  .cs-kpis b { font-size: 1rem; color: #fff; }
-  .cs-kpis em { font-style: normal; font-size: 0.66rem; color: #10B981; }
-  .cs-bars { flex: 1; display: flex; align-items: flex-end; gap: 7px; min-height: 60px; }
-  .cs-bars span { flex: 1; border-radius: 4px 4px 0 0; transform-origin: bottom; background: linear-gradient(180deg, #7C5CFF, rgba(106, 72, 245, 0.2)); animation: cs-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .cs-toast { position: absolute; right: 16px; bottom: 16px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 12px; color: #fff; font-weight: 500; background: rgba(15, 15, 18, 0.9); border: 1px solid var(--border-hover); animation: cs-pop 0.5s 2.2s both; }
-  .cs-toast :global(.ki) { width: 15px; height: 15px; color: var(--accent-indigo); }
+  .cs-kpis small { font-size: 0.75rem; color: #A9A9B6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cs-kpis b { font-size: 1.05rem; color: #fff; white-space: nowrap; }
+  .cs-kpis em { font-style: normal; font-size: 0.75rem; color: #34D399; white-space: nowrap; }
+  .cs-feed { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .cs-feed li { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); animation: cs-up 0.45s both; }
+  .cs-feed .f1 { animation-delay: 0.5s; } .cs-feed .f2 { animation-delay: 0.9s; } .cs-feed .f3 { animation-delay: 1.3s; }
+  .cs-feed-ic { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; }
+  .cs-feed-ic :global(.ki) { width: 15px; height: 15px; }
+  .cs-feed-ic.ok { color: #34D399; background: rgba(16, 185, 129, 0.14); }
+  .cs-feed-ic.vio { color: #C9BDFF; background: rgba(124, 92, 255, 0.2); }
+  .cs-feed-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+  .cs-feed-txt strong { font-size: 0.8rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cs-feed-txt small { font-size: 0.75rem; color: #A9A9B6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cs-feed li > em { flex: none; font-style: normal; font-size: 0.75rem; color: var(--text-muted); }
 
-  /* Escena 2: editor */
-  .cs-editor { flex-direction: column; }
-  .cs-ed-bar { display: flex; justify-content: space-between; align-items: center; color: #fff; }
-  .cs-badge-live { font-size: 0.66rem; padding: 3px 10px; border-radius: 20px; color: #10B981; background: rgba(16, 185, 129, 0.12); animation: cs-pop 0.4s 3.4s both; }
-  .cs-ed-hero { position: relative; flex: 1; min-height: 0; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.4), rgba(91, 63, 224, 0.3)); outline: 1px dashed rgba(255, 255, 255, 0.35); outline-offset: -6px; }
-  .cs-ed-title { position: relative; height: 1.6em; font-family: 'Lexend', sans-serif; font-size: clamp(1rem, 2vw, 1.4rem); font-weight: 600; color: #fff; }
-  .cs-ed-title span { position: absolute; left: 0; top: 0; white-space: nowrap; }
-  .cs-ed-title .t1 { animation: cs-out 0.3s 1.8s both; }
-  .cs-ed-title .t2 { animation: cs-in 0.4s 2.1s both; }
-  .cs-ed-sub { width: 45%; height: 8px; border-radius: 8px; background: rgba(255, 255, 255, 0.55); }
-  .cs-ed-btn { margin-top: auto; width: 96px; height: 26px; border-radius: 20px; background: #fff; }
-  .cs-cursor { position: absolute; width: 14px; height: 14px; left: 70%; top: 75%; border-left: 2px solid #fff; border-top: 2px solid #fff; transform: rotate(-20deg); filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)); animation: cs-cursor 3s 0.3s both; }
-  @keyframes cs-cursor { 0% { left: 70%; top: 75%; } 45% { left: 34%; top: 26%; } 55% { transform: rotate(-20deg) scale(0.85); } 65% { transform: rotate(-20deg) scale(1); } 100% { left: 34%; top: 26%; } }
-  .cs-ed-blocks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .cs-ed-blocks div { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); }
-  .cs-ed-blocks i { height: 30px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); }
-  .cs-ed-blocks span { width: 70%; height: 6px; border-radius: 8px; background: rgba(255, 255, 255, 0.08); }
+  /* Escena 2: portada de marca (título grande centrado con el isotipo en 3D) */
+  .cs-scene.cs-editor { padding: 0 !important; }
+  .cs-tc { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; overflow: hidden; background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(124, 92, 255, 0.35), transparent 70%), radial-gradient(ellipse 50% 40% at 85% 100%, rgba(124, 92, 255, 0.18), transparent 70%), #0B0B12; }
+  .cs-tc-glow { position: absolute; top: 18%; left: 50%; width: 180px; height: 180px; margin-left: -90px; border-radius: 50%; background: radial-gradient(circle, rgba(124, 92, 255, 0.45), transparent 65%); filter: blur(20px); pointer-events: none; }
+  .cs-tc :global(.cs-tc-iso) { position: relative !important; z-index: 1; margin-bottom: 2px; }
+  .cs-tc-kicker { position: relative; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: #A08CFF; animation: cs-up 0.5s 0.35s both; }
+  .cs-tc-title { position: relative; max-width: 18ch; font-family: 'Lexend', sans-serif; font-size: clamp(1.35rem, 2.6vw, 2.1rem); font-weight: 600; line-height: 1.15; color: #fff; animation: cs-up 0.6s 0.55s both; }
+  .cs-tc-title span { background: linear-gradient(90deg, #C9BDFF, #7C5CFF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cs-tc-sub { position: relative; font-size: 0.86rem; color: #B4B4BE; animation: cs-up 0.5s 0.8s both; }
+  .cs-tc-live { position: relative; margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 600; color: #34D399; background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.3); animation: cs-pop 0.45s 2.2s both; }
+  .cs-tc-live :global(.ki) { width: 13px; height: 13px; stroke-width: 3; }
 
-  /* Escena 3: pedidos */
+  /* Escena 3: pedidos con cliente, monto y estado; el stock se descuenta en la tarjeta de abajo */
   .cs-orders { flex-direction: column; }
-  .cs-ord-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; color: #fff; }
-  .cs-ord-head > span { color: var(--text-muted); font-size: 0.72rem; }
-  .cs-stock { position: relative; display: inline-block; width: 1.4em; height: 1.2em; vertical-align: bottom; color: #fff; }
-  .cs-stock span { position: absolute; left: 0; }
-  .cs-stock .s1 { animation: cs-out 0.3s 2.6s both; }
-  .cs-stock .s2 { animation: cs-in 0.3s 2.8s both; color: var(--accent-orange); }
+  .cs-ord-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; color: #fff; }
+  .cs-ord-head b { font-family: 'Lexend', sans-serif; font-size: 0.95rem; }
+  .cs-ord-head > span { color: #A9A9B6; font-size: 0.76rem; white-space: nowrap; }
   .cs-ord-list { display: flex; flex-direction: column; gap: 8px; }
   .cs-ord-list .r { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); animation: cs-up 0.45s both; }
-  .cs-ord-list .r2 { animation-delay: 0.12s; } .cs-ord-list .r3 { animation-delay: 0.24s; } .cs-ord-list .r4 { animation-delay: 0.36s; }
+  .cs-ord-list .r2 { animation-delay: 0.12s; } .cs-ord-list .r3 { animation-delay: 0.24s; }
   .cs-ord-list .r1 { animation: cs-up 0.45s both, cs-hl 1.2s 1.8s both; }
   @keyframes cs-hl { 0%, 100% { border-color: rgba(255, 255, 255, 0.06); } 30% { border-color: rgba(16, 185, 129, 0.6); } }
-  .cs-ord-list i { width: 22px; height: 22px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); }
-  .cs-ord-list .r > span { flex: 1; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .st { position: relative; font-size: 0.66rem; font-weight: 500; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
-  .st.ship { color: #06B6D4; background: rgba(6, 182, 212, 0.12); }
-  .st.done { color: var(--text-muted); background: rgba(255, 255, 255, 0.05); }
-  .st-swap { width: 68px; height: 20px; padding: 0; }
+  .cs-ord-list i { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font-style: normal; font-size: 0.75rem; font-weight: 700; color: #C9BDFF; background: rgba(124, 92, 255, 0.2); }
+  .cs-ord-list .r > span { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; color: #fff; font-weight: 600; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cs-ord-list .r > span small { font-size: 0.75rem; font-weight: 400; color: #A9A9B6; }
+  .cs-ord-list .amt { flex: none; font-size: 0.8rem; color: #fff; }
+  .st { position: relative; flex: none; font-size: 0.75rem; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .st.ship { color: #FDBA74; background: rgba(249, 115, 22, 0.16); }
+  .st.done { color: #C9BDFF; background: rgba(124, 92, 255, 0.18); }
+  .st-swap { width: 76px; height: 22px; padding: 0; }
   .st-swap span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: 20px; }
-  .st-swap .p { color: #F97316; background: rgba(249, 115, 22, 0.14); animation: cs-out 0.3s 2s both; }
-  .st-swap .ok { color: #10B981; background: rgba(16, 185, 129, 0.14); animation: cs-pop 0.4s 2.2s both; }
+  .st-swap .p { color: #FDBA74; background: rgba(249, 115, 22, 0.16); animation: cs-out 0.3s 2s both; }
+  .st-swap .ok { color: #34D399; background: rgba(16, 185, 129, 0.16); animation: cs-pop 0.4s 2.2s both; }
+  .cs-stock-card { margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 1px dashed rgba(124, 92, 255, 0.5); background: rgba(124, 92, 255, 0.08); animation: cs-up 0.45s 0.5s both; }
+  .cs-stock-ic { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; color: #C9BDFF; background: rgba(124, 92, 255, 0.2); }
+  .cs-stock-ic :global(.ki) { width: 15px; height: 15px; }
+  .cs-stock-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+  .cs-stock-txt strong { font-size: 0.8rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cs-stock-txt small { font-size: 0.75rem; color: #A9A9B6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cs-stock { position: relative; flex: none; display: inline-block; width: 1.6em; height: 1.3em; font-family: 'Lexend', sans-serif; font-size: 1.1rem; color: #fff; }
+  .cs-stock span { position: absolute; left: 0; }
+  .cs-stock .s1 { animation: cs-out 0.3s 2.6s both; }
+  .cs-stock .s2 { animation: cs-in 0.3s 2.8s both; color: #FDBA74; }
 
   /* Escena 4: marketing */
   .cs-mkt-left { width: 45%; display: flex; flex-direction: column; gap: 12px; }
   .cs-coupon { display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 12px; border: 1px dashed rgba(124, 92, 255, 0.6); background: rgba(124, 92, 255, 0.1); animation: cs-pop 0.5s both; }
-  .cs-coupon small, .cs-camp small { font-size: 0.65rem; color: var(--text-muted); }
+  .cs-coupon small, .cs-camp small { font-size: 0.75rem; color: var(--text-muted); }
   .cs-coupon b { font-family: 'Lexend', monospace; font-size: 1.05rem; color: #fff; letter-spacing: 0.06em; }
-  .cs-coupon span { font-size: 0.7rem; color: #C9BFFF; }
+  .cs-coupon span { font-size: 0.76rem; color: #C9BFFF; }
   .cs-camp { display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); animation: cs-up 0.5s 0.3s both; }
   .cs-camp-bar { height: 8px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); overflow: hidden; }
   .cs-camp-bar i { display: block; height: 100%; width: 68%; border-radius: 8px; background: linear-gradient(90deg, #7C5CFF, #06B6D4); transform-origin: left; animation: cs-growx 1.2s 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
   @keyframes cs-growx { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  .cs-camp span { font-size: 0.7rem; }
+  .cs-camp span { font-size: 0.76rem; }
   .cs-chat { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); }
-  .cs-chat span { max-width: 88%; padding: 7px 11px; border-radius: 12px; font-size: 0.72rem; line-height: 1.35; animation: cs-up 0.35s both; }
+  .cs-chat span { max-width: 88%; padding: 7px 11px; border-radius: 12px; font-size: 0.76rem; line-height: 1.4; animation: cs-up 0.35s both; }
   .cs-chat .in { align-self: flex-start; background: rgba(255, 255, 255, 0.07); border-bottom-left-radius: 4px; }
   .cs-chat .out { align-self: flex-end; color: #fff; background: rgba(124, 92, 255, 0.28); border-bottom-right-radius: 4px; }
   .cs-chat .m1 { animation-delay: 0.6s; } .cs-chat .m2 { animation-delay: 1.5s; } .cs-chat .m3 { animation-delay: 2.7s; } .cs-chat .m4 { animation-delay: 3.6s; }
@@ -378,17 +417,26 @@ const modsDemo = [
 
   /* ---------- Responsive ---------- */
   @media (max-width: 1024px) {
-    .cs-grid { grid-template-columns: 1fr; gap: 40px; }
+    .cs-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .cs-copy { min-width: 0; }
     .cs-copy { text-align: center; }
     .cs-lead { margin: 0 auto; }
-    .cs-tabs, .cs-cta { display: none; }
+    .cs-cta { display: none; }
+    /* Pestañas horizontales arriba del panel (antes la lista quedaba debajo y se mezclaba con la sección siguiente) */
+    .cs-tabs { flex-direction: row; gap: 8px; margin: 28px -20px 0; padding: 2px 20px 6px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+    .cs-tabs::-webkit-scrollbar { display: none; }
+    .cs-tab { flex: none; width: auto; align-items: center; gap: 8px; padding: 8px 14px 8px 8px; border-radius: 99px; scroll-snap-align: start; }
+    .cs-tab-icon { width: 30px; height: 30px; border-radius: 50%; }
+    .cs-tab-icon :global(.ki) { width: 15px; height: 15px; }
+    .cs-tab-text span { display: none; }
+    .cs-tab-text strong { font-size: 0.86rem; white-space: nowrap; }
     .cs-mobile-info { display: flex; flex-direction: column; gap: 6px; text-align: center; margin-top: -12px; }
-    .cs-mobile-info strong { font-family: 'Lexend', sans-serif; font-size: 1.1rem; color: var(--text-primary); }
+    .cs-mobile-info strong { display: none; }
     .cs-mobile-info span { color: var(--text-secondary); font-size: 0.93rem; line-height: 1.5; max-width: 520px; margin: 0 auto; }
   }
   @media (max-width: 640px) {
     .cs-stage { flex-direction: column; gap: 16px; }
-    .cs-deck { width: 100%; aspect-ratio: 4 / 4.6; }
+    .cs-deck { width: 100%; aspect-ratio: 4 / 5.2; }
     .cs-progress { order: 2; flex-direction: row; }
     .cs-dot.active { height: 6px; width: 40px; }
     .cs-dot i { transform-origin: left; transform: scaleX(0); }
@@ -400,11 +448,13 @@ const modsDemo = [
     .cs-mkt-left { width: 100%; flex-direction: row; }
     .cs-mkt-left > div { flex: 1; }
     .cs-mods { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .cs-mod { padding: 10px 8px; gap: 8px; font-size: 0.72rem; }
+    .cs-mod { padding: 10px 8px; gap: 8px; font-size: 0.76rem; }
     .cs-switch { display: none; }
     .cs-side { display: none; }
-    .cs-kpis { grid-template-columns: repeat(2, 1fr); }
+    .cs-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cs-kpis .a3 { display: none; }
+    .cs-day span { display: none; }
+    .cs-ord-list .amt { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     .cs-slide, .cs-slide :global(*) { transition: none !important; animation-duration: 0.01s !important; animation-delay: 0s !important; }

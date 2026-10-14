@@ -8,22 +8,24 @@ import IsoK3D from '../components/IsoK3D.astro';
 import CtaBeam from '../components/CtaBeam.astro';
 import RubroVisual from '../components/home2/RubroVisual.astro';
 import { soluciones, svg } from '../data/plataforma.js';
-const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo de la plataforma para mi rubro.');
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola kaptativa! Quiero solicitar una demo de la plataforma para mi rubro.');
 // Bento: cuatro rubros destacados (tile ancho con el gráfico animado) y cuatro compactos (ícono). El orden llena 3 filas de 4 celdas sin huecos.
 const destacados = ['tiendas-online', 'mayoristas', 'inmobiliarias', 'gastronomia'];
 const porSlug = (slug) => soluciones.find((x) => x.slug === slug);
 const orden = ['tiendas-online', 'gimnasios-y-clubes', 'turnos-y-cursos', 'asociaciones-y-mutuales', 'servicios-profesionales', 'mayoristas', 'inmobiliarias', 'gastronomia'].map(porSlug).filter(Boolean);
 const faltan = soluciones.filter((x) => !orden.includes(x));
 const bento = [...orden, ...faltan];
+// Abanico del hero
+const heroRubros = ['tiendas-online', 'gastronomia', 'inmobiliarias'].map(porSlug).filter(Boolean);
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'Soluciones por rubro de Kaptativa',
+  name: 'Soluciones por rubro de kaptativa',
   itemListElement: soluciones.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.title, url: `https://kaptativa.com/soluciones/${s.slug}/` })),
 };
 ---
 
-<Layout title="Soluciones por rubro: sitio web, tienda y gestión para tu negocio | Kaptativa" description="La misma plataforma configurada para tiendas online, mayoristas, gastronomía, gimnasios, turnos, inmobiliarias, mutuales y profesionales. Elegí tu rubro y mirá qué resuelve." schema={schema}>
+<Layout title="Soluciones por rubro: sitio web, tienda y gestión para tu negocio | kaptativa" description="La misma plataforma configurada para tiendas online, mayoristas, gastronomía, gimnasios, turnos, inmobiliarias, mutuales y profesionales. Elegí tu rubro y mirá qué resuelve." schema={schema}>
   <Header slot="header" floating />
 
   <main>
@@ -31,14 +33,24 @@ const schema = {
       <HeroAurora />
       <div class="hero-glow-1"></div>
       <div class="hero-glow-2"></div>
-      <div class="container hero-container">
+      <div class="container so-hero-grid">
         <div class="hero-content reveal">
-          <h1 class="hero-tagline">Una plataforma, <span class="text-gradient-crimson">configurada para tu rubro</span></h1>
+          <h1 class="hero-tagline">Una plataforma, <span class="text-gradient-crimson">configurada para tu&nbsp;rubro</span></h1>
           <p class="hero-description">La misma base tecnológica, adaptada a cómo trabaja tu negocio: sitio, tienda, gestión y asistente de IA en WhatsApp. Elegí el tuyo y mirá qué resuelve.</p>
           <div class="hero-buttons">
             <a href="#rubros" class="btn btn-primary btn-glow">Ver los rubros</a>
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Solicitar demo</a>
           </div>
+        </div>
+
+        <!-- Abanico con tres rubros: la misma plataforma mostrando datos distintos -->
+        <div class="so-fan reveal reveal-delay-1" aria-hidden="true">
+          {heroRubros.map((r, i) => (
+            <div class={`so-card so-card-${i + 1}`}>
+              <span class="so-tag"><Fragment set:html={svg(r!.icon)} />{r!.title}</span>
+              <RubroVisual slug={r!.slug} />
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -56,8 +68,8 @@ const schema = {
               <div class="bg-body">
                 <span class="bg-kicker">{s.short}</span>
                 <h3>{s.title}</h3>
-                <p>{s.text}</p>
-                <span class="bg-link">Ver solución <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                <p>{s.card ?? s.text}</p>
+                <span class="bg-link">Ver solución para {s.cta ?? s.title.toLowerCase()} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
               </div>
             </a>
           ) : (
@@ -65,7 +77,7 @@ const schema = {
               <span class="bg-ic"><Fragment set:html={svg(s.icon)} /></span>
               <h3>{s.title}</h3>
               <p>{s.short}</p>
-              <span class="bg-link">Ver solución <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+              <span class="bg-link">Ver solución para {s.cta ?? s.title.toLowerCase()} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
             </a>
           ))}
         </div>
@@ -97,6 +109,33 @@ const schema = {
 
 
 <style>
+  /* Hero compacto con un abanico de tres rubros a la derecha (antes ocupaba toda la pantalla y la mitad quedaba vacía) */
+  #soluciones-hero { min-height: 0; padding: 150px 0 80px; }
+  .so-hero-grid { position: relative; z-index: 2; width: 100%; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: center; }
+  .so-fan { position: relative; height: 430px; text-align: left; }
+  .so-card { position: absolute; width: 64%; padding: 10px; border-radius: 20px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 26px 50px rgba(0, 0, 0, 0.5); backdrop-filter: blur(6px); transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+  .so-card :global(.rv) { height: 168px; }
+  .so-tag { display: inline-flex; align-items: center; gap: 7px; margin: 2px 4px 10px; font-size: 0.82rem; font-weight: 600; color: #fff; }
+  .so-tag :global(.ki) { width: 16px; height: 16px; fill: none; stroke: #A08CFF; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .so-card-1 { left: 0; top: 0; z-index: 1; transform: rotate(-4deg); }
+  .so-card-2 { right: 0; top: 64px; z-index: 2; transform: rotate(3deg); }
+  .so-card-3 { left: 14%; bottom: 0; z-index: 3; transform: rotate(-1deg); }
+  .so-fan:hover .so-card-1 { transform: rotate(-5deg) translate(-8px, -6px); }
+  .so-fan:hover .so-card-2 { transform: rotate(4deg) translate(8px, -4px); }
+  .so-fan:hover .so-card-3 { transform: rotate(-1deg) translateY(6px); }
+  @media (max-width: 1024px) {
+    .so-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+    .so-fan { max-width: 560px; width: 100%; margin: 0 auto; }
+  }
+  @media (max-width: 600px) {
+    #soluciones-hero { padding: 120px 0 48px; }
+    .so-fan { height: 360px; }
+    .so-card { width: 80%; padding: 8px; }
+    .so-card-2 { top: 54px; }
+    .so-card-3 { left: 8%; }
+    .so-card :global(.rv) { height: 150px; font-size: 0.72rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .so-card { transition: none; } }
   /* Bento de rubros: cuatro tiles anchos con el gráfico animado y cuatro compactos con ícono; distinto de la grilla de la home */
   .bg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(220px, auto); gap: 16px; }
   .bg-tile { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 22px; border-radius: 22px; text-decoration: none; color: inherit; background: linear-gradient(180deg, #FAF8FF 0%, #FFFFFF 58%); border: 1px solid #E9E5F8; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -20px rgba(124, 92, 255, 0.35); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease; }

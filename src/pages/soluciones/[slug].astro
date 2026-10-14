@@ -29,7 +29,7 @@ const solSchema = [
     serviceType: `Sitio web y sistema de gestión para ${sol.title.toLowerCase()}`,
     description: sol.text,
     url: pageUrl,
-    provider: { '@type': 'Organization', name: 'Kaptativa', url: 'https://kaptativa.com/' },
+    provider: { '@type': 'Organization', name: 'kaptativa', url: 'https://kaptativa.com/' },
     areaServed: { '@type': 'Country', name: 'Argentina' },
   },
   {
@@ -47,7 +47,7 @@ const solSchema = [
     ],
   },
 ];
-const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent(`¡Hola Kaptativa! Quiero solicitar una demo de la solución para ${sol.title.toLowerCase()}.`);
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent(`¡Hola kaptativa! Quiero solicitar una demo de la solución para ${sol.title.toLowerCase()}.`);
 const CONTACTO = `/contacto/?demo=${encodeURIComponent(sol.title)}`;
 // Ícono de cada contador según lo que dice (misma idea que en servicios)
 const iconoMetrica = (m) => {
@@ -58,7 +58,7 @@ const iconoMetrica = (m) => {
 };
 ---
 
-<Layout title={`${sol.headline} | Kaptativa`} description={sol.text} schema={solSchema}>
+<Layout title={`${sol.headline} | kaptativa`} description={sol.text} schema={solSchema}>
   <Header slot="header" floating />
 
   <main>
@@ -106,23 +106,24 @@ const iconoMetrica = (m) => {
           <h2>Lo que hoy te frena,<br />resuelto en un sistema</h2>
           <p>La misma plataforma, configurada para cómo trabaja tu negocio.</p>
         </div>
-        <div class="comparison-grid">
-          <div class="comp-card-bad reveal">
-            <div class="comp-card-header">
-              <div class="comp-icon-box bad-box"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></div>
-              <h3>Hoy, sin sistema</h3>
+        <!-- Comparación: misma estética que las tarjetas de Servicios, adaptada al fondo oscuro -->
+        <div class="cmp-grid">
+          <div class="cmp-card cmp-card--hoy reveal">
+            <div class="cmp-head">
+              <span class="cmp-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+              <span class="cmp-titles"><small>Así trabajás hoy</small><h3>Sin sistema</h3></span>
             </div>
-            <ul class="comp-list">
-              {sol.pains.map((p) => <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span> {p}</li>)}
+            <ul class="cmp-list">
+              {sol.pains.map((p) => <li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></i><span>{p}</span></li>)}
             </ul>
           </div>
-          <div class="comp-card-good reveal">
-            <div class="comp-card-header">
-              <div class="comp-icon-box good-box"><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div>
-              <h3>Con la plataforma</h3>
+          <div class="cmp-card cmp-card--con reveal">
+            <div class="cmp-head">
+              <span class="cmp-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="cmp-titles"><small>Así trabajás con kaptativa</small><h3>Con la plataforma</h3></span>
             </div>
-            <ul class="comp-list">
-              {sol.gains.map((g) => <li><span><svg class="glyph" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> {g}</li>)}
+            <ul class="cmp-list">
+              {sol.gains.map((g) => <li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></i><span>{g}</span></li>)}
             </ul>
           </div>
         </div>
@@ -146,7 +147,7 @@ const iconoMetrica = (m) => {
                 <span class="pillar-line"></span>
                 <p>{f.text}</p>
               </div>
-              <FeatureVisual icon={f.icon} />
+              <FeatureVisual icon={f.icon} rubro={sol.slug} />
             </div>
           ))}
         </div>
@@ -224,6 +225,42 @@ const iconoMetrica = (m) => {
 
 
 <style>
+  /* Comparación hoy / con la plataforma: tarjetas como las de Servicios, en versión oscura */
+  .cmp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 40px; }
+  .cmp-card { --acc: #7C5CFF; position: relative; padding: 30px 30px 28px; border-radius: 22px; overflow: hidden; background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.02) 60%), #141418; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 24px 48px -28px rgba(0, 0, 0, 0.8); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease; }
+  .cmp-card::before { content: ''; position: absolute; left: 0; top: 22px; bottom: 22px; width: 3px; border-radius: 3px; background: var(--acc); opacity: 0; transform: scaleY(0.6); transition: opacity 0.3s ease, transform 0.3s ease; }
+  .cmp-card:hover { transform: translateY(-3px); }
+  .cmp-card:hover::before { opacity: 1; transform: none; }
+  .cmp-card--hoy { --acc: #F87171; }
+  .cmp-card--hoy:hover { border-color: rgba(248, 113, 113, 0.35); }
+  .cmp-card--con { background: radial-gradient(circle at 100% 0%, rgba(124, 92, 255, 0.22), transparent 55%), linear-gradient(180deg, rgba(124, 92, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 60%), #141418; border-color: rgba(124, 92, 255, 0.32); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 28px 56px -26px rgba(124, 92, 255, 0.45); }
+  .cmp-card--con:hover { border-color: rgba(124, 92, 255, 0.6); }
+  .cmp-head { display: flex; align-items: center; gap: 14px; padding-bottom: 20px; margin-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+  .cmp-ic { flex: none; display: grid; place-items: center; width: 50px; height: 50px; border-radius: 15px; }
+  .cmp-card--hoy .cmp-ic { color: #F87171; background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.25); }
+  .cmp-card--con .cmp-ic { color: #fff; background: linear-gradient(135deg, #7C5CFF, #5B3FE0); box-shadow: 0 10px 24px rgba(124, 92, 255, 0.4); }
+  .cmp-titles { display: flex; flex-direction: column; gap: 2px; }
+  .cmp-titles small { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; }
+  .cmp-card--hoy .cmp-titles small { color: #FCA5A5; }
+  .cmp-card--con .cmp-titles small { color: #C9BDFF; }
+  .cmp-titles h3 { margin: 0; font-family: 'Lexend', sans-serif; font-size: 1.25rem; font-weight: 600; line-height: 1.25; color: #fff; }
+  .cmp-list { list-style: none; margin: 0; padding: 0; }
+  .cmp-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; align-items: start; padding: 13px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+  .cmp-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .cmp-list i { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; margin-top: 1px; }
+  .cmp-card--hoy .cmp-list i { color: #F87171; background: rgba(248, 113, 113, 0.1); }
+  .cmp-card--con .cmp-list i { color: #C9BDFF; background: rgba(124, 92, 255, 0.2); }
+  .cmp-list span { font-size: 0.98rem; line-height: 1.6; }
+  .cmp-card--hoy .cmp-list span { color: #A9A9B6; }
+  .cmp-card--con .cmp-list span { color: #ECECF1; }
+  @media (max-width: 768px) {
+    .cmp-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .cmp-card { padding: 24px 20px 22px; }
+    .cmp-ic { width: 44px; height: 44px; border-radius: 13px; }
+    .cmp-titles h3 { font-size: 1.12rem; }
+    .cmp-list span { font-size: 0.94rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .cmp-card:hover { transform: none; } }
   /* ---- Base del patrón de servicios (mismos valores que /servicios/*) ---- */
   .hero-section { position: relative; overflow: hidden; padding-top: 160px; padding-bottom: 110px; }
   .sol-hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
@@ -252,22 +289,8 @@ const iconoMetrica = (m) => {
   .metric-value.long { font-size: 1.75rem; padding: 6px 0; }
   .metric-label { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4; }
 
-  .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
-  .comp-card-bad { background: rgba(239, 68, 68, 0.01); border: 1px solid rgba(239, 68, 68, 0.12); border-radius: var(--border-radius-md); padding: 40px; transition: all 0.3s ease; }
-  .comp-card-bad:hover { background: rgba(239, 68, 68, 0.02); }
-  .comp-card-header { display: flex; align-items: center; margin-bottom: 24px; gap: 16px; }
-  .comp-icon-box { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1.1rem; }
   .bad-box { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
-  .comp-card-bad h3 { font-size: 1.4rem; color: var(--accent-crimson); font-family: 'Lexend', sans-serif; font-weight: 600; }
-  .comp-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
-  .comp-card-bad .comp-list li { font-size: 1rem; color: var(--text-muted); line-height: 1.6; display: flex; align-items: flex-start; }
-  .comp-card-bad .comp-list li span { color: #ef4444; margin-right: 12px; font-weight: 600; }
-  .comp-card-good { background: var(--card-bg); border: 1px solid rgba(124, 92, 255, 0.25); border-radius: var(--border-radius-md); padding: 40px; position: relative; box-shadow: 0 10px 30px rgba(124, 92, 255, 0.05); transition: all 0.3s ease; }
-  .comp-card-good:hover { border-color: var(--accent-pink); box-shadow: 0 15px 35px rgba(124, 92, 255, 0.1); }
   .good-box { background: rgba(124, 92, 255, 0.1); color: var(--accent-pink); }
-  .comp-card-good h3 { font-size: 1.4rem; color: var(--text-primary); font-family: 'Lexend', sans-serif; font-weight: 600; }
-  .comp-card-good .comp-list li { font-size: 1rem; color: var(--text-primary); line-height: 1.6; display: flex; align-items: flex-start; }
-  .comp-card-good .comp-list li span { color: var(--accent-pink); margin-right: 12px; font-weight: 600; }
   .badge-solution { position: absolute; top: -15px; right: 30px; background: var(--gradient-primary); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; box-shadow: 0 4px 15px rgba(124, 92, 255, 0.4); }
 
   /* Grilla pareja 2x2: las cuatro funciones del mismo tamaño, con su mini interfaz debajo */
@@ -276,7 +299,8 @@ const iconoMetrica = (m) => {
   .pillar-text { position: relative; z-index: 1; padding-right: 70px; }
   .glass-card-premium > :global(.fv) { position: relative; z-index: 1; }
   /* Ícono grande de fondo, tenue y cortado por el borde (como la referencia) */
-  .pillar-bg-icon { position: absolute; top: -26px; right: -26px; width: 150px; height: 150px; color: var(--accent-pink); opacity: 0.08; pointer-events: none; transition: opacity 0.5s ease, transform 0.5s ease; }
+  /* Ícono decorativo más chico y dentro de la tarjeta (antes se cortaba en la esquina) */
+  .pillar-bg-icon { position: absolute; top: 22px; right: 22px; width: 64px; height: 64px; color: var(--accent-pink); opacity: 0.1; pointer-events: none; transition: opacity 0.5s ease, transform 0.5s ease; }
   .pillar-bg-icon :global(.ki) { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
   .glass-card-premium:hover .pillar-bg-icon { opacity: 0.16; transform: scale(1.1) rotate(-4deg); }
   .pillar-num { display: inline-block; font-family: 'Lexend', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; color: var(--accent-pink); margin-bottom: 10px; }
@@ -344,9 +368,7 @@ const iconoMetrica = (m) => {
     .hero-section { padding-top: 130px; padding-bottom: 80px; }
     .hero-tagline { font-size: 2.4rem; }
     .hero-description { font-size: 1.1rem; }
-    .comparison-grid { grid-template-columns: 1fr; gap: 24px; }
     .pillars-grid { grid-template-columns: 1fr; }
-    .comp-card-bad, .comp-card-good { padding: 32px 24px; }
     .cta-card-neon h2 { font-size: 1.9rem; }
   }
   @media (max-width: 576px) {

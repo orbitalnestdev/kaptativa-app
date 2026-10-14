@@ -1,12 +1,24 @@
 ---
 // Mini interfaz ilustrativa para cada función de una solución, elegida por el ícono de la función.
-// Puro HTML/CSS; los datos son de ejemplo.
-interface Props { icon: string; }
-const { icon } = Astro.props;
+// Puro HTML/CSS; los datos son de ejemplo. Con `rubro`, las funciones que comparten ícono entre rubros
+// muestran un gráfico propio (antes "Pedidos online" de gastronomía mostraba ropa y "Cursos" de turnos, aceite).
+interface Props { icon: string; rubro?: string; }
+const { icon, rubro = '' } = Astro.props;
+const variantes: Record<string, string> = {
+  'gastronomia:cart': 'g-pedidos', 'gastronomia:calendar': 'g-reservas', 'gastronomia:bell': 'g-comandas',
+  'gimnasios-y-clubes:card': 'gym-cuota', 'gimnasios-y-clubes:calendar': 'gym-clases',
+  'turnos-y-cursos:bell': 't-recordatorio', 'turnos-y-cursos:clipboard': 't-cursos', 'turnos-y-cursos:card': 't-sena',
+  'mayoristas:box': 'b2b-stock',
+  'asociaciones-y-mutuales:users': 'm-padron', 'asociaciones-y-mutuales:monitor': 'm-sitio',
+  'servicios-profesionales:monitor': 'p-sitio', 'servicios-profesionales:message': 'p-consultas',
+  'servicios-profesionales:calendar': 'p-agenda', 'servicios-profesionales:chart': 'p-metricas',
+};
+const v = variantes[`${rubro}:${icon}`] ?? icon;
+const sitio = { 'm-sitio': { marca: 'Mutual Unión', titulo: 'Beneficios para socios', sub: 'Salud, turismo y ayudas', boton: 'Hacete socio', cols: [['Salud', '#6FCF97'], ['Turismo', '#F2C94C'], ['Ayudas', '#56CCF2']] }, 'p-sitio': { marca: 'Estudio Molina', titulo: 'Contadores y asesores', sub: 'Primera reunión sin cargo', boton: 'Agendar reunión', cols: [['Impuestos', '#8C7BFF'], ['Sociedades', '#56CCF2'], ['Sueldos', '#F4A26B']] } }[v];
 ---
 
-<div class={`fv fv-${icon}`} aria-hidden="true">
-  {icon === 'cart' && (
+<div class={`fv fv-${v}`} aria-hidden="true">
+  {v === 'cart' && (
     <div class="fv-list">
       {[['Remera oversize', '$ 18.900', 'L, negro'], ['Buzo frisa', '$ 38.900', 'M, gris']].map(([n, p, v]) => (
         <div class="fv-item"><i class="fv-thumb"></i><span>{n}<small>{v}</small></span><b>{p}</b></div>
@@ -14,7 +26,7 @@ const { icon } = Astro.props;
       <div class="fv-status"><span class="dot ok"></span> Pedido #1043 pagado <em>En preparación</em></div>
     </div>
   )}
-  {icon === 'box' && (
+  {v === 'box' && (
     <div class="fv-stock">
       {[['Remera negra', 11, 40], ['Buzo gris', 4, 30], ['Gorra', 23, 30]].map(([n, q, max]) => (
         <div class="fv-stock-row">
@@ -26,14 +38,14 @@ const { icon } = Astro.props;
       <div class="fv-alert">Reponer: Buzo gris (quedan 4)</div>
     </div>
   )}
-  {icon === 'card' && (
+  {v === 'card' && (
     <div class="fv-pay">
       <div class="fv-chips"><span class="on">MercadoPago</span><span>Transferencia</span><span>Efectivo</span></div>
       <div class="fv-total"><span>Total</span><b>$ 57.800</b></div>
       <div class="fv-btn">Pagar en 3 cuotas</div>
     </div>
   )}
-  {icon === 'receipt' && (
+  {v === 'receipt' && (
     <div class="fv-invoice">
       <div class="head"><b>Factura B</b><span>0001-00001043</span></div>
       <div class="line"><span>Remera oversize x1</span><b>$ 18.900</b></div>
@@ -41,14 +53,14 @@ const { icon } = Astro.props;
       <div class="foot"><span class="dot ok"></span> Emitida desde el pedido</div>
     </div>
   )}
-  {icon === 'tag' && (
+  {v === 'tag' && (
     <div class="fv-list">
       {[['Lista general', '$ 50.240', ''], ['Cliente A', '$ 41.200', '-18%'], ['Revendedor', '$ 43.700', '-13%']].map(([n, p, d]) => (
         <div class="fv-item"><span>{n}</span>{d && <em>{d}</em>}<b>{p}</b></div>
       ))}
     </div>
   )}
-  {icon === 'clipboard' && (
+  {v === 'clipboard' && (
     <div class="fv-list">
       {[['Aceite 900ml', 'x 48'], ['Yerba 1kg', 'x 30'], ['Fideos 500g', 'x 120']].map(([n, q]) => (
         <div class="fv-item"><i class="fv-check"></i><span>{n}</span><b>{q}</b></div>
@@ -56,36 +68,145 @@ const { icon } = Astro.props;
       <div class="fv-btn">Repetir último pedido</div>
     </div>
   )}
-  {icon === 'chart' && (
+  {v === 'chart' && (
     <div class="fv-chart">
       <div class="fv-kpis"><span>Ventas<b>$ 4.8M</b></span><span>Pedidos<b>312</b></span></div>
       <div class="bars">{[35, 52, 44, 68, 57, 80, 72, 94].map((h) => <i style={`height:${h}%`}></i>)}</div>
     </div>
   )}
-  {icon === 'qr' && (
+  {v === 'qr' && (
     <div class="fv-qr">
-      <div class="qr">{Array.from({ length: 25 }).map((_, k) => <i class={[0, 1, 5, 6, 3, 4, 8, 9, 15, 16, 20, 21, 12, 18, 23, 13, 7].includes(k) ? 'on' : ''}></i>)}</div>
+      <svg class="qr" viewBox="0 0 21 21" fill="currentColor"><path d="M0 0h7v7H0zM1.5 1.5v4h4v-4zM2.5 2.5h2v2h-2zM14 0h7v7h-7zM15.5 1.5v4h4v-4zM16.5 2.5h2v2h-2zM0 14h7v7H0zM1.5 15.5v4h4v-4zM2.5 16.5h2v2h-2z" fill-rule="evenodd" /><path d="M9 0h1v2H9zM11 1h2v1h-2zM9 3h3v1H9zM9 5h1v3H9zM11 6h2v2h-2zM1 9h2v1H1zM4 8h1v3H4zM6 9h3v1H6zM11 9h1v2h-1zM13 8h1v2h-1zM15 9h2v1h-2zM18 8h1v1h-1zM19 10h2v1h-2zM1 11h1v2H1zM3 12h2v1H3zM6 11h1v2H6zM8 12h3v1H8zM12 11h2v1h-2zM15 11h1v3h-1zM17 12h2v1h-2zM20 12h1v2h-1zM9 14h1v2H9zM11 15h2v1h-2zM14 14h1v1h-1zM16 15h2v2h-2zM19 14h2v1h-2zM9 17h2v1H9zM12 17h1v2h-1zM14 18h1v3h-1zM16 19h2v1h-2zM19 17h1v2h-1zM9 19h1v2H9zM11 20h2v1h-2zM20 20h1v1h-1z" /></svg>
       <div class="fv-list">
-        <div class="fv-item"><span>Pizza napolitana</span><b>$ 16.200</b></div>
-        <div class="fv-item off"><span>Papas cheddar</span><em>Agotado</em></div>
+        <small class="fv-cat">Pizzas · Mesa 4</small>
+        <div class="fv-item"><i class="fv-thumb" style="--t:#EB8F5A"></i><span>Pizza napolitana</span><b>$ 16.200</b></div>
+        <div class="fv-item"><i class="fv-thumb" style="--t:#F2C94C"></i><span>Fugazzeta</span><b>$ 15.400</b></div>
+        <div class="fv-item off"><i class="fv-thumb" style="--t:#8E8E99"></i><span>Papas cheddar</span><em>Agotado</em></div>
       </div>
     </div>
   )}
-  {icon === 'calendar' && (
+  {v === 'g-pedidos' && (
+    <div class="fv-list">
+      <div class="fv-chips"><span class="on">Delivery</span><span>Take away</span><span>Sin comisión de apps</span></div>
+      <div class="fv-item"><i class="fv-thumb" style="--t:#EB8F5A"></i><span>Pizza napolitana ×2<small>Delivery #882 · Palermo</small></span><b>$ 32.400</b></div>
+      <div class="fv-item"><i class="fv-thumb" style="--t:#F2C94C"></i><span>Empanadas ×12<small>Take away #883 · 21:15</small></span><b>$ 14.400</b></div>
+      <div class="fv-status"><span class="dot ok"></span> Pedido #882 pagado <em>En camino</em></div>
+    </div>
+  )}
+  {v === 'g-reservas' && (
+    <div class="fv-res">
+      <div class="head"><b>Viernes 17</b><span>Personas</span><div class="pax"><i>2</i><i class="on">4</i><i>6</i></div></div>
+      <div class="slots"><i>20:00</i><i class="on">21:00</i><i class="busy">21:30</i><i>22:00</i></div>
+      <div class="fv-slot"><span class="dot ok"></span> Mesa 6 para 4, confirmada <em class="ok">Recordatorio enviado</em></div>
+    </div>
+  )}
+  {v === 'g-comandas' && (
+    <div class="fv-tickets">
+      <div class="tk"><div class="th"><b>Mesa 7</b><em>En cocina · 08:12</em></div><span>2× Milanesa napolitana</span><span>1× Ensalada mixta</span></div>
+      <div class="tk"><div class="th"><b>Delivery #882</b><em class="ok">Listo</em></div><span>2× Pizza napolitana</span><span>1× Flan casero</span></div>
+    </div>
+  )}
+  {v === 'gym-cuota' && (
+    <div class="fv-pay">
+      <div class="fv-total"><span>Cuota de octubre · Plan full</span><b>$ 24.000</b></div>
+      <div class="fv-chips"><span class="on">Mercado Pago</span><span>Débito automático</span><span>Transferencia</span></div>
+      <div class="fv-item"><span>Lucas P. · vence hoy<small>Recordatorio enviado por WhatsApp</small></span><em class="ok">Pagó</em></div>
+    </div>
+  )}
+  {v === 'gym-clases' && (
+    <div class="fv-stock fv-gym">
+      {[['Funcional 19:00', 12, 14], ['Spinning 20:00', 8, 12], ['Yoga 18:00', 15, 15]].map(([n, q, max]) => (
+        <div class="fv-stock-row">
+          <span>{n}</span>
+          <div class="bar"><i class:list={[{ low: q === max }]} style={`width:${Math.round(((q as number) / (max as number)) * 100)}%`}></i></div>
+          <b class:list={[{ full: q === max }]}>{q === max ? 'Completa' : `${q}/${max}`}</b>
+        </div>
+      ))}
+      <div class="fv-slot"><span class="dot ok"></span> Ana L. reservó Funcional 19:00</div>
+    </div>
+  )}
+  {v === 't-recordatorio' && (
+    <div class="fv-chat">
+      <div class="fv-chat-head"><i></i><b>Recordatorio automático</b><small>WhatsApp</small></div>
+      <span class="out">Hola Paula, te recordamos tu turno de mañana a las 10:30. ¿Confirmás?</span>
+      <span class="in">Sí, voy ✅</span>
+      <div class="fv-slot"><span class="dot ok"></span> Turno confirmado · ausencias −40%</div>
+    </div>
+  )}
+  {v === 't-cursos' && (
+    <div class="fv-course">
+      <div class="head"><b>Taller de postura</b><em class="ok">Inscripción abierta</em></div>
+      <div class="fv-stock-row"><span>Cupos</span><div class="bar"><i style="width:75%"></i></div><b>9/12</b></div>
+      <div class="avatars">{['PV', 'MT', 'LC', 'GR', '+5'].map((l) => <i>{l}</i>)}</div>
+      <div class="fv-slot"><span class="dot pink"></span> 3 personas en lista de espera</div>
+    </div>
+  )}
+  {v === 't-sena' && (
+    <div class="fv-pay">
+      <div class="fv-total"><span>Seña · Jueves 10:30</span><b>$ 6.000</b></div>
+      <div class="fv-chips"><span class="on">Mercado Pago</span><span>Transferencia</span></div>
+      <div class="fv-btn">Pagar seña y reservar</div>
+    </div>
+  )}
+  {v === 'b2b-stock' && (
+    <div class="fv-deps">
+      <div class="row head"><span>Producto</span><span>Central</span><span>Norte</span><span>Sur</span></div>
+      <div class="row"><span>Aceite 900 ml</span><b>840</b><b>120</b><b class="low">36</b></div>
+      <div class="row"><span>Yerba 1 kg</span><b>612</b><b>210</b><b>98</b></div>
+      <div class="fv-alert">Sur: reponer aceite (quedan 36)</div>
+    </div>
+  )}
+  {v === 'm-padron' && (
+    <div class="fv-users">
+      <div class="fv-kpis"><span>Asociados<b>2.140</b></span><span>Cuotas al día<b>94%</b></span></div>
+      <div class="fv-list">
+        <div class="fv-item"><span>Socio 1182 · R. Gómez<small>Plan familiar</small></span><em class="ok">Al día</em></div>
+        <div class="fv-item"><span>Socio 0954 · M. Paz<small>Plan individual</small></span><em>Vence el 15</em></div>
+      </div>
+    </div>
+  )}
+  {sitio && (
+    <div class="fv-site">
+      <div class="fv-site-bar"><span class="logo"></span><b>{sitio.marca}</b><em class="ok">En línea</em></div>
+      <div class="fv-hero"><strong>{sitio.titulo}</strong><small>{sitio.sub}</small><span>{sitio.boton}</span></div>
+      <div class="cols">{sitio.cols.map(([n, c]) => <div><i style={`--t:${c}`}></i><span>{n}</span></div>)}</div>
+    </div>
+  )}
+  {v === 'p-consultas' && (
+    <div class="fv-list">
+      <div class="fv-item"><i class="fv-src web">Web</i><span>Laura M.<small>Asesoramiento societario</small></span><em>Nueva</em></div>
+      <div class="fv-item"><i class="fv-src wa">WA</i><span>Pablo S.<small>Turno esta semana</small></span><em class="ok">Respondida</em></div>
+      <div class="fv-item"><i class="fv-src g">G</i><span>Carla V.<small>Plan impositivo</small></span><em class="vio">Reunión jueves</em></div>
+    </div>
+  )}
+  {v === 'p-agenda' && (
+    <div class="fv-list">
+      <div class="fv-item"><i class="fv-day"><b>14</b>MAR</i><span>Paula V. · 10:00<small>Videollamada · diagnóstico</small></span><em class="ok">Confirmada</em></div>
+      <div class="fv-item"><i class="fv-day"><b>16</b>JUE</i><span>Ferretería Lux · 16:30<small>Presencial · cierre anual</small></span><em class="vio">Agendada</em></div>
+      <div class="fv-slot"><span class="dot ok"></span> El cliente eligió el horario desde la web</div>
+    </div>
+  )}
+  {v === 'p-metricas' && (
+    <div class="fv-chart">
+      <div class="fv-kpis"><span>Consultas<b>23</b></span><span>Reuniones<b>7</b></span><span>Conversión<b>30%</b></span></div>
+      <div class="bars">{[30, 42, 38, 50, 46, 58, 54, 72].map((h) => <i style={`height:${h}%`}></i>)}</div>
+    </div>
+  )}
+  {v === 'calendar' && (
     <div class="fv-cal">
-      {['L', 'M', 'M', 'J', 'V'].map((d) => <small>{d}</small>)}
+      {['L', 'M', 'X', 'J', 'V'].map((d) => <small>{d}</small>)}
       {Array.from({ length: 15 }).map((_, k) => <i class:list={[{ busy: [1, 4, 6, 9, 13].includes(k), pick: k === 7 }]}></i>)}
       <div class="fv-slot"><span class="dot ok"></span> Jueves 10:30 reservado</div>
     </div>
   )}
-  {icon === 'bell' && (
+  {v === 'bell' && (
     <div class="fv-notes">
       <div class="note"><span class="dot pink"></span><span>Recordatorio enviado<small>Mañana 10:30 por WhatsApp</small></span></div>
       <div class="note"><span class="dot ok"></span><span>Turno confirmado<small>Respondió "Sí, voy"</small></span></div>
       <div class="note"><span class="dot cyan"></span><span>Comanda a cocina<small>Mesa 7, 3 ítems</small></span></div>
     </div>
   )}
-  {icon === 'users' && (
+  {v === 'users' && (
     <div class="fv-users">
       <div class="avatars">{['A', 'L', 'S', 'M', '+'].map((l) => <i>{l}</i>)}</div>
       <div class="fv-list">
@@ -94,14 +215,14 @@ const { icon } = Astro.props;
       </div>
     </div>
   )}
-  {icon === 'search' && (
+  {v === 'search' && (
     <div class="fv-search">
       <div class="input">Venta, depto, 3 amb, Palermo</div>
       <div class="fv-chips"><span class="on">Venta</span><span>2-3 amb</span><span>Con cochera</span></div>
       <div class="fv-results"><b>24</b> propiedades encontradas</div>
     </div>
   )}
-  {icon === 'layers' && (
+  {v === 'layers' && (
     <div class="fv-sync">
       <div class="node">Tokko Broker</div>
       <div class="pipe"><i></i></div>
@@ -109,49 +230,91 @@ const { icon } = Astro.props;
       <div class="fv-slot"><span class="dot ok"></span> 128 propiedades sincronizadas</div>
     </div>
   )}
-  {(icon === 'message' || icon === 'bot') && (
+  {(v === 'message' || v === 'bot') && (
     <div class="fv-chat">
+      {v === 'bot' && <div class="fv-chat-head"><i></i><b>Asistente IA</b><small>en línea · responde en segundos</small></div>}
       <span class="in">¿Sigue disponible el depto de Palermo?</span>
-      <span class="out">{icon === 'bot' ? '¡Sí! ¿Querés coordinar una visita?' : 'Consulta recibida, asignada a Laura'}</span>
+      <span class="out">{v === 'bot' ? '¡Sí! ¿Querés coordinar una visita?' : 'Consulta recibida, asignada a Laura'}</span>
       <span class="in">Sí, el sábado a la mañana</span>
+      {v === 'bot' && <span class="out">Listo: sábado 10 hs. Te mando la ubicación 📍</span>}
     </div>
   )}
-  {icon === 'shield' && (
+  {v === 'shield' && (
     <div class="fv-list">
       {[['Farmacia Central', '20% OFF'], ['Gimnasio Norte', '15% OFF'], ['Óptica Visión', '10% OFF']].map(([n, d]) => (
         <div class="fv-item"><i class="fv-thumb"></i><span>{n}</span><em class="ok">{d}</em></div>
       ))}
     </div>
   )}
-  {icon === 'megaphone' && (
+  {v === 'megaphone' && (
     <div class="fv-camp">
       <div class="head"><b>Novedades de octubre</b><em class="ok">Enviada</em></div>
       <div class="fv-kpis"><span>Enviados<b>2.140</b></span><span>Abiertos<b>68%</b></span></div>
       <div class="bar"><i style="width:68%"></i></div>
     </div>
   )}
-  {icon === 'monitor' && (
+  {v === 'monitor' && (
     <div class="fv-site">
-      <div class="fv-hero"><i></i><i></i><span></span></div>
-      <div class="cols"><i></i><i></i><i></i></div>
+      <div class="fv-site-bar"><span class="logo"></span><b>Nómade Store</b><em class="ok">Publicado</em></div>
+      <div class="fv-hero"><strong>Nueva colección</strong><small>Envío gratis a todo el país</small><span>Ver productos</span></div>
+      <div class="cols">{[['Remeras', '#F4A26B'], ['Buzos', '#8C7BFF'], ['Gorras', '#56CCF2']].map(([n, c]) => <div><i style={`--t:${c}`}></i><span>{n}</span></div>)}</div>
     </div>
   )}
-  {icon === 'alert' && <div class="fv-list"><div class="fv-item"><span>Sin datos</span></div></div>}
+  {v === 'alert' && <div class="fv-list"><div class="fv-item"><span>Sin datos</span></div></div>}
 </div>
 
 <style>
-  .fv { margin-top: auto; padding: 14px; border-radius: 12px; background: rgba(5, 5, 10, 0.55); border: 1px solid rgba(255, 255, 255, 0.06); font-size: 0.76rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px; min-height: 150px; justify-content: center; }
+  .fv-cat { font-size: 0.75rem; color: #A9A9B6; }
+  .fv-qr .qr { flex: none; width: 92px; height: 92px; padding: 7px; border-radius: 10px; background: #fff; color: #141418; display: block; }
+  .fv-thumb { background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), transparent 55%), var(--t, linear-gradient(135deg, #7C5CFF, #6A48F5)) !important; }
+  em.vio { color: #C9BDFF; background: rgba(124, 92, 255, 0.2); }
+  .fv-stock-row b.full { color: #34D399; }
+  .fv-gym .fv-stock-row { grid-template-columns: 112px minmax(0, 1fr) 70px; }
+  .fv-gym .fv-stock-row span { white-space: nowrap; }
+  .fv-res { display: flex; flex-direction: column; gap: 10px; }
+  .fv-res .head { display: flex; align-items: center; gap: 10px; color: #fff; }
+  .fv-res .head span { margin-left: auto; color: #A9A9B6; font-size: 0.75rem; }
+  .fv-res .pax { display: flex; gap: 4px; }
+  .fv-res .pax i, .fv-res .slots i { font-style: normal; display: grid; place-items: center; border-radius: 8px; color: #B4B4BE; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); }
+  .fv-res .pax i { width: 26px; height: 26px; }
+  .fv-res .slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .fv-res .slots i { padding: 7px 0; }
+  .fv-res i.on { color: #fff; border-color: transparent; background: linear-gradient(135deg, #7C5CFF, #6A48F5); box-shadow: 0 0 12px rgba(124, 92, 255, 0.45); }
+  .fv-res i.busy { color: #6E6E7A; text-decoration: line-through; }
+  .fv-res .fv-slot em { margin-left: auto; }
+  .fv-tickets { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fv-tickets .tk { display: flex; flex-direction: column; gap: 4px; padding: 10px; border-radius: 10px; background: #FFF8EC; color: #3A2E1E; border-top: 4px solid #F2C94C; }
+  .fv-tickets .tk:last-child { border-top-color: #34D399; }
+  .fv-tickets .th { display: flex; justify-content: space-between; align-items: center; gap: 6px; padding-bottom: 4px; border-bottom: 1px dashed rgba(58, 46, 30, 0.25); }
+  .fv-tickets .th b { color: #1F170C; }
+  .fv-tickets .tk > span { font-size: 0.75rem; }
+  .fv-tickets em { background: rgba(249, 115, 22, 0.15); color: #C2410C; }
+  .fv-tickets em.ok { color: #047857; background: rgba(16, 185, 129, 0.15); }
+  .fv-course { display: flex; flex-direction: column; gap: 10px; }
+  .fv-course .head { display: flex; justify-content: space-between; align-items: center; color: #fff; }
+  .fv-course .fv-stock-row { grid-template-columns: 50px 1fr 40px; }
+  .avatars i { font-size: 0.7rem; }
+  .fv-deps { display: flex; flex-direction: column; gap: 6px; }
+  .fv-deps .row { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 8px; align-items: center; padding: 7px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.035); color: #fff; }
+  .fv-deps .row.head { background: none; padding-top: 0; padding-bottom: 0; color: #A9A9B6; font-size: 0.75rem; }
+  .fv-deps .row b { text-align: right; } .fv-deps .row.head span:not(:first-child) { text-align: right; }
+  .fv-deps b.low { color: #FDBA74; }
+  .fv-src { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; font-style: normal; font-size: 0.7rem; font-weight: 700; color: #fff; }
+  .fv-src.web { background: #5B3FE0; } .fv-src.wa { background: #1FA855; } .fv-src.g { background: #3B6FD8; }
+  .fv-day { flex: none; display: grid; place-items: center; width: 38px; padding: 3px 0; border-radius: 8px; font-style: normal; font-size: 0.7rem; color: #C9BDFF; background: rgba(124, 92, 255, 0.18); line-height: 1.1; }
+  .fv-day b { font-size: 0.95rem; color: #fff; }
+  .fv { margin-top: auto; padding: 14px; border-radius: 12px; background: rgba(5, 5, 10, 0.55); border: 1px solid rgba(255, 255, 255, 0.06); font-size: 0.8rem; color: #B4B4BE; display: flex; flex-direction: column; gap: 8px; min-height: 150px; justify-content: center; }
   .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
   .dot.ok { background: #10B981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); }
   .dot.pink { background: #7C5CFF; box-shadow: 0 0 8px rgba(124, 92, 255, 0.6); }
   .dot.cyan { background: #06B6D4; box-shadow: 0 0 8px rgba(6, 182, 212, 0.6); }
-  em { font-style: normal; font-size: 0.66rem; padding: 2px 8px; border-radius: 20px; color: #F97316; background: rgba(249, 115, 22, 0.12); white-space: nowrap; }
+  em { font-style: normal; font-size: 0.75rem; padding: 2px 8px; border-radius: 20px; color: #F97316; background: rgba(249, 115, 22, 0.12); white-space: nowrap; }
   em.ok { color: #10B981; background: rgba(16, 185, 129, 0.12); }
 
   .fv-list { display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .fv-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.05); }
   .fv-item > span { flex: 1; color: #fff; display: flex; flex-direction: column; gap: 1px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .fv-item small { color: var(--text-muted); font-size: 0.66rem; }
+  .fv-item small { color: #A9A9B6; font-size: 0.75rem; }
   .fv-item b { color: #fff; white-space: nowrap; }
   .fv-item.off > span { color: var(--text-muted); text-decoration: line-through; }
   .fv-thumb { width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0; background: linear-gradient(135deg, #7C5CFF, #6A48F5); }
@@ -186,18 +349,15 @@ const { icon } = Astro.props;
 
   .fv-chart { display: flex; flex-direction: column; gap: 10px; }
   .fv-kpis { display: flex; gap: 8px; }
-  .fv-kpis span { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 7px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.035); font-size: 0.66rem; color: var(--text-muted); }
+  .fv-kpis span { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 7px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.035); font-size: 0.75rem; color: var(--text-muted); }
   .fv-kpis b { color: #fff; font-size: 0.95rem; }
   .bars { display: flex; align-items: flex-end; gap: 6px; height: 64px; }
   .bars i { flex: 1; border-radius: 3px 3px 0 0; background: linear-gradient(180deg, #7C5CFF, rgba(106, 72, 245, 0.2)); }
 
   .fv-qr { flex-direction: row; display: flex; gap: 12px; align-items: center; }
-  .qr { display: grid; grid-template-columns: repeat(5, 11px); gap: 2px; padding: 7px; border-radius: 8px; background: #fff; flex-shrink: 0; }
-  .qr i { width: 11px; height: 11px; border-radius: 1px; }
-  .qr i.on { background: #141418; }
 
   .fv-cal { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
-  .fv-cal small { text-align: center; color: var(--text-muted); font-size: 0.64rem; }
+  .fv-cal small { text-align: center; color: #A9A9B6; font-size: 0.75rem; }
   .fv-cal i { height: 20px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); }
   .fv-cal i.busy { background: rgba(106, 72, 245, 0.35); }
   .fv-cal i.pick { background: linear-gradient(135deg, #7C5CFF, #6A48F5); box-shadow: 0 0 12px rgba(124, 92, 255, 0.5); }
@@ -206,7 +366,7 @@ const { icon } = Astro.props;
   .fv-notes { display: flex; flex-direction: column; gap: 7px; }
   .note { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.05); }
   .note > span:last-child { display: flex; flex-direction: column; color: #fff; }
-  .note small { color: var(--text-muted); font-size: 0.66rem; }
+  .note small { color: #A9A9B6; font-size: 0.75rem; }
 
   .fv-users { display: flex; flex-direction: column; gap: 10px; }
   .avatars { display: flex; }
@@ -229,20 +389,29 @@ const { icon } = Astro.props;
   .fv-sync .fv-slot { grid-column: 1 / -1; }
 
   .fv-chat { display: flex; flex-direction: column; gap: 7px; }
-  .fv-chat span { max-width: 88%; padding: 7px 11px; border-radius: 12px; line-height: 1.35; }
-  .fv-chat .in { align-self: flex-start; background: rgba(255, 255, 255, 0.07); border-bottom-left-radius: 4px; }
-  .fv-chat .out { align-self: flex-end; color: #fff; background: rgba(124, 92, 255, 0.28); border-bottom-right-radius: 4px; }
+  .fv-chat > span { max-width: 88%; padding: 7px 11px; border-radius: 12px; line-height: 1.35; }
+  .fv-chat > .in { align-self: flex-start; background: rgba(255, 255, 255, 0.07); border-bottom-left-radius: 4px; }
+  .fv-chat > .out { align-self: flex-end; color: #fff; background: rgba(124, 92, 255, 0.28); border-bottom-right-radius: 4px; }
 
   .fv-camp { display: flex; flex-direction: column; gap: 9px; }
   .fv-camp .head { display: flex; justify-content: space-between; align-items: center; color: #fff; }
 
   .fv-site { display: flex; flex-direction: column; gap: 8px; }
-  .fv-site .fv-hero { display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 12px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.35), rgba(91, 63, 224, 0.25)); }
-  .fv-site .fv-hero i { height: 8px; width: 60%; border-radius: 8px; background: rgba(255, 255, 255, 0.75); }
-  .fv-site .fv-hero i + i { width: 40%; opacity: 0.6; }
-  .fv-site .fv-hero span { width: 70px; height: 18px; margin-top: 4px; border-radius: 20px; background: #fff; }
-  .fv-site .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-  .fv-site .cols i { height: 34px; border-radius: 8px; background: rgba(255, 255, 255, 0.06); }
+  .fv-site-bar { display: flex; align-items: center; gap: 8px; color: #fff; }
+  .fv-site-bar .logo { width: 18px; height: 18px; border-radius: 6px; background: linear-gradient(135deg, #7C5CFF, #5B3FE0); }
+  .fv-site-bar b { flex: 1; font-size: 0.8rem; }
+  .fv-site .fv-hero { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 12px 14px; border-radius: 12px; background: radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.22), transparent 45%), linear-gradient(135deg, #7C5CFF, #4B2FD0); }
+  .fv-site .fv-hero strong { font-family: 'Lexend', sans-serif; font-size: 0.95rem; color: #fff; }
+  .fv-site .fv-hero small { font-size: 0.75rem; color: rgba(255, 255, 255, 0.85); }
+  .fv-site .fv-hero span { margin-top: 6px; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: #4B2FD0; background: #fff; }
+  .fv-site .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .fv-site .cols div { display: flex; flex-direction: column; gap: 4px; }
+  .fv-site .cols i { height: 30px; border-radius: 8px; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), transparent 55%), var(--t); opacity: 0.9; }
+  .fv-site .cols span { font-size: 0.75rem; color: #fff; }
+  .fv-chat-head { display: flex; align-items: center; gap: 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+  .fv-chat-head i { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #25D366, #128C7E); }
+  .fv-chat-head b { color: #fff; font-size: 0.8rem; }
+  .fv-chat-head small { margin-left: auto; font-size: 0.75rem; color: #A9A9B6; }
 
   @media (prefers-reduced-motion: reduce) { .pipe i { animation: none; left: 30%; } }
 </style>
