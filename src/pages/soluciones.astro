@@ -9,6 +9,12 @@ import CtaBeam from '../components/CtaBeam.astro';
 import RubroVisual from '../components/home2/RubroVisual.astro';
 import { soluciones, svg } from '../data/plataforma.js';
 const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Quiero solicitar una demo de la plataforma para mi rubro.');
+// Bento: cuatro rubros destacados (tile ancho con el gráfico animado) y cuatro compactos (ícono). El orden llena 3 filas de 4 celdas sin huecos.
+const destacados = ['tiendas-online', 'mayoristas', 'inmobiliarias', 'gastronomia'];
+const porSlug = (slug) => soluciones.find((x) => x.slug === slug);
+const orden = ['tiendas-online', 'gimnasios-y-clubes', 'turnos-y-cursos', 'asociaciones-y-mutuales', 'servicios-profesionales', 'mayoristas', 'inmobiliarias', 'gastronomia'].map(porSlug).filter(Boolean);
+const faltan = soluciones.filter((x) => !orden.includes(x));
+const bento = [...orden, ...faltan];
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -41,38 +47,27 @@ const schema = {
       <div class="container">
         <div class="section-header reveal">
           <h2>Elegí tu rubro</h2>
-          <p>Ocho configuraciones listas. Tocá la tuya y mirá qué problema resuelve y cómo queda la plataforma.</p>
+          <p>Ocho configuraciones listas, con los módulos y los flujos que cada negocio necesita desde el primer día.</p>
         </div>
-        <div class="ex reveal" data-explorer>
-          <div class="ex-list" role="tablist" aria-label="Rubros">
-            {soluciones.map((s, i) => (
-              <button type="button" role="tab" id={`ex-tab-${s.slug}`} class:list={['ex-tab', { on: i === 0 }]} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`ex-panel-${s.slug}`} tabindex={i === 0 ? 0 : -1} data-slug={s.slug} title={s.short}>
-                <span class="ex-tab-ic"><Fragment set:html={svg(s.icon)} /></span>
-                <span class="ex-tab-txt">{s.title}</span>
-                <svg class="ex-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </button>
-            ))}
-          </div>
-          <div class="ex-panels">
-            {soluciones.map((s, i) => (
-              <article id={`ex-panel-${s.slug}`} role="tabpanel" aria-labelledby={`ex-tab-${s.slug}`} class:list={['ex-panel', { on: i === 0 }]} hidden={i !== 0}>
-                <div class="ex-visual"><div class="ex-stage"><RubroVisual slug={s.slug} icon={s.icon} /></div></div>
-                <div class="ex-body">
-                  <span class="ex-kicker">{s.title}</span>
-                  <h3>{s.headline}</h3>
-                  <p>{s.text}</p>
-                  <div class="ex-pains-wrap">
-                    <span class="ex-pains-title">Si hoy te pasa esto, es para vos</span>
-                    <ul class="ex-pains">{s.pains.slice(0, 3).map((p) => <li><Fragment set:html={svg('alert')} />{p}</li>)}</ul>
-                  </div>
-                  <div class="ex-actions">
-                    <a class="btn btn-primary" href={`/soluciones/${s.slug}/`}><span>Ver la solución</span></a>
-                    <a class="btn btn-secondary" href={WHATSAPP} target="_blank" rel="noopener noreferrer"><span>Solicitar demo</span></a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+        <div class="bg reveal">
+          {bento.map((s) => destacados.includes(s.slug) ? (
+            <a class="bg-tile bg-feat" href={`/soluciones/${s.slug}/`}>
+              <div class="bg-stage"><RubroVisual slug={s.slug} icon={s.icon} /></div>
+              <div class="bg-body">
+                <span class="bg-kicker">{s.short}</span>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+                <span class="bg-link">Ver solución <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+              </div>
+            </a>
+          ) : (
+            <a class="bg-tile bg-mini" href={`/soluciones/${s.slug}/`}>
+              <span class="bg-ic"><Fragment set:html={svg(s.icon)} /></span>
+              <h3>{s.title}</h3>
+              <p>{s.short}</p>
+              <span class="bg-link">Ver solución <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </a>
+          ))}
         </div>
         <p class="sol-nota reveal">¿Tu rubro no está? La plataforma se adapta igual: <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">contanos tu caso por WhatsApp</a> y te mostramos cómo quedaría.</p>
       </div>
@@ -101,74 +96,31 @@ const schema = {
 </Layout>
 
 
-<script>
-  // Explorador: la lista de rubros cambia el panel (clic, mouse encima o flechas del teclado)
-  const ex = document.querySelector<HTMLElement>('[data-explorer]');
-  if (ex) {
-    const tabs = [...ex.querySelectorAll<HTMLButtonElement>('.ex-tab')];
-    const panels = [...ex.querySelectorAll<HTMLElement>('.ex-panel')];
-    let hoverT = 0;
-    const show = (slug: string, focus = false) => {
-      tabs.forEach((t) => { const on = t.dataset.slug === slug; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
-      panels.forEach((p) => { const on = p.id === `ex-panel-${slug}`; p.hidden = !on; p.classList.toggle('on', on); if (on) p.querySelector('.rv')?.classList.add('on'); });
-    };
-    tabs.forEach((t, i) => {
-      t.addEventListener('click', () => show(t.dataset.slug!));
-      t.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'mouse') return; clearTimeout(hoverT); hoverT = window.setTimeout(() => show(t.dataset.slug!), 140); });
-      t.addEventListener('pointerleave', () => clearTimeout(hoverT));
-      t.addEventListener('keydown', (e) => {
-        const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
-        if (!d) return; e.preventDefault(); show(tabs[(i + d + tabs.length) % tabs.length].dataset.slug!, true);
-      });
-    });
-  }
-</script>
-
 <style>
-  /* Explorador de rubros: lista compacta a la izquierda, panel amplio a la derecha */
-  .ex { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 22px; align-items: start; }
-  .ex-list { display: flex; flex-direction: column; gap: 4px; }
-  .ex-tab { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 10px 14px 10px 16px; border-radius: 14px; border: 1px solid transparent; background: transparent; cursor: pointer; font: inherit; color: #17161D; transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
-  .ex-tab::before { content: ''; position: absolute; left: 0; top: 26%; bottom: 26%; width: 3px; border-radius: 3px; background: #7C5CFF; opacity: 0; transition: opacity 0.25s ease; }
-  .ex-tab:hover { background: #FFFFFF; border-color: #E9E5F8; }
-  .ex-tab.on { background: #FFFFFF; border-color: rgba(124, 92, 255, 0.45); box-shadow: 0 14px 34px -20px rgba(124, 92, 255, 0.45); }
-  .ex-tab.on::before { opacity: 1; }
-  .ex-tab:focus-visible { outline: 2px solid #7C5CFF; outline-offset: 2px; }
-  .ex-tab-ic { flex: none; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; color: #5B3FE0; background: linear-gradient(135deg, #F3F0FF, #E6E0FF); border: 1px solid rgba(124, 92, 255, 0.28); transition: background 0.25s ease, color 0.25s ease; }
-  .ex-tab-ic :global(.ki) { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .ex-tab.on .ex-tab-ic { background: linear-gradient(135deg, #7C5CFF, #6A48F5); color: #FFFFFF; border-color: transparent; }
-  .ex-tab-txt { min-width: 0; font-family: 'Lexend', sans-serif; font-size: 0.98rem; font-weight: 600; line-height: 1.25; }
-  .ex-arrow { margin-left: auto; flex: none; color: #5B3FE0; opacity: 0; transform: translateX(-6px); transition: opacity 0.25s ease, transform 0.25s ease; }
-  .ex-tab.on .ex-arrow { opacity: 1; transform: none; }
-
-  .ex-panel { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 36px; align-items: center; padding: 36px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E9E5F8; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 24px 50px -28px rgba(124, 92, 255, 0.4); }
-  .ex-panel[hidden] { display: none; }
-  .ex-panel.on { animation: ex-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  @keyframes ex-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-  /* El gráfico va sobre un escenario lila: deja de flotar en el blanco */
-  .ex-stage { display: grid; place-items: center; padding: 34px 28px; border-radius: 18px; background: radial-gradient(circle at 30% 20%, rgba(124, 92, 255, 0.16), transparent 60%), linear-gradient(180deg, #F3F0FF, #FAF8FF); border: 1px solid #E9E5F8; }
-  .ex-stage > :global(.rv) { width: 100%; max-width: 380px; zoom: 1.2; }
-  .ex-kicker { display: inline-block; font-size: 0.8rem; font-weight: 600; color: #5B3FE0; margin-bottom: 8px; }
-  .ex-body h3 { font-family: 'Lexend', sans-serif; font-size: 1.65rem !important; line-height: 1.2 !important; color: #17161D !important; margin: 0 0 12px !important; }
-  .ex-body > p { color: #4B4A57 !important; font-size: 1.02rem; line-height: 1.65; margin: 0; }
-  .ex-pains-wrap { margin-top: 22px; padding-top: 20px; border-top: 1px solid #ECE9F6; }
-  .ex-pains-title { display: block; font-size: 0.82rem; font-weight: 600; color: #6E6E7A; margin-bottom: 12px; }
-  .ex-pains { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-  .ex-pains li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem; line-height: 1.5; color: #4B4A57; }
-  .ex-pains :global(.ki) { flex: none; width: 18px; height: 18px; margin-top: 2px; color: #7C5CFF; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .ex-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-  @media (max-width: 1100px) { .ex { grid-template-columns: 260px minmax(0, 1fr); } .ex-panel { grid-template-columns: 1fr; gap: 26px; padding: 28px; } .ex-stage > :global(.rv) { max-width: 420px; zoom: 1.1; } }
-  @media (max-width: 960px) {
-    .ex { grid-template-columns: 1fr; }
-    .ex-list { flex-direction: row; overflow-x: auto; gap: 8px; padding: 2px 2px 8px; scrollbar-width: thin; }
-    .ex-tab { flex: none; width: auto; padding: 9px 12px; }
-    .ex-arrow { display: none; }
-    .ex-panel { padding: 22px; }
-    .ex-stage { padding: 22px 16px; }
-    .ex-stage > :global(.rv) { zoom: 1; }
-  }
-  @media (max-width: 480px) { .ex-actions .btn { width: 100%; justify-content: center; } }
-  @media (prefers-reduced-motion: reduce) { .ex-panel.on { animation: none; } }
+  /* Bento de rubros: cuatro tiles anchos con el gráfico animado y cuatro compactos con ícono; distinto de la grilla de la home */
+  .bg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(220px, auto); gap: 16px; }
+  .bg-tile { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 22px; border-radius: 22px; text-decoration: none; color: inherit; background: linear-gradient(180deg, #FAF8FF 0%, #FFFFFF 58%); border: 1px solid #E9E5F8; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -20px rgba(124, 92, 255, 0.35); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease; }
+  .bg-tile:hover { transform: translateY(-4px); border-color: rgba(124, 92, 255, 0.45); box-shadow: 0 2px 4px rgba(15, 15, 18, 0.04), 0 24px 48px -20px rgba(124, 92, 255, 0.45); }
+  .bg-feat { grid-column: span 2; flex-direction: row; align-items: center; gap: 22px; padding: 18px 26px 18px 18px; }
+  .bg-stage { flex: 0 0 46%; display: grid; place-items: center; align-self: stretch; padding: 20px 16px; border-radius: 16px; background: radial-gradient(circle at 30% 20%, rgba(124, 92, 255, 0.18), transparent 60%), linear-gradient(180deg, #F1EDFF, #F8F6FF); border: 1px solid #E9E5F8; transition: background 0.3s ease; }
+  .bg-feat:hover .bg-stage { background: radial-gradient(circle at 30% 20%, rgba(124, 92, 255, 0.28), transparent 60%), linear-gradient(180deg, #EDE8FF, #F6F3FF); }
+  .bg-stage > :global(.rv) { width: 100%; }
+  .bg-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .bg-kicker { font-size: 0.78rem; font-weight: 600; color: #5B3FE0; margin-bottom: 6px; }
+  .bg-tile h3 { font-family: 'Lexend', sans-serif; font-weight: 600; color: #17161D !important; margin: 0 !important; line-height: 1.25 !important; }
+  .bg-feat h3 { font-size: 1.3rem !important; }
+  .bg-feat p { margin: 10px 0 0 !important; font-size: 0.92rem; line-height: 1.6; color: #4B4A57 !important; }
+  .bg-ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: #5B3FE0; background: linear-gradient(135deg, #F3F0FF, #E6E0FF); border: 1px solid rgba(124, 92, 255, 0.28); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9); transition: background 0.25s ease, color 0.25s ease; }
+  .bg-ic :global(.ki) { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .bg-mini:hover .bg-ic { background: linear-gradient(135deg, #7C5CFF, #6A48F5); color: #FFFFFF; border-color: transparent; }
+  .bg-mini h3 { font-size: 1.08rem !important; margin-top: 18px !important; }
+  .bg-mini p { flex: 1; margin: 6px 0 0 !important; font-size: 0.9rem; line-height: 1.5; color: #4B4A57 !important; }
+  .bg-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 0.86rem; font-weight: 600; color: #5B3FE0; }
+  .bg-link svg { transition: transform 0.25s ease; }
+  .bg-tile:hover .bg-link svg { transform: translateX(3px); }
+  @media (max-width: 1100px) { .bg { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; } }
+  @media (max-width: 640px) { .bg { grid-template-columns: 1fr; } .bg-feat { grid-column: auto; flex-direction: column; align-items: stretch; padding: 18px; } .bg-stage { flex: none; } }
+  @media (prefers-reduced-motion: reduce) { .bg-tile:hover { transform: none; } }
   .sol-nota { text-align: center; margin: 32px auto 0; max-width: 60ch; color: #52525B; font-size: 0.95rem; }
   .sol-nota a { color: #5B3FE0; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
   .section-cta { padding: 80px 0; }
