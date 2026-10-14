@@ -7195,3 +7195,34 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .porque-grid p { font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); margin: 0; }
 @media (max-width: 1024px) { .porque-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .porque-grid { grid-template-columns: minmax(0, 1fr); } .team-section { padding-top: 72px !important; padding-bottom: 84px !important; } }
+
+
+/* ==========================================================================
+   COMPARATIVA EN PANEL CLARO (servicios): "Lo habitual" apagado vs "Nuestro método" destacado, lista con filetes y chip "vs"
+   ========================================================================== */
+.section-light .comparison-grid { position: relative; gap: 28px !important; align-items: stretch !important; }
+.section-light .comparison-grid::after { content: 'vs'; position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 3; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; font-family: 'Lexend', sans-serif; font-size: 0.85rem; font-weight: 600; color: #FFFFFF; background: linear-gradient(135deg, #7C5CFF, #6A48F5); box-shadow: 0 10px 24px -8px rgba(124, 92, 255, 0.7), 0 0 0 6px #FFFFFF; }
+.section-light .comp-card-bad, .section-light .comp-card-good { padding: 30px 30px 26px !important; border-radius: 24px !important; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease !important; }
+.section-light .comp-card-bad::before, .section-light .comp-card-good::before { display: inline-block; align-self: flex-start; margin-bottom: 18px; padding: 5px 11px; border-radius: 999px; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.01em; }
+.section-light .comp-card-bad::before { content: 'Lo habitual'; color: #6E6E7A; background: #F3F3F5; border: 1px solid #E4E4E9; }
+.section-light .comp-card-good::before { content: 'Nuestro método'; color: #FFFFFF; background: linear-gradient(135deg, #7C5CFF, #6A48F5); border: 1px solid transparent; }
+.section-light .comp-card-bad { background: linear-gradient(180deg, #FAFAFB, #FFFFFF 55%) !important; border: 1px solid #E6E6EA !important; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 14px 34px -24px rgba(15, 15, 18, 0.3) !important; }
+.section-light .comp-card-bad:hover { border-color: #D4D4D9 !important; box-shadow: 0 1px 2px rgba(15, 15, 18, 0.04), 0 18px 40px -24px rgba(15, 15, 18, 0.35) !important; }
+.section-light .comp-card-good { background: linear-gradient(180deg, #F6F3FF, #FFFFFF 55%) padding-box, linear-gradient(135deg, #7C5CFF, #C9BDFF 45%, #7C5CFF) border-box !important; border: 1px solid transparent !important; box-shadow: 0 2px 4px rgba(15, 15, 18, 0.04), 0 28px 56px -24px rgba(124, 92, 255, 0.5) !important; }
+.section-light .comp-card-good:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(15, 15, 18, 0.04), 0 34px 64px -24px rgba(124, 92, 255, 0.55) !important; }
+.section-light .comp-card-header { gap: 14px !important; margin-bottom: 8px !important; }
+.section-light .comp-card-header h3 { font-size: 1.35rem !important; color: #17161D !important; }
+.section-light .comp-icon-box.bad-box, .section-light .comp-icon-box.good-box { width: 44px !important; height: 44px !important; border-radius: 12px !important; font-size: 1.05rem !important; }
+.section-light .comp-icon-box.bad-box { background: #F3F3F5 !important; border: 1px solid #E4E4E9 !important; color: #8E8E99 !important; }
+.section-light .comp-icon-box.good-box { background: linear-gradient(135deg, #7C5CFF, #6A48F5) !important; border: 1px solid transparent !important; color: #FFFFFF !important; box-shadow: 0 10px 20px -10px rgba(124, 92, 255, 0.7) !important; }
+.section-light .comp-list { gap: 0 !important; margin-top: 6px !important; }
+.section-light .comp-list li { padding: 13px 0 !important; border-top: 1px solid #EFEEF4; gap: 12px !important; align-items: flex-start !important; font-size: 0.95rem !important; line-height: 1.55 !important; }
+.section-light .comp-list li:first-child { border-top: 0; }
+.section-light .comp-card-bad .comp-list li { color: #5A5A66 !important; }
+.section-light .comp-card-good .comp-list li { color: #2E2D38 !important; }
+.section-light .comp-list li span { flex: none !important; display: inline-grid !important; place-items: center !important; width: 22px !important; height: 22px !important; margin-top: 1px !important; border-radius: 50% !important; }
+.section-light .comp-list li span svg.glyph { width: 12px !important; height: 12px !important; vertical-align: 0 !important; stroke-width: 3 !important; }
+.section-light .comp-card-bad .comp-list li span { background: #FFFFFF !important; border: 1.5px solid #D4D4D9 !important; color: #8E8E99 !important; }
+.section-light .comp-card-good .comp-list li span { background: #7C5CFF !important; border: 1.5px solid #7C5CFF !important; color: #FFFFFF !important; }
+@media (max-width: 820px) { .section-light .comparison-grid::after { display: none; } .section-light .comp-card-good:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .section-light .comp-card-good:hover { transform: none; } }

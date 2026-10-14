@@ -1,168 +1,135 @@
 ---
+// Política de privacidad: qué datos trata Kaptativa, para qué, con quién los comparte y cómo ejercer los derechos (Ley 25.326).
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import LegalShell from '../components/LegalShell.astro';
+const updated = '14 de octubre de 2026';
+const toc = [
+  { id: 'responsable', label: 'Quién trata tus datos' },
+  { id: 'datos', label: 'Qué datos recopilamos' },
+  { id: 'finalidades', label: 'Para qué los usamos' },
+  { id: 'base', label: 'Base legal y consentimiento' },
+  { id: 'terceros', label: 'Con quién los compartimos' },
+  { id: 'clientes', label: 'Datos de los clientes de nuestros clientes' },
+  { id: 'cookies', label: 'Cookies y analítica' },
+  { id: 'conservacion', label: 'Cuánto tiempo los guardamos' },
+  { id: 'seguridad', label: 'Cómo los protegemos' },
+  { id: 'derechos', label: 'Tus derechos' },
+  { id: 'menores', label: 'Menores de edad' },
+  { id: 'comunicaciones', label: 'Comunicaciones comerciales' },
+  { id: 'cambios', label: 'Cambios en esta política' },
+  { id: 'contacto', label: 'Contacto' },
+];
 ---
 
-<Layout title="Política de Privacidad | Kaptativa" description="Política de privacidad y protección de datos personales de Kaptativa. Conocé los términos sobre el tratamiento de la información en nuestra web.">
+<Layout title="Política de privacidad | Kaptativa" description="Qué datos personales trata Kaptativa, con qué finalidad, con quién los comparte, cuánto los conserva y cómo ejercer tus derechos según la Ley 25.326 de la República Argentina.">
   <Header slot="header" floating />
-
   <main>
-    <section class="legal-section">
-      <div class="container legal-container">
-        <div class="legal-header reveal">
-          <h1>Política de privacidad</h1>
-          <p class="last-updated">Última actualización: 18 de julio de 2026</p>
-        </div>
+    <LegalShell title="Política de privacidad" updated={updated} toc={toc} intro="Explicamos con claridad qué datos tuyos tratamos cuando navegás kaptativa.com, nos escribís o contratás un servicio, y cómo podés ejercer tus derechos. Cumplimos la Ley 25.326 de Protección de los Datos Personales de la República Argentina.">
+      <h2 id="responsable">1. Quién trata tus datos</h2>
+      <p>El responsable del tratamiento es <strong>Kaptativa</strong>, emprendimiento de <strong>Eliana Azcurra</strong>, con domicilio en la ciudad de La Rioja, provincia de La Rioja, República Argentina.</p>
+      <ul>
+        <li>Correo electrónico: <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a></li>
+        <li>WhatsApp: <a href="https://wa.me/5493804890834" target="_blank" rel="noopener noreferrer">+54 9 380 489-0834</a></li>
+        <li>Sitio web: <a href="https://kaptativa.com">kaptativa.com</a></li>
+      </ul>
+      <p>Esta política se aplica al sitio kaptativa.com, a los canales de contacto que figuran en él y a los servicios que prestamos. Los sitios, tiendas y sistemas que construimos para nuestros clientes tienen sus propias políticas, que publica cada cliente.</p>
 
-        <div class="legal-content reveal reveal-delay-1">
-          <p>En <strong>Kaptativa</strong>, accesible desde <a href="https://kaptativa.com">kaptativa.com</a>, una de nuestras principales prioridades es la privacidad de nuestros visitantes y clientes. Este documento de Política de Privacidad contiene los tipos de información que recopilamos y registramos, y cómo la utilizamos en el marco de nuestros desarrollos de software, automatizaciones y agentes de Inteligencia Artificial.</p>
+      <h2 id="datos">2. Qué datos recopilamos y cuándo</h2>
+      <p>Solo pedimos los datos necesarios para responderte y prestar el servicio. Según cómo interactúes con nosotros, tratamos:</p>
+      <table>
+        <thead><tr><th>Situación</th><th>Datos</th></tr></thead>
+        <tbody>
+          <tr><td>Formulario de contacto</td><td>Nombre, correo electrónico, número de WhatsApp, nombre del negocio, sitio web (opcional), qué te interesa y el mensaje que escribís.</td></tr>
+          <tr><td>Conversaciones por WhatsApp</td><td>Tu número, tu nombre de perfil y el contenido de los mensajes que intercambiamos.</td></tr>
+          <tr><td>Demo o reunión agendada</td><td>Nombre, correo, fecha y horario elegidos y las notas que dejes al agendar.</td></tr>
+          <tr><td>Contratación y facturación</td><td>Razón social o nombre, CUIT o DNI, condición frente al IVA, domicilio y datos de contacto. Los pagos los procesa Mercado Pago o tu banco: nunca vemos ni guardamos los datos de tu tarjeta.</td></tr>
+          <tr><td>Navegación en el sitio</td><td>Dirección IP, tipo de navegador y dispositivo, páginas visitadas, fecha y hora, y la página desde la que llegaste. Se registran en los archivos del servidor y, si está activa, en Google Analytics de forma agregada.</td></tr>
+          <tr><td>Preferencias del navegador</td><td>Guardamos en tu navegador ajustes de uso del sitio (por ejemplo, el tema de color). No identifican a una persona.</td></tr>
+        </tbody>
+      </table>
+      <p>No tratamos datos sensibles (salud, creencias, origen, orientación, afiliación) y te pedimos que no nos los envíes por los canales de contacto.</p>
 
-          <h2>1. Información que Recopilamos</h2>
-          <p>Recopilamos información personal de manera voluntaria a través de nuestros formularios de contacto, cotizadores digitales y simulaciones de chat. Esto incluye:</p>
-          <ul>
-            <li>Nombre y apellido.</li>
-            <li>Dirección de correo electrónico corporativo.</li>
-            <li>Número de teléfono / WhatsApp Comercial.</li>
-            <li>Nombre del negocio, empresa o sitio web.</li>
-            <li>Requerimientos técnicos y detalles del proyecto provistos por el usuario.</li>
-          </ul>
+      <h2 id="finalidades">3. Para qué los usamos</h2>
+      <ul>
+        <li>Responder tus consultas y coordinar demos o reuniones.</li>
+        <li>Preparar y enviarte propuestas, presupuestos y la documentación del proyecto.</li>
+        <li>Prestar el servicio contratado, darte soporte y administrar tu cuenta en la plataforma.</li>
+        <li>Facturar, cobrar y cumplir obligaciones contables, fiscales y legales.</li>
+        <li>Enviarte información sobre el servicio que consultaste o contrataste, novedades de la plataforma y avisos operativos. Podés darte de baja cuando quieras.</li>
+        <li>Medir el uso del sitio, detectar errores y mejorar la experiencia.</li>
+        <li>Prevenir fraudes, abusos y accesos no autorizados.</li>
+      </ul>
+      <p>No usamos tus datos para tomar decisiones automatizadas que produzcan efectos jurídicos sobre vos, ni los vendemos o alquilamos a terceros.</p>
 
-          <h2>2. Cómo Utilizamos tu Información</h2>
-          <p>Utilizamos la información recopilada para diversos fines, tales como:</p>
-          <ul>
-            <li>Proveer, operar y mantener nuestro sitio web y herramientas.</li>
-            <li>Mejorar, personalizar y expandir la experiencia de usuario de nuestro sitio.</li>
-            <li>Comprender y analizar cómo utilizas nuestro portal y simuladores.</li>
-            <li>Desarrollar nuevos productos, servicios, características y funcionalidades.</li>
-            <li>Comunicarnos contigo, ya sea directamente o a través de nuestros canales automatizados (como WhatsApp), para enviarte diagnósticos de madurez digital, cotizaciones y propuestas comerciales.</li>
-          </ul>
+      <h2 id="base">4. Base legal y consentimiento</h2>
+      <p>Tratamos tus datos con tu consentimiento, que nos das al completar el formulario, escribirnos por WhatsApp o agendar una reunión. Cuando contratás un servicio, el tratamiento es necesario para cumplir ese contrato y las obligaciones legales que derivan de él (por ejemplo, la facturación electrónica). La medición del uso del sitio se apoya en nuestro interés legítimo de mantenerlo funcionando y mejorarlo, y se hace con datos agregados.</p>
+      <p>Darnos tus datos es voluntario. Si no los proporcionás, no podremos responderte ni prestarte el servicio. Podés retirar tu consentimiento en cualquier momento escribiendo a <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a>; eso no afecta la licitud del tratamiento previo.</p>
 
-          <h2>3. Tratamiento de Datos en Integraciones de WhatsApp y CRM</h2>
-          <p>Nuestros servicios especializados incluyen la conexión de bases de datos y la automatización de flujos conversacionales mediante la API de WhatsApp Business. Bajo esta modalidad:</p>
-          <ul>
-            <li>Toda la información captada por los chatbots de Inteligencia Artificial se almacena de forma estructurada en las bases de datos del cliente (Appwrite, PostgreSQL u otros).</li>
-            <li>No comercializamos, alquilamos ni compartimos historiales de chat ni datos de contacto con terceros sin consentimiento explícito.</li>
-            <li>Implementamos protocolos seguros de transferencia de datos y encriptación SSL para resguardar la información de punta a punta.</li>
-          </ul>
+      <h2 id="terceros">5. Con quién compartimos los datos</h2>
+      <p>No cedemos tus datos a terceros para sus propios fines. Sí trabajamos con proveedores que los tratan por cuenta nuestra, bajo contrato y solo para la tarea encomendada:</p>
+      <table>
+        <thead><tr><th>Proveedor</th><th>Para qué</th><th>Dónde</th></tr></thead>
+        <tbody>
+          <tr><td>Contabo GmbH</td><td>Servidores donde se aloja el sitio y la plataforma.</td><td>Unión Europea</td></tr>
+          <tr><td>Correo del dominio kaptativa.com</td><td>Recibir y responder los mensajes del formulario y la correspondencia comercial.</td><td>Según el proveedor de correo</td></tr>
+          <tr><td>Meta Platforms (WhatsApp)</td><td>Mensajería con vos cuando nos escribís por WhatsApp.</td><td>Estados Unidos</td></tr>
+          <tr><td>Google LLC (Google Analytics)</td><td>Estadísticas agregadas de uso del sitio, cuando está activa.</td><td>Estados Unidos</td></tr>
+          <tr><td>Mercado Pago (Mercado Libre S.R.L.)</td><td>Procesar pagos. Mercado Pago trata tus datos de pago según su propia política.</td><td>Argentina</td></tr>
+          <tr><td>Cal.com</td><td>Agenda de demos y reuniones, si agendás por ese medio.</td><td>Estados Unidos y Unión Europea</td></tr>
+          <tr><td>Proveedores de inteligencia artificial (OpenAI, Anthropic, Google)</td><td>Solo en los asistentes contratados por nuestros clientes, con la información mínima necesaria para responder cada mensaje. No se usan para entrenar modelos con tus datos.</td><td>Estados Unidos</td></tr>
+        </tbody>
+      </table>
+      <p>Algunos de estos proveedores están fuera de la Argentina. Cuando transferimos datos al exterior lo hacemos a países o empresas que garantizan un nivel adecuado de protección o mediante cláusulas contractuales que aseguran el mismo nivel de resguardo, conforme a la Ley 25.326 y a las disposiciones de la Agencia de Acceso a la Información Pública.</p>
+      <p>También podemos comunicar datos cuando una ley, una autoridad competente o una orden judicial nos lo exija.</p>
 
-          <h2>4. Archivos de Registro (Logs)</h2>
-          <p>Kaptativa sigue un procedimiento estándar de uso de archivos de registro. Estos archivos registran a los visitantes cuando acceden a sitios web. La información recopilada por los archivos de registro incluye direcciones de protocolo de Internet (IP), tipo de navegador, proveedor de servicios de Internet (ISP), marca de fecha y hora, páginas de referencia/salida y, posiblemente, el número de clics. Estos datos no están vinculados a ninguna información que sea personalmente identificable.</p>
+      <h2 id="clientes">6. Datos de los clientes de nuestros clientes</h2>
+      <p>Cuando operamos la plataforma, un sitio, una tienda o un asistente de inteligencia artificial para un cliente, los datos de sus compradores, usuarios o contactos pertenecen a ese cliente, que es el responsable del tratamiento. Kaptativa actúa como encargada: los trata únicamente según las instrucciones del cliente y lo acordado en el contrato, no los usa para fines propios, los protege con las medidas de seguridad descritas en esta política y los devuelve o elimina al terminar el servicio.</p>
+      <p>Cada cliente es responsable de informar a sus propios usuarios, de contar con las bases legales necesarias y de cumplir la Ley 25.326 en el uso que haga de la plataforma.</p>
 
-          <h2>5. Derechos de Protección de Datos (GDPR / Ley 25.326 Argentina)</h2>
-          <p>Queremos asegurarnos de que conozcas todos tus derechos de protección de datos. Todo usuario tiene derecho a lo siguiente:</p>
-          <ul>
-            <li><strong>Derecho de acceso:</strong> Tienes derecho a solicitar copias de tus datos personales almacenados.</li>
-            <li><strong>Derecho de rectificación:</strong> Tienes derecho a solicitar que corrijamos cualquier información que consideres inexacta.</li>
-            <li><strong>Derecho de supresión (olvido):</strong> Tienes derecho a solicitar que eliminemos tus datos personales, bajo ciertas condiciones.</li>
-            <li><strong>Derecho a oponerte al tratamiento:</strong> Tienes derecho a oponerte a que tratemos tus datos personales para fines comerciales directos.</li>
-          </ul>
-          <p>Si querés ejercer alguno de estos derechos o tenés preguntas sobre cómo gestionamos tus datos, por favor contactanos vía email a <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a>.</p>
-        </div>
+      <h2 id="cookies">7. Cookies y analítica</h2>
+      <p>El sitio funciona sin cookies de seguimiento propias. Usamos:</p>
+      <ul>
+        <li><strong>Almacenamiento local del navegador</strong> para recordar preferencias de uso (como el tema de color). No sale de tu dispositivo.</li>
+        <li><strong>Google Analytics 4</strong>, cuando está activo, que coloca cookies de medición (<em>_ga</em>, <em>_ga_*</em>) para contar visitas y páginas vistas de forma agregada, con la dirección IP anonimizada. Podés impedirlo bloqueando las cookies en tu navegador o instalando el <a href="https://tools.google.com/dlpage/gaoptout?hl=es" target="_blank" rel="noopener noreferrer">complemento de inhabilitación de Google Analytics</a>.</li>
+        <li><strong>Cookies de terceros</strong> que pueden colocar Mercado Pago o WhatsApp cuando usás sus servicios desde nuestro sitio, según sus propias políticas.</li>
+      </ul>
+      <p>No usamos cookies publicitarias ni de perfilado en kaptativa.com.</p>
+
+      <h2 id="conservacion">8. Cuánto tiempo guardamos los datos</h2>
+      <ul>
+        <li><strong>Consultas y propuestas que no derivan en contratación:</strong> hasta 24 meses desde el último contacto.</li>
+        <li><strong>Clientes:</strong> mientras dure la relación comercial y, después, el tiempo que exigen las normas contables y fiscales (en general, 10 años).</li>
+        <li><strong>Registros del servidor:</strong> hasta 90 días, salvo que sean necesarios para investigar un incidente de seguridad.</li>
+        <li><strong>Estadísticas de Google Analytics:</strong> según la configuración de retención de la herramienta (14 meses).</li>
+      </ul>
+      <p>Cumplido el plazo, los datos se eliminan o se anonimizan.</p>
+
+      <h2 id="seguridad">9. Cómo los protegemos</h2>
+      <p>Aplicamos medidas técnicas y organizativas razonables para evitar accesos no autorizados, pérdidas o alteraciones: cifrado de las comunicaciones (HTTPS), acceso a los sistemas restringido a las personas que lo necesitan y protegido con contraseñas y doble factor, copias de seguridad periódicas, actualizaciones de seguridad y registro de accesos. Ningún sistema es infalible: si detectamos un incidente que afecte tus datos, te lo comunicaremos y tomaremos las medidas que correspondan.</p>
+
+      <h2 id="derechos">10. Tus derechos</h2>
+      <p>Como titular de los datos tenés derecho a <strong>acceder</strong> a ellos, <strong>rectificarlos</strong> o actualizarlos, pedir su <strong>supresión</strong>, <strong>oponerte</strong> a un tratamiento determinado y solicitar la confidencialidad. Para ejercerlos, escribinos a <a href="mailto:hola@kaptativa.com?subject=Derechos%20sobre%20mis%20datos%20personales">hola@kaptativa.com</a> indicando qué derecho querés ejercer y un medio para verificar tu identidad. Respondemos los pedidos de acceso dentro de los 10 días corridos y los de rectificación, actualización o supresión dentro de los 5 días hábiles, como fija la Ley 25.326. El trámite es gratuito.</p>
+      <div class="legal-note">
+        <p>El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto, conforme lo establecido en el artículo 14, inciso 3, de la Ley N.º 25.326.</p>
       </div>
-    </section>
-  </main>
+      <div class="legal-note">
+        <p>La Agencia de Acceso a la Información Pública, órgano de control de la Ley N.º 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con relación al incumplimiento de las normas sobre protección de datos personales. Más información en <a href="https://www.argentina.gob.ar/aaip" target="_blank" rel="noopener noreferrer">argentina.gob.ar/aaip</a>.</p>
+      </div>
 
+      <h2 id="menores">11. Menores de edad</h2>
+      <p>Nuestros servicios están dirigidos a empresas, comercios y profesionales. No recopilamos a sabiendas datos de menores de 18 años. Si creés que un menor nos envió datos, escribinos y los eliminaremos.</p>
+
+      <h2 id="comunicaciones">12. Comunicaciones comerciales</h2>
+      <p>Solo te enviamos información relacionada con lo que consultaste o contrataste. Cada mensaje de correo incluye la forma de darte de baja, y por WhatsApp alcanza con pedirlo. Respetamos el Registro Nacional No Llame (Ley 26.951) y no hacemos llamadas ni envíos masivos a quienes no nos contactaron.</p>
+
+      <h2 id="cambios">13. Cambios en esta política</h2>
+      <p>Podemos actualizar esta política cuando cambien los servicios, los proveedores o la normativa. Publicamos la versión vigente en esta página con su fecha de actualización y, si el cambio es relevante para vos, te lo avisamos por los canales de contacto que tengamos.</p>
+
+      <h2 id="contacto">14. Contacto</h2>
+      <p>Para cualquier consulta sobre privacidad o sobre esta política, escribinos a <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a> o por <a href="https://wa.me/5493804890834" target="_blank" rel="noopener noreferrer">WhatsApp</a>. También podés leer nuestros <a href="/terminos/">términos y condiciones</a>.</p>
+    </LegalShell>
+  </main>
   <Footer slot="footer" />
 </Layout>
-
-<style>
-  .legal-section {
-    padding: 140px 0 100px 0;
-    background-color: var(--bg-primary);
-  }
-
-  .legal-container {
-    max-width: 800px !important;
-  }
-
-  .legal-header {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .legal-header h1 {
-    font-family: 'Lexend', sans-serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    letter-spacing: -0.02em;
-  }
-
-  .last-updated {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-  }
-
-  .legal-content {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 28px;
-    padding: 50px;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .legal-content p {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin-bottom: 24px;
-  }
-
-  .legal-content h2 {
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-top: 40px;
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-  }
-
-  .legal-content ul {
-    margin-bottom: 24px;
-    padding-left: 24px;
-    list-style: disc !important;
-  }
-
-  .legal-content li {
-    color: var(--text-secondary);
-    font-size: 1.02rem;
-    line-height: 1.7;
-    margin-bottom: 10px;
-    display: list-item !important;
-    list-style-type: disc !important;
-  }
-
-  .legal-content li::marker {
-    color: var(--accent-crimson, #7C5CFF);
-  }
-
-  .legal-content a {
-    color: var(--accent-cyan, #00d2ff);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transition: color 0.2s ease;
-  }
-
-  .legal-content a:hover {
-    color: var(--text-primary);
-  }
-
-  @media (max-width: 768px) {
-    .legal-section {
-      padding: 100px 0 60px 0;
-    }
-    
-    .legal-header h1 {
-      font-size: 2.2rem;
-    }
-
-    .legal-content {
-      padding: 30px 24px;
-      border-radius: 20px;
-    }
-  }
-</style>

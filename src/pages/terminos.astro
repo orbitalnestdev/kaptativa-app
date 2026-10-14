@@ -1,169 +1,125 @@
 ---
+// Términos y condiciones: uso del sitio, contratación de la plataforma y los servicios, pagos, propiedad intelectual y garantías.
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import LegalShell from '../components/LegalShell.astro';
+const updated = '14 de octubre de 2026';
+const toc = [
+  { id: 'aceptacion', label: 'Quiénes somos y aceptación' },
+  { id: 'servicios', label: 'Qué ofrecemos' },
+  { id: 'uso', label: 'Uso del sitio' },
+  { id: 'contratacion', label: 'Cómo se contrata' },
+  { id: 'precios', label: 'Precios y pagos' },
+  { id: 'plazos', label: 'Plazos, entregas y revisiones' },
+  { id: 'cliente', label: 'Obligaciones del cliente' },
+  { id: 'propiedad', label: 'Propiedad intelectual' },
+  { id: 'plataforma', label: 'Plataforma, hosting y datos' },
+  { id: 'ia', label: 'Asistentes de IA y mensajería' },
+  { id: 'garantia', label: 'Garantía y soporte' },
+  { id: 'responsabilidad', label: 'Limitación de responsabilidad' },
+  { id: 'cancelacion', label: 'Cancelación y arrepentimiento' },
+  { id: 'datos', label: 'Datos personales y confidencialidad' },
+  { id: 'cambios', label: 'Cambios en estos términos' },
+  { id: 'ley', label: 'Ley aplicable y jurisdicción' },
+  { id: 'contacto', label: 'Contacto y reclamos' },
+];
 ---
 
-<Layout title="Términos y Condiciones | Kaptativa" description="Términos y condiciones de uso de la plataforma y servicios de Kaptativa. Condiciones generales de contratación y términos del sitio web.">
+<Layout title="Términos y condiciones | Kaptativa" description="Condiciones de uso del sitio y de contratación de la plataforma y los servicios de Kaptativa: alcance, pagos, plazos, propiedad intelectual, garantía, cancelación y derechos del consumidor.">
   <Header slot="header" floating />
-
   <main>
-    <section class="legal-section">
-      <div class="container legal-container">
-        <div class="legal-header reveal">
-          <h1>Términos y condiciones</h1>
-          <p class="last-updated">Última actualización: 18 de julio de 2026</p>
-        </div>
+    <LegalShell title="Términos y condiciones" updated={updated} toc={toc} intro="Estas condiciones regulan el uso de kaptativa.com y la contratación de nuestra plataforma y servicios. Están escritas para que se entiendan: si algo no queda claro, preguntanos antes de contratar.">
+      <h2 id="aceptacion">1. Quiénes somos y aceptación</h2>
+      <p><strong>Kaptativa</strong> es el emprendimiento de <strong>Eliana Azcurra</strong>, con domicilio en la ciudad de La Rioja, República Argentina. Contacto: <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a> y WhatsApp <a href="https://wa.me/5493804890834" target="_blank" rel="noopener noreferrer">+54 9 380 489-0834</a>.</p>
+      <p>Al navegar el sitio aceptás las condiciones de uso de la sección 3. Al contratar un plan o un servicio aceptás estos términos en su totalidad, junto con la propuesta o presupuesto que te enviemos. Si la propuesta y estos términos dicen algo distinto, prevalece la propuesta, porque describe el acuerdo concreto.</p>
 
-        <div class="legal-content reveal reveal-delay-1">
-          <p>Al acceder a nuestro sitio web en <a href="https://kaptativa.com">kaptativa.com</a> y contratar cualquiera de nuestros servicios de desarrollo de software a medida, integraciones de API, automatizaciones de procesos o agentes de Inteligencia Artificial, aceptas cumplir con los siguientes Términos y Condiciones de Servicio.</p>
+      <h2 id="servicios">2. Qué ofrecemos</h2>
+      <ul>
+        <li><strong>La plataforma Kaptativa:</strong> sitio web, tienda online, gestión del negocio y asistente de inteligencia artificial en WhatsApp, en los planes Presencia, Tienda y A medida, configurada según el rubro.</li>
+        <li><strong>Servicios adicionales:</strong> publicidad digital, SEO y GEO, social media, email marketing, agentes de IA, automatización e integraciones, diseño web y e-commerce, y desarrollo de software a medida.</li>
+      </ul>
+      <p>Las descripciones del sitio son orientativas. El alcance exacto, los entregables, los plazos y el precio de cada contratación se definen en la propuesta escrita.</p>
 
-          <h2>1. Descripción del Servicio</h2>
-          <p><strong>Kaptativa</strong> ofrece soluciones tecnológicas personalizadas orientadas a la transformación digital de negocios. Nuestros servicios clave incluyen:</p>
-          <ul>
-            <li>Diseño y desarrollo web profesional y e-commerce autogestionables.</li>
-            <li>Automatización de flujos y tareas administrativas (Make, n8n, Google Sheets, CRMs).</li>
-            <li>Implementación y entrenamiento de asistentes virtuales y chatbots (Evolution API, OpenAI, Appwrite).</li>
-            <li>Diagnósticos técnicos de madurez digital.</li>
-          </ul>
+      <h2 id="uso">3. Uso del sitio</h2>
+      <p>Podés navegar kaptativa.com, usar los formularios y canales de contacto y compartir enlaces a sus páginas. No está permitido copiar o reutilizar sus textos, diseños, gráficos o código sin autorización, intentar vulnerar su seguridad, extraer datos de forma automatizada ni usar el sitio para fines ilícitos. El sitio se ofrece tal como está; hacemos lo posible por mantenerlo disponible y actualizado, pero puede tener interrupciones por mantenimiento o por causas ajenas.</p>
+      <p>Los sitios de terceros enlazados (por ejemplo, los proyectos que mostramos) tienen sus propios términos y no respondemos por su contenido.</p>
 
-          <h2>2. Propiedad Intelectual</h2>
-          <p>Salvo acuerdo por escrito en contrario, el software, las bases de datos y el código fuente desarrollados específicamente para el cliente serán de propiedad exclusiva del cliente una vez saldado el pago total de la cotización acordada. Kaptativa retiene la propiedad de sus librerías internas, algoritmos base y configuraciones de infraestructura genéricas reutilizables.</p>
+      <h2 id="contratacion">4. Cómo se contrata</h2>
+      <ol>
+        <li><strong>Demo y diagnóstico:</strong> una reunión para entender tu negocio y mostrarte la plataforma.</li>
+        <li><strong>Propuesta:</strong> dentro de las 24 horas hábiles siguientes te enviamos una propuesta con alcance, entregables, plazos y precio. Tiene una vigencia de 15 días corridos, salvo que indique otra.</li>
+        <li><strong>Aceptación:</strong> la propuesta queda aceptada cuando la confirmás por escrito (correo o WhatsApp) y acreditás el primer pago previsto en ella.</li>
+        <li><strong>Inicio:</strong> el trabajo empieza una vez acreditado el pago y recibido el material inicial que te pidamos.</li>
+      </ol>
+      <p>Todo pedido que no esté en la propuesta se considera un cambio de alcance: lo cotizamos aparte y, si lo aprobás, ajustamos el plazo.</p>
 
-          <h2>3. Condiciones de Pago</h2>
-          <p>Los precios y modalidades de pago se definen detalladamente en la propuesta/presupuesto comercial individual de cada proyecto:</p>
-          <ul>
-            <li>Por regla general, el inicio del desarrollo requiere el abono de una seña equivalente al 50% del total presupuestado.</li>
-            <li>El saldo restante (50%) se cancelará a la entrega del proyecto o puesta en producción.</li>
-            <li>Ofrecemos un descuento del 15% por pago de contado vía transferencia bancaria y opciones de pago en cuotas mediante Mercado Pago.</li>
-            <li>Los abonos mensuales por mantenimiento del servidor, hosting o servicios continuos de Inteligencia Artificial se facturan por adelantado.</li>
-          </ul>
+      <h2 id="precios">5. Precios y pagos</h2>
+      <ul>
+        <li>Los precios se expresan en pesos argentinos, salvo que la propuesta indique otra moneda, y se detallan con el tratamiento del IVA que corresponda según tu condición fiscal. Emitimos factura electrónica.</li>
+        <li><strong>Proyectos:</strong> salvo que la propuesta diga otra cosa, se abona el 50 % al aceptar y el 50 % restante contra la entrega o la puesta en producción. Los proyectos extensos pueden dividirse en etapas con pagos por etapa.</li>
+        <li><strong>Servicios mensuales</strong> (plataforma, hosting, mantenimiento, asistentes de IA, pauta y gestión de contenidos): se facturan por adelantado, mes a mes. La inversión en publicidad se paga directamente a las plataformas (Meta, Google) y no forma parte de nuestros honorarios.</li>
+        <li><strong>Medios de pago:</strong> transferencia bancaria o Mercado Pago (con las cuotas que ofrezca el medio elegido). Los descuentos por pago anticipado, cuando existan, figuran en la propuesta.</li>
+        <li><strong>Mora:</strong> si un pago se atrasa más de 10 días, podemos suspender el servicio con un aviso previo de 7 días y reanudarlo al regularizarse. Los precios de los servicios mensuales pueden actualizarse con un aviso de 30 días.</li>
+      </ul>
 
-          <h2>4. Responsabilidades del Cliente</h2>
-          <p>Para garantizar el cumplimiento de los plazos de entrega, el cliente se compromete a:</p>
-          <ul>
-            <li>Proporcionar el material, accesos y credenciales (ej. dominios, APIs, accesos a CRM) requeridos de manera oportuna.</li>
-            <li>Entregar información verídica y estructurada para el entrenamiento de los agentes conversacionales de IA.</li>
-            <li>Validar los entregables intermedios en los tiempos de revisión pactados.</li>
-          </ul>
+      <h2 id="plazos">6. Plazos, entregas y revisiones</h2>
+      <p>Los plazos de la propuesta son estimados y cuentan desde el inicio del trabajo. Dependen de que recibamos a tiempo el material, los accesos y las aprobaciones de tu parte; las demoras en esos puntos corren el plazo en la misma medida. Cada etapa incluye las rondas de revisión indicadas en la propuesta (en general, dos). Si no recibimos observaciones dentro de los 10 días hábiles de presentada una entrega, la damos por aprobada para poder avanzar.</p>
 
-          <h2>5. Limitación de Responsabilidad</h2>
-          <p>En Kaptativa aplicamos las mejores prácticas de la industria en cuanto a calidad de software y seguridad de datos. Sin embargo, no nos hacemos responsables por:</p>
-          <ul>
-            <li>Interrupciones del servicio causadas por fallas en proveedores externos (como caídas en servidores de Meta, fallas en la API de WhatsApp Business, hosting contratados por terceros, etc.).</li>
-            <li>Pérdida de beneficios indirectos resultantes del uso o la imposibilidad de uso del software desarrollado.</li>
-            <li>Bloqueos de números telefónicos o cuentas de WhatsApp impuestos por Meta debido al uso inadecuado o spam en campañas de mensajería masiva por parte del cliente.</li>
-          </ul>
+      <h2 id="cliente">7. Obligaciones del cliente</h2>
+      <ul>
+        <li>Entregar el material (textos, imágenes, catálogos, accesos, credenciales, dominios) en tiempo y forma, y garantizar que tenés derecho a usarlo.</li>
+        <li>Brindar información veraz para configurar la plataforma y entrenar los asistentes de IA.</li>
+        <li>Usar la plataforma y los servicios conforme a la ley: defensa del consumidor, protección de datos de tus clientes, propiedad intelectual y normas de las plataformas de terceros (Meta, Google, Mercado Pago).</li>
+        <li>Responder por el contenido que publiques y por las operaciones que realices con tus clientes a través de la plataforma.</li>
+        <li>Mantener la confidencialidad de tus usuarios y contraseñas.</li>
+      </ul>
 
-          <h2>6. Modificación de los Términos</h2>
-          <p>Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. La fecha de última actualización en la parte superior reflejará los cambios más recientes. Te recomendamos revisar esta página periódicamente para mantenerte informado.</p>
+      <h2 id="propiedad">8. Propiedad intelectual</h2>
+      <ul>
+        <li><strong>Marca y sitio:</strong> el nombre Kaptativa, su logo, los textos, diseños y el código de kaptativa.com son de Kaptativa.</li>
+        <li><strong>Plataforma Kaptativa:</strong> es de Kaptativa. Al contratar un plan recibís una licencia de uso no exclusiva e intransferible mientras el servicio esté activo. Tus contenidos, tu catálogo, tus clientes y tus datos son tuyos.</li>
+        <li><strong>Desarrollos a medida:</strong> el código, los diseños y las bases de datos creados específicamente para vos pasan a ser tuyos una vez saldado el pago total. Las herramientas, librerías y componentes genéricos que Kaptativa usa en varios proyectos siguen siendo de Kaptativa, con licencia para que los uses dentro de tu desarrollo.</li>
+        <li><strong>Portafolio:</strong> salvo que acordemos lo contrario por escrito, podemos mencionar y mostrar el trabajo realizado en nuestro sitio y presentaciones. El sitio lleva el crédito "hecho con la plataforma", que podés pedir que quitemos.</li>
+      </ul>
 
-          <p>Si tenés cualquier duda técnica o comercial sobre estos términos, podés comunicarte directamente a nuestro WhatsApp oficial o escribirnos a <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a>.</p>
-        </div>
-      </div>
-    </section>
+      <h2 id="plataforma">9. Plataforma, hosting y datos</h2>
+      <ul>
+        <li>El hosting y el mantenimiento técnico se incluyen según el plan contratado. Trabajamos para que la plataforma esté disponible de forma continua, con monitoreo y copias de seguridad diarias, aunque no podemos garantizar una disponibilidad absoluta.</li>
+        <li>Los dominios se registran a tu nombre o se transfieren a tu nombre cuando lo pidas.</li>
+        <li>Al finalizar el servicio podés exportar tus datos (productos, clientes, pedidos) durante los 30 días siguientes. Después de ese plazo los eliminamos de forma segura.</li>
+        <li>Podemos realizar actualizaciones y mejoras de la plataforma sin aviso previo cuando no afecten tu operación, y con aviso cuando impliquen cambios visibles.</li>
+      </ul>
+
+      <h2 id="ia">10. Asistentes de inteligencia artificial y mensajería</h2>
+      <p>Los asistentes de IA generan respuestas a partir de la información que nos das y de modelos de terceros. Pueden equivocarse: por eso incluyen la derivación a una persona y te recomendamos supervisar las conversaciones, en especial las que involucren precios, disponibilidad o compromisos. Sos responsable de la información con la que se entrena el asistente y de cumplir las políticas de WhatsApp y Meta; los bloqueos de números o cuentas por envíos masivos, spam o usos contrarios a esas políticas son responsabilidad del cliente.</p>
+
+      <h2 id="garantia">11. Garantía y soporte</h2>
+      <p>Corregimos sin cargo los errores de funcionamiento atribuibles a nuestro trabajo que nos reportes dentro de los 30 días posteriores a la entrega de un proyecto. En los servicios mensuales, el soporte se presta según lo que incluye cada plan, de lunes a viernes de 9 a 18 h (Argentina). No cubre fallas causadas por cambios de terceros (plataformas, APIs, proveedores), por modificaciones hechas por el cliente o por usos no previstos en la propuesta; esos trabajos se cotizan aparte.</p>
+
+      <h2 id="responsabilidad">12. Limitación de responsabilidad</h2>
+      <p>Hacemos nuestro trabajo con cuidado y buenas prácticas, pero no respondemos por interrupciones o fallas de proveedores externos (Meta y WhatsApp, Google, Mercado Pago, registradores de dominio, proveedores de hosting o de IA), por decisiones comerciales tomadas sobre la base de los datos o las respuestas que entregan los sistemas, ni por lucro cesante o daños indirectos. En todo caso, nuestra responsabilidad frente a un cliente se limita al importe que ese cliente nos haya pagado en los 12 meses anteriores al hecho que la origine. Nada de esto limita los derechos que las leyes argentinas reconocen a los consumidores y que no pueden renunciarse.</p>
+
+      <h2 id="cancelacion">13. Cancelación y derecho de arrepentimiento</h2>
+      <ul>
+        <li><strong>Servicios mensuales:</strong> podés cancelarlos cuando quieras con un aviso de 30 días, sin penalidad. Se cobra el período en curso.</li>
+        <li><strong>Proyectos:</strong> si decidís no continuar, se abonan las etapas realizadas hasta ese momento y te entregamos lo producido y pagado.</li>
+        <li><strong>Arrepentimiento:</strong> si contrataste a distancia como consumidor final, podés revocar la contratación dentro de los 10 días corridos desde la aceptación o desde la entrega, lo que ocurra después, sin costo ni necesidad de explicar el motivo (artículos 1110 y siguientes del Código Civil y Comercial y Ley 24.240). Alcanza con escribirnos a <a href="mailto:hola@kaptativa.com?subject=Bot%C3%B3n%20de%20arrepentimiento">hola@kaptativa.com</a> con el asunto "Botón de arrepentimiento" y te devolvemos lo pagado por el mismo medio.</li>
+      </ul>
+      <p><a class="btn btn-secondary" href="mailto:hola@kaptativa.com?subject=Bot%C3%B3n%20de%20arrepentimiento&amp;body=Quiero%20revocar%20la%20contrataci%C3%B3n%20realizada%20el%20d%C3%ADa%20...">Botón de arrepentimiento</a></p>
+
+      <h2 id="datos">14. Datos personales y confidencialidad</h2>
+      <p>Tratamos los datos personales según nuestra <a href="/privacidad/">política de privacidad</a>. Cuando operamos tu plataforma o tus asistentes, los datos de tus clientes siguen siendo tuyos y los tratamos solo por tu cuenta y según tus instrucciones. Ambas partes se comprometen a mantener en reserva la información confidencial que conozcan por la relación comercial (precios, procesos, listas de clientes, accesos), durante la relación y por dos años después de terminada.</p>
+
+      <h2 id="cambios">15. Cambios en estos términos</h2>
+      <p>Podemos actualizar estos términos cuando cambien los servicios o la normativa. Publicamos la versión vigente en esta página con su fecha. Los cambios no afectan las contrataciones ya aceptadas, que se rigen por los términos vigentes al momento de aceptarlas, salvo que los nuevos sean más favorables para el cliente.</p>
+
+      <h2 id="ley">16. Ley aplicable y jurisdicción</h2>
+      <p>Estos términos se rigen por las leyes de la República Argentina. Para cualquier controversia, las partes se someten a los tribunales ordinarios de la ciudad de La Rioja, con renuncia a cualquier otro fuero, salvo en las relaciones de consumo, donde el consumidor puede acudir a los tribunales de su domicilio.</p>
+
+      <h2 id="contacto">17. Contacto y reclamos</h2>
+      <p>Para consultas, reclamos o pedidos sobre estos términos, escribinos a <a href="mailto:hola@kaptativa.com">hola@kaptativa.com</a> o por <a href="https://wa.me/5493804890834" target="_blank" rel="noopener noreferrer">WhatsApp</a>. Respondemos en días hábiles, dentro de las 48 horas. Si sos consumidor también podés acudir a la Dirección de Defensa del Consumidor de tu provincia o a la ventanilla única federal en <a href="https://www.argentina.gob.ar/defensadelconsumidor" target="_blank" rel="noopener noreferrer">argentina.gob.ar/defensadelconsumidor</a>.</p>
+    </LegalShell>
   </main>
-
   <Footer slot="footer" />
 </Layout>
-
-<style>
-  .legal-section {
-    padding: 140px 0 100px 0;
-    background-color: var(--bg-primary);
-  }
-
-  .legal-container {
-    max-width: 800px !important;
-  }
-
-  .legal-header {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .legal-header h1 {
-    font-family: 'Lexend', sans-serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    letter-spacing: -0.02em;
-  }
-
-  .last-updated {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-  }
-
-  .legal-content {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 28px;
-    padding: 50px;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .legal-content p {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin-bottom: 24px;
-  }
-
-  .legal-content h2 {
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-top: 40px;
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-  }
-
-  .legal-content ul {
-    margin-bottom: 24px;
-    padding-left: 24px;
-    list-style: disc !important;
-  }
-
-  .legal-content li {
-    color: var(--text-secondary);
-    font-size: 1.02rem;
-    line-height: 1.7;
-    margin-bottom: 10px;
-    display: list-item !important;
-    list-style-type: disc !important;
-  }
-
-  .legal-content li::marker {
-    color: var(--accent-crimson, #7C5CFF);
-  }
-
-  .legal-content a {
-    color: var(--accent-cyan, #00d2ff);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transition: color 0.2s ease;
-  }
-
-  .legal-content a:hover {
-    color: var(--text-primary);
-  }
-
-  @media (max-width: 768px) {
-    .legal-section {
-      padding: 100px 0 60px 0;
-    }
-    
-    .legal-header h1 {
-      font-size: 2.2rem;
-    }
-
-    .legal-content {
-      padding: 30px 24px;
-      border-radius: 20px;
-    }
-  }
-</style>
