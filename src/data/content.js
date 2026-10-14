@@ -1,7 +1,7 @@
 export const faqsData = [
   {
     question: "¿Necesito tener conocimientos técnicos previos?",
-    answer: "No, en absoluto. En Kaptativa nos encargamos de todo el proceso técnico: desde la configuración del hosting y dominio hasta la programación de integraciones y el entrenamiento de los agentes de IA. Además, al finalizar el proyecto, te brindamos una videoguía simple y personalizada para que vos o tu equipo puedan gestionar textos e información básica sin depender de nosotros."
+    answer: "No, en absoluto. En kaptativa nos encargamos de todo el proceso técnico: desde la configuración del hosting y dominio hasta la programación de integraciones y el entrenamiento de los agentes de IA. Además, al finalizar el proyecto, te brindamos una videoguía simple y personalizada para que vos o tu equipo puedan gestionar textos e información básica sin depender de nosotros."
   },
   {
     question: "¿Pueden automatizar los flujos de mi WhatsApp actual?",
@@ -20,7 +20,7 @@ export const faqsData = [
     answer: "Totalmente. Diseñamos las estructuras de forma modular para que sea simple editarlas. Podrás cargar nuevos proyectos, modificar precios, cambiar descripciones de servicios o subir artículos de blog a través de un panel autogestionable muy intuitivo sin necesidad de tocar código de programación."
   },
   {
-    question: "¿Qué necesito tener listo para empezar a trabajar con Kaptativa?",
+    question: "¿Qué necesito tener listo para empezar a trabajar con kaptativa?",
     answer: "No necesitás nada estructurado. Solo agendar la asesoría inicial. Durante esa charla, te guiaremos con preguntas sencillas sobre tu modelo comercial y necesidades de tu negocio. Si ya tenés material gráfico (logos, paleta de colores) u hojas informativas, nos servirá como base, pero de lo contrario, nosotros te ayudamos a construirlo."
   },
   {

@@ -4,7 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 ---
 
-<Layout title="Propuesta Comercial | Kaptativa" description="Visualiza tu propuesta técnica y comercial a medida.">
+<Layout title="Propuesta Comercial | kaptativa" description="Visualiza tu propuesta técnica y comercial a medida.">
   <Header slot="header" floating />
 
   <!-- Load html2pdf from CDN for direct PDF generation -->
@@ -69,22 +69,11 @@ import Footer from '../../components/Footer.astro';
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 10px; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 30px;">
             <div>
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="180" height="38">
-                  <defs>
-                    <linearGradient id="logo-gradient-public-screen" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#7C5CFF" />
-                      <stop offset="100%" stop-color="#6A48F5" />
-                    </linearGradient>
-                  </defs>
-                  <g>
-                    <path d="M 6 13 L 6 47" stroke="url(#logo-gradient-public-screen)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-                    <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="url(#logo-gradient-public-screen)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-                    <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-public-screen)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-                  </g>
-                  <text x="44" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">
-                    kaptativa<tspan fill="#7C5CFF">.</tspan>
-                  </text>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 169 44" width="146" height="38">
+        <!-- Logo: la flecha (isotipo) + kaptativa con k minúscula -->
+        <g transform="translate(-4 7.6) scale(0.69)" stroke="#7C5CFF" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" /><path d="M 15 13 L 26 13 L 26 24" /></g>
+        <text x="26" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">kaptativa<tspan fill="#7C5CFF">.</tspan></text>
+      </svg>
               </div>
               <p style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin: 0; padding-left: 2px;">Diseño Web & Automatización IA</p>
             </div>
@@ -111,7 +100,7 @@ import Footer from '../../components/Footer.astro';
               <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6A48F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Proveedor de Soluciones
               </div>
-              <div style="font-size: 1.25rem; font-weight: 600; color: #ffffff; font-family: 'Lexend', sans-serif;">Agencia Kaptativa</div>
+              <div style="font-size: 1.25rem; font-weight: 600; color: #ffffff; font-family: 'Lexend', sans-serif;">Agencia kaptativa</div>
               <div style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 4px; font-weight: 500;">Consultoría Tecnológica & Automatizaciones</div>
               <div id="lbl-agency-email-screen" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">hola@kaptativa.com</div>
             </div>
@@ -229,7 +218,7 @@ import Footer from '../../components/Footer.astro';
                     <path d="M10,20 C30,10 50,25 70,12 C80,8 90,15 95,20" fill="none" stroke="#7C5CFF" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </div>
-                <div style="border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 4px; font-size: 0.725rem; color: var(--text-secondary); font-weight: 600;">Kaptativa Digital</div>
+                <div style="border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 4px; font-size: 0.725rem; color: var(--text-secondary); font-weight: 600;">kaptativa Digital</div>
                 <div style="font-size: 0.65rem; color: var(--text-muted);">Emisor Autorizado</div>
               </div>
               <div style="text-align: center; width: 130px;">
@@ -258,22 +247,11 @@ import Footer from '../../components/Footer.astro';
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px; margin-bottom: 35px; border-bottom: 1.5px solid #ECECEF; padding-bottom: 25px;">
           <div>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="160" height="34">
-                <defs>
-                  <linearGradient id="logo-gradient-public-pdf" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#7C5CFF" />
-                    <stop offset="100%" stop-color="#6A48F5" />
-                  </linearGradient>
-                </defs>
-                <g>
-                  <path d="M 6 13 L 6 47" stroke="url(#logo-gradient-public-pdf)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-                  <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="url(#logo-gradient-public-pdf)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-                  <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-public-pdf)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-                </g>
-                <text x="44" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#0f172a" letter-spacing="0.3">
-                  kaptativa<tspan fill="#7C5CFF">.</tspan>
-                </text>
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 169 44" width="131" height="34">
+        <!-- Logo: la flecha (isotipo) + kaptativa con k minúscula -->
+        <g transform="translate(-4 7.6) scale(0.69)" stroke="#7C5CFF" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" /><path d="M 15 13 L 26 13 L 26 24" /></g>
+        <text x="26" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#0f172a" letter-spacing="0.3">kaptativa<tspan fill="#7C5CFF">.</tspan></text>
+      </svg>
             </div>
             <p style="font-size: 0.7rem; color: #8E8E99; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin: 0; padding-left: 2px;">Diseño Web & Automatización IA</p>
           </div>
@@ -296,7 +274,7 @@ import Footer from '../../components/Footer.astro';
           </div>
           <div style="background: #f8fafc; border: 1px solid #ECECEF; padding: 18px; border-radius: 8px;">
             <div style="font-size: 0.65rem; color: #8E8E99; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px;">Proveedor de Soluciones</div>
-            <div style="font-size: 1.05rem; font-weight: 600; color: #0f172a; font-family: 'Lexend', sans-serif;">Agencia Kaptativa</div>
+            <div style="font-size: 1.05rem; font-weight: 600; color: #0f172a; font-family: 'Lexend', sans-serif;">Agencia kaptativa</div>
             <div style="font-size: 0.85rem; color: #334155; margin-top: 4px; font-weight: 500;">Consultoría Tecnológica & Automatizaciones</div>
             <div id="lbl-agency-email-pdf" style="font-size: 0.8rem; color: #8E8E99; margin-top: 2px;">hola@kaptativa.com</div>
           </div>
@@ -414,7 +392,7 @@ import Footer from '../../components/Footer.astro';
                   <path d="M10,20 C30,10 50,25 70,12 C80,8 90,15 95,20" fill="none" stroke="#5B3FE0" stroke-width="2" stroke-linecap="round"/>
                 </svg>
               </div>
-              <div style="border-top: 1px solid #D4D4D9; padding-top: 2px; font-size: 0.65rem; color: #475569; font-weight: 600;">Kaptativa Digital</div>
+              <div style="border-top: 1px solid #D4D4D9; padding-top: 2px; font-size: 0.65rem; color: #475569; font-weight: 600;">kaptativa Digital</div>
               <div style="font-size: 0.55rem; color: #B4B4BE;">Emisor Autorizado</div>
             </div>
             <div style="text-align: center; width: 120px;">
@@ -764,7 +742,7 @@ import Footer from '../../components/Footer.astro';
         printArea.style.background = '#ffffff';
         printArea.style.color = '#0f172a';
 
-        const filename = `Propuesta_Kaptativa_${(budget.client_business || 'Cliente').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+        const filename = `Propuesta_kaptativa_${(budget.client_business || 'Cliente').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
         const opt = {
           margin:       [0.3, 0.3, 0.3, 0.3],
           filename:     filename,

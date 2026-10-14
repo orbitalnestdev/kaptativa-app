@@ -1,16 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-
-  <!-- Dark Rounded Container Background -->
-  <rect width="64" height="64" rx="16" fill="#0F0F12" />
-  <rect width="64" height="64" rx="16" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5" />
-
-  <!-- Centered Isotipo SVG -->
-  <g transform="translate(14, 10) scale(1.05)">
-    <!-- Vertical Stem -->
-    <path d="M 6 13 L 6 47" stroke="#7C5CFF" stroke-width="5.5" stroke-linecap="round" fill="none" />
-    <!-- Smooth S-curve for diagonals -->
-    <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="#7C5CFF" stroke-width="5.5" stroke-linecap="round" fill="none" />
-    <!-- Arrowhead pointing up-right -->
-    <path d="M 15 13 L 26 13 L 26 24" stroke="#7C5CFF" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <!-- Isotipo de Kaptativa: la flecha blanca sobre la pastilla violeta (mismo diseño que el isotipo 3D) -->
+  <defs><linearGradient id="kf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8C70FF"/><stop offset="1" stop-color="#5B3FE0"/></linearGradient></defs>
+  <rect width="64" height="64" rx="16" fill="url(#kf)"/>
+  <g transform="translate(3.73 -11.50) scale(1.45)" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13"/><path d="M 15 13 L 26 13 L 26 24"/>
   </g>
 </svg>

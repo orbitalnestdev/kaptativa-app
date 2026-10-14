@@ -1,4 +1,4 @@
-# Kaptativa
+# kaptativa
 
 > Estudio de desarrollo web de La Rioja, Argentina. Diseñamos y desarrollamos sitios web, tiendas online y sistemas de gestión autoadministrables, con integraciones (pagos, logística, WhatsApp) y asistentes de inteligencia artificial.
 

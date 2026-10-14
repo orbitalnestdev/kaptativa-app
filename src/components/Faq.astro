@@ -2,7 +2,7 @@
 import { faqsData } from '../data/content.js';
 interface Props { items?: { question: string; answer: string }[]; title?: string; subtitle?: string; id?: string }
 const { items = faqsData, title = 'Preguntas frecuentes', subtitle = 'Lo que más nos consultan antes de empezar.', id = 'faq' } = Astro.props;
-const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Tengo una consulta sobre la plataforma.');
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola kaptativa! Tengo una consulta sobre la plataforma.');
 ---
 
 <section class="section section-light" id={id}>

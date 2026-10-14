@@ -2,28 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Checkout Seguro | Kaptativa" description="Completá tu compra del Plan Inmobiliario + CRM de forma rápida y segura.">
+<Layout title="Checkout Seguro | kaptativa" description="Completá tu compra del Plan Inmobiliario + CRM de forma rápida y segura.">
 
   <main class="checkout-main">
     <!-- MINI HEADER DE CHECKOUT SEGURO -->
     <header class="checkout-mini-header" style="max-width: 1100px; margin: 0 auto 20px auto; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); padding-left: 20px; padding-right: 20px; position: relative; z-index: 10;">
       <a href="/" style="display: flex; align-items: center; text-decoration: none;">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="130" height="32" style="display: block;">
-          <defs>
-            <linearGradient id="logo-grad-chk" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#7C5CFF" />
-              <stop offset="100%" stop-color="#6A48F5" />
-            </linearGradient>
-          </defs>
-          <g>
-            <path d="M 6 13 L 6 47" stroke="url(#logo-grad-chk)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-            <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="url(#logo-grad-chk)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-            <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-grad-chk)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-          </g>
-          <text x="44" y="39" font-family="'Lexend', 'Inter', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">
-            kaptativa<tspan fill="#7C5CFF">.</tspan>
-          </text>
-        </svg>
+        <svg style="display: block;" xmlns="http://www.w3.org/2000/svg" viewBox="0 8 169 44" width="123" height="32">
+        <!-- Logo: la flecha (isotipo) + kaptativa con k minúscula -->
+        <g transform="translate(-4 7.6) scale(0.69)" stroke="#7C5CFF" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" /><path d="M 15 13 L 26 13 L 26 24" /></g>
+        <text x="26" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">kaptativa<tspan fill="#7C5CFF">.</tspan></text>
+      </svg>
       </a>
       <div style="display: flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); padding: 8px 16px; border-radius: 99px; font-size: 0.775rem; color: #10B981; font-weight: 600; font-family: 'Lexend', sans-serif;">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; display: inline-block; vertical-align: middle;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Checkout seguro
@@ -694,7 +683,7 @@ import Layout from '../layouts/Layout.astro';
     // Load dynamic bank configurations
     const crmSettings = JSON.parse(localStorage.getItem('crm_settings') || '{}');
     const bankName = crmSettings.bank_name || 'Banco Galicia';
-    const bankTitular = crmSettings.bank_titular || 'Kaptativa Digital';
+    const bankTitular = crmSettings.bank_titular || 'kaptativa Digital';
     const bankAlias = crmSettings.bank_alias || 'kaptativa.dev';
     const bankCbu = crmSettings.bank_cbu || '0070123456789012345678';
 
@@ -820,7 +809,7 @@ import Layout from '../layouts/Layout.astro';
                 quoteId: budget.$id,
                 client: business,
                 email: email,
-                title: 'Web Inmobiliaria + CRM (Pago Único) - Kaptativa',
+                title: 'Web Inmobiliaria + CRM (Pago Único) - kaptativa',
                 amount: rawAmount,
                 currency: 'ARS'
               })
@@ -844,7 +833,7 @@ import Layout from '../layouts/Layout.astro';
             btnSubmit.disabled = false;
 
             // Generate WhatsApp Link
-            const textMsg = `¡Hola Kaptativa! Acabo de confirmar la compra del Plan Inmobiliario por transferencia bancaria (Monto: ARS $324.000). Mi correo es ${email}. En breve les envío el comprobante de transferencia.`;
+            const textMsg = `¡Hola kaptativa! Acabo de confirmar la compra del Plan Inmobiliario por transferencia bancaria (Monto: ARS $324.000). Mi correo es ${email}. En breve les envío el comprobante de transferencia.`;
             btnModalWhatsapp.href = `https://wa.me/5493804890834?text=${encodeURIComponent(textMsg)}`;
             
             // Show modal

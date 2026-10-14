@@ -584,7 +584,7 @@ export default function DemoSistema() {
           <div style={S.sbBrand}>
             <div style={S.sbLogo}>K</div>
             <div>
-              <div style={S.sbName}>Kaptativa CRM</div>
+              <div style={S.sbName}>kaptativa CRM</div>
               <div style={S.sbPlan}>Panel Inmobiliario Premium</div>
             </div>
           </div>
@@ -639,7 +639,7 @@ export default function DemoSistema() {
               {tab === "blog" && "Contenido & Artículos SEO"}
               {tab === "agente" && "Configuración de Agente IA (WhatsApp)"}
             </h2>
-            <div style={S.adminCrumb}>Kaptativa CRM · {tab.toUpperCase()}</div>
+            <div style={S.adminCrumb}>kaptativa CRM · {tab.toUpperCase()}</div>
           </div>
           <div style={S.adminTools}>
             <div style={S.fakeSearch}>

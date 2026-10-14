@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout title="Pasarela de Pagos Segura | Kaptativa" description="Plataforma de cobros y facturación online para tu propuesta técnica.">
+<Layout title="Pasarela de Pagos Segura | kaptativa" description="Plataforma de cobros y facturación online para tu propuesta técnica.">
 
   <main class="quote-payment-main" style="padding-top: 40px; padding-bottom: 80px; min-height: 90vh; position: relative;">
     
@@ -10,22 +10,11 @@ import Layout from '../../layouts/Layout.astro';
       <!-- SECURE CHECKOUT HEADER -->
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); flex-wrap: wrap; gap: 15px;">
         <a href="/" style="display: flex; align-items: center; text-decoration: none;">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 215 44" width="160" height="34" aria-label="Kaptativa Logo">
-            <defs>
-              <linearGradient id="logo-gradient-checkout" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#7C5CFF" />
-                <stop offset="100%" stop-color="#6A48F5" />
-              </linearGradient>
-            </defs>
-            <g>
-              <path d="M 6 13 L 6 47" stroke="url(#logo-gradient-checkout)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-              <path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" stroke="url(#logo-gradient-checkout)" stroke-width="6.5" stroke-linecap="round" fill="none" />
-              <path d="M 15 13 L 26 13 L 26 24" stroke="url(#logo-gradient-checkout)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-            </g>
-            <text x="44" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">
-              kaptativa<tspan fill="#7C5CFF">.</tspan>
-            </text>
-          </svg>
+          <svg aria-label="kaptativa Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 8 169 44" width="131" height="34">
+        <!-- Logo: la flecha (isotipo) + kaptativa con k minúscula -->
+        <g transform="translate(-4 7.6) scale(0.69)" stroke="#7C5CFF" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 28 47 C 18 41 11 36 11 30 C 11 24 18 19 26 13" /><path d="M 15 13 L 26 13 L 26 24" /></g>
+        <text x="26" y="39" font-family="'Lexend', sans-serif" font-size="27" font-weight="600" fill="#ffffff" letter-spacing="0.3">kaptativa<tspan fill="#7C5CFF">.</tspan></text>
+      </svg>
         </a>
         <div style="display: flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.2); padding: 8px 16px; border-radius: 99px; font-size: 0.8rem; color: #10B981; font-weight: 600; font-family: 'Lexend', sans-serif;">
           <span style="font-size: 0.95rem; line-height: 1;">🔒</span> Conexión Cifrada SSL 256-bit
@@ -50,7 +39,7 @@ import Layout from '../../layouts/Layout.astro';
           Tuvimos un inconveniente al procesar el pago. No te preocupes: podés escribirle de inmediato a tu asesor comercial asignado o contactarnos por WhatsApp para resolverlo juntos.
         </p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-          <a href="https://wa.me/5493804890834?text=Hola,%20tuve%20un%20error%20en%20la%20pasarela%20de%20pagos%20de%20Kaptativa." target="_blank" class="btn btn-secondary btn-whatsapp" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: rgba(16, 185, 129, 0.08); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); font-weight: 600; text-decoration: none; border-radius: 8px; font-size: 0.95rem; transition: all 0.2s;">
+          <a href="https://wa.me/5493804890834?text=Hola,%20tuve%20un%20error%20en%20la%20pasarela%20de%20pagos%20de%20kaptativa." target="_blank" class="btn btn-secondary btn-whatsapp" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: rgba(16, 185, 129, 0.08); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); font-weight: 600; text-decoration: none; border-radius: 8px; font-size: 0.95rem; transition: all 0.2s;">
             Soporte por WhatsApp 💬
           </a>
           <a href="/" class="btn btn-primary" style="padding: 12px 24px;">Volver al Inicio</a>
@@ -232,7 +221,7 @@ import Layout from '../../layouts/Layout.astro';
       <!-- SECURE CHECKOUT FOOTER -->
       <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-size: 0.8rem; color: var(--text-muted); padding-bottom: 40px;">
         <div>
-          © 2026 Kaptativa. Todos los derechos reservados.
+          © 2026 kaptativa. Todos los derechos reservados.
         </div>
         <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
           <a href="/#inicio" style="color: var(--text-muted); text-decoration: none; transition: color 0.2s;">Políticas de Privacidad</a>
@@ -267,7 +256,7 @@ import Layout from '../../layouts/Layout.astro';
     // Load Settings
     const crmSettings = JSON.parse(localStorage.getItem('crm_settings') || '{}');
     const bankName = crmSettings.bank_name || 'Agencia Galicia';
-    const bankTitular = crmSettings.bank_titular || 'Kaptativa Digital';
+    const bankTitular = crmSettings.bank_titular || 'kaptativa Digital';
     const bankAlias = crmSettings.bank_alias || 'kaptativa.galicia';
     const bankCbu = crmSettings.bank_cbu || '0070123456789012345678';
     
@@ -476,7 +465,7 @@ import Layout from '../../layouts/Layout.astro';
         const formattedTotal = formatVal(finalTransferUsd);
         const contactAgentPhone = getAgencyWhatsAppPhone();
 
-        const receiptMsg = `Hola Kaptativa! Te comparto el comprobante de transferencia por *${formattedTotal}* de mi proyecto *${budgetObj.client_business || ''}* para dar inicio formal al desarrollo del presupuesto *#${(budgetObj.quote_number || '').toUpperCase()}* (${optionLabel}).`;
+        const receiptMsg = `Hola kaptativa! Te comparto el comprobante de transferencia por *${formattedTotal}* de mi proyecto *${budgetObj.client_business || ''}* para dar inicio formal al desarrollo del presupuesto *#${(budgetObj.quote_number || '').toUpperCase()}* (${optionLabel}).`;
         document.getElementById('lnk-whatsapp-receipt')!.setAttribute('href', `https://wa.me/${contactAgentPhone}?text=${encodeURIComponent(receiptMsg)}`);
       }
 

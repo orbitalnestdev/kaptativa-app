@@ -8,7 +8,7 @@ import IsoK3D from '../components/IsoK3D.astro';
 import CtaBeam from '../components/CtaBeam.astro';
 import Trabajos from '../components/home2/Trabajos.astro';
 import { trabajos, categorias } from '../data/trabajos.js';
-const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola Kaptativa! Vi los proyectos y quiero solicitar una demo para mi negocio.');
+const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hola kaptativa! Vi los proyectos y quiero solicitar una demo para mi negocio.');
 // Mosaico del hero: tres sitios de rubros distintos, con su captura real
 const host = (u: string) => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
 const destacados = ['AoMatcha', 'MUV Propiedades', 'Bodega Iaccarini'].map((n) => trabajos.find((t) => t.nombre === n)).filter(Boolean);
@@ -16,7 +16,7 @@ const label = (key: string) => categorias.find((c) => c.key === key)?.label ?? '
 const rubrosConProyectos = new Set(trabajos.map((t) => t.categoria)).size;
 ---
 
-<Layout title="Proyectos: sitios, tiendas y sistemas que ya funcionan | Kaptativa" description="Sitios web, tiendas online y sistemas hechos con la plataforma Kaptativa que hoy venden, reservan y gestionan. Filtrá por rubro y recorrelos.">
+<Layout title="Proyectos: sitios, tiendas y sistemas que ya funcionan | kaptativa" description="Sitios web, tiendas online y sistemas hechos con la plataforma kaptativa que hoy venden, reservan y gestionan. Filtrá por rubro y recorrelos.">
   <Header slot="header" floating />
 
   <main>
@@ -27,7 +27,7 @@ const rubrosConProyectos = new Set(trabajos.map((t) => t.categoria)).size;
       <div class="container pj-hero-grid">
         <div class="hero-content reveal">
           <h1 class="hero-tagline">Proyectos que ya <span class="text-gradient-crimson">están funcionando</span></h1>
-          <p class="hero-description">Tiendas, sitios y sistemas hechos con la plataforma Kaptativa que hoy venden, reservan y gestionan. Filtrá por rubro y entrá a recorrerlos.</p>
+          <p class="hero-description">Tiendas, sitios y sistemas hechos con la plataforma kaptativa que hoy venden, reservan y gestionan. Filtrá por rubro y entrá a recorrerlos.</p>
           <div class="hero-buttons">
             <a href="#trabajos" class="btn btn-primary btn-glow">Ver los proyectos</a>
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Solicitar demo</a>

@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 import HeroAurora from '../components/HeroAurora.astro';
 ---
 
-<Layout title="Contacto: pedí una demo o un presupuesto | Kaptativa" description="Pedí una demo o un presupuesto para tu sitio web, tienda online o sistema de gestión. Te respondemos en menos de 24 hs hábiles.">
+<Layout title="Contacto: pedí una demo o un presupuesto | kaptativa" description="Pedí una demo o un presupuesto para tu sitio web, tienda online o sistema de gestión. Te respondemos en menos de 24 hs hábiles.">
   <Header slot="header" floating />
   
   <main>
@@ -267,7 +267,7 @@ import HeroAurora from '../components/HeroAurora.astro';
         await api.db.createLead(leadData);
 
         const agencyPhoneNumber = '5493804890834';
-        const introMessage = `¡Hola Kaptativa! Acabo de enviar una consulta desde el formulario de contacto web.`;
+        const introMessage = `¡Hola kaptativa! Acabo de enviar una consulta desde el formulario de contacto web.`;
         const details = `*Datos de contacto:*\n- *Nombre:* ${name}\n- *Negocio:* ${business}\n- *WhatsApp:* ${whatsapp}\n- *Email:* ${email}\n- *Interés:* ${interest}\n\n*Desafío:* ${message}`;
         const fullText = encodeURIComponent(`${introMessage}\n\n${details}`);
 

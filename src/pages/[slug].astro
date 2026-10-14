@@ -158,12 +158,12 @@ const schemaBlogPosting = {
   "dateModified": post.modifiedAt || post.publishedAt,
   "author": {
     "@type": "Organization",
-    "name": "Kaptativa",
+    "name": "kaptativa",
     "url": "https://kaptativa.com/"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Kaptativa",
+    "name": "kaptativa",
     "url": "https://kaptativa.com/",
     "logo": {
       "@type": "ImageObject",
@@ -218,7 +218,7 @@ const schemaBreadcrumb = {
 };
 ---
 
-<Layout title={`${post.seoTitle} | Kaptativa`} description={post.seoDescription}>
+<Layout title={`${post.seoTitle} | kaptativa`} description={post.seoDescription}>
   <Fragment slot="head">
     <meta property="og:type" content="article" />
     <meta property="og:title" content={post.seoTitle} />
@@ -227,7 +227,7 @@ const schemaBreadcrumb = {
     <meta property="og:url" content={canonicalUrl} />
     <meta property="article:published_time" content={post.publishedAt} />
     <meta property="article:modified_time" content={post.modifiedAt || post.publishedAt} />
-    <meta property="article:author" content="Kaptativa" />
+    <meta property="article:author" content="kaptativa" />
     <!-- Preload LCP Image -->
     <link rel="preload" as="image" href={post.featuredImage} fetchpriority="high" />
 
@@ -263,9 +263,9 @@ const schemaBreadcrumb = {
 
       <!-- Institutional Author & Metadata Bar -->
       <div class="blog-article-author-bar">
-        <img src="/favicon.svg" alt="Kaptativa" width="44" height="44" style="width: 44px; height: 44px; border-radius: 50%; object-fit: contain; box-shadow: 0 0 15px rgba(124, 92, 255, 0.3); border: 1px solid rgba(255, 255, 255, 0.12);" loading="eager" decoding="async" />
+        <img src="/favicon.svg" alt="kaptativa" width="44" height="44" style="width: 44px; height: 44px; border-radius: 50%; object-fit: contain; box-shadow: 0 0 15px rgba(124, 92, 255, 0.3); border: 1px solid rgba(255, 255, 255, 0.12);" loading="eager" decoding="async" />
         <div>
-          <div class="blog-article-author-name">Kaptativa</div>
+          <div class="blog-article-author-name">kaptativa</div>
           <div class="blog-article-author-meta">
             Publicado el {datePublishedFormatted} • {post.readingTime}
           </div>

@@ -43,8 +43,8 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
   <!-- SEO & Optimization -->
   <title>{title}</title>
   <meta name="description" content={description}>
-  <meta name="keywords" content="Kaptativa, diseño web, automatizacion de procesos, inteligencia artificial aplicada, digitalizacion de negocios, landing page, ecommerce, chatbots whatsapp">
-  <meta name="author" content="Kaptativa">
+  <meta name="keywords" content="kaptativa, diseño web, automatizacion de procesos, inteligencia artificial aplicada, digitalizacion de negocios, landing page, ecommerce, chatbots whatsapp">
+  <meta name="author" content="kaptativa">
   <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"}>
   <meta name="google-site-verification" content="FDcUTvvGHpdsHNvfAK1BRzsSiaSEx27YcRAzKEQnPEM" />
   <link rel="canonical" href={canonicalURL.href}>
@@ -64,8 +64,10 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
   <meta name="twitter:image" content="https://kaptativa.com/og-image.jpg">
   
   <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   
   <!-- Fuentes autoalojadas (@fontsource): sin conexiones a Google Fonts -->
   <link rel="preload" href={lexend600} as="font" type="font/woff2" crossorigin />
@@ -76,7 +78,7 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Kaptativa",
+    "name": "kaptativa",
     "url": "https://kaptativa.com/",
     "logo": "https://kaptativa.com/logo.svg",
     "description": "Transformamos tu negocio con tecnología que conecta, automatiza y escala.",
