@@ -61,7 +61,7 @@ const schema = {
             <tbody>
               {comparativa.map((r) => (
                 <tr>
-                  <th scope="row">{r.item}</th>
+                  <th scope="row">{r.item}{r.nuevo && <span class="tag-nuevo">Nuevo</span>}</th>
                   {r.planes.map((v, i) => (
                     <td class:list={{ popular: planes[i].popular }}>
                       {v === true && <span class="cmp-si"><Fragment set:html={svg('check')} /><span class="sr-only">Incluido</span></span>}
@@ -147,6 +147,7 @@ const schema = {
   .cmp th[scope='row'] { text-align: left; font-weight: 500; color: var(--text-secondary); width: 40%; }
   .cmp thead th:first-child { text-align: left; color: var(--text-muted); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; }
   .cmp .popular { background: rgba(124, 92, 255, 0.08); }
+  .tag-nuevo { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.5; vertical-align: 1px; color: #fff; background: var(--brand-fill); }
   .cmp thead th.popular { color: #fff; }
   .cmp-si { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgba(124, 92, 255, 0.16); color: var(--brand-primary-light); }
   .cmp-si :global(.ki) { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }

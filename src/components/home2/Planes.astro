@@ -25,7 +25,9 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
           <span class="h2-plan-etapa">{p.etapa}</span>
           <p>{p.desc}</p>
           <ul>
-            {p.features.map((f) => <li><Fragment set:html={svg('check')} />{f}</li>)}
+            {p.features.map((f) => typeof f === 'string'
+              ? <li><Fragment set:html={svg('check')} />{f}</li>
+              : <li class="is-nuevo"><Fragment set:html={svg('check')} /><span>{f.text}{f.nuevo && <span class="tag-nuevo">Nuevo</span>}</span></li>)}
           </ul>
           <a href={`/contacto/?plan=${encodeURIComponent(p.name)}`} class="btn btn-primary"><span>{p.cta}</span></a>
         </div>
@@ -58,6 +60,10 @@ const WHATSAPP = 'https://wa.me/5493804890834?text=' + encodeURIComponent('¡Hol
   .h2-plan.popular li :global(.ki) { color: #fff; }
   .h2-plan.popular .btn-primary { background: #fff !important; color: var(--v-700) !important; box-shadow: none !important; }
   .h2-plan.popular .btn-primary:hover { background: var(--v-100) !important; color: var(--v-800) !important; }
+  /* Ítem destacado con etiqueta "Nuevo" (en la tarjeta violeta, la etiqueta va en blanco) */
+  .h2-plan li.is-nuevo { color: var(--text-primary); font-weight: 600; }
+  .tag-nuevo { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.5; vertical-align: 1px; color: #fff; background: var(--brand-fill); }
+  .h2-plan.popular .tag-nuevo { color: var(--v-700); background: #fff; }
   .h2-plan-tag { position: absolute; top: 18px; right: 18px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 600; color: var(--v-700); background: #fff; padding: 6px 12px; border-radius: 999px; }
   @media (min-width: 993px) { .h2-plan.popular { margin: -20px 0; } }
   /* Versión sobre fondo claro (home): violeta oscuro para el contraste y el nombre del plan destacado en blanco */

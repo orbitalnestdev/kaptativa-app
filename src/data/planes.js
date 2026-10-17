@@ -1,15 +1,17 @@
 // Planes de la plataforma: los usan la home (sección Planes) y la página /precios/.
+// Un ítem de features puede ser texto o { text, nuevo: true } para mostrarlo con la etiqueta "Nuevo".
 export const planes = [
-  { name: 'Presencia', etapa: 'Para empezar a estar online', cta: 'Cotizar mi sitio', desc: 'Para emprendedores y profesionales que necesitan una web seria.', features: ['Sitio institucional autoadministrable', 'Hasta 5 secciones', 'Formulario y botón de WhatsApp', 'SEO inicial y Google Analytics', 'Hosting y dominio gestionados'] },
-  { name: 'E-commerce', etapa: 'Para vender todos los días', cta: 'Cotizar mi e-commerce', desc: 'Todo para vender online y administrar cada pedido.', popular: true, features: ['Todo lo del plan Presencia', 'Catálogo ilimitado con variantes', 'Cobros con MercadoPago', 'Cálculo de envíos', 'Panel de pedidos, stock y cupones'] },
-  { name: 'Corporativo', etapa: 'Para ordenar y escalar la operación', cta: 'Contar mi proyecto', desc: 'Para empresas con procesos propios que hay que digitalizar.', features: ['Todo lo del plan E-commerce', 'Módulos y flujos a medida', 'Integraciones vía API', 'Automatizaciones e IA', 'Soporte prioritario e infraestructura dedicada'] },
+  { name: 'Presencia', etapa: 'Para empezar a estar online', cta: 'Cotizar mi sitio', desc: 'Para emprendedores y profesionales que necesitan una web seria.', features: ['Sitio institucional autoadministrable', { text: 'Agente de WhatsApp que atiende solo', nuevo: true }, 'Hasta 5 secciones', 'Formulario y botón de WhatsApp', 'SEO inicial y Google Analytics', 'Hosting y dominio gestionados'] },
+  { name: 'E-commerce', etapa: 'Para vender todos los días', cta: 'Cotizar mi e-commerce', desc: 'Todo para vender online y administrar cada pedido.', popular: true, features: ['Todo lo del plan Presencia', { text: 'Agente de WhatsApp que atiende solo', nuevo: true }, 'Catálogo ilimitado con variantes', 'Cobros con MercadoPago', 'Cálculo de envíos', 'Panel de pedidos, stock y cupones'] },
+  { name: 'Corporativo', etapa: 'Para ordenar y escalar la operación', cta: 'Contar mi proyecto', desc: 'Para empresas con procesos propios que hay que digitalizar.', features: ['Todo lo del plan E-commerce', { text: 'Agente de WhatsApp que atiende solo', nuevo: true }, 'Módulos y flujos a medida', 'Integraciones vía API', 'Automatizaciones e IA', 'Soporte prioritario e infraestructura dedicada'] },
 ];
 
-// Qué incluye cada plan (Presencia, E-commerce, Corporativo). true = incluido, false = no, texto = detalle.
+// Qué incluye cada plan (Presencia, E-commerce, Corporativo). true = incluido, false = no, texto = detalle; nuevo = etiqueta "Nuevo".
 export const comparativa = [
   { item: 'Sitio institucional autoadministrable', planes: [true, true, true] },
   { item: 'Secciones', planes: ['Hasta 5', 'Ilimitadas', 'Ilimitadas'] },
   { item: 'Formulario y botón de WhatsApp', planes: [true, true, true] },
+  { item: 'Agente de WhatsApp que atiende solo', nuevo: true, planes: [true, true, true] },
   { item: 'SEO inicial y Google Analytics', planes: [true, true, true] },
   { item: 'Hosting y dominio gestionados', planes: [true, true, true] },
   { item: 'Capacitación de uso del panel', planes: [true, true, true] },
