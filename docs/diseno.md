@@ -90,6 +90,11 @@ Dos clases equivalentes: `h2-light` (home) y `section-light` (global, en `global
 ## 8. Logo
 Isotipo (flecha) y punto de "kaptativa." en v-500 sólido, sin degradado. Archivos: `Header.astro`, `Footer.astro`, `public/logo.svg`, `public/favicon.svg`, `public/og-image.jpg` (1200×630).
 
+Geometría de la flecha (en todos lados, misma escala de 40×40): curva `M 26 47 C 17 41 11 36 11 30 C 11 24 19 20 26 13` y punta `M 13.5 13 L 26 13 L 26 25.5`. La curva entra a 45° en la punta (igual que la flecha) y la cola termina alineada con la punta.
+- Junto al texto: trazo 6,2 con `translate(-4 7.6) scale(0.69)` (se apoya en el peso de Lexend 600).
+- Como ícono (favicon, íconos de app, isotipo 3D): trazo 7, ocupando ~70 % del alto de la pastilla (`translate(10.2 -2.5) scale(1.15)` en 64×64).
+- Íconos PNG (`icon-192`, `icon-512`, `apple-touch-icon`) y `favicon.ico` (16/32/48) salen de `favicon.svg` (los PNG sin esquinas redondeadas). `og-image.jpg` sale de `docs/og-image.html` con captura de Chrome a 1200×630.
+
 12. **Un bloque bento por página, no más.** En la home, los módulos van en grilla bento con dos tiles en violeta sólido (Sitio web y Asistente IA) como foco; el resto de las secciones mantiene tarjetas sobrias.
 13. **Numerar solo secuencias.** "De la demo a tu negocio funcionando" lleva 1–4 porque es un proceso; ninguna otra grilla se numera.
 14. **Planes: el recomendado en violeta sólido.** Sección oscura; el plan "Más elegido" es la única tarjeta rellena en violeta, sobresale 20 px por arriba y por abajo, con etiqueta y botón blancos. Los demás planes llevan tarjeta oscura y botón violeta. El precio es un bloque propio ("Precio a medida" + nota chica).
