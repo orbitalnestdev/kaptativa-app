@@ -1,0 +1,102 @@
+---
+// Llamados a la acción de las páginas de servicios.
+// variant="hero": los dos botones del héroe y una línea que baja la fricción.
+// variant="cierre": la tarjeta final, con la oferta concreta de la página como botón principal.
+// Cada enlace lleva data-cta="hero|cierre" para que GA4 distinga cuál se clickeó (ver Layout.astro).
+import IsoK3D from './IsoK3D.astro';
+import CtaBeam from './CtaBeam.astro';
+
+interface Props {
+  variant: 'hero' | 'cierre';
+  /** Valor del select de /contacto (debe existir como <option value>) */
+  servicio: string;
+  /** Mensaje precargado de WhatsApp, en texto plano */
+  whatsapp: string;
+  /** Texto del botón principal */
+  label?: string;
+  /** Solo cierre */
+  titulo?: string;
+  texto?: string;
+}
+
+const {
+  variant,
+  servicio,
+  whatsapp,
+  label = 'Pedir propuesta por WhatsApp',
+  titulo,
+  texto,
+} = Astro.props;
+
+const waHref = `https://wa.me/5493804890834?text=${encodeURIComponent(whatsapp)}`;
+const formHref = `/contacto/?servicio=${encodeURIComponent(servicio)}`;
+const secundario = 'Prefiero dejar mis datos';
+---
+
+{variant === 'hero' ? (
+  <>
+    <div class="hero-buttons">
+      <a href={waHref} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow" data-cta="hero">{label}</a>
+      <a href={formHref} class="btn btn-secondary" data-cta="hero">{secundario}</a>
+    </div>
+    <p class="hero-microcopy">Sin compromiso · Propuesta en 24 h hábiles</p>
+  </>
+) : (
+  <section class="section section-cta">
+    <div class="container">
+      <div class="cta-card-neon reveal">
+        <CtaBeam />
+        <div class="cta-glow-overlay"></div>
+        <IsoK3D size={118} />
+        <div class="cta-info-side">
+          <h2>{titulo}</h2>
+          <p>{texto}</p>
+          <div class="cta-buttons">
+            <a href={waHref} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow" data-cta="cierre">{label}</a>
+            <a href={formHref} class="btn btn-secondary" data-cta="cierre">{secundario}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .hero-microcopy {
+    margin: 18px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .cta-card-neon {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 60px 40px;
+    display: grid;
+    gap: 45px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-glow-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(124, 92, 255, 0.12) 0%, transparent 75%),
+                radial-gradient(circle at 80% 80%, rgba(124, 92, 255, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .cta-buttons {
+    margin-top: 25px;
+  }
+
+  @media (max-width: 992px) {
+    .cta-card-neon {
+      gap: 30px;
+      padding: 40px 30px;
+    }
+  }
+</style>

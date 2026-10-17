@@ -2,9 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import IsoK3D from '../../components/IsoK3D.astro';
-import CtaBeam from '../../components/CtaBeam.astro';
 import HeroAurora from '../../components/HeroAurora.astro';
+import ServicioCta from '../../components/ServicioCta.astro';
 import '../../styles/servicios.css';
 ---
 
@@ -26,10 +25,7 @@ import '../../styles/servicios.css';
           <h1 class="hero-tagline">Tu empresa <span class="text-gradient-cyan">funcionando sola</span></h1>
           <p class="hero-description">Conectamos tus sistemas y automatizamos lo repetitivo: datos, presupuestos y agenda, sin carga manual.</p>
           
-          <div class="hero-buttons">
-            <a href="https://wa.me/5493804890834?text=Hola!%20Me%20gustaria%20automatizar%20los%20procesos%20de%20mi%20negocio." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
-            <a href="/contacto/?servicio=Automatizaci%C3%B3n" class="btn btn-secondary">Completar el formulario</a>
-          </div>
+          <ServicioCta variant="hero" servicio="Automatización" whatsapp="¡Hola kaptativa! Me gustaría automatizar los procesos de mi negocio." />
         </div>
       </div>
     </section>
@@ -352,27 +348,15 @@ import '../../styles/servicios.css';
       </div>
     </section>
 
-    <!-- CTA DE CIERRE (CONTACTO) -->
-    <section class="section section-cta">
-      <div class="container">
-        <div class="cta-card-neon reveal">
-          <CtaBeam />
-          <div class="cta-glow-overlay"></div>
-          <IsoK3D size={118} />
-          
-          <!-- Columna Izquierda: Información -->
-          <div class="cta-info-side">
-            <h2>Empecemos por tu flujo más pesado</h2>
-            <p style="margin-bottom: 25px;">Agendá una sesión estratégica de 45 minutos para analizar tus tareas administrativas repetitivas y ver cómo automatizarlas.</p>
-            
-            <div class="cta-buttons">
-              <a href="https://wa.me/5493804890834?text=%C2%A1Hola%20kaptativa%21%20Quiero%20consultar%20por%20el%20servicio%20de%20Automatizaci%C3%B3n." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
-              <a href="/contacto/?servicio=Automatizaci%C3%B3n" class="btn btn-secondary">Completar el formulario</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- CTA DE CIERRE -->
+    <ServicioCta
+      variant="cierre"
+      servicio="Automatización"
+      titulo="Empecemos por tu flujo más pesado"
+      texto="Agendá una sesión estratégica de 45 minutos para analizar tus tareas administrativas repetitivas y ver cómo automatizarlas."
+      label="Agendar sesión de 45 min"
+      whatsapp="¡Hola kaptativa! Quiero agendar la sesión de 45 minutos para ver qué tareas de mi negocio se pueden automatizar."
+    />
   </main>
 
   <Footer slot="footer" />
@@ -669,39 +653,6 @@ import '../../styles/servicios.css';
     color: var(--accent-indigo);
   }
 
-  .cta-card-neon {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-lg);
-    padding: 60px 40px;
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 45px;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  :global([data-theme="light"]) .cta-form-side form {
-    background: rgba(17, 16, 22, 0.02) !important;
-  }
-
-  :global([data-theme="light"]) .cta-form-side select {
-    background: #ffffff !important;
-  }
-
-  .cta-glow-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(106, 72, 245, 0.12) 0%, transparent 75%),
-                radial-gradient(circle at 80% 80%, rgba(106, 72, 245, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
   @media (max-width: 992px) {
     .rubros-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -714,15 +665,6 @@ import '../../styles/servicios.css';
     .pillars-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
-    }
-    .cta-card-neon {
-      grid-template-columns: 1fr;
-      gap: 30px;
-      padding: 40px 30px;
-      text-align: center;
-    }
-    .cta-info-side {
-      text-align: center;
     }
   }
 
@@ -741,14 +683,6 @@ import '../../styles/servicios.css';
     .rubros-grid {
       grid-template-columns: 1fr;
       gap: 16px;
-    }
-    .hero-buttons {
-      flex-direction: column;
-      width: 100%;
-    }
-    .hero-buttons .btn {
-      width: 100%;
-      justify-content: center;
     }
   }
 

@@ -3,9 +3,8 @@ export const prerender = true;
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import IsoK3D from '../../components/IsoK3D.astro';
-import CtaBeam from '../../components/CtaBeam.astro';
 import HeroAurora from '../../components/HeroAurora.astro';
+import ServicioCta from '../../components/ServicioCta.astro';
 import '../../styles/servicios.css';
 ---
 
@@ -24,10 +23,7 @@ import '../../styles/servicios.css';
           <h1 class="hero-tagline">Sitios web que <span class="text-gradient-cyan">cargan y venden</span></h1>
           <p class="hero-description">Sitios a medida, sin plantillas: ultrarrápidos, pensados para convertir en el celular y fáciles de administrar.</p>
           
-          <div class="hero-buttons">
-            <a href="https://wa.me/5493804890834?text=Hola!%20Quiero%20cotizar%20un%20sitio%20web%20premium%20a%20medida%20para%20mi%20negocio." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
-            <a href="/contacto/?servicio=Dise%C3%B1o%20web" class="btn btn-secondary">Completar el formulario</a>
-          </div>
+          <ServicioCta variant="hero" servicio="Diseño web" whatsapp="¡Hola kaptativa! Quiero cotizar un sitio web a medida para mi negocio." />
         </div>
       </div>
     </section>
@@ -385,27 +381,15 @@ import '../../styles/servicios.css';
       </div>
     </section>
 
-    <!-- CTA DE CIERRE (CONTACTO) -->
-    <section class="section section-cta">
-      <div class="container">
-        <div class="cta-card-neon reveal">
-          <CtaBeam />
-          <div class="cta-glow-overlay"></div>
-          <IsoK3D size={118} />
-          
-          <!-- Columna Izquierda: Información -->
-          <div class="cta-info-side">
-            <h2>¿Listo para tener una web que de verdad venda?</h2>
-            <p style="margin-bottom: 25px;">Agendá una breve sesión técnica de 45 minutos para analizar tus necesidades y darte un presupuesto exacto adaptado a tu escala.</p>
-            
-            <div class="cta-buttons">
-              <a href="https://wa.me/5493804890834?text=%C2%A1Hola%20kaptativa%21%20Quiero%20consultar%20por%20el%20servicio%20de%20Dise%C3%B1o%20web." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
-              <a href="/contacto/?servicio=Dise%C3%B1o%20web" class="btn btn-secondary">Completar el formulario</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- CTA DE CIERRE -->
+    <ServicioCta
+      variant="cierre"
+      servicio="Diseño web"
+      titulo="Contanos qué tiene que lograr tu web"
+      texto="En una llamada de 45 minutos revisamos tu web actual (o tu idea), definimos qué tiene que lograr y te pasamos una propuesta con alcance y plazos."
+      label="Agendar llamada de 45 min"
+      whatsapp="¡Hola kaptativa! Quiero agendar la llamada de 45 minutos para revisar mi web y recibir una propuesta."
+    />
   </main>
 
   <Footer slot="footer" />
@@ -628,31 +612,6 @@ import '../../styles/servicios.css';
     color: var(--accent-pink);
   }
 
-  .cta-card-neon {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--border-radius-lg);
-    padding: 60px 40px;
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-glow-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(124, 92, 255, 0.12) 0%, transparent 75%),
-                radial-gradient(circle at 80% 80%, rgba(124, 92, 255, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
   @media (max-width: 992px) {
     .rubros-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -665,15 +624,6 @@ import '../../styles/servicios.css';
     .pillars-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
-    }
-    .cta-card-neon {
-      grid-template-columns: 1fr;
-      gap: 30px;
-      padding: 40px 30px;
-      text-align: center;
-    }
-    .cta-info-side {
-      text-align: center;
     }
   }
 
@@ -692,14 +642,6 @@ import '../../styles/servicios.css';
     .rubros-grid {
       grid-template-columns: 1fr;
       gap: 16px;
-    }
-    .hero-buttons {
-      flex-direction: column;
-      width: 100%;
-    }
-    .hero-buttons .btn {
-      width: 100%;
-      justify-content: center;
     }
   }
 

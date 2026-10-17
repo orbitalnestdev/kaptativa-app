@@ -2,9 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import IsoK3D from '../../components/IsoK3D.astro';
-import CtaBeam from '../../components/CtaBeam.astro';
 import HeroAurora from '../../components/HeroAurora.astro';
+import ServicioCta from '../../components/ServicioCta.astro';
 import '../../styles/servicios.css';
 ---
 
@@ -23,10 +22,7 @@ import '../../styles/servicios.css';
           <h1 class="hero-tagline">Emails que <span class="text-gradient-cyan">venden solos</span></h1>
           <p class="hero-description">Flujos automáticos y campañas con alta entregabilidad, integrados con Perfit y con tu plataforma.</p>
           
-          <div class="hero-buttons">
-            <a href="https://wa.me/5493804890834?text=Hola!%20Quiero%20optimizar%20las%20campañas%20de%20email%20marketing%20de%20mi%20negocio%20con%20kaptativa." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
-            <a href="/contacto/?servicio=Email%20marketing" class="btn btn-secondary">Completar el formulario</a>
-          </div>
+          <ServicioCta variant="hero" servicio="Email marketing" whatsapp="¡Hola kaptativa! Quiero optimizar las campañas de email marketing de mi negocio." />
         </div>
       </div>
     </section>
@@ -405,29 +401,15 @@ import '../../styles/servicios.css';
       </div>
     </section>
 
-    <!-- SECCIÓN CTA DE CIERRE -->
-    <section class="section section-cta">
-      <div class="container">
-      <div class="cta-card-neon reveal">
-          <CtaBeam />
-        <div class="cta-glow-overlay"></div>
-          <IsoK3D size={118} />
-        
-        <!-- Columna Izquierda: Información -->
-        <div class="cta-info-side">
-          <h2>Activá tu canal de email</h2>
-          <p style="margin-bottom: 25px;">Analizamos el estado de tus bases de datos, entregabilidad de tu dominio actual y diseñamos una estrategia de automatización sin cargo en nuestro primer diagnóstico.</p>
-          
-            <div class="cta-buttons">
-              <a href="https://wa.me/5493804890834?text=%C2%A1Hola%20kaptativa%21%20Quiero%20consultar%20por%20el%20servicio%20de%20Email%20marketing." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
-              <a href="/contacto/?servicio=Email%20marketing" class="btn btn-secondary">Completar el formulario</a>
-            </div>
-        </div>
-
-        <!-- Columna Derecha: Formulario de Captura -->
-      </div>
-      </div>
-    </section>
+    <!-- CTA DE CIERRE -->
+    <ServicioCta
+      variant="cierre"
+      servicio="Email marketing"
+      titulo="Activá tu canal de email"
+      texto="Analizamos el estado de tus bases de datos, entregabilidad de tu dominio actual y diseñamos una estrategia de automatización sin cargo en nuestro primer diagnóstico."
+      label="Pedir diagnóstico sin cargo"
+      whatsapp="¡Hola kaptativa! Quiero el diagnóstico sin cargo de mi base de contactos y de la entregabilidad de mi dominio."
+    />
   </main>
 
   <Footer slot="footer" />
@@ -609,39 +591,6 @@ import '../../styles/servicios.css';
     color: #6A48F5;
   }
 
-  .cta-card-neon {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-lg);
-    padding: 60px 40px;
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 45px;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  :global([data-theme="light"]) .cta-form-side form {
-    background: rgba(17, 16, 22, 0.02) !important;
-  }
-
-  :global([data-theme="light"]) .cta-form-side select {
-    background: #ffffff !important;
-  }
-
-  .cta-glow-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(124, 92, 255, 0.12) 0%, transparent 75%),
-                radial-gradient(circle at 80% 80%, rgba(124, 92, 255, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
   @media (max-width: 992px) {
     .rubros-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -654,15 +603,6 @@ import '../../styles/servicios.css';
     .pillars-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
-    }
-    .cta-card-neon {
-      grid-template-columns: 1fr;
-      gap: 30px;
-      padding: 40px 30px;
-      text-align: center;
-    }
-    .cta-info-side {
-      text-align: center;
     }
   }
 
@@ -682,27 +622,11 @@ import '../../styles/servicios.css';
       grid-template-columns: 1fr;
       gap: 16px;
     }
-    .hero-buttons {
-      flex-direction: column;
-      width: 100%;
-    }
-    .hero-buttons .btn {
-      width: 100%;
-      justify-content: center;
-    }
   }
 
   .rubro-card:hover {
     border-color: rgba(124, 92, 255, 0.25);
     transform: translateY(-4px);
     box-shadow: 0 10px 25px rgba(124, 92, 255, 0.1);
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 20px;
-    flex-wrap: wrap;
   }
 </style>

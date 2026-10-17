@@ -2,9 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import IsoK3D from '../../components/IsoK3D.astro';
-import CtaBeam from '../../components/CtaBeam.astro';
 import HeroAurora from '../../components/HeroAurora.astro';
+import ServicioCta from '../../components/ServicioCta.astro';
 import '../../styles/servicios.css';
 ---
 
@@ -23,10 +22,7 @@ import '../../styles/servicios.css';
           <h1 class="hero-tagline">IA que <span class="text-gradient-cyan">atiende y vende por vos</span></h1>
           <p class="hero-description">Agentes de IA que atienden, califican y agendan 24/7 en WhatsApp y en tu web, entrenados con tu negocio.</p>
           
-          <div class="hero-buttons">
-            <a href="https://wa.me/5493804890834?text=Hola!%20Quiero%20implementar%20un%20Agente%20de%20IA%20para%20WhatsApp%20en%20mi%20negocio." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
-            <a href="/contacto/?servicio=Agentes%20de%20IA" class="btn btn-secondary">Completar el formulario</a>
-          </div>
+          <ServicioCta variant="hero" servicio="Agentes de IA" whatsapp="¡Hola kaptativa! Quiero implementar un agente de IA para WhatsApp en mi negocio." />
         </div>
       </div>
     </section>
@@ -355,27 +351,15 @@ import '../../styles/servicios.css';
       </div>
     </section>
 
-    <!-- CTA DE CIERRE (CONTACTO) -->
-    <section class="section section-cta">
-      <div class="container">
-        <div class="cta-card-neon reveal">
-          <CtaBeam />
-          <div class="cta-glow-overlay"></div>
-          <IsoK3D size={118} />
-          
-          <!-- Columna Izquierda: Información -->
-          <div class="cta-info-side">
-            <h2>Probá un agente con tus propios datos</h2>
-            <p style="margin-bottom: 25px;">Diseñamos un prototipo básico de bot entrenado con los datos de tu sitio web de forma gratuita para que pruebes su funcionamiento en vivo.</p>
-            
-            <div class="cta-buttons">
-              <a href="https://wa.me/5493804890834?text=%C2%A1Hola%20kaptativa%21%20Quiero%20consultar%20por%20el%20servicio%20de%20Agentes%20de%20IA." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">Pedir propuesta por WhatsApp</a>
-              <a href="/contacto/?servicio=Agentes%20de%20IA" class="btn btn-secondary">Completar el formulario</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- CTA DE CIERRE -->
+    <ServicioCta
+      variant="cierre"
+      servicio="Agentes de IA"
+      titulo="Probá un agente con tus propios datos"
+      texto="Diseñamos un prototipo básico de bot entrenado con los datos de tu sitio web de forma gratuita para que pruebes su funcionamiento en vivo."
+      label="Quiero mi prototipo gratis"
+      whatsapp="¡Hola kaptativa! Quiero el prototipo gratis de un agente de IA entrenado con los datos de mi web."
+    />
   </main>
 
   <Footer slot="footer" />
@@ -559,46 +543,6 @@ import '../../styles/servicios.css';
     color: var(--accent-indigo);
   }
 
-  .cta-card-neon {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-lg);
-    padding: 60px 40px;
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 45px;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-glow-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(106, 72, 245, 0.12) 0%, transparent 75%),
-                radial-gradient(circle at 80% 80%, rgba(106, 72, 245, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  .cta-content-wrapper {
-    max-width: 700px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 5;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 30px;
-  }
-
   .rubro-card:hover {
     border-color: rgba(106, 72, 245, 0.25);
     transform: translateY(-4px);
@@ -632,14 +576,6 @@ import '../../styles/servicios.css';
     box-shadow: 0 10px 20px rgba(124, 58, 237, 0.06);
   }
 
-  :global([data-theme="light"]) .cta-form-side form {
-    background: rgba(17, 16, 22, 0.02) !important;
-  }
-
-  :global([data-theme="light"]) .cta-form-side select {
-    background: #ffffff !important;
-  }
-
   @media (max-width: 992px) {
     .metrics-grid-premium {
       grid-template-columns: repeat(2, 1fr);
@@ -648,15 +584,6 @@ import '../../styles/servicios.css';
     .pillars-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
-    }
-    .cta-card-neon {
-      grid-template-columns: 1fr;
-      gap: 30px;
-      padding: 40px 30px;
-      text-align: center;
-    }
-    .cta-info-side {
-      text-align: center;
     }
   }
 
@@ -675,24 +602,6 @@ import '../../styles/servicios.css';
     .rubros-grid {
       grid-template-columns: 1fr;
       gap: 16px;
-    }
-    .hero-buttons {
-      flex-direction: column;
-      width: 100%;
-    }
-    .hero-buttons .btn {
-      width: 100%;
-      text-align: center;
-      justify-content: center;
-    }
-    .cta-buttons {
-      flex-direction: column;
-      width: 100%;
-    }
-    .cta-buttons .btn {
-      width: 100%;
-      text-align: center;
-      justify-content: center;
     }
   }
 </style>

@@ -138,6 +138,8 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
       var href = a.getAttribute('href') || '';
       var text = (a.textContent || '').trim();
       var params = { link_text: text.slice(0, 60), page_path: location.pathname };
+      // Ubicación del botón (data-cta="hero|cierre"), para comparar qué llamado convierte
+      if (a.dataset.cta) params.cta_position = a.dataset.cta;
       if (/solicitar demo/i.test(text)) window.gtag('event', 'solicitar_demo', params);
       if (href.indexOf('wa.me') !== -1) window.gtag('event', 'whatsapp_click', params);
       else if (href.indexOf('/contacto') === 0) window.gtag('event', 'contacto_click', params);
