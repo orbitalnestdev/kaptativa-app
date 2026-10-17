@@ -2,7 +2,7 @@
   <!-- Isotipo de Kaptativa: la flecha blanca sobre la pastilla violeta (mismo diseño que el isotipo 3D) -->
   <defs><linearGradient id="kf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8C70FF"/><stop offset="1" stop-color="#5B3FE0"/></linearGradient></defs>
   <rect width="64" height="64" rx="16" fill="url(#kf)"/>
-  <g transform="translate(10.2 -2.5) scale(1.15)" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  <g transform="translate(10.725 -2.5) scale(1.15)" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <path d="M 26 47 C 17 41 11 36 11 30 C 11 24 19 20 26 13"/><path d="M 13.5 13 L 26 13 L 26 25.5"/>
   </g>
 </svg>

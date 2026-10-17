@@ -7223,3 +7223,14 @@ svg.glyph { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .section-light .comp-card-good .comp-list li span { background: #7C5CFF !important; border: 1.5px solid #7C5CFF !important; color: #FFFFFF !important; }
 @media (max-width: 820px) { .section-light .comparison-grid::after { display: none; } .section-light .comp-card-good:hover { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .section-light .comp-card-good:hover { transform: none; } }
+
+/* Punto de "kaptativa." en header y footer: late suave y suelta un halo, en bucle (quieto con "reducir movimiento").
+   Es un círculo (no el glifo "."): así escala desde su centro real. Centro y radio medidos sobre la tinta del "." de Lexend 600. */
+.logo-dot, .logo-dot-halo { transform-box: fill-box; transform-origin: center; }
+.logo-dot-halo { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .logo-dot { animation: logo-dot-pulse 2.4s ease-in-out infinite; }
+  .logo-dot-halo { animation: logo-dot-halo 2.4s ease-out infinite; }
+}
+@keyframes logo-dot-pulse { 0%, 100% { transform: scale(1); } 18% { transform: scale(1.22); } 36% { transform: scale(1); } }
+@keyframes logo-dot-halo { 0% { transform: scale(1); opacity: 0.55; } 60% { transform: scale(3); opacity: 0; } 100% { transform: scale(3); opacity: 0; } }

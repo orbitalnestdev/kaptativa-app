@@ -91,8 +91,8 @@ Dos clases equivalentes: `h2-light` (home) y `section-light` (global, en `global
 Isotipo (flecha) y punto de "kaptativa." en v-500 sólido, sin degradado. Archivos: `Header.astro`, `Footer.astro`, `public/logo.svg`, `public/favicon.svg`, `public/og-image.jpg` (1200×630).
 
 Geometría de la flecha (en todos lados, misma escala de 40×40): curva `M 26 47 C 17 41 11 36 11 30 C 11 24 19 20 26 13` y punta `M 13.5 13 L 26 13 L 26 25.5`. La curva entra a 45° en la punta (igual que la flecha) y la cola termina alineada con la punta.
-- Junto al texto: trazo 6,2 con `translate(-1 8.3) scale(0.69)` en `viewBox="3 8 166 44"`, con el texto en x=26 (se apoya en el peso de Lexend 600; la flecha queda centrada entre la altura de la "k" y la línea de base).
-- Como ícono (favicon, íconos de app, isotipo 3D): trazo 7, ocupando ~70 % del alto de la pastilla (`translate(10.2 -2.5) scale(1.15)` en 64×64).
+- Junto al texto: trazo 6,2 con `translate(-1 7.6) scale(0.69)` en `viewBox="3 8 166 44"`, con el texto en x=26 (se apoya en el peso de Lexend 600). La flecha sobresale por arriba de la "k" a propósito: apunta hacia arriba y así se lee como subida.
+- Como ícono (favicon, íconos de app, isotipo 3D): trazo 7, ocupando ~70 % del alto de la pastilla (`translate(10.725 -2.5) scale(1.15)` en 64×64; en el isotipo 3D `translate(47.625 25.5) scale(1.75)` sobre la cara de 104). Siempre centrada por su caja de tinta: centro (18,5; 30) con trazo 7.
 - Íconos PNG (`icon-192`, `icon-512`, `apple-touch-icon`) y `favicon.ico` (16/32/48) salen de `favicon.svg` (los PNG sin esquinas redondeadas). `og-image.jpg` sale de `docs/og-image.html` con captura de Chrome a 1200×630.
 
 12. **Un bloque bento por página, no más.** En la home, los módulos van en grilla bento con dos tiles en violeta sólido (Sitio web y Asistente IA) como foco; el resto de las secciones mantiene tarjetas sobrias.
